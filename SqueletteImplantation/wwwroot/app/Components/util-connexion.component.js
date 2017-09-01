@@ -14,7 +14,7 @@ var UtilConnexionComponent = (function () {
 UtilConnexionComponent = __decorate([
     core_1.Component({
         selector: 'util-connexion',
-        template: "\n    <h1>titre chose</h1>\n\t<label for=\"courriel\">Courriel</label>\n\t<input type=\"email\" id=\"courriel\" name=\"courriel\"/>\n\t<br>\n\t<label for=\"mdp\">Mot de passe</label>\n\t<input type=\"password\" id=\"mdp\" name=\"mdp\"/>\n\t<br>\n\t<input type=\"submit\" value=\"Connexion\"/>\n    "
+        templateUrl: './../view/util-connexion.component.html'
     })
 ], UtilConnexionComponent);
 exports.UtilConnexionComponent = UtilConnexionComponent;
