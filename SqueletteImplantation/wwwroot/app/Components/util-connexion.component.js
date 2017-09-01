@@ -6,20 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var app_component_1 = require("./app.component");
-var util_connexion_component_1 = require("./Components/util-connexion.component");
-var AppModule = (function () {
-    function AppModule() {
+var UtilConnexionComponent = (function () {
+    function UtilConnexionComponent() {
     }
-    return AppModule;
+    return UtilConnexionComponent;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule],
-        declarations: [app_component_1.AppComponent, util_connexion_component_1.UtilConnexionComponent],
-        bootstrap: [app_component_1.AppComponent]
+UtilConnexionComponent = __decorate([
+    core_1.Component({
+        selector: 'util-connexion',
+        templateUrl: './../view/util-connexion.component.html'
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], UtilConnexionComponent);
+exports.UtilConnexionComponent = UtilConnexionComponent;
+//# sourceMappingURL=util-connexion.component.js.map
