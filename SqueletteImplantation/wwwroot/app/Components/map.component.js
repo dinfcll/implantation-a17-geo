@@ -6,18 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Angular';
+var MapComponent = (function () {
+    function MapComponent() {
+        this.name = 'Map';
     }
-    return AppComponent;
+    return MapComponent;
 }());
-AppComponent = __decorate([
+MapComponent = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        templateUrl: './view/test.html',
-        styleUrls: ['./../css/styles.css', './../lib/font-awesome-4.7.0/css/font-awesome.css', './../lib/bootstrap/dist/css/bootstrap.min.css']
+        selector: 'my-map',
     })
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], MapComponent);
+exports.MapComponent = MapComponent;
+//# sourceMappingURL=map.component.js.map

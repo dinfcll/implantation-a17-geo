@@ -6,18 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Angular';
+var RandonneeComponent = (function () {
+    function RandonneeComponent() {
+        this.name = 'Randonnee';
     }
-    return AppComponent;
+    return RandonneeComponent;
 }());
-AppComponent = __decorate([
+RandonneeComponent = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        templateUrl: './view/test.html',
-        styleUrls: ['./../css/styles.css', './../lib/font-awesome-4.7.0/css/font-awesome.css', './../lib/bootstrap/dist/css/bootstrap.min.css']
+        selector: 'my-randonnee',
     })
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], RandonneeComponent);
+exports.RandonneeComponent = RandonneeComponent;
+//# sourceMappingURL=randonnee.component.js.map
