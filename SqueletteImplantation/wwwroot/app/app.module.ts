@@ -2,10 +2,11 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
+import { UtilConnexionComponent } from './util-connexion.component'
 
 @NgModule({
   imports:      [ BrowserModule ],
-  declarations: [ AppComponent ],
+  declarations: [ AppComponent, UtilConnexionComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
