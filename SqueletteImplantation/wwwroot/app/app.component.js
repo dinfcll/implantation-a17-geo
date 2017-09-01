@@ -7,18 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AppComponent = /** @class */ (function () {
+var AppComponent = (function () {
     function AppComponent() {
         this.name = 'Angular';
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            templateUrl: './view/test.html',
-            styleUrls: ['./../css/styles.css', './../css/font-awesome.min.css', './../css/bootstrap.css']
-        })
-    ], AppComponent);
     return AppComponent;
 }());
+AppComponent = __decorate([
+    core_1.Component({
+        selector: 'my-app',
+        templateUrl: './view/test.html',
+        styleUrls: ['./../css/styles.css', './../css/font-awesome.min.css', './../css/bootstrap.css']
+    })
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

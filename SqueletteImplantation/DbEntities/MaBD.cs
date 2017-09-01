@@ -17,6 +17,7 @@ namespace SqueletteImplantation.DbEntities
             base.OnModelCreating(modelBuilder);
 
             new MachinMap(modelBuilder.Entity<Machin>());
+            new UtilisateurMap(modelBuilder.Entity<Utilisateur>());
         }
     }
 }

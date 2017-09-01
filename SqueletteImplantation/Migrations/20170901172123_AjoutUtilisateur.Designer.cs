@@ -8,8 +8,8 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    [Migration("20170901164301_dbuserBasic")]
-    partial class dbuserBasic
+    [Migration("20170901172123_AjoutUtilisateur")]
+    partial class AjoutUtilisateur
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,22 @@ namespace squeletteimplantation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Machin");
+                });
+
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Utilisateur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("email")
+                        .IsRequired();
+
+                    b.Property<string>("mdp")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Utilisateur");
                 });
         }
     }

@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RandonneeComponent = /** @class */ (function () {
+var RandonneeComponent = (function () {
     function RandonneeComponent() {
         this.name = 'Randonnee';
     }
-    RandonneeComponent = __decorate([
-        core_1.Component({
-            selector: 'my-randonnee',
-        })
-    ], RandonneeComponent);
     return RandonneeComponent;
 }());
+RandonneeComponent = __decorate([
+    core_1.Component({
+        selector: 'my-randonnee',
+    })
+], RandonneeComponent);
 exports.RandonneeComponent = RandonneeComponent;
 //# sourceMappingURL=randonnee.component.js.map

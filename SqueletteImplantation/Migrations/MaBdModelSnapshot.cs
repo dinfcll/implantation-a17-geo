@@ -30,6 +30,22 @@ namespace squeletteimplantation.Migrations
 
                     b.ToTable("Machin");
                 });
+
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Utilisateur", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("email")
+                        .IsRequired();
+
+                    b.Property<string>("mdp")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Utilisateur");
+                });
         }
     }
 }

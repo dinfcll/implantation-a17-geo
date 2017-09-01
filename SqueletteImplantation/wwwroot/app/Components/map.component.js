@@ -7,16 +7,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var MapComponent = /** @class */ (function () {
+var MapComponent = (function () {
     function MapComponent() {
         this.name = 'Map';
     }
-    MapComponent = __decorate([
-        core_1.Component({
-            selector: 'my-map',
-        })
-    ], MapComponent);
     return MapComponent;
 }());
+MapComponent = __decorate([
+    core_1.Component({
+        selector: 'my-map',
+    })
+], MapComponent);
 exports.MapComponent = MapComponent;
 //# sourceMappingURL=map.component.js.map
