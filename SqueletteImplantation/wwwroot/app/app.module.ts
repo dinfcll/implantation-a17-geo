@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
 import { UtilConnexionComponent } from './util-connexion.component'
+import { MapComponent }  from './Components/map.component';
+import { RandonneeComponent } from './Components/randonnee.component';
 
 @NgModule({
   imports:      [ BrowserModule ],
