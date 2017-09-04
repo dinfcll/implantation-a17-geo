@@ -3,7 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 
 import { AppComponent }  from './app.component';
-import { MapComponent }     from './map.component';
+import { MapComponent }     from './Components/map.component';
+import { UtilConnexionComponent } from './Components/util-connexion.component'
+
 
 @NgModule({
   imports:      [ 
@@ -12,8 +14,8 @@ import { MapComponent }     from './map.component';
   ],
   declarations: [ 
     AppComponent,
-    MapComponent
-   ],
-  bootstrap:    [ AppComponent ]
+    MapComponent,
+    UtilConnexionComponent],
+  bootstrap:[ AppComponent],
 })
 export class AppModule { }

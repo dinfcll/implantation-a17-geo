@@ -4,8 +4,8 @@ declare var google: any;
 
 @Component({
   selector: 'map',
-  templateUrl:'./view/map.html',
-  styleUrls:['./../css/styles.css','./../lib/font-awesome-4.7.0/css/font-awesome.css','./../lib/bootstrap/dist/css/bootstrap.min.css']
+  templateUrl:'./../view/map.html',
+
 })
 export class MapComponent implements OnInit  {
      name :'Angular';

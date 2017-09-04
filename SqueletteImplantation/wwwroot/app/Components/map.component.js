@@ -48,8 +48,7 @@ var MapComponent = (function () {
 MapComponent = __decorate([
     core_1.Component({
         selector: 'map',
-        templateUrl: './view/map.html',
-        styleUrls: ['./../css/styles.css', './../lib/font-awesome-4.7.0/css/font-awesome.css', './../lib/bootstrap/dist/css/bootstrap.min.css']
+        templateUrl: './../view/map.html',
     })
 ], MapComponent);
 exports.MapComponent = MapComponent;
