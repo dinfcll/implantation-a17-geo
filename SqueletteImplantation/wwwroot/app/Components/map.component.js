@@ -61,6 +61,34 @@ var MapComponent = (function () {
                 });
             }
         }
+        var infoWindowLoc = new google.maps.InfoWindow({ map: map });
+        //géolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                infoWindowLoc.setPosition(pos);
+                infoWindowLoc.setContent('Vous êtes ici');
+                map.setCenter(pos);
+            }, function () {
+                handleLocationError(true, infoWindowLoc, map.getCenter());
+            });
+        }
+        else {
+            //le navigateur ne supporte pas la géolocation
+            handleLocationError(false, infoWindowLoc, map.getCenter());
+        }
+        function handleLocationError(NavigateurGeo, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            if (NavigateurGeo) {
+                infoWindow.setContent('Erreur : La géolocalisation à échouée');
+            }
+            else {
+                infoWindow.setContent('Erreur : Vontre navigateur ne supporte pas la géolocalisation.');
+            }
+        }
     };
     return MapComponent;
 }());
