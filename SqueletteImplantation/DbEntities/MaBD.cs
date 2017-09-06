@@ -18,6 +18,7 @@ namespace SqueletteImplantation.DbEntities
 
             new MachinMap(modelBuilder.Entity<Machin>());
             new MarqueurMap(modelBuilder.Entity<Marqueur>());
+            new UtilisateurMap(modelBuilder.Entity<Utilisateur>());
         }
     }
 }
