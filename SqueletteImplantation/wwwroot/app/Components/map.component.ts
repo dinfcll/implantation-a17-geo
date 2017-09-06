@@ -2,6 +2,7 @@ import { Component,Input,OnInit } from '@angular/core';
 import { HttpModule } from '@angular/http';
 declare var google: any;
 
+
 @Component({
   selector: 'map',
   templateUrl:'./../view/map.html',
@@ -23,25 +24,60 @@ export class MapComponent implements OnInit  {
         }
         var map = new google.maps.Map(document.getElementById('map'),mapOptions );
 
-        var marker = new google.maps.Marker({
-            position: Rando1,
-            map: map
+
+        var markers = [
+            {
+                coords:{lat: 46.890870 , lng: -71.147684},
+                content:`
+                    <h3>PARC DE LA CHUTE-MONTMORENCY</h3>
+                    <p>L'Ascension tyro 120 (avec guide)</p>
+                    <p>L'Explorateur (avec guide)</p>
+                    <p>Torrent de Montmorency (avec guide)</p>
+                    `
+            },
+            {
+                coords:{lat: 46.773496 , lng: -71.174394},
+                content: `
+                    <h1>PARC VALÉRO</h1>
+                    <p>Milieux forestiers feuillus, 
+                    font une érablière à hêtres et une chênaie rouge,
+                     milieux humides et friches</p>
+                    `
+            },
+            {
+                coords:{lat: 46.983613 , lng: -71.269260},
+                content: '<h1>Sentiers du Moulin</h1>'
+            },
+            {
+                coords:{lat: 46.838434 , lng: -71.343346},
+                content: '<h1>Parc Chauveau</h1>'
+            },
+            {
+                coords:{lat: 46.883102 , lng: -71.258831},
+                content: '<h1>Parc de la Montagne-des-Roches</h1>'
+            }
+        ];
+
+        markers.forEach(function(mark){
+            AjoutMarker(mark);
         });
-        var marker = new google.maps.Marker({
-            position: Rando2,
-            map: map
-        });
-        var marker = new google.maps.Marker({
-            position: Rando3,
-            map: map
-        });
-        var marker = new google.maps.Marker({
-            position: Rando4,
-            map: map
-        });
-        var marker = new google.maps.Marker({
-            position: Rando5,
-            map: map
-        });
+
+        function AjoutMarker(info:any){
+            var marker = new google.maps.Marker({
+                position: info.coords,
+                map: map
+            });
+            
+            if(info.content){
+                var infoWindow = new google.maps.InfoWindow({
+                    content: info.content
+                });
+
+                marker.addListener('click', function(){
+                    infoWindow.open(map, marker);
+                });
+            }
+            
+        }
     }         
 }
