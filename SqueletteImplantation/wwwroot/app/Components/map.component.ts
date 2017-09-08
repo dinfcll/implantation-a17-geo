@@ -1,5 +1,7 @@
 import { Component,Input,OnInit } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { Http } from '@angular/http';
+import { Marqueur } from "../class/marqueur.class";
+
 declare var google: any;
 
 
@@ -9,71 +11,52 @@ declare var google: any;
 
 })
 export class MapComponent implements OnInit  {
-     name :'Angular';
-     ngOnInit():void{
+     name ='Angular';
+     private marqueurs:Marqueur[];
+     map:any;
+     constructor(private http: Http) {
+        this.getMarqueurs();
+    }
+
+    getMarqueurs(): void {
+        this.http.get("api/marqueurs")
+                .subscribe(resdata => {
+                    this.marqueurs = resdata.json() as Marqueur[];
+                    console.log(this.marqueurs);
+                    this.marqueurs.forEach(function(mark){
+                        this.AjoutMarker(mark);
+                    });
+                });
+    }
+    AjoutMarker(info:Marqueur){
+        var marker = new google.maps.Marker({
+            position: {longitude:info.Longitude,latitude:info.Latitude},
+            map: this.map
+        });
+        var infoWindow = new google.maps.InfoWindow({
+            content:`
+                <h2>{{info.Nom}}</h2>
+                <div *ngIf="info.Desc">
+                    {{info.Desc}}
+                </div>
+            `
+        });
+        marker.addListener('click', function(){
+            infoWindow.open(this.map, marker);
+        });
+        }        
+    ngOnInit():void{
         var myCenter = {lat: 46.752560, lng: -71.228740}; 
         var mapOptions = {
             zoom: 10,
             center: myCenter,
             mapTypeId: 'hybrid'
         }
-        var map = new google.maps.Map(document.getElementById('map'),mapOptions );
-        var markers = [
-            {
-                coords:{lat: 46.890870 , lng: -71.147684},
-                content:`
-                    <h3>PARC DE LA CHUTE-MONTMORENCY</h3>
-                    <p>L'Ascension tyro 120 (avec guide)</p>
-                    <p>L'Explorateur (avec guide)</p>
-                    <p>Torrent de Montmorency (avec guide)</p>
-                    `
-            },
-            {
-                coords:{lat: 46.773496 , lng: -71.174394},
-                content: `
-                    <h1>PARC VALÉRO</h1>
-                    <p>Milieux forestiers feuillus, 
-                    font une érablière à hêtres et une chênaie rouge,
-                     milieux humides et friches</p>
-                    `
-            },
-            {
-                coords:{lat: 46.983613 , lng: -71.269260},
-                content: '<h1>Sentiers du Moulin</h1>'
-            },
-            {
-                coords:{lat: 46.838434 , lng: -71.343346},
-                content: '<h1>Parc Chauveau</h1>'
-            },
-            {
-                coords:{lat: 46.883102 , lng: -71.258831},
-                content: '<h1>Parc de la Montagne-des-Roches</h1>'
-            }
-        ];
-
-        markers.forEach(function(mark){
-            AjoutMarker(mark);
-        });
-
-        function AjoutMarker(info:any){
-            var marker = new google.maps.Marker({
-                position: info.coords,
-                map: map
-            });
-            
-            if(info.content){
-                var infoWindow = new google.maps.InfoWindow({
-                    content: info.content
-                });
-
-                marker.addListener('click', function(){
-                    infoWindow.open(map, marker);
-                });
-            }
-            
-        }
-
-        var infoWindowLoc = new google.maps.InfoWindow({map:map});
+        this.getMarqueurs();
+        
+        this.map = new google.maps.Map(document.getElementById('map'),mapOptions );
+        
+        var infoWindowLoc = new google.maps.InfoWindow({map:this.map});
         //géolocation
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(function(position){
@@ -85,16 +68,15 @@ export class MapComponent implements OnInit  {
                 
                 infoWindowLoc.setPosition(pos);
                 infoWindowLoc.setContent('Vous êtes ici');
-                map.setCenter(pos);
+                this.map.setCenter(pos);
             }, function() {
-                handleLocationError(true, infoWindowLoc, map.getCenter());
+                handleLocationError(true, infoWindowLoc, this.map.getCenter());
             });
         } else {
             //le navigateur ne supporte pas la géolocation
-            handleLocationError(false, infoWindowLoc, map.getCenter());
+            handleLocationError(false, infoWindowLoc, this.map.getCenter());
         }
         
-
         function handleLocationError(NavigateurGeo:boolean, infoWindow:any, pos:any ){
             infoWindow.setPosition(pos);
             if(NavigateurGeo)
