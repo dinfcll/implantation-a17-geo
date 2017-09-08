@@ -10,7 +10,7 @@ namespace SqueletteImplantation
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-		.UseUrls("https://0.0.0.0:5000")
+		        //.UseUrls("https://0.0.0.0:5000")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
