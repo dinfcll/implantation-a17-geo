@@ -9,7 +9,7 @@ declare var google: any;
 
 })
 export class MapComponent implements OnInit  {
-     name :'Angular';
+     name ='Angular';
      ngOnInit():void{
 
         var myCenter = {lat: 46.752560, lng: -71.228740}; 
