@@ -40,10 +40,10 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<decimal>("Longitude");
 
-                    b.Property<string>("Nom")
+                    b.Property<string>("Nom");
 
                     b.ToTable("Marqueur");
-                }
+                });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Utilisateur", b =>
                 {
