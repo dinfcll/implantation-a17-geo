@@ -11,11 +11,6 @@ declare var google: any;
 export class MapComponent implements OnInit  {
      name :'Angular';
      ngOnInit():void{
-        var Rando1 = {lat:47.048447,lng: -71.810291};
-        var Rando2 = {lat:46.610968,lng: -70.768750};
-        var Rando3 = {lat:46.792429,lng: -71.529966};
-        var Rando4 = {lat:46.915765,lng: -70.266656};
-        var Rando5 = {lat:46.899874,lng: -71.026866};
         var myCenter = {lat: 46.752560, lng: -71.228740}; 
         var mapOptions = {
             zoom: 10,
@@ -23,8 +18,6 @@ export class MapComponent implements OnInit  {
             mapTypeId: 'hybrid'
         }
         var map = new google.maps.Map(document.getElementById('map'),mapOptions );
-
-
         var markers = [
             {
                 coords:{lat: 46.890870 , lng: -71.147684},

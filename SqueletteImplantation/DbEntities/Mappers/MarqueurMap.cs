@@ -11,6 +11,7 @@ namespace SqueletteImplantation.DbEntities.Mappers
     {
         public MarqueurMap(EntityTypeBuilder<Marqueur> entityBuilder)
         {
+            entityBuilder.Property(m => m.Desc);
             entityBuilder.HasKey(m => m.Id);
             entityBuilder.Property(m => m.Nom).IsRequired();
             entityBuilder.Property(m => m.Longitude).IsRequired();
