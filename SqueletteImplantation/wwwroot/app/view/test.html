@@ -1,32 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  <body>
+<body>
     <h1 id=title class="col-md-offset-2">My Google Maps Demo</h1>
     <i class="fa fa-2x fa-bath" aria-hidden="true"></i>    
-    <div id="map"></div>
     <util-connexion></util-connexion><!-->pour test affichage</!-->
-    <script>
-      function initMap() {
-        var levis = {lat:47.048447,lng: -71.810291};
-        var myCenter = {lat: 46.752560, lng: -71.228740}; 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center:  myCenter
-        });
-        var marker = new google.maps.Marker({
-          position: levis,
-          map: map
-        });
-        var marker = new google.maps.Marker({
-          position: myCenter,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMDC23QwbDJuBvDm19e7LBXcaQyMpJ7Z4&callback=initMap">
-    </script>
-  </body>
-</html>
+    <map></map>
+</body>
+
+
