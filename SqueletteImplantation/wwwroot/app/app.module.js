@@ -17,7 +17,7 @@ var map_component_1 = require("./Components/map.component");
 var util_connexion_component_1 = require("./Components/util-connexion.component");
 var appRoutes = [
     {
-        path: '',
+        path: 'loginForm',
         component: loginform_component_1.LoginFormComponent
     },
     {

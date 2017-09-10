@@ -12,7 +12,7 @@ import { UtilConnexionComponent }      from './Components/util-connexion.compone
 
 const appRoutes:Routes = [
   {
-    path: '',
+    path: 'loginForm',
     component: LoginFormComponent
   },
   {
@@ -22,7 +22,7 @@ const appRoutes:Routes = [
 ]
 
 @NgModule({
-  imports:      [ 
+  imports: [ 
     BrowserModule,
     HttpModule,
     RouterModule.forRoot(appRoutes) 
@@ -33,6 +33,7 @@ const appRoutes:Routes = [
     MapComponent,
     UtilConnexionComponent
   ],
-  bootstrap:[ AppComponent],
+  bootstrap: [ AppComponent ],
 })
+
 export class AppModule { }
