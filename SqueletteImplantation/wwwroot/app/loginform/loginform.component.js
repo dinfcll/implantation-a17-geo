@@ -27,7 +27,7 @@ var LoginFormComponent = (function () {
 }());
 LoginFormComponent = __decorate([
     core_1.Component({
-        selector: 'app-loginForm',
+        selector: 'loginForm',
         templateUrl: './loginform.component.html',
         styleUrls: ['./loginform.component.css']
     }),

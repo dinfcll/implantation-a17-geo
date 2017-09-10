@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-loginForm',
+    selector: 'loginForm',
     templateUrl: './loginform.component.html',
     styleUrls: ['./loginform.component.css']
 })
