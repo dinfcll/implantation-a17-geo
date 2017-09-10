@@ -9,21 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var UtilConnexionComponent = (function () {
-    function UtilConnexionComponent(http) {
-        this.http = http;
-        //this.getUtilisateur();
+var FooterComponent = (function () {
+    function FooterComponent() {
     }
-    ;
-    return UtilConnexionComponent;
+    FooterComponent.prototype.ngOnInit = function () { };
+    return FooterComponent;
 }());
-UtilConnexionComponent = __decorate([
+FooterComponent = __decorate([
     core_1.Component({
-        selector: 'util-connexion',
-        templateUrl: './../view/util-connexion.component.html'
+        selector: 'app-footer',
+        templateUrl: './footer.component.html',
+        styleUrls: ['./footer.component.css']
     }),
-    __metadata("design:paramtypes", [http_1.Http])
-], UtilConnexionComponent);
-exports.UtilConnexionComponent = UtilConnexionComponent;
-//# sourceMappingURL=util-connexion.component.js.map
+    __metadata("design:paramtypes", [])
+], FooterComponent);
+exports.FooterComponent = FooterComponent;
+//# sourceMappingURL=footer.component.js.map

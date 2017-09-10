@@ -11,7 +11,7 @@ namespace SqueletteImplantation.Controllers
     {
         private readonly MaBd _maBd;
 
-        public UtilisateurController(MaBd maBd)
+        /*public UtilisateurController(MaBd maBd)
         {
             _maBd = maBd;
         }
@@ -80,7 +80,7 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
-        }
+        }*/
 
     }
 }

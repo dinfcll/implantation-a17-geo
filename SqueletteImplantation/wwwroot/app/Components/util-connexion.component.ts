@@ -13,11 +13,11 @@ export class UtilConnexionComponent{
   private utilisateur: Utilisateur[];
 
   constructor(private http:Http){
-    this.getUtilisateur();
+    //this.getUtilisateur();
   };
 
-  getUtilisateur() : void{
+  /*getUtilisateur() : void{
     this.http.get('api/Utilisateur')
       .subscribe(donnees => this.utilisateur + donnees.json() as Utilisateur[]);
-  }
+  }*/
 }

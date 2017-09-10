@@ -1,19 +1,8 @@
 <h1>Connexion Utilisateur</h1>
-<form method = "post" name = "login" ng-submit="formSubmit()" >
-    <label for="courriel">Courriel:</label>
-    <input type="email" id="courriel" ng-model="courriel" placeholder="adresse courriel"
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        title="Veuillez entrer une adresse courriel valide."
-        required/>
-    <br><br>
-    <label for="mdp">Mot de passe:</label>
-    <input type="password" id="mdp" ng-model="mdp" placeholder="mot de passe"
-        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" 
-        title="Le mot de passe doit contenir au moins 6 caracteres avec au moins une majucusule, une minuscule et un chiffre."
-        required/>
-    <br><br>
-    <div>
-    <button type="submit" ng-disabled="form.$invalid || dataLoading">Connexion</button>
-    </div>
-</form>
-<br><br>
+<label for="courriel">Courriel</label>
+<input type="email" id="courriel" name="courriel"/>
+<br>
+<label for="mdp">Mot de passe</label>
+<input type="password" id="mdp" name="mdp"/>
+<br>
+<input type="submit" value="Connexion"/>
