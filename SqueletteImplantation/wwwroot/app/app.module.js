@@ -8,23 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
 var app_component_1 = require("./app.component");
 var footer_component_1 = require("./footer/footer.component");
 var header_component_1 = require("./header/header.component");
 var loginform_component_1 = require("./loginform/loginform.component");
 var map_component_1 = require("./Components/map.component");
 var util_connexion_component_1 = require("./Components/util-connexion.component");
-var appRoutes = [
-    {
-        path: 'loginForm',
-        component: loginform_component_1.LoginFormComponent
-    },
-    {
-        path: 'map',
-        component: map_component_1.MapComponent
-    }
-];
 var AppModule = (function () {
     function AppModule() {
     }
@@ -34,8 +23,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
-            http_1.HttpModule,
-            router_1.RouterModule.forRoot(appRoutes)
+            http_1.HttpModule
         ],
         declarations: [
             app_component_1.AppComponent,

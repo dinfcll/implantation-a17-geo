@@ -16,14 +16,14 @@ namespace SqueletteImplantation.Controllers
             _maBd = maBd;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         [Route("api/utilisateur")]
         public IEnumerable Index()
         {
             return _maBd.Utilisateur.ToList();
-        }
+        }*/
 
-        [HttpPost]
+        /*[HttpPost]
         [Route("api/utilisateur")]
         public IActionResult CreateUtilisateur(UtilisateurDto utilisateurDto)
         {
@@ -33,27 +33,30 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkObjectResult(utilisateur);
-        }
+        }*/
 
         [HttpGet]
-        [Route("api/utilisateur/{id}")]
-        public IActionResult GetUtilisateur(int id)
+        [Route("api/utilisateur")]
+        public IActionResult GetUtilisateur(UtilisateurDto user)
         {
-            var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.Id == id);
+            var utilisateur = _maBd.Utilisateur
+                .FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
 
             if (utilisateur == null)
             {
-                return NotFound();
+                console.log(utilisateur);
             }
 
             return new OkObjectResult(utilisateur);
+            console.log(utilisateur);
         }
+        
 
-        [HttpPut]
-        [Route("api/utilisateur/{id}")]
+        /*[HttpPut]
+        [Route("api/utilisateur/{email}")]
         public IActionResult ModifyUtilisateur(Utilisateur updatedUtilisateur)
         {
-            var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.Id == updatedUtilisateur.Id);
+            var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.email == updatedUtilisateur.email);
 
             if (utilisateur == null)
             {
@@ -66,7 +69,7 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpDelete]
-        [Route("api/utilisateur/{id}")]
+        [Route("api/utilisateur/{email}")]
         public IActionResult DeleteUtilisateur(int id)
         {
             var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.Id == id);
@@ -80,7 +83,7 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
-        }
+        }*/
 
     }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'loginForm',
@@ -8,16 +7,6 @@ import { Router } from '@angular/router';
 })
 
 export class LoginFormComponent implements OnInit {
-    constructor(private router:Router) { }
+    constructor() { }
     ngOnInit() { }
-
-    loginUser(e:any) {
-        e.preventDefault();
-        var email = e.target.element[0].value;
-        var mdp = e.target.element[1].value;
-
-        if(email == 'admin' && mdp == 'admin') {
-            this.router.navigate(['map']);
-        }
-    }
 }

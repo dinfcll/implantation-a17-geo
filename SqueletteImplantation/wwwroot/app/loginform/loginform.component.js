@@ -9,20 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
 var LoginFormComponent = (function () {
-    function LoginFormComponent(router) {
-        this.router = router;
+    function LoginFormComponent() {
     }
     LoginFormComponent.prototype.ngOnInit = function () { };
-    LoginFormComponent.prototype.loginUser = function (e) {
-        e.preventDefault();
-        var email = e.target.element[0].value;
-        var mdp = e.target.element[1].value;
-        if (email == 'admin' && mdp == 'admin') {
-            this.router.navigate(['map']);
-        }
-    };
     return LoginFormComponent;
 }());
 LoginFormComponent = __decorate([
@@ -31,7 +21,7 @@ LoginFormComponent = __decorate([
         templateUrl: './loginform.component.html',
         styleUrls: ['./loginform.component.css']
     }),
-    __metadata("design:paramtypes", [router_1.Router])
+    __metadata("design:paramtypes", [])
 ], LoginFormComponent);
 exports.LoginFormComponent = LoginFormComponent;
 //# sourceMappingURL=loginform.component.js.map
