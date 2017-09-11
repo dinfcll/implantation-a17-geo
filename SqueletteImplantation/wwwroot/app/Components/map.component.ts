@@ -20,18 +20,15 @@ export class MapComponent implements OnInit  {
     getMarqueurs(): void {
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
-                    //console.log(resdata.json());
                     this.marqueurs = resdata.json() as Marqueur[];
-                    console.log(this.marqueurs);
                     this.marqueurs.forEach((mark)=>{
                         this.AjoutMarker(mark);
                     });
                 });
     }
     AjoutMarker(info:Marqueur){
-        var lat=info.latitude;
         var marker = new google.maps.Marker({
-            position: {lat:lat,lng: info.longitude},
+            position: {lat:info.latitude,lng: info.longitude},
             map: this.map
         });
         var infoWindow = new google.maps.InfoWindow({
