@@ -1,16 +1,13 @@
-<form #f="ngForm" novalidate (ngsubmit)="login(f)">
+<form novalidate>
     <div class="input">
         <label for="email">Courriel</label>
-        <input type="text" required name="email" #email="ngModel" tmFocus validateEmail placeholder="Email">
-        <small [hidden]="email.valid || (email.pristine && !submitted)">
-            Entrer une adresse valide.
-        </small>
+        <input type="text" #email required name="email" tmFocus validateEmail placeholder="Email">
     </div>
     <div class="input">
         <label  for="mdp">Mot de passe</label>
-        <input type="password" required name="mdp" placeholder="Mdp" ngModel>
+        <input type="password" required name="mdp" placeholder="Mdp" #mdp>
     </div>
     <div class="input">
-        <button type="submit" [disabled]="f.invalid">Connexion</button>
+        <button (click)="login(email.value, mdp.value)">Connexion</button>
     </div>
 </form>

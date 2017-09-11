@@ -29,7 +29,7 @@ export class UtilisateurService extends BaseService {
 
         return this.http
             .post(
-                this.baseUrl + 'utilisateur/login',
+                this.baseUrl + '/utilisateur/login',
                 JSON.stringify({ email, mdp }), { headers }
             )
             .map(res => res.json())

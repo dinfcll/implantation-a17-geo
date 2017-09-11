@@ -30,11 +30,11 @@ export class LoginFormComponent implements OnInit {
             });
      }
 
-    login({ value, valid }: { value: Utilisateur, valid: boolean }) {
+    login( mail: string, mot: string) {
         this.isRequesting = true;
         this.errors = '';
-        if (valid) {
-            this.utilisateurService.login(value.email, value.mdp)
+        //if (valid) {
+            this.utilisateurService.login(mail, mot)
                 .finally(() => this.isRequesting = false)
                 .subscribe(
                     result => {
@@ -43,7 +43,7 @@ export class LoginFormComponent implements OnInit {
                         }
                     },
                 error => this.errors = error);
-        }
-        return true;
+        //}
+        //return true;
     }
 }

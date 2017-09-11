@@ -36,7 +36,7 @@ var UtilisateurService = (function (_super) {
         var headers = new http_1.Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + 'utilisateur/login', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
+            .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
             .map(function (res) { return res.json(); })
             .map(function (res) {
             _this.loggedIn = true;

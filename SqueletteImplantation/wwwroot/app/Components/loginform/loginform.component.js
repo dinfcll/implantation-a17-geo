@@ -25,21 +25,20 @@ var LoginFormComponent = (function () {
             _this.credentials.email = param['email'];
         });
     };
-    LoginFormComponent.prototype.login = function (_a) {
+    LoginFormComponent.prototype.login = function (mail, mot) {
         var _this = this;
-        var value = _a.value, valid = _a.valid;
         this.isRequesting = true;
         this.errors = '';
-        if (valid) {
-            this.utilisateurService.login(value.email, value.mdp)
-                .finally(function () { return _this.isRequesting = false; })
-                .subscribe(function (result) {
-                if (result) {
-                    _this.router.navigate(['/utilisateur']);
-                }
-            }, function (error) { return _this.errors = error; });
-        }
-        return true;
+        //if (valid) {
+        this.utilisateurService.login(mail, mot)
+            .finally(function () { return _this.isRequesting = false; })
+            .subscribe(function (result) {
+            if (result) {
+                _this.router.navigate(['/utilisateur']);
+            }
+        }, function (error) { return _this.errors = error; });
+        //}
+        //return true;
     };
     return LoginFormComponent;
 }());
