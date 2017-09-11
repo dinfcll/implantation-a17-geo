@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var ConfigService = (function () {
     function ConfigService() {
-        this._apiURI = 'http://localhost:56306/api';
+        this._apiURI = 'http://localhost:5000/api'; //local
+        //this._apiURI = 'https://localhost:5000/api'; //instance
     }
     ConfigService.prototype.getApiURI = function () {
         return this._apiURI;
