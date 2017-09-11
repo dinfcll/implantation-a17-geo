@@ -11,26 +11,27 @@ declare var google: any;
 
 })
 export class MapComponent implements OnInit  {
-     name ='Angular';
+     name ='Map';
      private marqueurs:Marqueur[];
-     map:any;
-     constructor(private http: Http) {
+     public map:any;
+     constructor(private http: Http){
         this.getMarqueurs();
     }
-
     getMarqueurs(): void {
         this.http.get("api/marqueurs")
-                .subscribe(resdata => {
+                .subscribe((resdata) => {
+                    console.log(resdata.json());
                     this.marqueurs = resdata.json() as Marqueur[];
                     console.log(this.marqueurs);
-                    this.marqueurs.forEach(function(mark){
+                    this.marqueurs.forEach((mark)=>{
                         this.AjoutMarker(mark);
                     });
                 });
     }
     AjoutMarker(info:Marqueur){
+        var lat=info.Latitude;
         var marker = new google.maps.Marker({
-            position: {longitude:info.Longitude,latitude:info.Latitude},
+            position: {lat:lat,lng: info.Longitude},
             map: this.map
         });
         var infoWindow = new google.maps.InfoWindow({
@@ -53,13 +54,11 @@ export class MapComponent implements OnInit  {
             mapTypeId: 'hybrid'
         }
         this.getMarqueurs();
-        
         this.map = new google.maps.Map(document.getElementById('map'),mapOptions );
-        
         var infoWindowLoc = new google.maps.InfoWindow({map:this.map});
         //géolocation
         if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(function(position){
+            navigator.geolocation.getCurrentPosition((position)=>{
                 var pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude   

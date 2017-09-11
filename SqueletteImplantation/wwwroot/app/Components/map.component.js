@@ -13,23 +13,25 @@ var http_1 = require("@angular/http");
 var MapComponent = (function () {
     function MapComponent(http) {
         this.http = http;
-        this.name = 'Angular';
+        this.name = 'Map';
         this.getMarqueurs();
     }
     MapComponent.prototype.getMarqueurs = function () {
         var _this = this;
         this.http.get("api/marqueurs")
             .subscribe(function (resdata) {
+            console.log(resdata.json());
             _this.marqueurs = resdata.json();
             console.log(_this.marqueurs);
             _this.marqueurs.forEach(function (mark) {
-                this.AjoutMarker(mark);
+                _this.AjoutMarker(mark);
             });
         });
     };
     MapComponent.prototype.AjoutMarker = function (info) {
+        var lat = info.Latitude;
         var marker = new google.maps.Marker({
-            position: { longitude: info.Longitude, latitude: info.Latitude },
+            position: { lat: lat, lng: info.Longitude },
             map: this.map
         });
         var infoWindow = new google.maps.InfoWindow({
@@ -40,6 +42,7 @@ var MapComponent = (function () {
         });
     };
     MapComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var myCenter = { lat: 46.752560, lng: -71.228740 };
         var mapOptions = {
             zoom: 10,
@@ -58,7 +61,7 @@ var MapComponent = (function () {
                 };
                 infoWindowLoc.setPosition(pos);
                 infoWindowLoc.setContent('Vous êtes ici');
-                this.map.setCenter(pos);
+                _this.map.setCenter(pos);
             }, function () {
                 handleLocationError(true, infoWindowLoc, this.map.getCenter());
             });
