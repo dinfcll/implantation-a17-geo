@@ -29,7 +29,6 @@ var LoginFormComponent = (function () {
         var _this = this;
         this.isRequesting = true;
         this.errors = '';
-        //if (valid) {
         this.utilisateurService.login(mail, mot)
             .finally(function () { return _this.isRequesting = false; })
             .subscribe(function (result) {
@@ -37,8 +36,6 @@ var LoginFormComponent = (function () {
                 _this.router.navigate(['/utilisateur']);
             }
         }, function (error) { return _this.errors = error; });
-        //}
-        //return true;
     };
     return LoginFormComponent;
 }());

@@ -14,6 +14,7 @@ var app_component_1 = require("./app.component");
 var footer_component_1 = require("./Components/footer/footer.component");
 var header_component_1 = require("./Components/header/header.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
+var map_component_1 = require("./Components/map/map.component");
 var account_routing_1 = require("./Components/account/account.routing");
 var config_service_1 = require("./Components/utils/config.service");
 var utilisateur_service_1 = require("./Components/services/utilisateur.service");
@@ -28,14 +29,15 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             footer_component_1.FooterComponent, header_component_1.HeaderComponent,
-            loginform_component_1.LoginFormComponent, email_validator_directive_1.EmailValidator
+            loginform_component_1.LoginFormComponent, email_validator_directive_1.EmailValidator,
+            map_component_1.MapComponent
         ],
         imports: [
             common_1.CommonModule,
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            account_routing_1.routing
+            account_routing_1.AccountRouting
         ],
         providers: [
             config_service_1.ConfigService,

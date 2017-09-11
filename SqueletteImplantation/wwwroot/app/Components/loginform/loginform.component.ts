@@ -33,17 +33,14 @@ export class LoginFormComponent implements OnInit {
     login( mail: string, mot: string) {
         this.isRequesting = true;
         this.errors = '';
-        //if (valid) {
-            this.utilisateurService.login(mail, mot)
-                .finally(() => this.isRequesting = false)
-                .subscribe(
-                    result => {
-                        if (result) {
-                            this.router.navigate(['/utilisateur']);
-                        }
-                    },
-                error => this.errors = error);
-        //}
-        //return true;
+        this.utilisateurService.login(mail, mot)
+            .finally(() => this.isRequesting = false)
+            .subscribe(
+                result => {
+                    if (result) {
+                        this.router.navigate(['/map']);
+                    }
+                },
+            error => this.errors = error);
     }
 }

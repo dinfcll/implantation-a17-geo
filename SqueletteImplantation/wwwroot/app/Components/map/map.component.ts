@@ -4,8 +4,9 @@ declare var google: any;
 
 
 @Component({
-  selector: 'map',
-  templateUrl:'./../view/map.html',
+    moduleId: module.id,
+    selector: 'map',
+    templateUrl:'./map.html',
 
 })
 export class MapComponent implements OnInit  {

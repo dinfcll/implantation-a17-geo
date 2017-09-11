@@ -49,10 +49,10 @@ namespace SqueletteImplantation.Controllers
 
             var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
 
-            /*if (identity == null)
+            if (identity == null)
             {
                 return BadRequest(ModelState);
-            }*/
+            }
 
             return new ObjectResult(user);
         }

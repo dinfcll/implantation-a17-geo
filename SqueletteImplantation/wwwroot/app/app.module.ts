@@ -8,8 +8,9 @@ import { AppComponent }                from './app.component';
 import { FooterComponent }             from './Components/footer/footer.component';
 import { HeaderComponent }             from './Components/header/header.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
+import { MapComponent }                from './Components/map/map.component';
 
-import { routing } from './Components/account/account.routing';
+import { AccountRouting } from './Components/account/account.routing';
 import { ConfigService } from './Components/utils/config.service';
 import { UtilisateurService } from './Components/services/utilisateur.service';
 import { EmailValidator } from './Components/account/email.validator.directive';
@@ -19,14 +20,15 @@ import { EmailValidator } from './Components/account/email.validator.directive';
   declarations: [ 
     AppComponent,
     FooterComponent, HeaderComponent, 
-    LoginFormComponent, EmailValidator 
+    LoginFormComponent, EmailValidator,
+    MapComponent 
   ],
   imports: [ 
     CommonModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    AccountRouting
   ],
   providers: [
     ConfigService,

@@ -90,8 +90,9 @@ var MapComponent = (function () {
 }());
 MapComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'map',
-        templateUrl: './../view/map.html',
+        templateUrl: './map.html',
     })
 ], MapComponent);
 exports.MapComponent = MapComponent;
