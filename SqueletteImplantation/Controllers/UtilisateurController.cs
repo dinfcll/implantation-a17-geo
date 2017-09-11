@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Linq;
+using System.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.DTOs;
 using SqueletteImplantation.DbEntities.Models;
@@ -16,12 +19,12 @@ namespace SqueletteImplantation.Controllers
             _maBd = maBd;
         }
 
-        /*[HttpGet]
+        [HttpGet]
         [Route("api/utilisateur")]
         public IEnumerable Index()
         {
             return _maBd.Utilisateur.ToList();
-        }*/
+        }
 
         /*[HttpPost]
         [Route("api/utilisateur")]
@@ -35,23 +38,25 @@ namespace SqueletteImplantation.Controllers
             return new OkObjectResult(utilisateur);
         }*/
 
-        [HttpGet]
-        [Route("api/utilisateur")]
-        public IActionResult GetUtilisateur(UtilisateurDto user)
+        [HttpPost]
+        [Route("api/utilisateur/login")]
+        public IActionResult Post([FromBody]Utilisateur user)
         {
-            var utilisateur = _maBd.Utilisateur
-                .FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
-
-            if (utilisateur == null)
+            if (!ModelState.IsValid)
             {
-                console.log(utilisateur);
+                return BadRequest(ModelState);
             }
 
-            return new OkObjectResult(utilisateur);
-            console.log(utilisateur);
+            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
+
+            if (identity == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return new ObjectResult(user);
         }
         
-
         /*[HttpPut]
         [Route("api/utilisateur/{email}")]
         public IActionResult ModifyUtilisateur(Utilisateur updatedUtilisateur)

@@ -9,19 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var LoginFormComponent = (function () {
-    function LoginFormComponent() {
+var ConfigService = (function () {
+    function ConfigService() {
+        this._apiURI = 'http://localhost:56306/api';
     }
-    LoginFormComponent.prototype.ngOnInit = function () { };
-    return LoginFormComponent;
+    ConfigService.prototype.getApiURI = function () {
+        return this._apiURI;
+    };
+    return ConfigService;
 }());
-LoginFormComponent = __decorate([
-    core_1.Component({
-        selector: 'loginForm',
-        templateUrl: './loginform.component.html',
-        styleUrls: ['./loginform.component.css']
-    }),
+ConfigService = __decorate([
+    core_1.Injectable(),
     __metadata("design:paramtypes", [])
-], LoginFormComponent);
-exports.LoginFormComponent = LoginFormComponent;
-//# sourceMappingURL=loginform.component.js.map
+], ConfigService);
+exports.ConfigService = ConfigService;
+//# sourceMappingURL=config.service.js.map

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Http } from '@angular/http';
 
-import { Utilisateur } from './models/utilisateur.class';
+import { Utilisateur } from '../models/utilisateur.class';
 
 @Component({
   selector: 'util-connexion',

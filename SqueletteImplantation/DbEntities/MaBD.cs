@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.DbEntities.Mappers;
 using SqueletteImplantation.DbEntities.Models;
+using System.Linq;
 
 namespace SqueletteImplantation.DbEntities
 {
