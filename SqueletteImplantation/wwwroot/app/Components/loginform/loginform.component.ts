@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { Utilisateur } from '../models/utilisateur.class';
-import { UtilisateurService } from '../services/utilisateur.service';
+import { Utilisateur } from '../../class/utilisateur.class';
+import { UtilisateurService } from '../../services/utilisateur.service';
 
 @Component({
     selector: 'loginForm',

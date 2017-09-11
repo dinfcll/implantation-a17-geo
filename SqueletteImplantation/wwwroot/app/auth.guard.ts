@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, Router } from '@angular/router';
-import { UtilisateurService } from './Components/services/utilisateur.service'
+import { UtilisateurService } from './services/utilisateur.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
