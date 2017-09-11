@@ -11,8 +11,6 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
-var footer_component_1 = require("./Components/footer/footer.component");
-var header_component_1 = require("./Components/header/header.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var map_component_1 = require("./Components/map/map.component");
 var account_routing_1 = require("./Components/account/account.routing");
@@ -28,8 +26,8 @@ AppModule = __decorate([
     core_1.NgModule({
         declarations: [
             app_component_1.AppComponent,
-            footer_component_1.FooterComponent, header_component_1.HeaderComponent,
-            loginform_component_1.LoginFormComponent, email_validator_directive_1.EmailValidator,
+            loginform_component_1.LoginFormComponent,
+            email_validator_directive_1.EmailValidator,
             map_component_1.MapComponent
         ],
         imports: [

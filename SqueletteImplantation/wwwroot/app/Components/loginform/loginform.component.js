@@ -33,7 +33,7 @@ var LoginFormComponent = (function () {
             .finally(function () { return _this.isRequesting = false; })
             .subscribe(function (result) {
             if (result) {
-                _this.router.navigate(['/utilisateur']);
+                _this.router.navigate(['/map']);
             }
         }, function (error) { return _this.errors = error; });
     };

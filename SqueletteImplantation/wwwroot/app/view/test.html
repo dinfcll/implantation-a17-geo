@@ -1,8 +1,16 @@
 <body>
-        <app-header></app-header>       
-        <i class="fa fa-2x fa-bath" aria-hidden="true"></i>     
-        <router-outlet></router-outlet>
-        <app-footer></app-footer>    
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse" style="border-radius:0px; margin:0px;">
+        <a class="navbar-brand" href="#"><i class="fa fa-2x fa-map-signs" aria-hidden="true"></i></a>
+        <a class="bg-inverse navbar-brand" style="font-size:3em;">Ramble</a>
+    </nav>
+    <div class="container">
+            <router-outlet></router-outlet>
+    </div>
+    <footer class="footer pull-right">
+        <div class="container">
+            <span class="text-muted">©BrownSugar</span>
+        </div>
+    </footer>
 </body>
     
     

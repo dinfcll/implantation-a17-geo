@@ -5,8 +5,6 @@ import { FormsModule }                 from '@angular/forms';
 import { HttpModule }                  from '@angular/http';
 
 import { AppComponent }                from './app.component';
-import { FooterComponent }             from './Components/footer/footer.component';
-import { HeaderComponent }             from './Components/header/header.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 
@@ -19,8 +17,8 @@ import { EmailValidator } from './Components/account/email.validator.directive';
 @NgModule({
   declarations: [ 
     AppComponent,
-    FooterComponent, HeaderComponent, 
-    LoginFormComponent, EmailValidator,
+    LoginFormComponent, 
+    EmailValidator,
     MapComponent 
   ],
   imports: [ 

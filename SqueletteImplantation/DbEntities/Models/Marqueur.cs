@@ -11,5 +11,6 @@ namespace SqueletteImplantation.DbEntities.Models
         public string Nom { get; set; }
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
+        public string Desc { get; set; }
     }
 }
