@@ -20,18 +20,15 @@ var MapComponent = (function () {
         var _this = this;
         this.http.get("api/marqueurs")
             .subscribe(function (resdata) {
-            //console.log(resdata.json());
             _this.marqueurs = resdata.json();
-            console.log(_this.marqueurs);
             _this.marqueurs.forEach(function (mark) {
                 _this.AjoutMarker(mark);
             });
         });
     };
     MapComponent.prototype.AjoutMarker = function (info) {
-        var lat = info.latitude;
         var marker = new google.maps.Marker({
-            position: { lat: lat, lng: info.longitude },
+            position: { lat: info.latitude, lng: info.longitude },
             map: this.map
         });
         var infoWindow = new google.maps.InfoWindow({
@@ -84,8 +81,9 @@ var MapComponent = (function () {
 }());
 MapComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'map',
-        templateUrl: './../view/map.html',
+        templateUrl: './map.html',
     }),
     __metadata("design:paramtypes", [http_1.Http])
 ], MapComponent);

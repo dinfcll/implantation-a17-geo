@@ -1,13 +1,14 @@
 import { Component,Input,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Marqueur } from "../class/marqueur.class";
+import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
 
 
 @Component({
-  selector: 'map',
-  templateUrl:'./../view/map.html',
+    moduleId: module.id,
+    selector: 'map',
+    templateUrl:'./map.html',
 
 })
 export class MapComponent implements OnInit  {

@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.DbEntities.Mappers;
 using SqueletteImplantation.DbEntities.Models;
+using System.Linq;
 
 namespace SqueletteImplantation.DbEntities
 {
     public class MaBd : DbContext
     {
         public virtual DbSet<Machin> Machin { get; set; }
+        public virtual DbSet<Utilisateur> Utilisateur {get; set; }
         public virtual DbSet<Marqueur> Marqueur { get; set; }
 
         public MaBd(DbContextOptions options) : base(options)
@@ -19,6 +21,9 @@ namespace SqueletteImplantation.DbEntities
 
             new MachinMap(modelBuilder.Entity<Machin>());
             new MarqueurMap(modelBuilder.Entity<Marqueur>());
+            new UtilisateurMap(modelBuilder.Entity<Utilisateur>());
+
+            modelBuilder.Entity<Utilisateur>().Property(m => m.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Marqueur>().Property(m => m.Id).ValueGeneratedOnAdd();
         }
     }
