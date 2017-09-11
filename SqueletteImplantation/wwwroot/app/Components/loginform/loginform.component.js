@@ -39,6 +39,7 @@ var LoginFormComponent = (function () {
                 }
             }, function (error) { return _this.errors = error; });
         }
+        return true;
     };
     return LoginFormComponent;
 }());

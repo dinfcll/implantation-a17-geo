@@ -44,5 +44,6 @@ export class LoginFormComponent implements OnInit {
                     },
                 error => this.errors = error);
         }
+        return true;
     }
 }

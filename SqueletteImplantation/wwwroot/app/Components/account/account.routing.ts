@@ -1,8 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+import { AppComponent } from '../../app.component';
 import { LoginFormComponent } from '../loginform/loginform.component';
 
-export const routing: ModuleWithProviders = RouterModule.forChild([
+export const routing: ModuleWithProviders = RouterModule.forRoot([
     { path: 'login', component: LoginFormComponent }
 ]);

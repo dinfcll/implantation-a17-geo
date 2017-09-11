@@ -1,6 +1,7 @@
+import { CommonModule }                from '@angular/common';
 import { NgModule }                    from '@angular/core';
 import { BrowserModule }               from '@angular/platform-browser';
-import { FormsModule }                  from '@angular/forms';
+import { FormsModule }                 from '@angular/forms';
 import { HttpModule }                  from '@angular/http';
 
 import { AppComponent }                from './app.component';
@@ -8,25 +9,28 @@ import { FooterComponent }             from './Components/footer/footer.componen
 import { HeaderComponent }             from './Components/header/header.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 
-import { AccountModule } from './Components/account/account.module';
 import { routing } from './Components/account/account.routing';
 import { ConfigService } from './Components/utils/config.service';
+import { UtilisateurService } from './Components/services/utilisateur.service';
+import { EmailValidator } from './Components/account/email.validator.directive';
+
 
 @NgModule({
   declarations: [ 
     AppComponent,
     FooterComponent, HeaderComponent, 
-    LoginFormComponent
+    LoginFormComponent, EmailValidator 
   ],
   imports: [ 
-    AccountModule,
+    CommonModule,
     BrowserModule,
     FormsModule,
     HttpModule,
     routing
   ],
   providers: [
-    ConfigService
+    ConfigService,
+    UtilisateurService
   ],
   bootstrap: [ AppComponent ],
 })

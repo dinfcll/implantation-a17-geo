@@ -39,7 +39,7 @@ namespace SqueletteImplantation.Controllers
         }*/
 
         [HttpPost]
-        [Route("api/utilisateur/login")]
+        [Route("api/utilisateur")]
         public IActionResult Post([FromBody]Utilisateur user)
         {
             if (!ModelState.IsValid)

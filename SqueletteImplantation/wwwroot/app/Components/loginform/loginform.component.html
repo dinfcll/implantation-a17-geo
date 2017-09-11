@@ -1,7 +1,7 @@
 <form #f="ngForm" novalidate (ngsubmit)="login(f)">
     <div class="input">
         <label for="email">Courriel</label>
-        <input type="text" required name="email" [ngModel]="utilisateur.class.email" #email="ngModel" tmFocus validateEmail placeholder="Email">
+        <input type="text" required name="email" #email="ngModel" tmFocus validateEmail placeholder="Email">
         <small [hidden]="email.valid || (email.pristine && !submitted)">
             Entrer une adresse valide.
         </small>
