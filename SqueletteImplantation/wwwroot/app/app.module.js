@@ -15,7 +15,7 @@ var loginform_component_1 = require("./Components/loginform/loginform.component"
 var map_component_1 = require("./Components/map/map.component");
 var account_routing_1 = require("./Components/account/account.routing");
 var config_service_1 = require("./Components/utils/config.service");
-var utilisateur_service_1 = require("./Components/services/utilisateur.service");
+var utilisateur_service_1 = require("./services/utilisateur.service");
 var email_validator_directive_1 = require("./Components/account/email.validator.directive");
 var AppModule = (function () {
     function AppModule() {

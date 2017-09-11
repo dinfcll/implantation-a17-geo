@@ -15,7 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var config_service_1 = require("../utils/config.service");
+var config_service_1 = require("../Components/utils/config.service");
 var base_service_1 = require("./base.service");
 var Rx_1 = require("rxjs/Rx");
 var UtilisateurService = (function (_super) {
