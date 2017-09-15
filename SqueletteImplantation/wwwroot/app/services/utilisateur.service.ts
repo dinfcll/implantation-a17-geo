@@ -49,4 +49,15 @@ export class UtilisateurService extends BaseService {
     isLoggedIn() {
         return this.loggedIn;
     }
+    signin(email: string, mdp: string){
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+
+        return this.http.post(
+            this.baseUrl + '/utilisateur/signin',
+            JSON.stringify({ email, mdp }), { headers }
+        )
+        .map(res => {return res.json()})
+        .catch(this.handleError);
+    }
 }
