@@ -8,17 +8,14 @@ import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 
-import { AccountRouting }              from './Components/account/account.routing';
+import { AccountRouting }              from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
-import { EmailValidator }              from './Components/account/email.validator.directive';
-
 
 @NgModule({
   declarations: [ 
     AppComponent,
     LoginFormComponent, 
-    EmailValidator,
     MapComponent 
   ],
   imports: [ 

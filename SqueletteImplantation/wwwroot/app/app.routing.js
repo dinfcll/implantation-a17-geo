@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var map_component_1 = require("../map/map.component");
-var loginform_component_1 = require("../loginform/loginform.component");
+var map_component_1 = require("./Components/map/map.component");
+var loginform_component_1 = require("./Components/loginform/loginform.component");
 exports.routing = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: loginform_component_1.LoginFormComponent },
@@ -26,4 +26,4 @@ AccountRouting = __decorate([
     })
 ], AccountRouting);
 exports.AccountRouting = AccountRouting;
-//# sourceMappingURL=account.routing.js.map
+//# sourceMappingURL=app.routing.js.map

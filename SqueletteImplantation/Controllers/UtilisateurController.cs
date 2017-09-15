@@ -26,18 +26,6 @@ namespace SqueletteImplantation.Controllers
             return _maBd.Utilisateur.ToList();
         }
 
-        /*[HttpPost]
-        [Route("api/utilisateur")]
-        public IActionResult CreateUtilisateur(UtilisateurDto utilisateurDto)
-        {
-            var utilisateur = utilisateurDto.CreateUtilisateur();
-
-            _maBd.Utilisateur.Add(utilisateur);
-            _maBd.SaveChanges();
-
-            return new OkObjectResult(utilisateur);
-        }*/
-
         [HttpPost]
         [Route("api/utilisateur/login")]
         public IActionResult Post([FromBody]Utilisateur user)
@@ -56,39 +44,5 @@ namespace SqueletteImplantation.Controllers
 
             return new ObjectResult(user);
         }
-        
-        /*[HttpPut]
-        [Route("api/utilisateur/{email}")]
-        public IActionResult ModifyUtilisateur(Utilisateur updatedUtilisateur)
-        {
-            var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.email == updatedUtilisateur.email);
-
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            _maBd.Entry(utilisateur).CurrentValues.SetValues(updatedUtilisateur);
-
-            return new OkResult();
-        }
-
-        [HttpDelete]
-        [Route("api/utilisateur/{email}")]
-        public IActionResult DeleteUtilisateur(int id)
-        {
-            var utilisateur = _maBd.Utilisateur.FirstOrDefault(m => m.Id == id);
-
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            _maBd.Remove(utilisateur);
-            _maBd.SaveChanges();
-
-            return new OkResult();
-        }*/
-
     }
 }

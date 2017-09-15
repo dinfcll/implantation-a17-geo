@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Subscription } from 'rxjs';
 
 import { Utilisateur } from '../../class/utilisateur.class';
 import { UtilisateurService } from '../../services/utilisateur.service';
@@ -12,23 +10,14 @@ import { UtilisateurService } from '../../services/utilisateur.service';
     styleUrls: ['./loginform.component.css']
 })
 
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
-    private subscription: Subscription;
-
-    brandNew: boolean;
     errors: string;
     isRequesting: boolean;
     credentials: Utilisateur = { id: -1, email: '', mdp: '' };
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router, private activatedRoute: ActivatedRoute) { }
-    ngOnInit() { 
-        this.subscription = this.activatedRoute.queryParams.subscribe(
-            (param: any) => {
-                this.brandNew = param['brandNew'];
-                this.credentials.email = param['email'];
-            });
-     }
+    constructor(private utilisateurService: UtilisateurService, private router: Router, 
+        private activatedRoute: ActivatedRoute) { }
 
     login( mail: string, mot: string) {
         this.isRequesting = true;

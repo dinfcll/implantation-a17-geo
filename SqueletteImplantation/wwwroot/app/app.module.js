@@ -13,10 +13,9 @@ var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var map_component_1 = require("./Components/map/map.component");
-var account_routing_1 = require("./Components/account/account.routing");
+var app_routing_1 = require("./app.routing");
 var config_service_1 = require("./Components/utils/config.service");
 var utilisateur_service_1 = require("./services/utilisateur.service");
-var email_validator_directive_1 = require("./Components/account/email.validator.directive");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -27,7 +26,6 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             loginform_component_1.LoginFormComponent,
-            email_validator_directive_1.EmailValidator,
             map_component_1.MapComponent
         ],
         imports: [
@@ -35,7 +33,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            account_routing_1.AccountRouting
+            app_routing_1.AccountRouting
         ],
         providers: [
             config_service_1.ConfigService,
