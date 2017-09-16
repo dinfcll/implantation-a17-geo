@@ -19,10 +19,17 @@ export class MapComponent implements OnInit  {
      public AcceptMarker:boolean;
      public TitreRando:String;
      public DescriptionRando:String;
+     public Longitude:number;
+     public Latitude:number;
+
      constructor(private http: Http){
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
+        this.Longitude = 0;
+        this.Latitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
     }
 
     PermissionAjoutMarker():void{
@@ -63,12 +70,26 @@ export class MapComponent implements OnInit  {
         
     CreationMaker(Gdonne:any){
         if(this.AcceptMarker){
-            var marker = new google.maps.Marker({
-                position: Gdonne.latLng,
-                map: this.map
-            });
+            this.Latitude = Gdonne.latLng.lat();
+            this.Longitude = Gdonne.latLng.lng();
         }
     }
+    
+    ConfirmationMarker(){
+        var lat = this.Latitude;
+        var lng = this.Longitude;
+        var marker = new google.maps.Marker({
+            position: {lat, lng},
+            map: this.map
+        });
+        //manque ajout à la base de donnée
+        this.Latitude = 0;
+        this.Longitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
+        this.PermissionAjoutMarker();
+    }
+
     ngOnInit():void{
         var myCenter = {lat: 46.752560, lng: -71.228740}; 
         var mapOptions = {

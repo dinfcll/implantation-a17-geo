@@ -8,5 +8,11 @@
     </div>
 
     <button (click)="PermissionAjoutMarker()">{{btnAjout}}</button>
-    <div id="nouveauMarqueur" *ngIf="AcceptMarker"> TESSTT </div>
+    <div id="nouveauMarqueur" *ngIf="AcceptMarker">
+         long:{{Longitude}}<br> 
+         lat:{{Latitude}}<br>
+         Titre de la randonné:<input [(ngModel)]="TitreRando" /><br>
+         Description:<input [(ngModel)]="DescriptionRando"/><br>
+         <button (click)="ConfirmationMarker()">Confirmer</button>
+    </div>
 </body>

@@ -17,6 +17,10 @@ var MapComponent = (function () {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
+        this.Longitude = 0;
+        this.Latitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
@@ -51,11 +55,23 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.CreationMaker = function (Gdonne) {
         if (this.AcceptMarker) {
-            var marker = new google.maps.Marker({
-                position: Gdonne.latLng,
-                map: this.map
-            });
+            this.Latitude = Gdonne.latLng.lat();
+            this.Longitude = Gdonne.latLng.lng();
         }
+    };
+    MapComponent.prototype.ConfirmationMarker = function () {
+        var lat = this.Latitude;
+        var lng = this.Longitude;
+        var marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: this.map
+        });
+        //manque ajout à la base de donnée
+        this.Latitude = 0;
+        this.Longitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
+        this.PermissionAjoutMarker();
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -97,10 +113,6 @@ var MapComponent = (function () {
         }
         this.map.addListener('click', function (e) {
             _this.CreationMaker(e);
-            /* var marker = new google.maps.Marker({
-                 position: e.latLng,
-                 map: this.map
-             });*/
         });
     };
     return MapComponent;
