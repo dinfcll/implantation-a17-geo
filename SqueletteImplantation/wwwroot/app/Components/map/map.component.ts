@@ -15,9 +15,25 @@ export class MapComponent implements OnInit  {
      name ='Map';
      private marqueurs:Marqueur[];
      public map:any;
+     public btnAjout:String;
+     public AcceptMarker:boolean;
+     public TitreRando:String;
+     public DescriptionRando:String;
      constructor(private http: Http){
         this.getMarqueurs();
+        this.btnAjout = "Ajout marqueur";
+        this.AcceptMarker = false;
     }
+
+    PermissionAjoutMarker():void{
+        this.AcceptMarker = !this.AcceptMarker;
+        if(this.btnAjout === "Ajout marqueur"){
+            this.btnAjout = "Annuler";
+        } else {
+            this.btnAjout = "Ajout marqueur";
+        }
+    }
+
     getMarqueurs(): void {
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
@@ -43,7 +59,16 @@ export class MapComponent implements OnInit  {
         marker.addListener('click', function(){
             infoWindow.open(this.map, marker);
         });
-        }        
+        }
+        
+    CreationMaker(Gdonne:any){
+        if(this.AcceptMarker){
+            var marker = new google.maps.Marker({
+                position: Gdonne.latLng,
+                map: this.map
+            });
+        }
+    }
     ngOnInit():void{
         var myCenter = {lat: 46.752560, lng: -71.228740}; 
         var mapOptions = {
@@ -80,8 +105,12 @@ export class MapComponent implements OnInit  {
             {
                 infoWindow.setContent('Erreur : La géolocalisation à échouée' );    
             } else {
-                infoWindow.setContent('Erreur : Vontre navigateur ne supporte pas la géolocalisation.');
+                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
             }           
         }
+
+        this.map.addListener('click', (e:any):void => {
+            this.CreationMaker(e); 
+        });
     }         
 }

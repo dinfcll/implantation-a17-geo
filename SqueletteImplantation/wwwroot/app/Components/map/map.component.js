@@ -15,7 +15,18 @@ var MapComponent = (function () {
         this.http = http;
         this.name = 'Map';
         this.getMarqueurs();
+        this.btnAjout = "Ajout marqueur";
+        this.AcceptMarker = false;
     }
+    MapComponent.prototype.PermissionAjoutMarker = function () {
+        this.AcceptMarker = !this.AcceptMarker;
+        if (this.btnAjout === "Ajout marqueur") {
+            this.btnAjout = "Annuler";
+        }
+        else {
+            this.btnAjout = "Ajout marqueur";
+        }
+    };
     MapComponent.prototype.getMarqueurs = function () {
         var _this = this;
         this.http.get("api/marqueurs")
@@ -37,6 +48,14 @@ var MapComponent = (function () {
         marker.addListener('click', function () {
             infoWindow.open(this.map, marker);
         });
+    };
+    MapComponent.prototype.CreationMaker = function (Gdonne) {
+        if (this.AcceptMarker) {
+            var marker = new google.maps.Marker({
+                position: Gdonne.latLng,
+                map: this.map
+            });
+        }
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -73,9 +92,16 @@ var MapComponent = (function () {
                 infoWindow.setContent('Erreur : La géolocalisation à échouée');
             }
             else {
-                infoWindow.setContent('Erreur : Vontre navigateur ne supporte pas la géolocalisation.');
+                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
             }
         }
+        this.map.addListener('click', function (e) {
+            _this.CreationMaker(e);
+            /* var marker = new google.maps.Marker({
+                 position: e.latLng,
+                 map: this.map
+             });*/
+        });
     };
     return MapComponent;
 }());
