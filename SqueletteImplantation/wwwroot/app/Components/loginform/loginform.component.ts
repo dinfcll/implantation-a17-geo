@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
@@ -12,23 +12,16 @@ import { UtilisateurService } from './../../services/utilisateur.service';
     styleUrls: ['./loginform.component.css']
 })
 
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
     private subscription: Subscription;
     binscription:boolean=false;
-    brandNew: boolean;
     errors: string;
     isRequesting: boolean;
     credentials: Utilisateur = { id: -1, email: '', mdp: '' };
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router, private activatedRoute: ActivatedRoute) { }
-    ngOnInit() { 
-        this.subscription = this.activatedRoute.queryParams.subscribe(
-            (param: any) => {
-                this.brandNew = param['brandNew'];
-                this.credentials.email = param['email'];
-            });
-     }
+    constructor(private utilisateurService: UtilisateurService, private router: Router, 
+        private activatedRoute: ActivatedRoute) { }
 
     login( mail: string, mot: string) {
         this.isRequesting = true;
@@ -43,19 +36,21 @@ export class LoginFormComponent implements OnInit {
                 },
             error => this.errors = error);
     }
-    toggleInscription(){
+
+    toggleInscription() {
         this.binscription=true;
     }
-    inscription(mail:string ,mdp:string, cmdp:string){
-            if(mdp!=cmdp){
+
+    inscription(mail:string ,mdp:string, cmdp:string) {
+            if(mdp != cmdp) {
                 alert("Les mots de passe sont différents");
             }
-            else{
-                this.utilisateurService.signin(mail,mdp).subscribe(res =>{
-                    if(res){
+            else {
+                this.utilisateurService.signin(mail,mdp).subscribe(res => {
+                    if(res) {
                         this.router.navigate(['/map']);
                     }
-                    else{
+                    else {
                         alert("Il y a déjà un compte lié à ce courriel.")
                     }
                 });
