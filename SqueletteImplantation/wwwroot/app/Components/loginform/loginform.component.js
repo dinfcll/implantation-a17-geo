@@ -26,10 +26,11 @@ var LoginFormComponent = (function () {
         this.utilisateurService.login(mail, mot)
             .finally(function () { return _this.isRequesting = false; })
             .subscribe(function (result) {
+            console.log(result);
             if (result) {
                 _this.router.navigate(['/map']);
             }
-        }, function (error) { return _this.errors = error; });
+        }, function (error) { alert("Email ou Mot de passe invalide"); });
     };
     LoginFormComponent.prototype.toggleInscription = function () {
         this.binscription = true;

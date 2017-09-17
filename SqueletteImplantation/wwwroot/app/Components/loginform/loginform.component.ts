@@ -30,11 +30,12 @@ export class LoginFormComponent {
             .finally(() => this.isRequesting = false)
             .subscribe(
                 result => {
+                    console.log(result);
                     if (result) {
                         this.router.navigate(['/map']);
                     }
                 },
-            error => this.errors = error);
+            error => {alert("Email ou Mot de passe invalide")});
     }
 
     toggleInscription() {
