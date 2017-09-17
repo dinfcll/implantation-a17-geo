@@ -1,5 +1,6 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
