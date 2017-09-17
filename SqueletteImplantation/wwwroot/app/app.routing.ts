@@ -15,4 +15,4 @@ export const routing: Routes = [
     imports: [ RouterModule.forRoot(routing) ],
     exports: [ RouterModule ]
 })
-export class AccountRouting { }
+export class AppRouting { }

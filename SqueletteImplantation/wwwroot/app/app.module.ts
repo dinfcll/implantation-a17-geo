@@ -8,7 +8,7 @@ import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 
-import { AccountRouting }              from './app.routing';
+import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
 
@@ -23,7 +23,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AccountRouting
+    AppRouting
   ],
   providers: [
     ConfigService,
