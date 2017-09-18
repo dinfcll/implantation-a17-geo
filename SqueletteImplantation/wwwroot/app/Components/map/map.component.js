@@ -13,6 +13,7 @@ var http_1 = require("@angular/http");
 var MapComponent = (function () {
     function MapComponent(http) {
         this.http = http;
+        this.baseUrl = '';
         this.name = 'Map';
         this.getMarqueurs();
     }

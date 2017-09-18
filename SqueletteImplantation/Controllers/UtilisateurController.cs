@@ -44,18 +44,13 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/utilisateur/login")]
-        public IActionResult Post([FromBody]Utilisateur user)
+        public IActionResult Post([FromBody]UtilisateurDto user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
+            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email && m.mdp == user.Mdp);
 
             if (identity == null)
             {
-                return BadRequest(ModelState);
+                return new ObjectResult(null);
             }
 
             return new ObjectResult(user);
