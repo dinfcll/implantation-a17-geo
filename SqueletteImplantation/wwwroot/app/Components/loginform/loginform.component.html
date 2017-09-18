@@ -1,24 +1,24 @@
 
 
-<form #f="NgForm" (ngSubmit)="onLogin(f.email, f.mdp)" *ngIf="!utilisateurService.loggedIn()">
+<form novalidate>
 
     <div class="input">
         <label for="email">Courriel</label>
-        <input type="email" tmFocus required ngControl="email" [(ngModel)]="email" placeholder="Email">
+        <input type="email" tmFocus [(ngModel)]="email" required name="email" placeholder="Email">
     </div>
 
     <div class="input">
         <label  for="mdp">Mot de passe</label>
-        <input type="password" required ngControl="mdp" [(ngModel)]="mdp" placeholder="Mdp">
+        <input type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp">
     </div>
 
     <div class="input" *ngIf="binscription">
             <label  for="confirm">Confirmer mot de passe</label>
-            <input type="password" required ngControl="mdp" [(ngModel)]="confirm" placeholder="Confirmer Mdp">
+            <input type="password" [(ngModel)]="confirm" required ngControl="mdp" placeholder="Confirmer Mdp">
     </div>
 
     <div class="input">
-        <button type="submit">Connexion</button>
+        <button type="submit" (click)="onLogin(email,mdp)">Connexion</button>
     </div>
 
     <div class="input">

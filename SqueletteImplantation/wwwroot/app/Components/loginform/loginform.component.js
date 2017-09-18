@@ -18,8 +18,19 @@ var LoginFormComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.binscription = false;
     }
-    LoginFormComponent.prototype.onLogin = function (mail, mdp) {
-        this.utilisateurService.login(mail, mdp);
+    LoginFormComponent.prototype.onLogin = function (email, mdp) {
+        var _this = this;
+        this.utilisateurService
+            .login(email, mdp)
+            .subscribe(function (res) {
+            console.log(res);
+            if (res) {
+                localStorage.setItem('id_token', res.email),
+                    _this.router.navigate(['/map']);
+            }
+            else
+                alert("Courriel ou mot de passe invalide");
+        });
     };
     LoginFormComponent.prototype.toggleInscription = function () {
         this.binscription = true;

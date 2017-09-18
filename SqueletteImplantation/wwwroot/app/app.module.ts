@@ -24,6 +24,8 @@ import { UtilisateurService }          from './services/utilisateur.service';
     FormsModule,
     HttpModule,
     AppRouting,
+  ],
+  providers: [
     ConfigService,
     UtilisateurService
   ],

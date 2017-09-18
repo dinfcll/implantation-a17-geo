@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Utilisateur } from './../../class/utilisateur.class';
@@ -20,20 +21,28 @@ export class LoginFormComponent {
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
         private activatedRoute: ActivatedRoute,) { }
 
-    onLogin(mail:string ,mdp:string) {
-        this.utilisateurService.login(mail, mdp);
+    onLogin(email: string, mdp: string) {
+        this.utilisateurService
+        .login(email, mdp)
+        .subscribe( res => {          
+            if(res){
+                localStorage.setItem('id_token', res.email),
+                this.router.navigate(['/map']); 
+            } else
+                alert("Courriel ou mot de passe invalide");
+        });
     }
 
     toggleInscription() {
         this.binscription = true;
     }
 
-    inscription(mail:string ,mdp:string, cmdp:string) {
+    inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");
         else {
             this.utilisateurService
-                .signin(mail,mdp)
+                .signin(mail, mdp)
                 .subscribe(res => {
                     if(res) 
                         this.router.navigate(['/map']);

@@ -26,15 +26,15 @@ export class UtilisateurService extends BaseService {
                 this.baseUrl + '/utilisateur/login',
                 JSON.stringify({ email, mdp }), { headers }
             )
-            .map(res => res.json())
-            .subscribe(
-                data => localStorage.setItem('id_token', data.id_token),
-                error => console.log(error)
-            );
+            .map(res => {
+                return res.json()
+                
+            })
+            .catch(this.handleError);           
     }
 
     loggedIn() {
-        return tokenNotExpired;
+        return tokenNotExpired;        
     }
 
     logout() {

@@ -33,8 +33,10 @@ var UtilisateurService = (function (_super) {
         headers.append('Content-type', 'application/json');
         return this.http
             .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
-            .map(function (res) { return res.json(); })
-            .subscribe(function (data) { return localStorage.setItem('id_token', data.id_token); }, function (error) { return console.log(error); });
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
     };
     UtilisateurService.prototype.loggedIn = function () {
         return angular2_jwt_1.tokenNotExpired;

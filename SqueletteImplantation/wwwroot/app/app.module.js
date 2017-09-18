@@ -34,6 +34,8 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             app_routing_1.AppRouting,
+        ],
+        providers: [
             config_service_1.ConfigService,
             utilisateur_service_1.UtilisateurService
         ],

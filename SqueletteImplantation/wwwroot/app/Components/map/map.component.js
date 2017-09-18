@@ -10,18 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var angular2_jwt_1 = require("angular2-jwt");
 var MapComponent = (function () {
-    function MapComponent(http, authHttp) {
+    function MapComponent(http) {
         this.http = http;
-        this.authHttp = authHttp;
         this.baseUrl = '';
         this.name = 'Map';
         this.getMarqueurs();
     }
     MapComponent.prototype.getMarqueurs = function () {
         var _this = this;
-        this.authHttp.get("api/marqueurs")
+        this.http.get("api/marqueurs")
             .subscribe(function (resdata) {
             _this.marqueurs = resdata.json();
             _this.marqueurs.forEach(function (mark) {
@@ -88,7 +86,7 @@ MapComponent = __decorate([
         selector: 'map',
         templateUrl: './map.html',
     }),
-    __metadata("design:paramtypes", [http_1.Http, angular2_jwt_1.AuthHttp])
+    __metadata("design:paramtypes", [http_1.Http])
 ], MapComponent);
 exports.MapComponent = MapComponent;
 //# sourceMappingURL=map.component.js.map

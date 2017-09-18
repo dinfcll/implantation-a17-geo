@@ -1,9 +1,6 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { tokenNotExpired } from 'angular2-jwt';
-import { AuthHttp } from 'angular2-jwt';
-
 import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
@@ -22,12 +19,12 @@ export class MapComponent implements OnInit {
     private marqueurs: Marqueur[];
     public map: any;
 
-    constructor(private http: Http, private authHttp: AuthHttp) {
+    constructor(private http: Http) {
         this.getMarqueurs();
     }
 
     getMarqueurs(): void {
-        this.authHttp.get("api/marqueurs")
+        this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
                     this.marqueurs = resdata.json() as Marqueur[];
                     this.marqueurs.forEach((mark) => {
