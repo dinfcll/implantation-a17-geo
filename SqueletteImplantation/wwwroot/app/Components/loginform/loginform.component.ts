@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { Subscription } from 'rxjs';
 
 import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
+
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'loginForm',
@@ -14,46 +15,39 @@ import { UtilisateurService } from './../../services/utilisateur.service';
 
 export class LoginFormComponent {
 
-    private subscription: Subscription;
-    binscription:boolean=false;
-    errors: string;
-    isRequesting: boolean;
-    credentials: Utilisateur = { id: -1, email: '', mdp: '' };
+    binscription: boolean = false;
+    utilisateur: Utilisateur;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
-        private activatedRoute: ActivatedRoute) { }
+        private activatedRoute: ActivatedRoute,) { }
 
-    login( mail: string, mot: string) {
-        this.isRequesting = true;
-        this.errors = '';
-        this.utilisateurService.login(mail, mot)
-            .finally(() => this.isRequesting = false)
-            .subscribe(
-                result => {
-                    if (result) {
-                        this.router.navigate(['/map']);
-                    }
-                },
-            error => this.errors = error);
+    onLogin(email: string, mdp: string) {
+        this.utilisateurService
+        .login(email, mdp)
+        .subscribe( res => {          
+            if(res){
+                localStorage.setItem('id_token', res.email),
+                this.router.navigate(['/map']); 
+            } else
+                alert("Courriel ou mot de passe invalide");
+        });
     }
 
     toggleInscription() {
-        this.binscription=true;
+        this.binscription = true;
     }
 
-    inscription(mail:string ,mdp:string, cmdp:string) {
-            if(mdp != cmdp) {
-                alert("Les mots de passe sont différents");
-            }
-            else {
-                this.utilisateurService.signin(mail,mdp).subscribe(res => {
-                    if(res) {
+    inscription(mail: string, mdp: string, cmdp: string) {
+        if(mdp != cmdp) 
+            alert("Les mots de passe sont différents");
+        else {
+            this.utilisateurService
+                .signin(mail, mdp)
+                .subscribe(res => {
+                    if(res) 
                         this.router.navigate(['/map']);
-                    }
-                    else {
+                    else 
                         alert("Il y a déjà un compte lié à ce courriel.")
-                    }
-                });
-            }
-    }
+            });
+        }}
 }

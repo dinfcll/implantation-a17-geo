@@ -1,6 +1,7 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
@@ -13,11 +14,12 @@ declare var google: any;
 
 export class MapComponent implements OnInit {
 
-     name ='Map';
-     private marqueurs: Marqueur[];
-     public map: any;
+    baseUrl: string = '';
+    name ='Map';
+    private marqueurs: Marqueur[];
+    public map: any;
 
-     constructor(private http: Http) {
+    constructor(private http: Http) {
         this.getMarqueurs();
     }
 

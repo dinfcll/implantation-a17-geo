@@ -1,22 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
+import { BaseService } from './base.service';
 import { Utilisateur } from '../class/utilisateur.class';
 import { ConfigService } from '../Components/utils/config.service';
 
-import { BaseService } from './base.service';
-
-import { BehaviorSubject } from 'rxjs/Rx';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class UtilisateurService extends BaseService {
 
     baseUrl: string = '';
-
-    private _authNavStatusSource = new BehaviorSubject<boolean>(false);
-    authNavStatus$ = this._authNavStatusSource.asObservable();
-
-    private loggedIn = false;
 
     constructor(private http: Http, private configService: ConfigService) {
         super();
@@ -32,22 +26,19 @@ export class UtilisateurService extends BaseService {
                 this.baseUrl + '/utilisateur/login',
                 JSON.stringify({ email, mdp }), { headers }
             )
-            .map(res => res.json())
             .map(res => {
-                this.loggedIn = true;
-                this._authNavStatusSource.next(true);
-                return true;
+                return res.json()
+                
             })
-            .catch(this.handleError);
+            .catch(this.handleError);           
+    }
+
+    loggedIn() {
+        return tokenNotExpired;        
     }
 
     logout() {
-        this.loggedIn = false;
-        this._authNavStatusSource.next(false);
-    }
-
-    isLoggedIn() {
-        return this.loggedIn;
+        localStorage.removeItem('id_token');
     }
 
     signin(email: string, mdp: string) {
@@ -55,13 +46,13 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
 
         return this.http
-        .post(
-            this.baseUrl + '/utilisateur/signin',
-            JSON.stringify({ email, mdp }), { headers }
-        ) 
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .post(
+                this.baseUrl + '/utilisateur/signin',
+                JSON.stringify({ email, mdp }), { headers }
+            ) 
+            .map(res => {
+                return res.json();
+            })
+            .catch(this.handleError);
     }
 }
