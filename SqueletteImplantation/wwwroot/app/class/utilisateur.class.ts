@@ -1,3 +1,3 @@
 export class Utilisateur {
-    constructor(public id: number, public email: string, public mdp: string){}
+    constructor(public id : number, public email : string, public mdp : string) { }
 }

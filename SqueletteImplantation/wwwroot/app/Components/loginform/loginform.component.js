@@ -10,21 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var utilisateur_service_1 = require("../../services/utilisateur.service");
+var utilisateur_service_1 = require("./../../services/utilisateur.service");
 var LoginFormComponent = (function () {
     function LoginFormComponent(utilisateurService, router, activatedRoute) {
         this.utilisateurService = utilisateurService;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.binscription = false;
         this.credentials = { id: -1, email: '', mdp: '' };
     }
-    LoginFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.subscription = this.activatedRoute.queryParams.subscribe(function (param) {
-            _this.brandNew = param['brandNew'];
-            _this.credentials.email = param['email'];
-        });
-    };
     LoginFormComponent.prototype.login = function (mail, mot) {
         var _this = this;
         this.isRequesting = true;
@@ -37,6 +31,25 @@ var LoginFormComponent = (function () {
             }
         }, function (error) { return _this.errors = error; });
     };
+    LoginFormComponent.prototype.toggleInscription = function () {
+        this.binscription = true;
+    };
+    LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
+        var _this = this;
+        if (mdp != cmdp) {
+            alert("Les mots de passe sont différents");
+        }
+        else {
+            this.utilisateurService.signin(mail, mdp).subscribe(function (res) {
+                if (res) {
+                    _this.router.navigate(['/map']);
+                }
+                else {
+                    alert("Il y a déjà un compte lié à ce courriel.");
+                }
+            });
+        }
+    };
     return LoginFormComponent;
 }());
 LoginFormComponent = __decorate([
@@ -45,7 +58,8 @@ LoginFormComponent = __decorate([
         templateUrl: './loginform.component.html',
         styleUrls: ['./loginform.component.css']
     }),
-    __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService, router_1.Router, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService, router_1.Router,
+        router_1.ActivatedRoute])
 ], LoginFormComponent);
 exports.LoginFormComponent = LoginFormComponent;
 //# sourceMappingURL=loginform.component.js.map

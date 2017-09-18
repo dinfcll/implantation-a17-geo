@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { Utilisateur } from '../../class/utilisateur.class';
-import { UtilisateurService } from '../../services/utilisateur.service';
+import { Utilisateur } from './../../class/utilisateur.class';
+import { UtilisateurService } from './../../services/utilisateur.service';
 
 @Component({
     selector: 'loginForm',
@@ -12,23 +12,16 @@ import { UtilisateurService } from '../../services/utilisateur.service';
     styleUrls: ['./loginform.component.css']
 })
 
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
     private subscription: Subscription;
-
-    brandNew: boolean;
+    binscription:boolean=false;
     errors: string;
     isRequesting: boolean;
     credentials: Utilisateur = { id: -1, email: '', mdp: '' };
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router, private activatedRoute: ActivatedRoute) { }
-    ngOnInit() { 
-        this.subscription = this.activatedRoute.queryParams.subscribe(
-            (param: any) => {
-                this.brandNew = param['brandNew'];
-                this.credentials.email = param['email'];
-            });
-     }
+    constructor(private utilisateurService: UtilisateurService, private router: Router, 
+        private activatedRoute: ActivatedRoute) { }
 
     login( mail: string, mot: string) {
         this.isRequesting = true;
@@ -42,5 +35,25 @@ export class LoginFormComponent implements OnInit {
                     }
                 },
             error => this.errors = error);
+    }
+
+    toggleInscription() {
+        this.binscription=true;
+    }
+
+    inscription(mail:string ,mdp:string, cmdp:string) {
+            if(mdp != cmdp) {
+                alert("Les mots de passe sont différents");
+            }
+            else {
+                this.utilisateurService.signin(mail,mdp).subscribe(res => {
+                    if(res) {
+                        this.router.navigate(['/map']);
+                    }
+                    else {
+                        alert("Il y a déjà un compte lié à ce courriel.")
+                    }
+                });
+            }
     }
 }

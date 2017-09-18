@@ -52,6 +52,16 @@ var UtilisateurService = (function (_super) {
     UtilisateurService.prototype.isLoggedIn = function () {
         return this.loggedIn;
     };
+    UtilisateurService.prototype.signin = function (email, mdp) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/utilisateur/signin', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     return UtilisateurService;
 }(base_service_1.BaseService));
 UtilisateurService = __decorate([

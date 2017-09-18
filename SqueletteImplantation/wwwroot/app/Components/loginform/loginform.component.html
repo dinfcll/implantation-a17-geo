@@ -1,13 +1,21 @@
 <form novalidate>
     <div class="input">
         <label for="email">Courriel</label>
-        <input type="text" #email required name="email" tmFocus validateEmail placeholder="Email">
+        <input type="email" [(ngModel)]="email"  required name="email" tmFocus placeholder="Email">
     </div>
     <div class="input">
         <label  for="mdp">Mot de passe</label>
-        <input type="password" required name="mdp" placeholder="Mdp" #mdp>
+        <input type="password" required name="mdp" placeholder="Mdp" [(ngModel)]="mdp">
+    </div>
+    <div class="input" *ngIf="binscription">
+            <label  for="confirm">Confirmer mot de passe</label>
+            <input [(ngModel)]="confirm"type="password" required name="confirm" placeholder="Confirme Mdp">
     </div>
     <div class="input">
-        <button (click)="login(email.value, mdp.value)">Connexion</button>
+        <button (click)="login(email, mdp)">Connexion</button>
+    </div>
+    <div class="input">
+        <button (click)="toggleInscription()" *ngIf="!binscription">S'inscrire</button>
+        <button type="button" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">Créer compte</button>
     </div>
 </form>
