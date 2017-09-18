@@ -1,6 +1,10 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { tokenNotExpired } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
+
+import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
@@ -13,16 +17,17 @@ declare var google: any;
 
 export class MapComponent implements OnInit {
 
-     name ='Map';
-     private marqueurs: Marqueur[];
-     public map: any;
+    baseUrl: string = '';
+    name ='Map';
+    private marqueurs: Marqueur[];
+    public map: any;
 
-     constructor(private http: Http) {
+    constructor(private http: Http, private authHttp: AuthHttp) {
         this.getMarqueurs();
     }
 
     getMarqueurs(): void {
-        this.http.get("api/marqueurs")
+        this.authHttp.get("api/marqueurs")
                 .subscribe((resdata) => {
                     this.marqueurs = resdata.json() as Marqueur[];
                     this.marqueurs.forEach((mark) => {

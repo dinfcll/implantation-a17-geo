@@ -1,21 +1,30 @@
-<form novalidate>
+
+
+<form #f="NgForm" (ngSubmit)="onLogin(f.email, f.mdp)" *ngIf="!utilisateurService.loggedIn()">
+
     <div class="input">
         <label for="email">Courriel</label>
-        <input type="email" [(ngModel)]="email"  required name="email" tmFocus placeholder="Email">
+        <input type="email" tmFocus required ngControl="email" [(ngModel)]="email" placeholder="Email">
     </div>
+
     <div class="input">
         <label  for="mdp">Mot de passe</label>
-        <input type="password" required name="mdp" placeholder="Mdp" [(ngModel)]="mdp">
+        <input type="password" required ngControl="mdp" [(ngModel)]="mdp" placeholder="Mdp">
     </div>
+
     <div class="input" *ngIf="binscription">
             <label  for="confirm">Confirmer mot de passe</label>
-            <input [(ngModel)]="confirm"type="password" required name="confirm" placeholder="Confirme Mdp">
+            <input type="password" required ngControl="mdp" [(ngModel)]="confirm" placeholder="Confirmer Mdp">
     </div>
+
     <div class="input">
-        <button (click)="login(email, mdp)">Connexion</button>
+        <button type="submit">Connexion</button>
     </div>
+
     <div class="input">
         <button (click)="toggleInscription()" *ngIf="!binscription">S'inscrire</button>
-        <button type="button" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">Créer compte</button>
+        <button type="button" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">
+            Créer compte</button>
     </div>
+    
 </form>
