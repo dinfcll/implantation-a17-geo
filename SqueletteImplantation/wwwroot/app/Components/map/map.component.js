@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var marqueur_class_1 = require("../../class/marqueur.class");
 var MapComponent = (function () {
     function MapComponent(http) {
         this.http = http;
@@ -62,10 +63,8 @@ var MapComponent = (function () {
     MapComponent.prototype.ConfirmationMarker = function () {
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new google.maps.Marker({
-            position: { lat: lat, lng: lng },
-            map: this.map
-        });
+        var marker = new marqueur_class_1.Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando);
+        this.AjoutMarker(marker);
         //manque ajout à la base de donnée
         this.Latitude = 0;
         this.Longitude = 0;

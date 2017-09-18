@@ -9,7 +9,13 @@ h1 {
   height: 75vh;
   padding:10px;
   background-color: grey;
-} 
+}
+
+.nouveauMarqueur{
+  background-color: white;
+  margin: auto;
+  width: 50%;
+}
 body { 
   background: url(./../images/back-forest.svg) no-repeat center center fixed; 
   -webkit-background-size: cover;

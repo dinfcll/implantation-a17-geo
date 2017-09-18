@@ -18,8 +18,8 @@ export class MapComponent implements OnInit {
      public map:any;
      public btnAjout:String;
      public AcceptMarker:boolean;
-     public TitreRando:String;
-     public DescriptionRando:String;
+     public TitreRando:string;
+     public DescriptionRando:string;
      public Longitude:number;
      public Latitude:number;
 
@@ -83,10 +83,8 @@ export class MapComponent implements OnInit {
     ConfirmationMarker(){
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new google.maps.Marker({
-            position: {lat, lng},
-            map: this.map
-        });
+        var marker = new Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando); 
+        this.AjoutMarker(marker);
         //manque ajout à la base de donnée
         this.Latitude = 0;
         this.Longitude = 0;
