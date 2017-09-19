@@ -7,6 +7,7 @@ import { HttpModule }                  from '@angular/http';
 import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
+import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
 
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
@@ -16,7 +17,8 @@ import { UtilisateurService }          from './services/utilisateur.service';
   declarations: [ 
     AppComponent,
     LoginFormComponent, 
-    MapComponent 
+    MapComponent,
+    ProfilUtilisateurComponent 
   ],
   imports: [ 
     CommonModule,

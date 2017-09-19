@@ -23,7 +23,6 @@ var LoginFormComponent = (function () {
         this.utilisateurService
             .login(email, mdp)
             .subscribe(function (res) {
-            console.log(res);
             if (res) {
                 localStorage.setItem('id_token', res.email),
                     _this.router.navigate(['/map']);

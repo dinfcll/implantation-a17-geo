@@ -9,10 +9,12 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var map_component_1 = require("./Components/map/map.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
+var profil_utilisateur_component_1 = require("./Components/profil-utilisateur/profil-utilisateur.component");
 exports.routing = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: loginform_component_1.LoginFormComponent },
     { path: 'map', component: map_component_1.MapComponent },
+    { path: 'profil', component: profil_utilisateur_component_1.ProfilUtilisateurComponent }
 ];
 var AppRouting = (function () {
     function AppRouting() {
