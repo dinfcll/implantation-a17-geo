@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
 
@@ -7,6 +7,15 @@ import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
     templateUrl: './profil-utilisateur.component.html'
 })
 
-export class ProfilUtilisateurComponent {
+export class ProfilUtilisateurComponent implements OnInit{
+    
+    profil: ProfilUtilisateur;    
+    email: string; 
+
+    ngOnInit(): void {
+        this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
+        this.email= localStorage.getItem('id_token');
+    }
+      
 
 }

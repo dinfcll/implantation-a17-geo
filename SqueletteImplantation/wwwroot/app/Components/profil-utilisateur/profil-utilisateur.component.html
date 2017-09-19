@@ -1,7 +1,14 @@
-<h1>Profil</h1>
-Nom d'utilisateur : chose<br>
-Courriel : chose@chose.ch<br>
-Prénom : Pascal<br>
-Nom : Audet<br>
-<button>Éditer mon profil</button>
+<div *ngIf="profil">
+    profil existe
+    <div *ngIf="email">
+        token existe
+        <h1>Profil</h1>
+        Nom d'utilisateur : {{profil.username}}<br>
+        Courriel : {{profil.courriel}} ++ {{email}}<br>
+        Prénom : {{profil.prenom}}<br>
+        Nom : {{profil.nom}}<br>
+        <button>Éditer mon profil</button>
+    </div>    
+</div>
+
 
