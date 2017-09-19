@@ -39,7 +39,12 @@ var UtilisateurService = (function (_super) {
             .catch(this.handleError);
     };
     UtilisateurService.prototype.loggedIn = function () {
-        return angular2_jwt_1.tokenNotExpired;
+        var jwtHelper = new angular2_jwt_1.JwtHelper();
+        var token = localStorage.getItem('token');
+        if (token != null)
+            return jwtHelper.isTokenExpired(token);
+        else
+            return false;
     };
     UtilisateurService.prototype.logout = function () {
         localStorage.removeItem('id_token');

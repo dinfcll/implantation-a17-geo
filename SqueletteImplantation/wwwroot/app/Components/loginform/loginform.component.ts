@@ -26,7 +26,7 @@ export class LoginFormComponent {
         .login(email, mdp)
         .subscribe( res => {          
             if(res){
-                localStorage.setItem('id_token', res.email),
+                localStorage.setItem('token', res.email),
                 this.router.navigate(['/map']); 
             } else
                 alert("Courriel ou mot de passe invalide");

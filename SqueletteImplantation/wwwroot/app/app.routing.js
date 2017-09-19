@@ -7,12 +7,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var auth_guard_1 = require("./auth.guard");
 var map_component_1 = require("./Components/map/map.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 exports.routing = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: loginform_component_1.LoginFormComponent },
-    { path: 'map', component: map_component_1.MapComponent },
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: loginform_component_1.LoginFormComponent
+    },
+    {
+        path: 'map',
+        component: map_component_1.MapComponent,
+        canActivate: [auth_guard_1.AuthGuard]
+    },
+    {
+        path: '**',
+        redirectTo: ''
+    }
 ];
 var AppRouting = (function () {
     function AppRouting() {
