@@ -19,10 +19,9 @@ var MapComponent = (function () {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
-        this.Longitude = 0;
-        this.Latitude = 0;
-        this.TitreRando = "";
-        this.DescriptionRando = "";
+        this.banqueimage = ['../../../images/ici_icone.svg',
+            '../../../images/officiel_icone.svg',
+            '../../../images/user_icon.svg'];
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
@@ -46,7 +45,8 @@ var MapComponent = (function () {
     MapComponent.prototype.AjoutMarker = function (info) {
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
-            map: this.map
+            map: this.map,
+            icon: this.banqueimage[1]
         });
         var infoWindow = new google.maps.InfoWindow({
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "

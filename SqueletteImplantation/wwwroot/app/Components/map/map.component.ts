@@ -24,16 +24,15 @@ export class MapComponent implements OnInit {
      public Longitude:number;
      public Latitude:number;
      public baseUrl: string = '';
-
+     public banqueimage: Array<string>;
 
     constructor(private http: Http) {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
-        this.Longitude = 0;
-        this.Latitude = 0;
-        this.TitreRando = "";
-        this.DescriptionRando = "";
+        this.banqueimage = ['../../../images/ici_icone.svg',
+                            '../../../images/officiel_icone.svg',
+                            '../../../images/user_icon.svg'];
     }
 
     PermissionAjoutMarker():void{
@@ -58,7 +57,8 @@ export class MapComponent implements OnInit {
     AjoutMarker (info: Marqueur) {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
-            map: this.map
+            map: this.map,
+            icon: this.banqueimage[1]
         });
 
         var infoWindow = new google.maps.InfoWindow ({
