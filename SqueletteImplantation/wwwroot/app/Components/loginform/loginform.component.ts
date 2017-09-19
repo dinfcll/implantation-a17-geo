@@ -21,7 +21,7 @@ export class LoginFormComponent {
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
         private activatedRoute: ActivatedRoute,) { }
 
-    onLogin(email: string, mdp: string) {
+    onLogin(email: string, mdp: string) { 
         this.utilisateurService
         .login(email, mdp)
         .subscribe( res => {          

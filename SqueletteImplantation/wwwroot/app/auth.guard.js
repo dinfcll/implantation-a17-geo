@@ -17,12 +17,14 @@ var AuthGuard = (function () {
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
-        if (!this.utilisateurService.loggedIn()) {
-            this.router.navigate(['login']);
+        if (this.utilisateurService.loggedIn() == null) {
+            this.router.navigate(['']);
             return false;
         }
-        else
+        else {
+            console.log(localStorage.getItem('token'));
             return true;
+        }
     };
     return AuthGuard;
 }());

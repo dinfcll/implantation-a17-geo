@@ -5,7 +5,6 @@ import { BaseService } from './base.service';
 import { Utilisateur } from '../class/utilisateur.class';
 import { ConfigService } from '../Components/utils/config.service';
 
-import { JwtHelper } from 'angular2-jwt';
 import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
@@ -34,19 +33,14 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);           
     }
 
-    loggedIn(): boolean {
-        let jwtHelper = new JwtHelper();
-        var token = localStorage.getItem('token');        
-        if(token != null)
-            return jwtHelper.isTokenExpired(token);
-        else
-            return false;       
+    loggedIn() {    
+        return localStorage.getItem('token');      
     }
 
     logout() {
         localStorage.removeItem('token');
     }
-
+ 
     signin(email: string, mdp: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
