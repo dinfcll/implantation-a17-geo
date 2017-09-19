@@ -13,11 +13,11 @@ export const routing: Routes = [
         pathMatch: 'full' 
     }, 
     { 
-        path: 'login', 
+        path: '/login', 
         component: LoginFormComponent 
     },
     { 
-        path: 'map', 
+        path: '/map', 
         component: MapComponent,
         canActivate: [AuthGuard]
     },
