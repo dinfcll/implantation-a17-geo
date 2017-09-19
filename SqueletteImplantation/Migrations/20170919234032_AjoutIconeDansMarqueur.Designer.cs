@@ -8,8 +8,8 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    [Migration("20170919225732_IconeMarqueur")]
-    partial class IconeMarqueur
+    [Migration("20170919234032_AjoutIconeDansMarqueur")]
+    partial class AjoutIconeDansMarqueur
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,8 @@ namespace squeletteimplantation.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Desc");
+
+                    b.Property<int>("Icone");
 
                     b.Property<decimal>("Latitude");
 

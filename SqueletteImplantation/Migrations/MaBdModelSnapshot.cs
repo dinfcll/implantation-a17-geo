@@ -38,6 +38,8 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("Desc");
 
+                    b.Property<int>("Icone");
+
                     b.Property<decimal>("Latitude");
 
                     b.Property<decimal>("Longitude");
