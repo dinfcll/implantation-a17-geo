@@ -5,15 +5,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var profilutilisateur_class_1 = require("./../../class/profilutilisateur.class");
-var utilisateur_class_1 = require("./../../class/utilisateur.class");
 var ProfilUtilisateurComponent = (function () {
     function ProfilUtilisateurComponent() {
     }
     ProfilUtilisateurComponent.prototype.ngOnInit = function () {
         this.profil = new profilutilisateur_class_1.ProfilUtilisateur(1, "a@a.a", "Arthur99", "Arthur", "Audet");
-        this.util = new utilisateur_class_1.Utilisateur(1, "a@a.a", "aA1");
         this.email = localStorage.getItem('id_token');
     };
     return ProfilUtilisateurComponent;
