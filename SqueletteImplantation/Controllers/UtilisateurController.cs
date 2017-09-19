@@ -12,6 +12,7 @@ namespace SqueletteImplantation.Controllers
 {
     public class UtilisateurController : Controller
     {
+        EmailSender emailSender = new EmailSender();
         private readonly MaBd _maBd;
 
         public UtilisateurController(MaBd maBd)
@@ -34,6 +35,14 @@ namespace SqueletteImplantation.Controllers
             {
                 _maBd.Utilisateur.Add(user.CreateUtilisateur());
                 _maBd.SaveChanges();
+                emailSender.setDestination("antoine.emond@hotmail.com");
+                emailSender.setSender("ramble.cll@gmail.com","Antoine");
+                emailSender.SetMessage("hello whale cum");
+                emailSender.setSubject("whale cum");
+                emailSender.sendMessage("smtp.gmail.com");
+          
+
+
                 return true;
             }
             else
