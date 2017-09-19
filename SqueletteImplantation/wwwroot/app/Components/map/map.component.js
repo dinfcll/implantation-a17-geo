@@ -66,6 +66,10 @@ var MapComponent = (function () {
         var marker = new marqueur_class_1.Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando);
         this.AjoutMarker(marker);
         //manque ajout à la base de donnée
+        this.http.post("api/marqueurs", marker)
+            .subscribe(function (res) {
+            console.log(res.json());
+        });
         this.Latitude = 0;
         this.Longitude = 0;
         this.TitreRando = "";

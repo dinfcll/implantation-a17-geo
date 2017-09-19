@@ -86,6 +86,11 @@ export class MapComponent implements OnInit {
         var marker = new Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando); 
         this.AjoutMarker(marker);
         //manque ajout à la base de donnée
+        this.http.post("api/marqueurs", marker)
+            .subscribe((res) => {
+                console.log(res.json());
+            });
+
         this.Latitude = 0;
         this.Longitude = 0;
         this.TitreRando = "";
