@@ -17,36 +17,35 @@ var LoginFormComponent = (function () {
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.binscription = false;
-        this.credentials = { id: -1, email: '', mdp: '' };
     }
-    LoginFormComponent.prototype.login = function (mail, mot) {
+    LoginFormComponent.prototype.onLogin = function (email, mdp) {
         var _this = this;
-        this.isRequesting = true;
-        this.errors = '';
-        this.utilisateurService.login(mail, mot)
-            .finally(function () { return _this.isRequesting = false; })
-            .subscribe(function (result) {
-            if (result) {
-                _this.router.navigate(['/map']);
+        this.utilisateurService
+            .login(email, mdp)
+            .subscribe(function (res) {
+            if (res) {
+                localStorage.setItem('id_token', res.email),
+                    _this.router.navigate(['/map']);
             }
-        }, function (error) { return _this.errors = error; });
+            else
+                alert("Courriel ou mot de passe invalide");
+        });
     };
     LoginFormComponent.prototype.toggleInscription = function () {
         this.binscription = true;
     };
     LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
         var _this = this;
-        if (mdp != cmdp) {
+        if (mdp != cmdp)
             alert("Les mots de passe sont différents");
-        }
         else {
-            this.utilisateurService.signin(mail, mdp).subscribe(function (res) {
-                if (res) {
+            this.utilisateurService
+                .signin(mail, mdp)
+                .subscribe(function (res) {
+                if (res)
                     _this.router.navigate(['/map']);
-                }
-                else {
+                else
                     alert("Il y a déjà un compte lié à ce courriel.");
-                }
             });
         }
     };

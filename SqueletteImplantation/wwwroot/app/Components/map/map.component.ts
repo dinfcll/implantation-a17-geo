@@ -1,6 +1,7 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
@@ -22,9 +23,10 @@ export class MapComponent implements OnInit {
      public DescriptionRando:string;
      public Longitude:number;
      public Latitude:number;
+     public baseUrl: string = '';
 
 
-     constructor(private http: Http) {
+    constructor(private http: Http) {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;

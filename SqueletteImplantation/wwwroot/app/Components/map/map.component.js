@@ -15,6 +15,7 @@ var MapComponent = (function () {
     function MapComponent(http) {
         this.http = http;
         this.name = 'Map';
+        this.baseUrl = '';
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
@@ -65,7 +66,6 @@ var MapComponent = (function () {
         var lng = this.Longitude;
         var marker = new marqueur_class_1.Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando);
         this.AjoutMarker(marker);
-        //manque ajout à la base de donnée
         this.http.post("api/marqueurs", marker)
             .subscribe(function (res) {
             console.log(res.json());
