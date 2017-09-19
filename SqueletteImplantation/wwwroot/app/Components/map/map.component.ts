@@ -85,7 +85,8 @@ export class MapComponent implements OnInit {
         var lng = this.Longitude;
         var marker = new Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando); 
         this.AjoutMarker(marker);
-        //manque ajout à la base de donnée
+        
+        
         this.http.post("api/marqueurs", marker)
             .subscribe((res) => {
                 console.log(res.json());
