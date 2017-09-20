@@ -18,13 +18,28 @@ namespace SqueletteImplantation.Controllers
         {
             _maBd = maBd;
         }
-        /*//je ne sais pas si ça marche
+        
         [HttpGet]
         [Route("api/profil")]
         public IEnumerable Index()
         {
             return _maBd.Profil.ToList();
         }
+
+        [HttpGet]
+        [Route("api/profil/{email}")]
+        public IActionResult GetProfil(string email)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(m => m.courriel == email);
+
+            if (profil == null)
+            {
+                return NotFound();
+            }
+
+            return new OkObjectResult(profil);
+        }
+        /*//je ne sais pas si ça marche
 
         [HttpPost]
         [Route("api/profil/create")]
