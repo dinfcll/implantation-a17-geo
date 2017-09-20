@@ -17,7 +17,6 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var base_service_1 = require("./base.service");
 var config_service_1 = require("../Components/utils/config.service");
-var angular2_jwt_1 = require("angular2-jwt");
 var UtilisateurService = (function (_super) {
     __extends(UtilisateurService, _super);
     function UtilisateurService(http, configService) {
@@ -39,10 +38,10 @@ var UtilisateurService = (function (_super) {
             .catch(this.handleError);
     };
     UtilisateurService.prototype.loggedIn = function () {
-        return angular2_jwt_1.tokenNotExpired;
+        return localStorage.getItem('token');
     };
     UtilisateurService.prototype.logout = function () {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('token');
     };
     UtilisateurService.prototype.signin = function (email, mdp) {
         var headers = new http_1.Headers();
