@@ -38,37 +38,6 @@ namespace SqueletteImplantation.Controllers
             }
 
             return new OkObjectResult(profil);
-        }
-        /*//je ne sais pas si ça marche
-
-        [HttpPost]
-        [Route("api/profil/create")]
-        public bool CreateProfil([FromBody] ProfilDto profil)
-        {
-            if(_maBd.Profil.SingleOrDefault(p => profil.Courriel == p.courriel) == null)
-            {
-                _maBd.Profil.Add(profil.CreateProfil());
-                _maBd.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }  
-        }
-        */
-        //[HttpPost]
-        //[Route("api/utilisateur/login")]
-        //public IActionResult Post([FromBody]UtilisateurDto user)
-        //{
-        //    var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email && m.mdp == user.Mdp);
-
-        //    if (identity == null)
-        //    {
-        //        return new ObjectResult(null);
-        //    }
-
-        //    return new ObjectResult(user);
-        //}
+        }        
     }
 }

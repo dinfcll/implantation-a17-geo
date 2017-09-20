@@ -42,25 +42,12 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<decimal>("Longitude");
 
-                    b.Property<string>("Nom");
-
-                    b.ToTable("Marqueur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Utilisateur", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("email")
-                        .IsRequired();
-
-                    b.Property<string>("mdp")
+                    b.Property<string>("Nom")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("Utilisateur");
+                    b.ToTable("Marqueur");
                 });
         }
     }
