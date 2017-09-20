@@ -35,11 +35,11 @@ namespace SqueletteImplantation.Controllers
             {
                 _maBd.Utilisateur.Add(user.CreateUtilisateur());
                 _maBd.SaveChanges();
-                emailSender.setDestination("antoine.emond@hotmail.com");
-                emailSender.setSender("ramble.cll@gmail.com","Antoine");
-                emailSender.SetMessage("hello whale cum");
-                emailSender.setSubject("whale cum");
-                emailSender.sendMessage("smtp.gmail.com");
+                emailSender.setDestination(user.Email);
+                emailSender.setSender("ramble.cll@gmail.com","Welcome");
+                emailSender.SetMessage("Bienvenue sur Ramble !");
+                emailSender.setSubject("Bienvenue");
+                emailSender.sendMessage();
           
 
 
@@ -53,18 +53,13 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/utilisateur/login")]
-        public IActionResult Post([FromBody]Utilisateur user)
+        public IActionResult Post([FromBody]UtilisateurDto user)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.email && m.mdp == user.mdp);
+            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email && m.mdp == user.Mdp);
 
             if (identity == null)
             {
-                return BadRequest(ModelState);
+                return new ObjectResult(null);
             }
 
             return new ObjectResult(user);

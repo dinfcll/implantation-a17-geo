@@ -34,7 +34,7 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            app_routing_1.AppRouting
+            app_routing_1.AppRouting,
         ],
         providers: [
             config_service_1.ConfigService,

@@ -13,7 +13,7 @@ var loginform_component_1 = require("./Components/loginform/loginform.component"
 exports.routing = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: loginform_component_1.LoginFormComponent },
-    { path: 'map', component: map_component_1.MapComponent }
+    { path: 'map', component: map_component_1.MapComponent },
 ];
 var AppRouting = (function () {
     function AppRouting() {

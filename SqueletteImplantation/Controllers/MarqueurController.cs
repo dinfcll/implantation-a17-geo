@@ -27,7 +27,7 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/marqueurs")]
-        public IActionResult CreateMarqueur(Marqueur marqueur)
+        public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();

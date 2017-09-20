@@ -23,7 +23,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRouting
+    AppRouting,
   ],
   providers: [
     ConfigService,

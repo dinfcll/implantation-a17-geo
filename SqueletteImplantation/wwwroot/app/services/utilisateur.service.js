@@ -21,9 +21,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var config_service_1 = require("../Components/utils/config.service");
 var base_service_1 = require("./base.service");
-var Rx_1 = require("rxjs/Rx");
+var config_service_1 = require("../Components/utils/config.service");
+var angular2_jwt_1 = require("angular2-jwt");
 var UtilisateurService = (function (_super) {
     __extends(UtilisateurService, _super);
     function UtilisateurService(http, configService) {
@@ -31,32 +31,24 @@ var UtilisateurService = (function (_super) {
         _this.http = http;
         _this.configService = configService;
         _this.baseUrl = '';
-        _this._authNavStatusSource = new Rx_1.BehaviorSubject(false);
-        _this.authNavStatus$ = _this._authNavStatusSource.asObservable();
-        _this.loggedIn = false;
         _this.baseUrl = configService.getApiURI();
         return _this;
     }
     UtilisateurService.prototype.login = function (email, mdp) {
-        var _this = this;
         var headers = new http_1.Headers();
         headers.append('Content-type', 'application/json');
         return this.http
             .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
-            .map(function (res) { return res.json(); })
             .map(function (res) {
-            _this.loggedIn = true;
-            _this._authNavStatusSource.next(true);
-            return true;
+            return res.json();
         })
             .catch(this.handleError);
     };
-    UtilisateurService.prototype.logout = function () {
-        this.loggedIn = false;
-        this._authNavStatusSource.next(false);
+    UtilisateurService.prototype.loggedIn = function () {
+        return angular2_jwt_1.tokenNotExpired;
     };
-    UtilisateurService.prototype.isLoggedIn = function () {
-        return this.loggedIn;
+    UtilisateurService.prototype.logout = function () {
+        localStorage.removeItem('id_token');
     };
     UtilisateurService.prototype.signin = function (email, mdp) {
         var headers = new http_1.Headers();

@@ -1,6 +1,7 @@
 import { Component, Input ,OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
@@ -14,11 +15,33 @@ declare var google: any;
 export class MapComponent implements OnInit {
 
      name ='Map';
-     private marqueurs: Marqueur[];
-     public map: any;
+     private marqueurs:Marqueur[];
+     public map:any;
+     public btnAjout:String;
+     public AcceptMarker:boolean;
+     public TitreRando:string;
+     public DescriptionRando:string;
+     public Longitude:number;
+     public Latitude:number;
+     public baseUrl: string = '';
+     public banqueimage: Array<string>;
 
-     constructor(private http: Http) {
+    constructor(private http: Http) {
         this.getMarqueurs();
+        this.btnAjout = "Ajout marqueur";
+        this.AcceptMarker = false;
+        this.banqueimage = ['../../../images/ici_icone.svg',
+                            '../../../images/officiel_icone.svg',
+                            '../../../images/user_icon.svg'];
+    }
+
+    PermissionAjoutMarker():void{
+        this.AcceptMarker = !this.AcceptMarker;
+        if(this.btnAjout === "Ajout marqueur"){
+            this.btnAjout = "Annuler";
+        } else {
+            this.btnAjout = "Ajout marqueur";
+        }
     }
 
     getMarqueurs(): void {
@@ -34,7 +57,8 @@ export class MapComponent implements OnInit {
     AjoutMarker (info: Marqueur) {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
-            map: this.map
+            map: this.map,
+            icon: this.banqueimage[1]
         });
 
         var infoWindow = new google.maps.InfoWindow ({
@@ -49,7 +73,34 @@ export class MapComponent implements OnInit {
         marker.addListener('click', function() {
             infoWindow.open(this.map, marker);
         });
-    }   
+        }
+        
+    CreationMaker(Gdonne:any){
+        if(this.AcceptMarker){
+            this.Latitude = Gdonne.latLng.lat();
+            this.Longitude = Gdonne.latLng.lng();
+        }
+    }
+    
+    ConfirmationMarker(){
+        var lat = this.Latitude;
+        var lng = this.Longitude;
+        var marker = new Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando); 
+        this.AjoutMarker(marker);
+        
+        
+        this.http.post("api/marqueurs", marker)
+            .subscribe((res) => {
+                console.log(res.json());
+            });
+
+        this.Latitude = 0;
+        this.Longitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
+        this.PermissionAjoutMarker();
+    }
+
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 
@@ -89,8 +140,12 @@ export class MapComponent implements OnInit {
             {
                 infoWindow.setContent('Erreur : La géolocalisation à échouée' );    
             } else {
-                infoWindow.setContent('Erreur : Vontre navigateur ne supporte pas la géolocalisation.');
+                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
             }           
         }
+
+        this.map.addListener('click', (e:any):void => {
+            this.CreationMaker(e); 
+        });
     }         
 }

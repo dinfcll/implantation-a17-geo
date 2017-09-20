@@ -11,12 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var marqueur_class_1 = require("../../class/marqueur.class");
 var MapComponent = (function () {
     function MapComponent(http) {
         this.http = http;
         this.name = 'Map';
+        this.baseUrl = '';
         this.getMarqueurs();
+        this.btnAjout = "Ajout marqueur";
+        this.AcceptMarker = false;
+        this.banqueimage = ['../../../images/ici_icone.svg',
+            '../../../images/officiel_icone.svg',
+            '../../../images/user_icon.svg'];
     }
+    MapComponent.prototype.PermissionAjoutMarker = function () {
+        this.AcceptMarker = !this.AcceptMarker;
+        if (this.btnAjout === "Ajout marqueur") {
+            this.btnAjout = "Annuler";
+        }
+        else {
+            this.btnAjout = "Ajout marqueur";
+        }
+    };
     MapComponent.prototype.getMarqueurs = function () {
         var _this = this;
         this.http.get("api/marqueurs")
@@ -30,7 +46,8 @@ var MapComponent = (function () {
     MapComponent.prototype.AjoutMarker = function (info) {
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
-            map: this.map
+            map: this.map,
+            icon: this.banqueimage[1]
         });
         var infoWindow = new google.maps.InfoWindow({
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
@@ -38,6 +55,27 @@ var MapComponent = (function () {
         marker.addListener('click', function () {
             infoWindow.open(this.map, marker);
         });
+    };
+    MapComponent.prototype.CreationMaker = function (Gdonne) {
+        if (this.AcceptMarker) {
+            this.Latitude = Gdonne.latLng.lat();
+            this.Longitude = Gdonne.latLng.lng();
+        }
+    };
+    MapComponent.prototype.ConfirmationMarker = function () {
+        var lat = this.Latitude;
+        var lng = this.Longitude;
+        var marker = new marqueur_class_1.Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando);
+        this.AjoutMarker(marker);
+        this.http.post("api/marqueurs", marker)
+            .subscribe(function (res) {
+            console.log(res.json());
+        });
+        this.Latitude = 0;
+        this.Longitude = 0;
+        this.TitreRando = "";
+        this.DescriptionRando = "";
+        this.PermissionAjoutMarker();
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -74,9 +112,12 @@ var MapComponent = (function () {
                 infoWindow.setContent('Erreur : La géolocalisation à échouée');
             }
             else {
-                infoWindow.setContent('Erreur : Vontre navigateur ne supporte pas la géolocalisation.');
+                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
             }
         }
+        this.map.addListener('click', function (e) {
+            _this.CreationMaker(e);
+        });
     };
     return MapComponent;
 }());
