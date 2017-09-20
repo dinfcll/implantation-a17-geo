@@ -42,8 +42,10 @@ var LoginFormComponent = (function () {
             this.utilisateurService
                 .signin(mail, mdp)
                 .subscribe(function (res) {
-                if (res)
+                if (res) {
+                    localStorage.setItem('token', mail);
                     _this.router.navigate(['/map']);
+                }
                 else
                     alert("Il y a déjà un compte lié à ce courriel.");
             });

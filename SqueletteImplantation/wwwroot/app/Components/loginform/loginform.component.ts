@@ -40,13 +40,14 @@ export class LoginFormComponent {
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");
-        else {
+        else {            
             this.utilisateurService
                 .signin(mail, mdp)
                 .subscribe(res => {
-                    if(res) 
+                    if(res) {
+                        localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
-                    else 
+                    } else 
                         alert("Il y a déjà un compte lié à ce courriel.")
             });
         }}

@@ -28,20 +28,23 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/utilisateur/signin")]
-        public bool CreateUtilisateur([FromBody] UtilisateurDto user)
+        public IActionResult CreateUser([FromBody] UtilisateurDto user)
         {
-            if(_maBd.Utilisateur.SingleOrDefault(u => user.Email == u.email) == null)
+            var identity = _maBd.Utilisateur.SingleOrDefault(u => u.email == user.Email);
+            
+            if(identity == null)
             {
                 _maBd.Utilisateur.Add(user.CreateUtilisateur());
                 _maBd.SaveChanges();
-                return true;
             }
             else
             {
-                return false;
-            }  
-        }
+                return new ObjectResult(null);
+            } 
 
+            return new OkObjectResult(user);
+        }
+        
         [HttpPost]
         [Route("api/utilisateur/login")]
         public IActionResult Post([FromBody]UtilisateurDto user)
