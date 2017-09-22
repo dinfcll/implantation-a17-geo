@@ -8,18 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var utilisateur_service_1 = require("./services/utilisateur.service");
 var AuthGuard = (function () {
-    function AuthGuard(utilisateur, router) {
-        this.utilisateur = utilisateur;
+    function AuthGuard(utilisateurService, router) {
+        this.utilisateurService = utilisateurService;
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
-        if (!this.utilisateur.loggedIn()) {
-            this.router.navigate(['/login']);
+        if (this.utilisateurService.loggedIn() == null) {
+            this.router.navigate(['']);
             return false;
         }
         else {

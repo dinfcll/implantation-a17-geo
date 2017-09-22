@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var utilisateur_service_1 = require("./../../services/utilisateur.service");
@@ -25,7 +24,7 @@ var LoginFormComponent = (function () {
             .login(email, mdp)
             .subscribe(function (res) {
             if (res) {
-                localStorage.setItem('id_token', res.email),
+                localStorage.setItem('token', res.email),
                     _this.router.navigate(['/map']);
             }
             else
@@ -43,8 +42,10 @@ var LoginFormComponent = (function () {
             this.utilisateurService
                 .signin(mail, mdp)
                 .subscribe(function (res) {
-                if (res)
+                if (res) {
+                    localStorage.setItem('token', mail);
                     _this.router.navigate(['/map']);
+                }
                 else
                     alert("Il y a déjà un compte lié à ce courriel.");
             });

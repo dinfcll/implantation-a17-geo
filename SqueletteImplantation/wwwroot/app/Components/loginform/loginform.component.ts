@@ -19,18 +19,20 @@ export class LoginFormComponent {
     utilisateur: Utilisateur;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
+
         private activatedRoute: ActivatedRoute,) { }
 
-    onLogin(email: string, mdp: string) {
+    onLogin(email: string, mdp: string) { 
         this.utilisateurService
         .login(email, mdp)
         .subscribe( res => {          
             if(res){
-                localStorage.setItem('id_token', res.email),
+                localStorage.setItem('token', res.email),
                 this.router.navigate(['/map']); 
             } else
                 alert("Courriel ou mot de passe invalide");
         });
+
     }
 
     toggleInscription() {
@@ -40,13 +42,14 @@ export class LoginFormComponent {
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");
-        else {
+        else {            
             this.utilisateurService
                 .signin(mail, mdp)
                 .subscribe(res => {
-                    if(res) 
+                    if(res) {
+                        localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
-                    else 
+                    } else 
                         alert("Il y a déjà un compte lié à ce courriel.")
             });
         }}

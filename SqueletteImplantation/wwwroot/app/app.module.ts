@@ -9,6 +9,7 @@ import { LoginFormComponent }          from './Components/loginform/loginform.co
 import { MapComponent }                from './Components/map/map.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
 
+import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
@@ -28,6 +29,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     AppRouting,
   ],
   providers: [
+    AuthGuard,
     ConfigService,
     UtilisateurService
   ],

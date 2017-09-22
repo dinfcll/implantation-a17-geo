@@ -1,5 +1,5 @@
 
-<form novalidate>
+<form>
 
     <div class="input">
         <label for="email">Courriel</label>
@@ -22,7 +22,7 @@
 
     <div class="input">
         <button (click)="toggleInscription()" *ngIf="!binscription">S'inscrire</button>
-        <button type="button" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">
+        <button type="submit" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">
             Créer compte</button>
     </div>
     

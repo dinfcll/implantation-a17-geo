@@ -8,10 +8,28 @@ import { LoginFormComponent } from './Components/loginform/loginform.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
 
 export const routing: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-    { path: 'login', component: LoginFormComponent },
-    { path: 'map', component: MapComponent },
-    { path: 'profil', component: ProfilUtilisateurComponent }
+    { 
+        path: '', 
+        redirectTo: '/login', 
+        pathMatch: 'full' 
+    }, 
+    { 
+        path: 'login', 
+        component: LoginFormComponent 
+    },
+    { 
+        path: 'map', 
+        component: MapComponent,
+        canActivate: [AuthGuard]
+    },
+    { 
+        path: '**', 
+        redirectTo: '' 
+    },
+    {   
+        path: 'profil',
+        component: ProfilUtilisateurComponent
+    }
 ];
 
 @NgModule({

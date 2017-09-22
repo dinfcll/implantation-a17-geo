@@ -5,7 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -15,6 +14,7 @@ var app_component_1 = require("./app.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var map_component_1 = require("./Components/map/map.component");
 var profil_utilisateur_component_1 = require("./Components/profil-utilisateur/profil-utilisateur.component");
+var auth_guard_1 = require("./auth.guard");
 var app_routing_1 = require("./app.routing");
 var config_service_1 = require("./Components/utils/config.service");
 var utilisateur_service_1 = require("./services/utilisateur.service");
@@ -39,6 +39,7 @@ AppModule = __decorate([
             app_routing_1.AppRouting,
         ],
         providers: [
+            auth_guard_1.AuthGuard,
             config_service_1.ConfigService,
             utilisateur_service_1.UtilisateurService
         ],
