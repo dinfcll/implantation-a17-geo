@@ -14,6 +14,7 @@
             <label for="desc" style="vertical-align: top">Description:</label>
             <textarea rows="4" cols="50" id="desc" style="resize:none"  [(ngModel)]="DescriptionRando"></textarea><br>
             <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">Confirmer</button>
+
         </span>
         <button (click)="PermissionAjoutMarker()">{{btnAjout}}</button>
     </div>

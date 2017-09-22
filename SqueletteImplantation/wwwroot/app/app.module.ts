@@ -8,6 +8,7 @@ import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 
+import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
@@ -26,6 +27,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     AppRouting,
   ],
   providers: [
+    AuthGuard,
     ConfigService,
     UtilisateurService
   ],

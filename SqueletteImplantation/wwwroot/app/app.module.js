@@ -13,6 +13,7 @@ var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var map_component_1 = require("./Components/map/map.component");
+var auth_guard_1 = require("./auth.guard");
 var app_routing_1 = require("./app.routing");
 var config_service_1 = require("./Components/utils/config.service");
 var utilisateur_service_1 = require("./services/utilisateur.service");
@@ -36,6 +37,7 @@ AppModule = __decorate([
             app_routing_1.AppRouting,
         ],
         providers: [
+            auth_guard_1.AuthGuard,
             config_service_1.ConfigService,
             utilisateur_service_1.UtilisateurService
         ],

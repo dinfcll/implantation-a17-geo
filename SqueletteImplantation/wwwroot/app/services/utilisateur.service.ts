@@ -33,14 +33,14 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);           
     }
 
-    loggedIn() {
-        return tokenNotExpired;        
+    loggedIn() {    
+        return localStorage.getItem('token');      
     }
 
     logout() {
-        localStorage.removeItem('id_token');
+        localStorage.removeItem('token');
     }
-
+ 
     signin(email: string, mdp: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
