@@ -97,20 +97,8 @@ var MapComponent = (function () {
                 });
                 _this.map.setCenter(pos);
             }, function () {
-                handleLocationError(true, this.map.getCenter());
+                alert("Géolocalisation refusé, position par défaut est à Lévis");
             });
-        }
-        else {
-            //le navigateur ne supporte pas la géolocation
-            handleLocationError(false, this.map.getCenter());
-        }
-        function handleLocationError(NavigateurGeo, pos) {
-            if (NavigateurGeo) {
-                alert('Erreur : La géolocalisation à échouée');
-            }
-            else {
-                alert('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
-            }
         }
         this.map.addListener('click', function (e) {
             _this.CreationMaker(e);
