@@ -20,9 +20,11 @@
     <button type="submit">
         <span>
             Reset password
-            <br>
+        </span>
+        <span (click)="onLogin(email,mdp)">
             Sign in
-            <br>
+        </span>
+        <span (click)="inscription(email,mdp,confirm)">
             Sign up
         </span>
     </button>
