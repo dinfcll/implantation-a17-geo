@@ -42,6 +42,7 @@ var MapComponent = (function () {
         });
     };
     MapComponent.prototype.AjoutMarker = function (info) {
+        var _this = this;
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
@@ -51,7 +52,11 @@ var MapComponent = (function () {
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
         });
         marker.addListener('click', function () {
-            infoWindow.open(this.map, marker);
+            infoWindow.open(_this.map, marker);
+            var path = _this.chemin.getPath();
+            path.push(new google.maps.LatLng(info.latitude, info.longitude));
+            path.push(new google.maps.LatLng(41.879, -87.624));
+            _this.chemin.setPath(path);
         });
     };
     MapComponent.prototype.CreationMaker = function (Gdonne) {
@@ -103,6 +108,13 @@ var MapComponent = (function () {
         this.map.addListener('click', function (e) {
             _this.CreationMaker(e);
         });
+        this.chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+        this.chemin.setMap(this.map);
     };
     return MapComponent;
 }());

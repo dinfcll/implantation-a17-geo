@@ -17,12 +17,13 @@ export class MapComponent implements OnInit {
      name ='Map';
      private marqueurs:Marqueur[];
      public map:any;
-     public btnAjout:String;
+     public btnAjout:string;
      public AcceptMarker:boolean;
      public Longitude:number;
      public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
+     public chemin:any;
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -67,10 +68,17 @@ export class MapComponent implements OnInit {
             `
         });
 
-        marker.addListener('click', function() {
+
+        marker.addListener('click', () => {
             infoWindow.open(this.map, marker);
+
+            var path = this.chemin.getPath();
+            path.push(new google.maps.LatLng(info.latitude,info.longitude));
+            path.push(new google.maps.LatLng(41.879, -87.624));
+    
+            this.chemin.setPath(path);
         });
-        }
+    }
         
     CreationMaker(Gdonne:any){
         if(this.AcceptMarker){
@@ -132,5 +140,14 @@ export class MapComponent implements OnInit {
         this.map.addListener('click', (e:any):void => {
             this.CreationMaker(e); 
         });
+
+        this.chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+        this.chemin.setMap(this.map);
+
     }         
 }
