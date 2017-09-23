@@ -19,8 +19,7 @@ export class LoginFormComponent {
     utilisateur: Utilisateur;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
-
-        private activatedRoute: ActivatedRoute,) { }
+        private activatedRoute: ActivatedRoute) { }
 
     onLogin(email: string, mdp: string) { 
         this.utilisateurService

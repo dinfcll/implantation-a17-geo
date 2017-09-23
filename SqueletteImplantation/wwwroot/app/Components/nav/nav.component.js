@@ -9,18 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var NavBar = (function () {
-    function NavBar() {
+var router_1 = require("@angular/router");
+var utilisateur_service_1 = require("../../services/utilisateur.service");
+var NavBarComponent = (function () {
+    function NavBarComponent(utilisateurService, router, activatedRoute) {
+        this.utilisateurService = utilisateurService;
+        this.router = router;
+        this.activatedRoute = activatedRoute;
     }
     ;
-    return NavBar;
+    NavBarComponent.prototype.onLogout = function () {
+        this.utilisateurService.logout();
+        console.log(localStorage.getItem('token'));
+        this.router.navigate(['/login']);
+    };
+    return NavBarComponent;
 }());
-NavBar = __decorate([
+NavBarComponent = __decorate([
     core_1.Component({
         selector: 'navBar',
         templateUrl: './nav.component.html',
+        styleUrls: ['./nav.component.css']
     }),
-    __metadata("design:paramtypes", [])
-], NavBar);
-exports.NavBar = NavBar;
+    __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService, router_1.Router,
+        router_1.ActivatedRoute])
+], NavBarComponent);
+exports.NavBarComponent = NavBarComponent;
 //# sourceMappingURL=nav.component.js.map
