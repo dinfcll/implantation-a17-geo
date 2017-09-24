@@ -34,10 +34,6 @@ export class LoginFormComponent {
 
     }
 
-    toggleInscription() {
-        this.binscription = true;
-    }
-
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");

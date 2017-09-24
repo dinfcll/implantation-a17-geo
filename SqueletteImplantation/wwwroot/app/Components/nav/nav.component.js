@@ -20,7 +20,6 @@ var NavBarComponent = (function () {
     ;
     NavBarComponent.prototype.onLogout = function () {
         this.utilisateurService.logout();
-        console.log(localStorage.getItem('token'));
         this.router.navigate(['/login']);
     };
     return NavBarComponent;

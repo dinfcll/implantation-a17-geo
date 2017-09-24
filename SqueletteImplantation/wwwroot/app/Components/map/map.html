@@ -1,24 +1,37 @@
 <body>
+
     <navBar></navBar>
+
+    <br><br><br>
+
     <h1>MAP</h1>
+
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div id="map"></div>
-        </div>
-        
+        </div>     
     </div>
-    <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
-        <span  *ngIf="AcceptMarker">
-            long:{{Longitude}}<br> 
-            lat:{{Latitude}}<br>
-            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/><br>
-            <label for="desc" style="vertical-align: top">Description:</label>
-            <textarea rows="4" cols="50" id="desc" style="resize:none"  [(ngModel)]="DescriptionRando"></textarea><br>
-            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">Confirmer</button>
 
+    <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
+        <span *ngIf="AcceptMarker">
+            long:{{Longitude}}
+            <br> 
+            lat:{{Latitude}}
+            <br>
+            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/>
+            <br>
+            <label for="desc" style="vertical-align: top">Description:</label>
+            <textarea rows="4" cols="50" id="desc" style="resize:none" [(ngModel)]="DescriptionRando"></textarea>
+            <br>
+            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">
+                Confirmer</button>
         </span>
+
+        <br>
+
         <button (click)="PermissionAjoutMarker()">{{btnAjout}}</button>
     </div>
+
     <br><br><br>
 
 </body>

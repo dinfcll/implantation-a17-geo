@@ -15,7 +15,6 @@ export class NavBarComponent{
 
     onLogout() {
         this.utilisateurService.logout();
-        console.log(localStorage.getItem('token'));
         this.router.navigate(['/login']);
     }
 }
