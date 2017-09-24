@@ -75,7 +75,7 @@ input[type=password] {
           transition: all .2s ease-in-out;
 }
 button {
-  background: #079BCF;
+  background: #81a8a3;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -98,7 +98,7 @@ button span {
           transform: translate3d(0,0,0);
 }
 button:hover {
-  background: #007BA5;
+  background: #6B8D88;
 }
 
 #arrow {
