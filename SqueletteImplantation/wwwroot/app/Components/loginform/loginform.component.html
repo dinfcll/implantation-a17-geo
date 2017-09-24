@@ -1,29 +1,32 @@
 
 <form>
 
-    <div class="input">
-        <label for="email">Courriel</label>
-        <input type="email" tmFocus [(ngModel)]="email" required name="email" placeholder="Email">
+    <input checked id="signin" name="action" type="radio" value="signin">
+    <label for="signin">Sign in</label>
+
+    <input id='signup' name='action' type='radio' value='signup'>
+    <label for='signup'>Sign up</label>
+
+    <input id='reset' name='action' type='radio' value='reset'>
+    <label for='reset'>Reset</label>
+
+    <div id="wrapper">
+        <div id="arrow"></div>
+        <input id="email" type="text" tmFocus [(ngModel)]="email" required name="email" placeholder="Email">
+        <input id="pass" type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp">
+        <input id="repass" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp">
     </div>
 
-    <div class="input">
-        <label  for="mdp">Mot de passe</label>
-        <input type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp">
-    </div>
+    <button type="submit">
+        <span>
+            Reset password
+        </span>
+        <span (click)="onLogin(email,mdp)">
+            Sign in
+        </span>
+        <span (click)="inscription(email,mdp,confirm)">
+            Sign up
+        </span>
+    </button>
 
-    <div class="input" *ngIf="binscription">
-            <label  for="confirm">Confirmer mot de passe</label>
-            <input type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp">
-    </div>
-
-    <div class="input">
-        <button type="submit" (click)="onLogin(email,mdp)">Connexion</button>
-    </div>
-
-    <div class="input">
-        <button (click)="toggleInscription()" *ngIf="!binscription">S'inscrire</button>
-        <button type="submit" *ngIf="binscription" (click)="inscription(email,mdp,confirm)">
-            Créer compte</button>
-    </div>
-    
 </form>
