@@ -61,11 +61,13 @@ var MapComponent = (function () {
         marker.addListener('click', function () {
             if (!infoWindow.ouvert) {
                 infoWindow.open(_this.map, marker);
+                var chlat = info.trajetlat.split(",");
+                var chlng = info.trajetlng.split(",");
                 var path = chemin.getPath();
                 path.push(new google.maps.LatLng(info.latitude, info.longitude));
-                path.push(new google.maps.LatLng(41.879, -87.624));
-                path.push(new google.maps.LatLng(42.879, -88.624));
-                path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                for (var i = 0; i < chlat.length; i++) {
+                    path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                }
                 chemin.setMap(_this.map);
                 infoWindow.ouvert = true;
             }
@@ -85,7 +87,7 @@ var MapComponent = (function () {
     MapComponent.prototype.ConfirmationMarker = function (titre, description) {
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1);
+        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1, "", "");
         this.AjoutMarker(marker);
         this.http.post("api/marqueurs", marker)
             .subscribe(function (res) {

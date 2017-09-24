@@ -75,16 +75,17 @@ export class MapComponent implements OnInit {
             path: []
         });
 
-
-
         marker.addListener('click', () => {
             if(!infoWindow.ouvert){
                 infoWindow.open(this.map, marker);
+                let chlat = info.trajetlat.split(",");
+                let chlng = info.trajetlng.split(",");
+
                 let path = chemin.getPath();
                 path.push(new google.maps.LatLng(info.latitude,info.longitude));
-                path.push(new google.maps.LatLng(41.879, -87.624));
-                path.push(new google.maps.LatLng(42.879, -88.624));
-                path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                for(let i = 0; i < chlat.length; i++){
+                    path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                }
                 chemin.setMap(this.map);
                 infoWindow.ouvert = true;
             } else {
@@ -105,7 +106,7 @@ export class MapComponent implements OnInit {
     ConfirmationMarker(titre:string, description:string){
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new Marqueur(0, titre, lat, lng, description,1); 
+        var marker = new Marqueur(0, titre, lat, lng, description,1,"",""); 
         this.AjoutMarker(marker);
         
         
@@ -119,6 +120,8 @@ export class MapComponent implements OnInit {
         this.PermissionAjoutMarker();
     }
 
+
+    
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 

@@ -17,6 +17,8 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.Property(m => m.Longitude).IsRequired();
             entityBuilder.Property(m => m.Latitude).IsRequired();
             entityBuilder.Property(m => m.Icone);
+            entityBuilder.Property(m => m.Trajetlat);
+            entityBuilder.Property(m => m.Trajetlng);
         }
     }
 }
