@@ -23,7 +23,6 @@ export class MapComponent implements OnInit {
      public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
-     public chemin:any;
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -59,6 +58,7 @@ export class MapComponent implements OnInit {
             icon: this.banqueimageicone[info.icone]
         });
 
+        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
             content:`
                 <h2>`+info.nom+`</h2>
@@ -68,15 +68,30 @@ export class MapComponent implements OnInit {
             `
         });
 
+        var chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+
+
 
         marker.addListener('click', () => {
-            infoWindow.open(this.map, marker);
-
-            var path = this.chemin.getPath();
-            path.push(new google.maps.LatLng(info.latitude,info.longitude));
-            path.push(new google.maps.LatLng(41.879, -87.624));
-    
-            this.chemin.setPath(path);
+            if(!infoWindow.ouvert){
+                infoWindow.open(this.map, marker);
+                let path = chemin.getPath();
+                path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                path.push(new google.maps.LatLng(41.879, -87.624));
+                path.push(new google.maps.LatLng(42.879, -88.624));
+                path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                chemin.setMap(this.map);
+                infoWindow.ouvert = true;
+            } else {
+                infoWindow.close();
+                chemin.setMap(null);
+                infoWindow.ouvert = false;
+            }
         });
     }
         
@@ -140,14 +155,6 @@ export class MapComponent implements OnInit {
         this.map.addListener('click', (e:any):void => {
             this.CreationMaker(e); 
         });
-
-        this.chemin = new google.maps.Polyline({
-            strokeColor: '#000000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
-            path: []
-        });
-        this.chemin.setMap(this.map);
 
     }         
 }

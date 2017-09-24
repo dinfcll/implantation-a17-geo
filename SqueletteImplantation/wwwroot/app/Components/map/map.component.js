@@ -48,15 +48,33 @@ var MapComponent = (function () {
             map: this.map,
             icon: this.banqueimageicone[info.icone]
         });
+        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow({
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
         });
+        var chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
         marker.addListener('click', function () {
-            infoWindow.open(_this.map, marker);
-            var path = _this.chemin.getPath();
-            path.push(new google.maps.LatLng(info.latitude, info.longitude));
-            path.push(new google.maps.LatLng(41.879, -87.624));
-            _this.chemin.setPath(path);
+            if (!infoWindow.ouvert) {
+                infoWindow.open(_this.map, marker);
+                var path = chemin.getPath();
+                path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                path.push(new google.maps.LatLng(41.879, -87.624));
+                path.push(new google.maps.LatLng(42.879, -88.624));
+                path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                //chemin.setPath(path);
+                chemin.setMap(_this.map);
+                infoWindow.ouvert = true;
+            }
+            else {
+                infoWindow.close();
+                chemin.setMap(null);
+                infoWindow.ouvert = false;
+            }
         });
     };
     MapComponent.prototype.CreationMaker = function (Gdonne) {
@@ -108,13 +126,6 @@ var MapComponent = (function () {
         this.map.addListener('click', function (e) {
             _this.CreationMaker(e);
         });
-        this.chemin = new google.maps.Polyline({
-            strokeColor: '#000000',
-            strokeOpacity: 1.0,
-            strokeWeight: 3,
-            path: []
-        });
-        this.chemin.setMap(this.map);
     };
     return MapComponent;
 }());
