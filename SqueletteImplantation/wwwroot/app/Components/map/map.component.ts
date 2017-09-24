@@ -125,20 +125,8 @@ export class MapComponent implements OnInit {
                 
                 this.map.setCenter(pos);
             }, function() {
-                handleLocationError(true, this.map.getCenter());
+                    alert("Géolocalisation refusée, position par defaut : Lévis");
                 });
-        } else {
-            //le navigateur ne supporte pas la géolocation
-            handleLocationError(false, this.map.getCenter());
-        }
-        
-        function handleLocationError( NavigateurGeo: boolean, pos: any ) {
-            if( NavigateurGeo )
-            {
-                alert('Erreur : La géolocalisation à échouée');    
-            } else {
-                alert('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
-            }           
         }
 
         this.map.addListener('click', (e:any):void => {
