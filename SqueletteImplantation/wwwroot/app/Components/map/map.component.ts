@@ -55,13 +55,14 @@ export class MapComponent implements OnInit {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
-            icon: this.banqueimageicone[info.icone]
+            icon: this.banqueimageicone[info.icone],
+            title: info.nom
         });
 
         google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
-            content:`
-                <h2>`+info.nom+`</h2>
+            content:`<div class="iw-titre"
+                <h2>`+info.nom+`</h2></div>
                 <div *ngIf="info.desc">
                     `+info.desc+`
                 </div>

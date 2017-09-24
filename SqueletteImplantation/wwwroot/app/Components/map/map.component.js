@@ -46,11 +46,12 @@ var MapComponent = (function () {
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
-            icon: this.banqueimageicone[info.icone]
+            icon: this.banqueimageicone[info.icone],
+            title: info.nom
         });
         google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow({
-            content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
+            content: "<div class=\"iw-titre\"\n                <h2>" + info.nom + "</h2></div>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
         });
         var chemin = new google.maps.Polyline({
             strokeColor: '#000000',
