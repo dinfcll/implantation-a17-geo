@@ -66,7 +66,6 @@ var MapComponent = (function () {
                 path.push(new google.maps.LatLng(41.879, -87.624));
                 path.push(new google.maps.LatLng(42.879, -88.624));
                 path.push(new google.maps.LatLng(info.latitude, info.longitude));
-                //chemin.setPath(path);
                 chemin.setMap(_this.map);
                 infoWindow.ouvert = true;
             }
@@ -120,7 +119,7 @@ var MapComponent = (function () {
                 });
                 _this.map.setCenter(pos);
             }, function () {
-                alert("Géolocalisation refusé, position par défaut est à Lévis");
+                alert("Géolocalisation refusée, position par defaut : Lévis");
             });
         }
         this.map.addListener('click', function (e) {
