@@ -45,7 +45,7 @@ export class LoginFormComponent {
                         localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
                     } else 
-                        alert("Il y a déjà un compte lié à ce courriel.")
+                        alert("Il y a déjà un compte lié à ce courriel.");
             });
         }}
 }
