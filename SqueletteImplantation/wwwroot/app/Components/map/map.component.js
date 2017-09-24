@@ -19,9 +19,8 @@ var MapComponent = (function () {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
-        this.banqueimage = ['../../../images/ici_icone.svg',
-            '../../../images/officiel_icone.svg',
-            '../../../images/user_icon.svg'];
+        this.banqueimageicone = ['../../../images/officiel_icone.svg',
+            '../../../images/user_icone.svg'];
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
@@ -46,7 +45,7 @@ var MapComponent = (function () {
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
-            icon: this.banqueimage[1]
+            icon: this.banqueimageicone[info.icone]
         });
         var infoWindow = new google.maps.InfoWindow({
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
@@ -61,10 +60,10 @@ var MapComponent = (function () {
             this.Longitude = Gdonne.latLng.lng();
         }
     };
-    MapComponent.prototype.ConfirmationMarker = function () {
+    MapComponent.prototype.ConfirmationMarker = function (titre, description) {
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new marqueur_class_1.Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando);
+        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1);
         this.AjoutMarker(marker);
         this.http.post("api/marqueurs", marker)
             .subscribe(function (res) {
@@ -72,8 +71,6 @@ var MapComponent = (function () {
         });
         this.Latitude = 0;
         this.Longitude = 0;
-        this.TitreRando = "";
-        this.DescriptionRando = "";
         this.PermissionAjoutMarker();
     };
     MapComponent.prototype.ngOnInit = function () {
@@ -86,7 +83,6 @@ var MapComponent = (function () {
         };
         this.getMarqueurs();
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        var infoWindowLoc = new google.maps.InfoWindow({ map: this.map });
         //géolocation
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -94,25 +90,15 @@ var MapComponent = (function () {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
-                infoWindowLoc.setPosition(pos);
-                infoWindowLoc.setContent('Vous êtes ici');
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: _this.map,
+                    icon: '../../../images/ici_icone.svg'
+                });
                 _this.map.setCenter(pos);
             }, function () {
-                handleLocationError(true, infoWindowLoc, this.map.getCenter());
+                alert("Géolocalisation refusée, position par defaut : Lévis");
             });
-        }
-        else {
-            //le navigateur ne supporte pas la géolocation
-            handleLocationError(false, infoWindowLoc, this.map.getCenter());
-        }
-        function handleLocationError(NavigateurGeo, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            if (NavigateurGeo) {
-                infoWindow.setContent('Erreur : La géolocalisation à échouée');
-            }
-            else {
-                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
-            }
         }
         this.map.addListener('click', function (e) {
             _this.CreationMaker(e);

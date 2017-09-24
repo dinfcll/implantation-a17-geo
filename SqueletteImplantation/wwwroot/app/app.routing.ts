@@ -22,13 +22,13 @@ export const routing: Routes = [
         component: MapComponent,
         canActivate: [AuthGuard]
     },
-    { 
-        path: '**', 
-        redirectTo: '' 
-    },
     {   
         path: 'profil',
         component: ProfilUtilisateurComponent
+    },
+    { 
+        path: '**', 
+        redirectTo: '' 
     }
 ];
 

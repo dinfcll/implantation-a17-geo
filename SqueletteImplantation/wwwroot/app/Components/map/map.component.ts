@@ -19,20 +19,17 @@ export class MapComponent implements OnInit {
      public map:any;
      public btnAjout:String;
      public AcceptMarker:boolean;
-     public TitreRando:string;
-     public DescriptionRando:string;
      public Longitude:number;
      public Latitude:number;
      public baseUrl: string = '';
-     public banqueimage: Array<string>;
+     public banqueimageicone: Array<string>;
 
     constructor(private http: Http) {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
-        this.banqueimage = ['../../../images/ici_icone.svg',
-                            '../../../images/officiel_icone.svg',
-                            '../../../images/user_icon.svg'];
+        this.banqueimageicone = ['../../../images/officiel_icone.svg',
+                            '../../../images/user_icone.svg'];
     }
 
     PermissionAjoutMarker():void{
@@ -58,7 +55,7 @@ export class MapComponent implements OnInit {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
-            icon: this.banqueimage[1]
+            icon: this.banqueimageicone[info.icone]
         });
 
         var infoWindow = new google.maps.InfoWindow ({
@@ -82,10 +79,10 @@ export class MapComponent implements OnInit {
         }
     }
     
-    ConfirmationMarker(){
+    ConfirmationMarker(titre:string, description:string){
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new Marqueur(0, this.TitreRando, lat, lng, this.DescriptionRando); 
+        var marker = new Marqueur(0, titre, lat, lng, description,1); 
         this.AjoutMarker(marker);
         
         
@@ -96,8 +93,6 @@ export class MapComponent implements OnInit {
 
         this.Latitude = 0;
         this.Longitude = 0;
-        this.TitreRando = "";
-        this.DescriptionRando = "";
         this.PermissionAjoutMarker();
     }
 
@@ -113,7 +108,6 @@ export class MapComponent implements OnInit {
         this.getMarqueurs();
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
     
-        var infoWindowLoc = new google.maps.InfoWindow({map:this.map});
 
         //géolocation
         if( navigator.geolocation ) {
@@ -122,26 +116,17 @@ export class MapComponent implements OnInit {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude   
                 };
-               
-                infoWindowLoc.setPosition (pos);
-                infoWindowLoc.setContent('Vous êtes ici');
+                
+                var marker = new google.maps.Marker ({
+                    position: pos,
+                    map: this.map,
+                    icon: '../../../images/ici_icone.svg'
+                });
+                
                 this.map.setCenter(pos);
             }, function() {
-                handleLocationError(true, infoWindowLoc, this.map.getCenter());
+                    alert("Géolocalisation refusée, position par defaut : Lévis");
                 });
-        } else {
-            //le navigateur ne supporte pas la géolocation
-            handleLocationError(false, infoWindowLoc, this.map.getCenter());
-        }
-        
-        function handleLocationError( NavigateurGeo: boolean, infoWindow: any, pos: any ) {
-            infoWindow.setPosition(pos);
-            if( NavigateurGeo )
-            {
-                infoWindow.setContent('Erreur : La géolocalisation à échouée' );    
-            } else {
-                infoWindow.setContent('Erreur : Votre navigateur ne supporte pas la géolocalisation.');
-            }           
         }
 
         this.map.addListener('click', (e:any):void => {

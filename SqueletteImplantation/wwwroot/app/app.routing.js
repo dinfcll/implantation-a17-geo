@@ -27,12 +27,12 @@ exports.routing = [
         canActivate: [auth_guard_1.AuthGuard]
     },
     {
-        path: '**',
-        redirectTo: ''
-    },
-    {
         path: 'profil',
         component: profil_utilisateur_component_1.ProfilUtilisateurComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
     }
 ];
 var AppRouting = (function () {
