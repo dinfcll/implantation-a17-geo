@@ -19,8 +19,7 @@ export class LoginFormComponent {
     utilisateur: Utilisateur;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
-
-        private activatedRoute: ActivatedRoute,) { }
+        private activatedRoute: ActivatedRoute) { }
 
     onLogin(email: string, mdp: string) { 
         this.utilisateurService
@@ -33,10 +32,6 @@ export class LoginFormComponent {
                 alert("Courriel ou mot de passe invalide");
         });
 
-    }
-
-    toggleInscription() {
-        this.binscription = true;
     }
 
     inscription(mail: string, mdp: string, cmdp: string) {
