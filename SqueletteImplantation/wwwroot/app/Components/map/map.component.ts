@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
      name ='Map';
      private marqueurs:Marqueur[];
      public map:any;
-     public btnAjout:String;
+     public btnAjout:string;
      public AcceptMarker:boolean;
      public Longitude:number;
      public Latitude:number;
@@ -58,6 +58,7 @@ export class MapComponent implements OnInit {
             icon: this.banqueimageicone[info.icone]
         });
 
+        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
             content:`
                 <h2>`+info.nom+`</h2>
@@ -67,10 +68,33 @@ export class MapComponent implements OnInit {
             `
         });
 
-        marker.addListener('click', function() {
-            infoWindow.open(this.map, marker);
+        var chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
         });
-        }
+
+        marker.addListener('click', () => {
+            if(!infoWindow.ouvert){
+                infoWindow.open(this.map, marker);
+                let chlat = info.trajetlat.split(",");
+                let chlng = info.trajetlng.split(",");
+
+                let path = chemin.getPath();
+                path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                for(let i = 0; i < chlat.length; i++){
+                    path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                }
+                chemin.setMap(this.map);
+                infoWindow.ouvert = true;
+            } else {
+                infoWindow.close();
+                chemin.setMap(null);
+                infoWindow.ouvert = false;
+            }
+        });
+    }
         
     CreationMaker(Gdonne:any){
         if(this.AcceptMarker){
@@ -82,7 +106,7 @@ export class MapComponent implements OnInit {
     ConfirmationMarker(titre:string, description:string){
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new Marqueur(0, titre, lat, lng, description,1); 
+        var marker = new Marqueur(0, titre, lat, lng, description,1,"",""); 
         this.AjoutMarker(marker);
         
         
@@ -96,6 +120,8 @@ export class MapComponent implements OnInit {
         this.PermissionAjoutMarker();
     }
 
+
+    
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 
@@ -132,5 +158,6 @@ export class MapComponent implements OnInit {
         this.map.addListener('click', (e:any):void => {
             this.CreationMaker(e); 
         });
+
     }         
 }

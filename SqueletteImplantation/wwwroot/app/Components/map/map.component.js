@@ -42,16 +42,40 @@ var MapComponent = (function () {
         });
     };
     MapComponent.prototype.AjoutMarker = function (info) {
+        var _this = this;
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone]
         });
+        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow({
             content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
         });
+        var chemin = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
         marker.addListener('click', function () {
-            infoWindow.open(this.map, marker);
+            if (!infoWindow.ouvert) {
+                infoWindow.open(_this.map, marker);
+                var chlat = info.trajetlat.split(",");
+                var chlng = info.trajetlng.split(",");
+                var path = chemin.getPath();
+                path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                for (var i = 0; i < chlat.length; i++) {
+                    path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                }
+                chemin.setMap(_this.map);
+                infoWindow.ouvert = true;
+            }
+            else {
+                infoWindow.close();
+                chemin.setMap(null);
+                infoWindow.ouvert = false;
+            }
         });
     };
     MapComponent.prototype.CreationMaker = function (Gdonne) {
@@ -63,7 +87,7 @@ var MapComponent = (function () {
     MapComponent.prototype.ConfirmationMarker = function (titre, description) {
         var lat = this.Latitude;
         var lng = this.Longitude;
-        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1);
+        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1, "", "");
         this.AjoutMarker(marker);
         this.http.post("api/marqueurs", marker)
             .subscribe(function (res) {
@@ -97,7 +121,7 @@ var MapComponent = (function () {
                 });
                 _this.map.setCenter(pos);
             }, function () {
-                alert("Géolocalisation refusé, position par défaut est à Lévis");
+                alert("Géolocalisation refusée, position par defaut : Lévis");
             });
         }
         this.map.addListener('click', function (e) {
