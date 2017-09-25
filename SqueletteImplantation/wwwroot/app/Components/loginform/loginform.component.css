@@ -48,7 +48,7 @@ label {
   font-size: 22px;
   font-weight: 800;
   opacity: .5;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   text-transform: uppercase;
 }
 label:hover {
@@ -60,16 +60,32 @@ label[for="signin"] { margin-right: 20px; }
 label[for="reset"] { float: right; }
 input[type=radio]:checked + label { opacity: 1; }
 
-input[type=text],
-input[type=password] {
+.loginFirst {
   background: #fff;
-  border: none;
+  border-style:solid;
+  border-width: 2px;
+  border-color:#fff; 
   border-radius: 8px;
   font-size: 27px;
   font-family: 'Raleway', sans-serif;
   height: 72px;
-  width: 99.5%;
-  margin-bottom: 10px;
+  width: 99%;
+  opacity: 1;
+  text-indent: 20px;
+  -webkit-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
+}
+.loginInput {
+  background: #fff;
+  border-style:solid;
+  border-width: 2px;
+  border-color:#fff; 
+  border-radius: 8px;
+  font-size: 27px;
+  font-family: 'Raleway', sans-serif;
+  height: 72px;
+  width: 99%;
+  margin-top: 10px;
   opacity: 1;
   text-indent: 20px;
   -webkit-transition: all .2s ease-in-out;
@@ -85,6 +101,7 @@ button {
   font-size: 27px;
   height: 72px;
   width: 100%;
+  margin-top:10px;
   margin-bottom: 10px;
   overflow: hidden;
   -webkit-transition: all .3s cubic-bezier(.6,0,.4,1);
@@ -100,6 +117,16 @@ button span {
 }
 button:hover {
   background: #007BA5;
+}
+.fixMargin{
+  margin-top:3px;
+}
+.disabled{
+  background-color: #626262;
+}
+button.disabled:hover{
+  background-color:  #626262;
+  cursor:not-allowed;
 }
 
 #arrow {

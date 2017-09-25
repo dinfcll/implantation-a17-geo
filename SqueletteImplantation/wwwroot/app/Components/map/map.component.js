@@ -97,7 +97,7 @@ var MapComponent = (function () {
                 });
                 _this.map.setCenter(pos);
             }, function () {
-                alert("Géolocalisation refusé, position par défaut est à Lévis");
+                alert("Géolocalisation refusée, position par defaut : Lévis");
             });
         }
         this.map.addListener('click', function (e) {
