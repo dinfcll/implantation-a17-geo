@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20170924162056_AjoutTrajetMarqueur")]
+    partial class AjoutTrajetMarqueur
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -54,28 +55,6 @@ namespace squeletteimplantation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Marqueur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("courriel")
-                        .IsRequired();
-
-                    b.Property<string>("nom")
-                        .IsRequired();
-
-                    b.Property<string>("prenom")
-                        .IsRequired();
-
-                    b.Property<string>("username")
-                        .IsRequired();
-
-                    b.HasKey("id");
-
-                    b.ToTable("Profil");
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Utilisateur", b =>

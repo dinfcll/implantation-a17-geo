@@ -8,6 +8,7 @@ import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
+import { NavBarComponent }             from './Components/nav/nav.component';
 
 import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
@@ -19,7 +20,8 @@ import { UtilisateurService }          from './services/utilisateur.service';
     AppComponent,
     LoginFormComponent, 
     MapComponent,
-    ProfilUtilisateurComponent 
+    ProfilUtilisateurComponent, 
+    NavBarComponent
   ],
   imports: [ 
     CommonModule,

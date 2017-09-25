@@ -14,7 +14,7 @@ export class ProfilUtilisateurComponent implements OnInit{
 
     ngOnInit(): void {
         this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
-        this.email= localStorage.getItem('id_token');
+        this.email= localStorage.getItem('token');
     }
       
 
