@@ -1,12 +1,15 @@
-<div *ngIf="email">
-    token existe
+<navBar></navBar>
+<div class="divprofil" *ngIf="email">
+    <!--token existe-->
     <div *ngIf="profil">
-        profil existe
+        <!--profil existe-->
         <h1>Profil</h1>
-        Nom d'utilisateur : {{profil.username}}<br>
-        Courriel : {{profil.courriel}} ++ {{email}}<br>
-        Prénom : {{profil.prenom}}<br>
-        Nom : {{profil.nom}}<br>
+        <blockquote>
+            Nom d'utilisateur : {{profil.username}}<br>
+            Courriel : {{profil.courriel}} ++ {{email}}<br>
+            Prénom : {{profil.prenom}}<br>
+            Nom : {{profil.nom}}<br>
+        </blockquote>        
         <button>Éditer mon profil</button>
     </div>    
 </div>

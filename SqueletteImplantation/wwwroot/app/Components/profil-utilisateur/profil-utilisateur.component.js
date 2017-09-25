@@ -15,7 +15,7 @@ var ProfilUtilisateurComponent = (function () {
         this.utilisateurservice = utilisateurservice;
     }
     ProfilUtilisateurComponent.prototype.ngOnInit = function () {
-        //this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
+        // this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
         this.email = this.utilisateurservice.loggedIn();
         this.getProfil();
     };
@@ -28,7 +28,7 @@ var ProfilUtilisateurComponent = (function () {
                 _this.profil = res;
             }
             else {
-                alert("pas de profil trouvé pour cet utilisateur");
+                alert('pas de profil trouvé pour cet utilisateur');
             }
         });
     };

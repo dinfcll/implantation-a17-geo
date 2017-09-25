@@ -41,10 +41,18 @@
     transform: scale(0);
 }
 
-.logout {
-    color: #00453e;
+.logout {    
     position: absolute;
     top: 3%;
     right: 2%;
 }
-
+a{
+    text-decoration: none;
+    color: #00453e;
+}
+.nav-profil{    
+    font-size:3em;        
+}
+a:hover{
+    color: #00f;    
+}
