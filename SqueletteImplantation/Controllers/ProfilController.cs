@@ -34,7 +34,7 @@ namespace SqueletteImplantation.Controllers
 
             if (profil == null)
             {
-                return NotFound();
+                return new OkObjectResult(null);
             }
 
             return new OkObjectResult(profil);
