@@ -31,9 +31,6 @@ var LoginFormComponent = (function () {
                 alert("Courriel ou mot de passe invalide");
         });
     };
-    LoginFormComponent.prototype.toggleInscription = function () {
-        this.binscription = true;
-    };
     LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
         var _this = this;
         if (mdp != cmdp)

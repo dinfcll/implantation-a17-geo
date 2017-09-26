@@ -19,8 +19,7 @@ export class LoginFormComponent {
     utilisateur: Utilisateur;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
-
-        private activatedRoute: ActivatedRoute,) { }
+        private activatedRoute: ActivatedRoute) { }
 
     onLogin(email: string, mdp: string) { 
         this.utilisateurService
@@ -35,10 +34,6 @@ export class LoginFormComponent {
 
     }
 
-    toggleInscription() {
-        this.binscription = true;
-    }
-
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");
@@ -50,7 +45,7 @@ export class LoginFormComponent {
                         localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
                     } else 
-                        alert("Il y a déjà un compte lié à ce courriel.")
+                        alert("Il y a déjà un compte lié à ce courriel.");
             });
         }}
 }
