@@ -1,30 +1,37 @@
 
-<form>
-
-    <input checked id="signin" name="action" type="radio" value="signin">
+<form #loginForm="ngForm">
+    <input checked id="signin" name="action" type="radio" [value]="signin"[(ngModel)]="option">
     <label for="signin">Sign in</label>
 
-    <input id='signup' name='action' type='radio' value='signup'>
+    <input id='signup' name='action' type='radio' value='signup'[(ngModel)]="option">
     <label for='signup'>Sign up</label>
 
-    <input id='reset' name='action' type='radio' value='reset'>
+    <input id='reset' name='action' type='radio' value='reset' [(ngModel)]="option">
     <label for='reset'>Reset</label>
 
     <div id="wrapper">
         <div id="arrow"></div>
-        <input id="email" type="text" tmFocus [(ngModel)]="email" required name="email" placeholder="Email">
-        <input id="pass" type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp">
-        <input id="repass" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp">
+        <input type="text" class="loginFirst" placeholder="Email" 
+        #userEmail="ngModel" name="email"
+         [(ngModel)]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
+         [ngClass]="{'has-error' : userEmail.touched && !userEmail?.valid,'has-success':userEmail.valid}" required email="true">
+         
+         <input class="loginInput" *ngIf="option !='reset'" #userPW="ngModel"type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp"
+         [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}" required>
+         
+         <input  class="loginInput" *ngIf="option=='signup'" #confirmPW="ngModel" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp"
+         [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
+
     </div>
 
-    <button type="submit">
+    <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}">
         <span>
             Reset password
         </span>
-        <span (click)="onLogin(email,mdp)">
+        <span (click)="loginForm.form.valid && onLogin(email,mdp)">
             Sign in
         </span>
-        <span (click)="inscription(email,mdp,confirm)">
+        <span (click)="loginForm.form.valid && inscription(email,mdp,confirm)">
             Sign up
         </span>
     </button>
