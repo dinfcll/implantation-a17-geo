@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.DTOs;
 using SqueletteImplantation.DbEntities.Models;
+using System;
 
 namespace SqueletteImplantation.Controllers
 {
@@ -19,7 +20,13 @@ namespace SqueletteImplantation.Controllers
         {
             _maBd = maBd;
         }
-
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
         [HttpGet]
         [Route("api/utilisateur")]
         public IEnumerable Index()
@@ -50,7 +57,33 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(user);
         }
-        
+        [HttpPost]
+        [Route("api/utilisateur/reset")]
+        public IActionResult Reset([FromBody] UtilisateurDto user)
+        {
+            var identity = _maBd.Utilisateur.SingleOrDefault(u => u.email == user.Email);
+
+            if (identity != null)
+            {
+                _maBd.Utilisateur.Attach(identity);
+                identity.mdp = RandomString(8);
+                var entry = _maBd.Entry(identity);
+                entry.Property(e => e.mdp).IsModified = true;
+                _maBd.SaveChanges();
+
+                emailSender.setDestination(user.Email);
+                emailSender.setSender("ramble.cll@gmail.com", "Welcome");
+                emailSender.SetMessage("Votre mot de passe temporaire est le " + identity.mdp.ToString() + "");
+                emailSender.setSubject("Nouveau Mot de passe");
+                emailSender.sendMessage();
+            }
+            else
+            {
+                return new ObjectResult(null);
+            }
+
+            return new OkObjectResult(user);
+        }
         [HttpPost]
         [Route("api/utilisateur/login")]
         public IActionResult Post([FromBody]UtilisateurDto user)

@@ -31,6 +31,17 @@ var LoginFormComponent = (function () {
                 alert("Courriel ou mot de passe invalide");
         });
     };
+    LoginFormComponent.prototype.resetPW = function (email) {
+        this.utilisateurService.reset(email)
+            .subscribe(function (res) {
+            new jBox('Notice', {
+                content: 'Wait 1 Second',
+                color: 'black',
+                autoClose: 1000
+            });
+            alert("Si un compte a été trouvé,un courriel a été envoyé");
+        });
+    };
     LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
         var _this = this;
         if (mdp != cmdp)

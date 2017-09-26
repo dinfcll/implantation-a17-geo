@@ -6,6 +6,7 @@ import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
 
 import { Subscription } from 'rxjs';
+declare var jBox:any;
 
 @Component({
     selector: 'loginForm',
@@ -33,7 +34,17 @@ export class LoginFormComponent {
         });
 
     }
-
+    resetPW(email:string){
+        this.utilisateurService.reset(email)
+        .subscribe(res =>{
+            new jBox('Notice', {
+                content: 'Wait 1 Second',
+                color: 'black',
+                autoClose: 1000
+              });
+            alert("Si un compte a été trouvé,un courriel a été envoyé");
+        });
+    }
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp) 
             alert("Les mots de passe sont différents");
