@@ -6,7 +6,7 @@ import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
 
 import { Subscription } from 'rxjs';
-declare var jBox:any;
+declare var jBox :any;
 
 @Component({
     selector: 'loginForm',
@@ -38,11 +38,10 @@ export class LoginFormComponent {
         this.utilisateurService.reset(email)
         .subscribe(res =>{
             new jBox('Notice', {
-                content: 'Wait 1 Second',
+                content: 'Si un compte a été trouvé,un courriel a été envoyé',
                 color: 'black',
                 autoClose: 1000
-              });
-            alert("Si un compte a été trouvé,un courriel a été envoyé");
+              }).open();
         });
     }
     inscription(mail: string, mdp: string, cmdp: string) {

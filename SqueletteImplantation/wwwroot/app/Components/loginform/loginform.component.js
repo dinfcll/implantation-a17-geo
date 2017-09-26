@@ -35,11 +35,10 @@ var LoginFormComponent = (function () {
         this.utilisateurService.reset(email)
             .subscribe(function (res) {
             new jBox('Notice', {
-                content: 'Wait 1 Second',
+                content: 'Si un compte a été trouvé,un courriel a été envoyé',
                 color: 'black',
                 autoClose: 1000
-            });
-            alert("Si un compte a été trouvé,un courriel a été envoyé");
+            }).open();
         });
     };
     LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
