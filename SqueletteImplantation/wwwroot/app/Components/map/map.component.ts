@@ -79,13 +79,15 @@ export class MapComponent implements OnInit {
         marker.addListener('click', () => {
             if(!infoWindow.ouvert){
                 infoWindow.open(this.map, marker);
-                let chlat = info.trajetlat.split(",");
-                let chlng = info.trajetlng.split(",");
+                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null){
+                    let chlat = info.trajetlat.split(",");
+                    let chlng = info.trajetlng.split(",");
 
-                let path = chemin.getPath();
-                path.push(new google.maps.LatLng(info.latitude,info.longitude));
-                for(let i = 0; i < chlat.length; i++){
-                    path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                    let path = chemin.getPath();
+                    path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                    for(let i = 0; i < chlat.length; i++){
+                        path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                    }
                 }
                 chemin.setMap(this.map);
                 infoWindow.ouvert = true;

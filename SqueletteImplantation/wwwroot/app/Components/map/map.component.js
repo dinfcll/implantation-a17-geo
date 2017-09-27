@@ -62,12 +62,14 @@ var MapComponent = (function () {
         marker.addListener('click', function () {
             if (!infoWindow.ouvert) {
                 infoWindow.open(_this.map, marker);
-                var chlat = info.trajetlat.split(",");
-                var chlng = info.trajetlng.split(",");
-                var path = chemin.getPath();
-                path.push(new google.maps.LatLng(info.latitude, info.longitude));
-                for (var i = 0; i < chlat.length; i++) {
-                    path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                if (info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
+                    var chlat = info.trajetlat.split(",");
+                    var chlng = info.trajetlng.split(",");
+                    var path = chemin.getPath();
+                    path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                    for (var i = 0; i < chlat.length; i++) {
+                        path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                    }
                 }
                 chemin.setMap(_this.map);
                 infoWindow.ouvert = true;
