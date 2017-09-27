@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20170920171002_AjoutProfil")]
+    partial class AjoutProfil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -38,18 +39,12 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("Desc");
 
-                    b.Property<int>("Icone");
-
                     b.Property<decimal>("Latitude");
 
                     b.Property<decimal>("Longitude");
 
                     b.Property<string>("Nom")
                         .IsRequired();
-
-                    b.Property<string>("Trajetlat");
-
-                    b.Property<string>("Trajetlng");
 
                     b.HasKey("Id");
 

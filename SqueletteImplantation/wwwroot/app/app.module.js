@@ -13,6 +13,8 @@ var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var map_component_1 = require("./Components/map/map.component");
+var profil_utilisateur_component_1 = require("./Components/profil-utilisateur/profil-utilisateur.component");
+var nav_component_1 = require("./Components/nav/nav.component");
 var auth_guard_1 = require("./auth.guard");
 var app_routing_1 = require("./app.routing");
 var config_service_1 = require("./Components/utils/config.service");
@@ -27,7 +29,9 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             loginform_component_1.LoginFormComponent,
-            map_component_1.MapComponent
+            map_component_1.MapComponent,
+            profil_utilisateur_component_1.ProfilUtilisateurComponent,
+            nav_component_1.NavBarComponent
         ],
         imports: [
             common_1.CommonModule,

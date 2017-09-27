@@ -1,0 +1,58 @@
+.nav-icon {
+    position: absolute;
+    width: 40px;
+    top: 2%;
+    left: 2%;
+}
+  
+.nav-icon:after, 
+.nav-icon:before, 
+.nav-icon div {
+    background-color: #00453e;
+    -o-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    content: '';
+    display: block;
+    height: 5px;
+    margin: 7px 0;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+ 
+.nav-icon:hover:before {
+    transform: translateY(12px) rotate(135deg);
+    -moz-transform: translateY(12px) rotate(135deg);
+    -webkit-transform: translateY(12px) rotate(135deg);
+}
+  
+.nav-icon:hover:after {
+    transform: translateY(-12px) rotate(-135deg);
+    -moz-transform: translateY(-12px) rotate(-135deg);
+    -webkit-transform: translateY(-12px) rotate(-135deg);
+}
+  
+.nav-icon:hover div {
+    -moz-transform: scale(0);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+
+.logout {    
+    position: absolute;
+    top: 3%;
+    right: 2%;
+}
+a{
+    text-decoration: none;
+    color: #00453e;
+}
+.nav-profil{    
+    font-size:3em;        
+}
+a:hover{
+    color: #00f;    
+}
