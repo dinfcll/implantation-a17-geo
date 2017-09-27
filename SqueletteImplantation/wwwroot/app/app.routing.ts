@@ -24,7 +24,8 @@ export const routing: Routes = [
     },
     {   
         path: 'profil',
-        component: ProfilUtilisateurComponent
+        component: ProfilUtilisateurComponent,
+        canActivate: [AuthGuard]
     },
     { 
         path: '**', 

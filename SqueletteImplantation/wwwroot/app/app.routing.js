@@ -28,7 +28,8 @@ exports.routing = [
     },
     {
         path: 'profil',
-        component: profil_utilisateur_component_1.ProfilUtilisateurComponent
+        component: profil_utilisateur_component_1.ProfilUtilisateurComponent,
+        canActivate: [auth_guard_1.AuthGuard]
     },
     {
         path: '**',
