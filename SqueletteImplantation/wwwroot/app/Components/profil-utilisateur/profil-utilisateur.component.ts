@@ -18,7 +18,7 @@ export class ProfilUtilisateurComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        // this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
+        this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),null,null,null);        
         this.email = this.utilisateurservice.loggedIn();
         this.getProfil();
     }

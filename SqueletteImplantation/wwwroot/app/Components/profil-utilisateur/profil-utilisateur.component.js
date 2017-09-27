@@ -9,13 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var profilutilisateur_class_1 = require("./../../class/profilutilisateur.class");
 var utilisateur_service_1 = require("../../services/utilisateur.service");
 var ProfilUtilisateurComponent = (function () {
     function ProfilUtilisateurComponent(utilisateurservice) {
         this.utilisateurservice = utilisateurservice;
     }
     ProfilUtilisateurComponent.prototype.ngOnInit = function () {
-        // this.profil = new ProfilUtilisateur(1,"a@a.a","Arthur99","Arthur","Audet");        
+        this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), null, null, null);
         this.email = this.utilisateurservice.loggedIn();
         this.getProfil();
     };
