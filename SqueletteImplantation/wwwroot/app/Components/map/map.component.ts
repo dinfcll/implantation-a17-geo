@@ -78,6 +78,8 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(!infoWindow.ouvert){
+                this.map.setZoom(13);
+                this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null){
                     let chlat = info.trajetlat.split(",");
@@ -92,6 +94,7 @@ export class MapComponent implements OnInit {
                 chemin.setMap(this.map);
                 infoWindow.ouvert = true;
             } else {
+                this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
                 infoWindow.ouvert = false;

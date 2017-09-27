@@ -61,6 +61,8 @@ var MapComponent = (function () {
         });
         marker.addListener('click', function () {
             if (!infoWindow.ouvert) {
+                _this.map.setZoom(13);
+                _this.map.panTo(marker.position);
                 infoWindow.open(_this.map, marker);
                 if (info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     var chlat = info.trajetlat.split(",");
@@ -75,6 +77,7 @@ var MapComponent = (function () {
                 infoWindow.ouvert = true;
             }
             else {
+                _this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
                 infoWindow.ouvert = false;
