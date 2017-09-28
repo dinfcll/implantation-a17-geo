@@ -53,6 +53,14 @@ var UtilisateurService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    UtilisateurService.prototype.getProfil = function () {
+        return this.http
+            .get(this.baseUrl + '/profil/' + this.loggedIn(), this.loggedIn())
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     return UtilisateurService;
 }(base_service_1.BaseService));
 UtilisateurService = __decorate([

@@ -10,6 +10,7 @@ var router_1 = require("@angular/router");
 var auth_guard_1 = require("./auth.guard");
 var map_component_1 = require("./Components/map/map.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
+var profil_utilisateur_component_1 = require("./Components/profil-utilisateur/profil-utilisateur.component");
 exports.routing = [
     {
         path: '',
@@ -23,6 +24,11 @@ exports.routing = [
     {
         path: 'map',
         component: map_component_1.MapComponent,
+        canActivate: [auth_guard_1.AuthGuard]
+    },
+    {
+        path: 'profil',
+        component: profil_utilisateur_component_1.ProfilUtilisateurComponent,
         canActivate: [auth_guard_1.AuthGuard]
     },
     {
