@@ -14,6 +14,7 @@ import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './Components/utils/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
+import {ResetPWComponent}              from './Components/password-reset/resetPW.component';
 
 @NgModule({
   declarations: [ 
@@ -21,14 +22,15 @@ import { UtilisateurService }          from './services/utilisateur.service';
     LoginFormComponent, 
     MapComponent,
     ProfilUtilisateurComponent, 
-    NavBarComponent
+    NavBarComponent,
+    ResetPWComponent
   ],
   imports: [ 
     CommonModule,
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRouting,
+    AppRouting
   ],
   providers: [
     AuthGuard,

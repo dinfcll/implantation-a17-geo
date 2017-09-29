@@ -89,6 +89,8 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("mdp")
                         .IsRequired();
 
+                    b.Property<bool>("reset");
+
                     b.HasKey("Id");
 
                     b.ToTable("Utilisateur");

@@ -43,6 +43,26 @@ var UtilisateurService = (function (_super) {
     UtilisateurService.prototype.logout = function () {
         localStorage.removeItem('token');
     };
+    UtilisateurService.prototype.newPW = function (mdp, email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/utilisateur/newpw', JSON.stringify({ email: email, mdp: mdp }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    UtilisateurService.prototype.reset = function (email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/utilisateur/reset', JSON.stringify({ email: email }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     UtilisateurService.prototype.signin = function (email, mdp) {
         var headers = new http_1.Headers();
         headers.append('Content-type', 'application/json');
