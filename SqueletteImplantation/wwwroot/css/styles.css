@@ -40,6 +40,16 @@ footer {
   width:100%;
   min-height:5%; 
 }
+
+.iw-titre {
+  font-size: 22px;
+  font-weight: 400;
+  padding: 10px;
+  background-color: #48b5e9;
+  color: white;
+  margin: 1px;
+}
+
 .divprofil{
   background-color: rgba(255, 255, 255, 0.5)
 }
