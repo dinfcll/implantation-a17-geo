@@ -6,9 +6,11 @@
             Nom d'utilisateur : {{profil.username}}<br>
             Courriel : {{profil.courriel}}<br>
             Prénom : {{profil.prenom}}<br>
-            Nom : {{profil.nom}}<br>                           
+            Nom : {{profil.nom}}<br>
+            <!--work in progress ici-->                           
             <button>Éditer mon profil</button>
             <button>Supprimer mon profil</button><br>
+            <!--à là-->
         </div>
         <ng-template #elseBlock>
             <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
