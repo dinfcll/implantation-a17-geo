@@ -39,6 +39,7 @@ namespace SqueletteImplantation
         public void setSubject(string subject) {
             message.Subject = subject;
         }
+        
         public void sendMessage() {
             smtpClient.Connect("smtp.gmail.com", 587, false);
             smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");

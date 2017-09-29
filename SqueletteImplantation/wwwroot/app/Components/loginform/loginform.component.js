@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var utilisateur_service_1 = require("./../../services/utilisateur.service");
@@ -29,13 +28,40 @@ var LoginFormComponent = (function () {
                     _this.router.navigate(['/map']);
             }
             else
-                alert("Courriel ou mot de passe invalide");
+                new jBox('Notice', {
+                    content: 'Courriel ou mot de passe invalide',
+                    color: 'red',
+                    autoClose: 2000
+                });
+        });
+    };
+    LoginFormComponent.prototype.resetPW = function (email) {
+        this.utilisateurService.reset(email)
+            .subscribe(function (res) {
+            if (res) {
+                new jBox('Notice', {
+                    content: 'Si un compte a été trouvé, un courriel a été envoyé',
+                    color: 'blue',
+                    autoClose: 2000
+                });
+            }
+            else {
+                new jBox('Notice', {
+                    content: 'Un problème est survenu , veuillez essayer plus tard',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
         });
     };
     LoginFormComponent.prototype.inscription = function (mail, mdp, cmdp) {
         var _this = this;
         if (mdp != cmdp)
-            alert("Les mots de passe sont différents");
+            new jBox('Notice', {
+                content: 'Les mots de passe sont differents',
+                color: 'red',
+                autoClose: 2000
+            });
         else {
             this.utilisateurService
                 .signin(mail, mdp)
@@ -44,8 +70,20 @@ var LoginFormComponent = (function () {
                     localStorage.setItem('token', mail);
                     _this.router.navigate(['/map']);
                 }
-                else
-                    alert("Il y a déjà un compte lié à ce courriel.");
+                else if (res == false) {
+                    new jBox('Notice', {
+                        content: 'Un problème est survenue , veuillez essayer plus tard',
+                        color: 'red',
+                        autoClose: 2000
+                    });
+                }
+                else if (res == null) {
+                    new jBox('Notice', {
+                        content: 'Il y a déjà un compte à ce courriel',
+                        color: 'red',
+                        autoClose: 2000
+                    });
+                }
             });
         }
     };

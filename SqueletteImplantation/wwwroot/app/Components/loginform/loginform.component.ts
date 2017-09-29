@@ -7,6 +7,8 @@ import { UtilisateurService } from './../../services/utilisateur.service';
 
 import { Subscription } from 'rxjs';
 
+declare var jBox :any;
+
 @Component({
     selector: 'loginForm',
     templateUrl: './loginform.component.html',
@@ -29,14 +31,42 @@ export class LoginFormComponent {
                 localStorage.setItem('token', res.email),
                 this.router.navigate(['/map']); 
             } else
-                alert("Courriel ou mot de passe invalide");
+                new jBox('Notice', {
+                    content: 'Courriel ou mot de passe invalide',
+                    color: 'red',
+                    autoClose: 2000
+                });
         });
 
     }
 
+    resetPW(email:string){
+        this.utilisateurService.reset(email)
+        .subscribe(res =>{
+            if(res){
+                new jBox('Notice', {
+                    content: 'Si un compte a été trouvé, un courriel a été envoyé',
+                    color: 'blue',
+                    autoClose: 2000
+                  });
+            }
+            else{
+                new jBox('Notice', {
+                    content: 'Un problème est survenu , veuillez essayer plus tard',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+            
+        });
+    }
     inscription(mail: string, mdp: string, cmdp: string) {
-        if(mdp != cmdp) 
-            alert("Les mots de passe sont différents");
+        if(mdp != cmdp)
+            new jBox('Notice', {
+                content: 'Les mots de passe sont differents',
+                color: 'red',
+                autoClose: 2000
+              });
         else {            
             this.utilisateurService
                 .signin(mail, mdp)
@@ -44,8 +74,22 @@ export class LoginFormComponent {
                     if(res) {
                         localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
-                    } else 
-                        alert("Il y a déjà un compte lié à ce courriel.");
+                    } else
+                    if(res==false){
+                        new jBox('Notice', {
+                            content: 'Un problème est survenue , veuillez essayer plus tard',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                    else
+                        if(res==null){
+                            new jBox('Notice', {
+                                content: 'Il y a déjà un compte à ce courriel',
+                                color: 'red',
+                                autoClose: 2000
+                            });
+                        }
             });
         }}
 }

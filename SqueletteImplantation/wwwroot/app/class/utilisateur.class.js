@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var Utilisateur = (function () {
     function Utilisateur(id, email, mdp) {
         this.id = id;

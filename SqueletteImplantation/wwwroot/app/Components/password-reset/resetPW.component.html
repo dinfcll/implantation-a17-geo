@@ -1,0 +1,23 @@
+
+<form #resetForm="ngForm">
+   
+    <label for="signin">Nouveau Mot de Passe</label>
+
+    <div id="wrapper">
+        <div id="arrow"></div>
+       
+         <input class="loginFirst" #userPW="ngModel"type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp"
+         [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}" required>
+         
+         <input  class="loginInput" #confirmPW="ngModel" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp"
+         [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
+
+    </div>
+
+    <button type="submit" [ngClass]="{'disabled':!resetForm.form.valid,'fixMargin':option=='reset'}">
+        <span (click)="resetForm.form.valid && resetPW(mdp,confirm)">
+            Confirmer
+        </span>
+    </button>
+
+</form>

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var marqueur_class_1 = require("../../class/marqueur.class");
@@ -47,11 +46,12 @@ var MapComponent = (function () {
         var marker = new google.maps.Marker({
             position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
-            icon: this.banqueimageicone[info.icone]
+            icon: this.banqueimageicone[info.icone],
+            title: info.nom
         });
         google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow({
-            content: "\n                <h2>" + info.nom + "</h2>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
+            content: "<div class=\"iw-titre\"\n                <h2>" + info.nom + "</h2></div>\n                <div *ngIf=\"info.desc\">\n                    " + info.desc + "\n                </div>\n            "
         });
         var chemin = new google.maps.Polyline({
             strokeColor: '#000000',
@@ -61,18 +61,23 @@ var MapComponent = (function () {
         });
         marker.addListener('click', function () {
             if (!infoWindow.ouvert) {
+                _this.map.setZoom(13);
+                _this.map.panTo(marker.position);
                 infoWindow.open(_this.map, marker);
-                var chlat = info.trajetlat.split(",");
-                var chlng = info.trajetlng.split(",");
-                var path = chemin.getPath();
-                path.push(new google.maps.LatLng(info.latitude, info.longitude));
-                for (var i = 0; i < chlat.length; i++) {
-                    path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                if (info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
+                    var chlat = info.trajetlat.split(",");
+                    var chlng = info.trajetlng.split(",");
+                    var path = chemin.getPath();
+                    path.push(new google.maps.LatLng(info.latitude, info.longitude));
+                    for (var i = 0; i < chlat.length; i++) {
+                        path.push(new google.maps.LatLng(chlat[i], chlng[i]));
+                    }
                 }
                 chemin.setMap(_this.map);
                 infoWindow.ouvert = true;
             }
             else {
+                _this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
                 infoWindow.ouvert = false;

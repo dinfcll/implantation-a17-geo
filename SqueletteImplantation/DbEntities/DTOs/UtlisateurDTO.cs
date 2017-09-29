@@ -6,10 +6,11 @@ namespace SqueletteImplantation.DbEntities.DTOs
     {
         public string Email { get; set; }
         public string Mdp { get; set; }
+        public bool reset { get; set; }
 
         public Utilisateur CreateUtilisateur()
         {
-            return new Utilisateur { email = Email, mdp = Mdp };
+            return new Utilisateur { email = Email, mdp = Mdp, reset = reset };
         }
         
     }
