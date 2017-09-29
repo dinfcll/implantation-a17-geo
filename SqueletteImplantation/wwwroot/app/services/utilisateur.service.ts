@@ -40,7 +40,20 @@ export class UtilisateurService extends BaseService {
     logout() {
         localStorage.removeItem('token');
     }
+    newPW(mdp:string,email:string){
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
 
+        return this.http
+            .post(
+                this.baseUrl + '/utilisateur/newpw',
+                JSON.stringify({ email,mdp }), { headers }
+            ) 
+            .map(res => {
+                return res.json();
+            })
+            .catch(this.handleError);
+    }
     reset(email:string){
         let headers = new Headers();
         headers.append('Content-type', 'application/json');

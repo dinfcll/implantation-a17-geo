@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { MapComponent } from './Components/map/map.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
+import {ResetPWComponent} from './Components/password-reset/resetPW.component';
 
 export const routing: Routes = [
     { 
@@ -25,6 +26,11 @@ export const routing: Routes = [
     {   
         path: 'profil',
         component: ProfilUtilisateurComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'resetPW',
+        component: ResetPWComponent,
         canActivate: [AuthGuard]
     },
     { 

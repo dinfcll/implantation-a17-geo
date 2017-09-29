@@ -5,7 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
@@ -20,6 +19,7 @@ var auth_guard_1 = require("./auth.guard");
 var app_routing_1 = require("./app.routing");
 var config_service_1 = require("./Components/utils/config.service");
 var utilisateur_service_1 = require("./services/utilisateur.service");
+var resetPW_component_1 = require("./Components/password-reset/resetPW.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,14 +32,15 @@ AppModule = __decorate([
             loginform_component_1.LoginFormComponent,
             map_component_1.MapComponent,
             profil_utilisateur_component_1.ProfilUtilisateurComponent,
-            nav_component_1.NavBarComponent
+            nav_component_1.NavBarComponent,
+            resetPW_component_1.ResetPWComponent
         ],
         imports: [
             common_1.CommonModule,
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            app_routing_1.AppRouting,
+            app_routing_1.AppRouting
         ],
         providers: [
             auth_guard_1.AuthGuard,

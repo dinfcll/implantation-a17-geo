@@ -27,26 +27,52 @@ export class LoginFormComponent {
         .login(email, mdp)
         .subscribe( res => {          
             if(res){
-                localStorage.setItem('token', res.email),
-                this.router.navigate(['/map']); 
+                if(res.reset)
+                {
+                    localStorage.setItem('token', res.email);
+                    this.router.navigate(['/resetPW']); 
+                }
+                else{
+                    localStorage.setItem('token', res.email);
+                    this.router.navigate(['/map']); 
+                }
             } else
-                alert("Courriel ou mot de passe invalide");
+                new jBox('Notice', {
+                    content: 'Courriel ou mot de passe invalide',
+                    color: 'red',
+                    autoClose: 2000
+                });
         });
 
     }
+
     resetPW(email:string){
         this.utilisateurService.reset(email)
         .subscribe(res =>{
-            new jBox('Notice', {
-                content: 'Si un compte a été trouvé,un courriel a été envoyé',
-                color: 'black',
-                autoClose: 1000
-              }).open();
+            if(res){
+                new jBox('Notice', {
+                    content: 'Si un compte a été trouvé,un courriel a été envoyé',
+                    color: 'blue',
+                    autoClose: 2000
+                  });
+            }
+            else{
+                new jBox('Notice', {
+                    content: 'Un problème est survenue , veuillez essayer plus tard',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+            
         });
     }
     inscription(mail: string, mdp: string, cmdp: string) {
-        if(mdp != cmdp) 
-            alert("Les mots de passe sont différents");
+        if(mdp != cmdp)
+            new jBox('Notice', {
+                content: 'Les mots de passe sont differents',
+                color: 'yellow',
+                autoClose: 2000
+              });
         else {            
             this.utilisateurService
                 .signin(mail, mdp)
@@ -54,8 +80,23 @@ export class LoginFormComponent {
                     if(res) {
                         localStorage.setItem('token', mail);
                         this.router.navigate(['/map']);
-                    } else 
-                        alert("Il y a déjà un compte lié à ce courriel.");
+                    } else
+                    if(res==false){
+                        new jBox('Notice', {
+                            content: 'Un problème est survenue , veuillez essayer plus tard',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                    else
+                        if(res==null){
+                            new jBox('Notice', {
+                                content: 'Il y a déjà un compte a ce courriel',
+                                color: 'red',
+                                autoClose: 2000
+                            });
+                        }
+                        
             });
         }}
 }

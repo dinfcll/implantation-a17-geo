@@ -5,13 +5,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_guard_1 = require("./auth.guard");
 var map_component_1 = require("./Components/map/map.component");
 var loginform_component_1 = require("./Components/loginform/loginform.component");
 var profil_utilisateur_component_1 = require("./Components/profil-utilisateur/profil-utilisateur.component");
+var resetPW_component_1 = require("./Components/password-reset/resetPW.component");
 exports.routing = [
     {
         path: '',
@@ -30,6 +30,11 @@ exports.routing = [
     {
         path: 'profil',
         component: profil_utilisateur_component_1.ProfilUtilisateurComponent,
+        canActivate: [auth_guard_1.AuthGuard]
+    },
+    {
+        path: 'resetPW',
+        component: resetPW_component_1.ResetPWComponent,
         canActivate: [auth_guard_1.AuthGuard]
     },
     {
