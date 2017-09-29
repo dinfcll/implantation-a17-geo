@@ -10,7 +10,6 @@ namespace SqueletteImplantation.DbEntities.DTOs
         public Utilisateur CreateUtilisateur()
         {
             return new Utilisateur { email = Email, mdp = Mdp };
-        }
-        
+        }        
     }
 }

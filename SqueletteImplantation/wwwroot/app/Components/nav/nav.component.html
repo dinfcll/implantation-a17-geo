@@ -3,16 +3,23 @@
     <div class="nav-icon">
         <div></div>
     </div>
-    
-    <a class="bg-inverse navbar-brand" style="font-size:3em;" routerLink="/map" routerLinkActive="active">Ramble
-        <i class="fa fa-map-signs" aria-hidden="true"></i>
-    </a>    
-    
-    <a class="nav-profil" routerLink="/profil" routerLinkActive="active">
-        <i class="fa fa-address-card-o" aria-hidden="true"></i>
-    </a>
-    <a class="logout" href="#" (click)="onLogout()">
-        <i class="fa fa-2x fa-power-off" aria-hidden="true"></i>
-    </a>
 
+    <ul>
+        <li>
+            <a class="nav-profil" routerLink="/profil" routerLinkActive="active">
+                <i class="fa fa-2x fa-address-card-o" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a class="logout" href="#" (click)="onLogout()">
+                <i class="fa fa-2x fa-power-off" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a class="bg-inverse navbar-brand" style="font-size:3em;" routerLink="/map" routerLinkActive="active">Ramble
+                <i class="fa fa-map-signs" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+     
 </nav>

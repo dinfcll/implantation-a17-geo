@@ -13,25 +13,25 @@ export class ProfilUtilisateurComponent implements OnInit{
 
     profil: ProfilUtilisateur;
     email: string;
-    constructor( private utilisateurservice: UtilisateurService ) {
-
-    }
+    
+    constructor( private utilisateurservice: UtilisateurService ) { }
 
     ngOnInit(): void {
-        this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),null,null,null);        
+        this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),null,
+        null,null);        
         this.email = this.utilisateurservice.loggedIn();
         this.getProfil();
     }
 
     getProfil() {
         this.utilisateurservice
-        .getProfil()
-        .subscribe(res => {
-            if(res) {
-                this.profil = res;
-            } else {
-                alert('pas de profil trouvé pour cet utilisateur');
-            }
+            .getProfil()
+            .subscribe(res => {
+                if(res) {
+                    this.profil = res;
+                } else {
+                    alert('pas de profil trouvé pour cet utilisateur');
+                }
         });
     }
 }

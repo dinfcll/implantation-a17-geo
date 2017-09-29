@@ -1,7 +1,11 @@
 <navBar></navBar>
-<div class="divprofil">    
+
+<div class="divprofil">
+
     <h1>Profil</h1>
+
     <blockquote>
+
         <div *ngIf="profil.id; else elseBlock">       
             Nom d'utilisateur : {{profil.username}}<br>
             Courriel : {{profil.courriel}}<br>
@@ -11,6 +15,7 @@
             <button>Éditer mon profil</button>
             <button>Supprimer mon profil</button><br>
         </div>
+
         <ng-template #elseBlock>
             <form #fCreationProfil="ngForm">
                     <label for="idusername">Nom d'utilisateur : </label>
@@ -24,8 +29,10 @@
                     <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
             </form>            
         </ng-template>
+
         <!--Work in progress à la-->  
-    </blockquote>    
+    </blockquote>   
+     
 </div>
 
 
