@@ -24,14 +24,8 @@ var LoginFormComponent = (function () {
             .login(email, mdp)
             .subscribe(function (res) {
             if (res) {
-                if (res.reset) {
-                    localStorage.setItem('token', res.email);
-                    _this.router.navigate(['/resetPW']);
-                }
-                else {
-                    localStorage.setItem('token', res.email);
+                localStorage.setItem('token', res.email),
                     _this.router.navigate(['/map']);
-                }
             }
             else
                 new jBox('Notice', {
@@ -65,7 +59,7 @@ var LoginFormComponent = (function () {
         if (mdp != cmdp)
             new jBox('Notice', {
                 content: 'Les mots de passe sont differents',
-                color: 'yellow',
+                color: 'red',
                 autoClose: 2000
             });
         else {

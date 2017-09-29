@@ -6,6 +6,7 @@ import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
 
 import { Subscription } from 'rxjs';
+
 declare var jBox :any;
 
 @Component({
@@ -27,15 +28,8 @@ export class LoginFormComponent {
         .login(email, mdp)
         .subscribe( res => {          
             if(res){
-                if(res.reset)
-                {
-                    localStorage.setItem('token', res.email);
-                    this.router.navigate(['/resetPW']); 
-                }
-                else{
-                    localStorage.setItem('token', res.email);
-                    this.router.navigate(['/map']); 
-                }
+                localStorage.setItem('token', res.email),
+                this.router.navigate(['/map']); 
             } else
                 new jBox('Notice', {
                     content: 'Courriel ou mot de passe invalide',
@@ -70,7 +64,7 @@ export class LoginFormComponent {
         if(mdp != cmdp)
             new jBox('Notice', {
                 content: 'Les mots de passe sont differents',
-                color: 'yellow',
+                color: 'red',
                 autoClose: 2000
               });
         else {            
@@ -96,7 +90,6 @@ export class LoginFormComponent {
                                 autoClose: 2000
                             });
                         }
-                        
             });
         }}
 }
