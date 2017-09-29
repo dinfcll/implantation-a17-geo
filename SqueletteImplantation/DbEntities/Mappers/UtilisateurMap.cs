@@ -10,7 +10,7 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.HasKey(m => m.Id);
             entityBuilder.Property(m => m.email).IsRequired();
             entityBuilder.Property(m => m.mdp).IsRequired();
-            entityBuilder.Property(m => m.mdp);
+            entityBuilder.Property(m => m.reset);
         }
     }
 }
