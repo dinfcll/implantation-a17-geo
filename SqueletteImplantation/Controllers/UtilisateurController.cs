@@ -42,13 +42,15 @@ namespace SqueletteImplantation.Controllers
             
             if(identity == null)
             {
-                _maBd.Utilisateur.Add(user.CreateUtilisateur());
-                _maBd.SaveChanges();
                 emailSender.setDestination(user.Email);
-                emailSender.setSender("ramble.cll@gmail.com","Welcome");
+                emailSender.setSender("ramble.cll@gmail.com", "Welcome");
                 emailSender.SetMessage("Bienvenue sur Ramble !");
                 emailSender.setSubject("Bienvenue");
                 emailSender.sendMessage();
+                
+                _maBd.Utilisateur.Add(user.CreateUtilisateur());
+                _maBd.SaveChanges();
+               
             }
             else
             {
@@ -65,17 +67,19 @@ namespace SqueletteImplantation.Controllers
 
             if (identity != null)
             {
-                _maBd.Utilisateur.Attach(identity);
                 identity.mdp = RandomString(8);
-                var entry = _maBd.Entry(identity);
-                entry.Property(e => e.mdp).IsModified = true;
-                _maBd.SaveChanges();
-
                 emailSender.setDestination(user.Email);
                 emailSender.setSender("ramble.cll@gmail.com", "Welcome");
                 emailSender.SetMessage("Votre mot de passe temporaire est le " + identity.mdp.ToString() + "");
                 emailSender.setSubject("Nouveau Mot de passe");
                 emailSender.sendMessage();
+                
+                
+                _maBd.Utilisateur.Attach(identity);
+                
+                var entry = _maBd.Entry(identity);
+                entry.Property(e => e.mdp).IsModified = true;
+                _maBd.SaveChanges();  
             }
             else
             {
