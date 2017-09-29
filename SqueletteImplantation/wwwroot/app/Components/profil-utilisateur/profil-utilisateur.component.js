@@ -9,18 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var _1 = require("@angular/router/");
 var profilutilisateur_class_1 = require("./../../class/profilutilisateur.class");
 var utilisateur_service_1 = require("../../services/utilisateur.service");
 var ProfilUtilisateurComponent = (function () {
-    function ProfilUtilisateurComponent(utilisateurservice) {
+    function ProfilUtilisateurComponent(utilisateurservice, router) {
         this.utilisateurservice = utilisateurservice;
+        this.router = router;
     }
     ProfilUtilisateurComponent.prototype.ngOnInit = function () {
-        this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), null, null, null);
+        this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), "", "", "");
         this.email = this.utilisateurservice.loggedIn();
-        this.getProfil();
+        this.onGetProfil();
     };
-    ProfilUtilisateurComponent.prototype.getProfil = function () {
+    ProfilUtilisateurComponent.prototype.onGetProfil = function () {
         var _this = this;
         this.utilisateurservice
             .getProfil()
@@ -29,7 +31,34 @@ var ProfilUtilisateurComponent = (function () {
                 _this.profil = res;
             }
             else {
-                alert('pas de profil trouvé pour cet utilisateur');
+                new jBox('Notice', {
+                    content: 'Aucun profil trouvé. Vous pouvez en créer un',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
+    };
+    ProfilUtilisateurComponent.prototype.onCreateProfil = function () {
+        var _this = this;
+        this.utilisateurservice
+            .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+            .subscribe(function (res) {
+            if (res) {
+                _this.profil = res;
+                _this.router.navigate(['/profil']);
+                new jBox('Notice', {
+                    content: 'Création de profil réussie',
+                    color: 'green',
+                    autoClose: 2000
+                });
+            }
+            else {
+                new jBox('Notice', {
+                    content: 'impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
+                    color: 'red',
+                    autoClose: 2000
+                });
             }
         });
     };
@@ -40,7 +69,7 @@ ProfilUtilisateurComponent = __decorate([
         selector: 'profil-utilisateur',
         templateUrl: './profil-utilisateur.component.html'
     }),
-    __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService])
+    __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService, _1.Router])
 ], ProfilUtilisateurComponent);
 exports.ProfilUtilisateurComponent = ProfilUtilisateurComponent;
 //# sourceMappingURL=profil-utilisateur.component.js.map

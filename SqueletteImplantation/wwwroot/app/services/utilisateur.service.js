@@ -81,6 +81,16 @@ var UtilisateurService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    UtilisateurService.prototype.createProfil = function (courriel, username, prenom, nom) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/profil/create', JSON.stringify({ courriel: courriel, username: username, prenom: prenom, nom: nom }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     return UtilisateurService;
 }(base_service_1.BaseService));
 UtilisateurService = __decorate([

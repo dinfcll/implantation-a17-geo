@@ -95,4 +95,19 @@ export class UtilisateurService extends BaseService {
         })
         .catch(this.handleError);
     }
+
+    createProfil(courriel: string, username: string, prenom: string, nom: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        
+        return this.http
+        .post(
+            this.baseUrl + '/profil/create', 
+            JSON.stringify({ courriel, username, prenom, nom }), { headers }
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
+    }
 }

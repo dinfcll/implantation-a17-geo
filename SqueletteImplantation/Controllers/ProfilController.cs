@@ -42,7 +42,7 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/profil/create")]
-        public IActionResult CreateProfil([FromBody]ProfilDto profilDto)
+        public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
         {
             var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
             if (trouve == null)

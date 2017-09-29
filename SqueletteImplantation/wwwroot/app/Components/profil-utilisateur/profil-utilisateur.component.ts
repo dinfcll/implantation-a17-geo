@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router/";
 
 import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
 import { UtilisateurService } from '../../services/utilisateur.service';
 
+declare var jBox :any;
 
 @Component({
     selector: 'profil-utilisateur',
@@ -13,24 +15,50 @@ export class ProfilUtilisateurComponent implements OnInit{
 
     profil: ProfilUtilisateur;
     email: string;
-    constructor( private utilisateurservice: UtilisateurService ) {
+    constructor( private utilisateurservice: UtilisateurService, private router: Router ) {
 
     }
 
     ngOnInit(): void {
-        this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),null,null,null);        
+        this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");        
         this.email = this.utilisateurservice.loggedIn();
-        this.getProfil();
+        this.onGetProfil();
     }
 
-    getProfil() {
+    onGetProfil() {
         this.utilisateurservice
         .getProfil()
         .subscribe(res => {
             if(res) {
                 this.profil = res;
+            } else {                
+                new jBox('Notice', {
+                content: 'Aucun profil trouvé. Vous pouvez en créer un',
+                color: 'red',
+                autoClose: 2000
+              });                
+            }
+        });
+    }
+
+    onCreateProfil(){
+        this.utilisateurservice
+        .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+        .subscribe(res => {
+            if(res) {
+                this.profil = res;
+                this.router.navigate(['/profil'])
+                new jBox('Notice', {
+                content: 'Création de profil réussie',
+                color: 'green',
+                autoClose: 5000
+                });
             } else {
-                alert('pas de profil trouvé pour cet utilisateur');
+                new jBox('Notice', {
+                content: 'impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
+                color: 'red',
+                autoClose: 5000
+              }); 
             }
         });
     }
