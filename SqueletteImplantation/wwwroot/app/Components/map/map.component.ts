@@ -55,13 +55,14 @@ export class MapComponent implements OnInit {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
-            icon: this.banqueimageicone[info.icone]
+            icon: this.banqueimageicone[info.icone],
+            title: info.nom
         });
 
         google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
-            content:`
-                <h2>`+info.nom+`</h2>
+            content:`<div class="iw-titre"
+                <h2>`+info.nom+`</h2></div>
                 <div *ngIf="info.desc">
                     `+info.desc+`
                 </div>
@@ -77,18 +78,23 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(!infoWindow.ouvert){
+                this.map.setZoom(13);
+                this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
-                let chlat = info.trajetlat.split(",");
-                let chlng = info.trajetlng.split(",");
+                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null){
+                    let chlat = info.trajetlat.split(",");
+                    let chlng = info.trajetlng.split(",");
 
-                let path = chemin.getPath();
-                path.push(new google.maps.LatLng(info.latitude,info.longitude));
-                for(let i = 0; i < chlat.length; i++){
-                    path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                    let path = chemin.getPath();
+                    path.push(new google.maps.LatLng(info.latitude,info.longitude));
+                    for(let i = 0; i < chlat.length; i++){
+                        path.push(new google.maps.LatLng(chlat[i], chlng[i]))
+                    }
                 }
                 chemin.setMap(this.map);
                 infoWindow.ouvert = true;
             } else {
+                this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
                 infoWindow.ouvert = false;
