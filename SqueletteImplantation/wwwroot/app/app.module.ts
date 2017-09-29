@@ -7,6 +7,7 @@ import { HttpModule }                  from '@angular/http';
 import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
+import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
 import { NavBarComponent }             from './Components/nav/nav.component';
 
 import { AuthGuard }                   from './auth.guard';
@@ -19,6 +20,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     AppComponent,
     LoginFormComponent, 
     MapComponent,
+    ProfilUtilisateurComponent, 
     NavBarComponent
   ],
   imports: [ 

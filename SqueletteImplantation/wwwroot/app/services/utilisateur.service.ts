@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { BaseService } from './base.service';
 import { Utilisateur } from '../class/utilisateur.class';
+import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { ConfigService } from '../Components/utils/config.service';
 
 import { tokenNotExpired } from 'angular2-jwt';
@@ -27,19 +28,19 @@ export class UtilisateurService extends BaseService {
                 JSON.stringify({ email, mdp }), { headers }
             )
             .map(res => {
-                return res.json()
-                
+                return res.json();
             })
-            .catch(this.handleError);           
+            .catch(this.handleError);
     }
 
-    loggedIn() {    
-        return localStorage.getItem('token');      
+    loggedIn() {
+        return localStorage.getItem('token');
     }
 
     logout() {
         localStorage.removeItem('token');
     }
+
     reset(email:string){
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
@@ -55,6 +56,7 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);
     
     }
+
     signin(email: string, mdp: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
@@ -63,10 +65,21 @@ export class UtilisateurService extends BaseService {
             .post(
                 this.baseUrl + '/utilisateur/signin',
                 JSON.stringify({ email, mdp }), { headers }
-            ) 
+            )
             .map(res => {
                 return res.json();
             })
             .catch(this.handleError);
+    }
+
+    getProfil() {
+        return this.http
+        .get(
+            this.baseUrl + '/profil/' + this.loggedIn(), this.loggedIn()
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
     }
 }
