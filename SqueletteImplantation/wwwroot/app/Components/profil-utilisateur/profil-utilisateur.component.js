@@ -50,14 +50,14 @@ var ProfilUtilisateurComponent = (function () {
                 new jBox('Notice', {
                     content: 'Création de profil réussie',
                     color: 'green',
-                    autoClose: 2000
+                    autoClose: 5000
                 });
             }
             else {
                 new jBox('Notice', {
                     content: 'impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
                     color: 'red',
-                    autoClose: 2000
+                    autoClose: 5000
                 });
             }
         });
