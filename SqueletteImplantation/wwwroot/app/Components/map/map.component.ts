@@ -11,6 +11,7 @@ declare var jBox:any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
+    styleUrls:['./map.css']
 })
 
 export class MapComponent implements OnInit {
