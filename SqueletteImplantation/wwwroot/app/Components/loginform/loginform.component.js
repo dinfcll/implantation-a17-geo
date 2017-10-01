@@ -24,8 +24,14 @@ var LoginFormComponent = (function () {
             .login(email, mdp)
             .subscribe(function (res) {
             if (res) {
-                localStorage.setItem('token', res.email),
+                if (res.reset) {
+                    localStorage.setItem('token', res.email);
+                    _this.router.navigate(['/resetPW']);
+                }
+                else {
+                    localStorage.setItem('token', res.email);
                     _this.router.navigate(['/map']);
+                }
             }
             else
                 new jBox('Notice', {
@@ -40,14 +46,14 @@ var LoginFormComponent = (function () {
             .subscribe(function (res) {
             if (res) {
                 new jBox('Notice', {
-                    content: 'Si un compte a été trouvé,un courriel a été envoyé',
+                    content: 'Si un compte a été trouvé, un courriel a été envoyé',
                     color: 'blue',
                     autoClose: 2000
                 });
             }
             else {
                 new jBox('Notice', {
-                    content: 'Un problème est survenue , veuillez essayer plus tard',
+                    content: 'Un problème est survenu , veuillez essayer plus tard',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -79,7 +85,7 @@ var LoginFormComponent = (function () {
                 }
                 else if (res == null) {
                     new jBox('Notice', {
-                        content: 'Il y a déjà un compte a ce courriel',
+                        content: 'Il y a déjà un compte à ce courriel',
                         color: 'red',
                         autoClose: 2000
                     });
