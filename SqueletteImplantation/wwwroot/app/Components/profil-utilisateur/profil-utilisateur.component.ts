@@ -62,4 +62,23 @@ export class ProfilUtilisateurComponent implements OnInit{
             }
         });
     }
+
+    onEditProfil() {
+        this.utilisateurservice
+        .editProfil(this.profil)
+        .subscribe(res => {
+            if(res) {
+                var profilETutil = res;
+                this.profil = profilETutil[0];
+                this.email = profilETutil[1].email;
+                localStorage.setItem('token', this.email);
+            } else {
+                new jBox('Notice', {
+                    content: 'impossible de modifier le profil pour cet utilisateur',
+                    color: 'red',
+                    autoClose: 5000
+                });
+            }
+        });
+    }
 }

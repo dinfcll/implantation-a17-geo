@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ProfilUtilisateur = (function () {
     function ProfilUtilisateur(id, courriel, username, prenom, nom) {
         this.id = id;

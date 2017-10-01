@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _1 = require("@angular/router/");
 var profilutilisateur_class_1 = require("./../../class/profilutilisateur.class");
@@ -61,6 +62,8 @@ var ProfilUtilisateurComponent = (function () {
                 });
             }
         });
+    };
+    ProfilUtilisateurComponent.prototype.onEditProfil = function () {
     };
     return ProfilUtilisateurComponent;
 }());

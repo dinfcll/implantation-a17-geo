@@ -52,12 +52,50 @@ namespace SqueletteImplantation.Controllers
                 _maBd.Profil.Add(profil);
                 _maBd.SaveChanges();
 
-                return new OkObjectResult(profil);//verifier si id est dans le retour pas sûr
+                return new OkObjectResult(profil);
             }
             else
             {
                 return new OkObjectResult(null);
             }            
+        }
+
+        [HttpPut]
+        [Route("api/profil/edit")]
+        public IActionResult EditProfil([FromBody] Profil updatedprofil)
+        {
+            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.id == updatedprofil.id);
+
+            if (oldprofil != null)
+            {
+                var utilisateur = _maBd.Utilisateur.FirstOrDefault(u => u.email == oldprofil.courriel);
+
+                if (utilisateur != null)
+                {
+                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
+                    if (trouve == null)
+                    {
+                        utilisateur.email = updatedprofil.courriel;
+
+                        _maBd.Utilisateur.Attach(utilisateur);
+
+                        var entry = _maBd.Entry(utilisateur);
+                        entry.Property(e => e.email).IsModified = true;
+                        _maBd.SaveChanges();
+
+                        _maBd.Profil.Attach(oldprofil);
+                        _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
+                        _maBd.SaveChanges();
+
+                        object[] profilETutil = { updatedprofil, utilisateur };
+
+                        return new OkObjectResult(profilETutil);
+                    }                    
+                }                
+            }
+
+            return new OkObjectResult(null);
+                        
         }
     }
 }

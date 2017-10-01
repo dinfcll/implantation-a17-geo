@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Marqueur = (function () {
     function Marqueur(Id, Nom, Latitude, Longitude, Desc, Icone, Trajetlat, Trajetlng) {
         this.id = Id;
