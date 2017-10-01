@@ -1,9 +1,7 @@
 <body>
-
     <navBar></navBar>
-
     <br><br><br>
-
+    <span (click)="detailToolTip()" id="detail"><i class="fa fa-info-circle" aria-hidden="true" ></i></span>
     <h1>MAP</h1>
 
     <div class="row">
@@ -11,6 +9,7 @@
             <div id="map"></div>
         </div>     
     </div>
+    
 
     <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
         <span *ngIf="AcceptMarker">

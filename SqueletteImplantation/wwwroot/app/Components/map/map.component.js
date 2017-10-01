@@ -103,6 +103,25 @@ var MapComponent = (function () {
         this.Longitude = 0;
         this.PermissionAjoutMarker();
     };
+    MapComponent.prototype.detailToolTip = function () {
+        new jBox("Tooltip", {
+            attach: "#detail",
+            target: "#detail",
+            theme: "TooltipBorder",
+            trigger: "click",
+            width: 100,
+            adjustTracker: true,
+            closeOnClick: "body",
+            closeOnEsc: true,
+            animation: "move",
+            position: {
+                x: "right",
+                y: "center"
+            },
+            outside: "x",
+            content: "Scroll up and down or resize your browser, I will adjust my position!<br><br>Press [ESC] or click anywhere to close.",
+        });
+    };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
         var myCenter = { lat: 46.752560, lng: -71.228740 };

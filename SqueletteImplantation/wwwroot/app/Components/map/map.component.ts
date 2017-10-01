@@ -5,6 +5,7 @@ import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
+declare var jBox:any;
 
 @Component ({
     moduleId: module.id,
@@ -126,8 +127,27 @@ export class MapComponent implements OnInit {
         this.PermissionAjoutMarker();
     }
 
-
-    
+    detailToolTip():void{
+        new jBox("Tooltip",{
+            attach: "#detail",
+            target: "#detail",
+            theme: "TooltipBorder",
+            trigger: "click",
+            width:100 ,
+            adjustTracker: true,
+            closeOnClick: "body",
+            closeOnEsc: true,
+            animation: "move",
+            position: {
+                x: "right",
+                y: "center"
+            },
+            outside: "x",
+            content: "Scroll up and down or resize your browser, I will adjust my position!<br><br>Press [ESC] or click anywhere to close.",
+            
+            
+        });
+    }
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 
@@ -164,6 +184,7 @@ export class MapComponent implements OnInit {
         this.map.addListener('click', (e:any):void => {
             this.CreationMaker(e); 
         });
+        
 
     }         
 }

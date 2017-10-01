@@ -57,7 +57,6 @@ export class LoginFormComponent {
                     autoClose: 2000
                 });
             }
-            
         });
     }
     inscription(mail: string, mdp: string, cmdp: string) {
