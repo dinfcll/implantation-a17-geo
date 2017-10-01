@@ -1,42 +1,52 @@
-<body>
+<div>
     <navBar></navBar>
     
     <div class="container">
-       
-  
         <div class="jumbotron">
-          <h1 class="display-3">Jumbotron heading</h1>
-          <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <h2 class="jumboMessage">Planifiez votre prochaine randonnée !</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+                            <span>
+                                Ajouter un marqueur
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <form>
+                        <span *ngIf="AcceptMarker">
+                            <span>Pour ajouter un marqueur clicker afin de choisir sa position,
+                                    ensuite inscrire un titre et une description
+                            </span>
+                            <br>
+                            long:{{Longitude}}
+                            <br> 
+                            lat:{{Latitude}}
+                            <br>
+                            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/>
+                            <br>
+                            <label for="desc" style="vertical-align: top">Description:</label>
+                            <textarea rows="4" cols="50" id="desc" style="resize:none" [(ngModel)]="DescriptionRando"></textarea>
+                            
+                            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">
+                                Confirmer</button>
+                        </span>
+                    </form>
+                </div>
+                
+            </div>
+                 
         </div>
-      </div>
-    <span class="pull-right" (click)="detailToolTip()" id="detail"><i class="fa fa-info-circle" aria-hidden="true" ></i></span>
-    <h1>MAP</h1>
-
-    
-    
-
-    <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
-        <span *ngIf="AcceptMarker">
-            <span>Pour ajouter un marqueur clicker afin de choisir sa position,
-                 ensuite inscrire un titre et une description
-            </span>
-            <br>
-            long:{{Longitude}}
-            <br> 
-            lat:{{Latitude}}
-            <br>
-            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/>
-            <br>
-            <label for="desc" style="vertical-align: top">Description:</label>
-            <textarea rows="4" cols="50" id="desc" style="resize:none" [(ngModel)]="DescriptionRando"></textarea>
-            <br>
-            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">
-                Confirmer</button>
-        </span>
-
-        <br>
-
-        <button (click)="PermissionAjoutMarker()">{{btnAjout}}</button>
+          
     </div>
-</body>
+   
+</div>
