@@ -10,8 +10,8 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.HasKey(m => m.id);
             entityBuilder.Property(m => m.courriel).IsRequired();
             entityBuilder.Property(m => m.username).IsRequired();
-            entityBuilder.Property(m => m.prenom).IsRequired();
-            entityBuilder.Property(m => m.nom).IsRequired();
+            entityBuilder.Property(m => m.prenom);
+            entityBuilder.Property(m => m.nom);
         }
     }
 }

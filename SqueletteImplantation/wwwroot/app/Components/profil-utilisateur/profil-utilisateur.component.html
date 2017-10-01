@@ -7,24 +7,24 @@
             Courriel : {{profil.courriel}}<br>
             Prénom : {{profil.prenom}}<br>
             Nom : {{profil.nom}}<br>
-            <!--Work in progress à partir d'ici-->                
+            <!--work in progress ici-->                           
             <button>Éditer mon profil</button>
             <button>Supprimer mon profil</button><br>
+            <!--à là-->
         </div>
         <ng-template #elseBlock>
-            <form #fCreationProfil="ngForm">
+            <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
                     <label for="idusername">Nom d'utilisateur : </label>
                     <input type="text" id="idusername" [(ngModel)]="profil.username" name="username" required/><br>
                     <label for="idcourriel">Courriel : </label>
                     <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" disabled/><br>
                     <label for="idprenom">Prénom : </label>
-                    <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom" required/><br>
+                    <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom"/><br>
                     <label for="idnom">Nom : </label>
-                    <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom" required/><br>            
+                    <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom"/><br>            
                     <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
             </form>            
-        </ng-template>
-        <!--Work in progress à la-->  
+        </ng-template>         
     </blockquote>    
 </div>
 
