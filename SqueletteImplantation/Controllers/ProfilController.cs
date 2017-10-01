@@ -52,7 +52,7 @@ namespace SqueletteImplantation.Controllers
                 _maBd.Profil.Add(profil);
                 _maBd.SaveChanges();
 
-                return new OkObjectResult(profil);//verifier si id est dans le retour pas sûr
+                return new OkObjectResult(profil);
             }
             else
             {
