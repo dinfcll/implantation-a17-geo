@@ -24,8 +24,14 @@ var LoginFormComponent = (function () {
             .login(email, mdp)
             .subscribe(function (res) {
             if (res) {
-                localStorage.setItem('token', res.email),
+                if (res.reset) {
+                    localStorage.setItem('token', res.email);
+                    _this.router.navigate(['/resetPW']);
+                }
+                else {
+                    localStorage.setItem('token', res.email);
                     _this.router.navigate(['/map']);
+                }
             }
             else
                 new jBox('Notice', {
