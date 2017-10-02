@@ -8,13 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var ConfigService = (function () {
     function ConfigService() {
-        //this._apiURI = 'http://localhost:56306/api'; //linux
-        this._apiURI = 'http://localhost:5000/api'; //local
-        //this._apiURI = '/api'; //instance
+        //this._apiURI = '//localhost:56306/api'; //linux
+        this._apiURI = '//localhost:5000/api'; //local
+        //this._apiURI = '//api'; //instance
     }
     ConfigService.prototype.getApiURI = function () {
         return this._apiURI;

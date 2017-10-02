@@ -2,30 +2,30 @@
 <div class="divprofil">    
     <h1>Profil</h1>
     <blockquote>
-        <div *ngIf="profil.id; else elseBlock">       
+        <div *ngIf="profil.id && !bEdit; else elseBlock">       
             Nom d'utilisateur : {{profil.username}}<br>
             Courriel : {{profil.courriel}}<br>
             Prénom : {{profil.prenom}}<br>
-            Nom : {{profil.nom}}<br>
-            <!--work in progress ici-->                           
-            <button>Éditer mon profil</button>
+            Nom : {{profil.nom}}<br>                                       
+            <button (click)="editActif()">Éditer mon profil</button>
+            <!--work in progress ici-->
             <button>Supprimer mon profil</button><br>
             <!--à là-->
         </div>
         <ng-template #elseBlock>
-            <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
+            <form #fProfil="ngForm">
                     <label for="idusername">Nom d'utilisateur : </label>
                     <input type="text" id="idusername" [(ngModel)]="profil.username" name="username" required/><br>
                     <label for="idcourriel">Courriel : </label>
-                    <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" disabled/><br>
+                    <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" 
+                        [disabled]="!bEdit" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required/><br>
                     <label for="idprenom">Prénom : </label>
                     <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom"/><br>
                     <label for="idnom">Nom : </label>
                     <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom"/><br>            
-                    <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
-            </form>            
+                    <input *ngIf="!bEdit" type="button" (click)="onCreateProfil()" [disabled]="!fProfil.valid" value="Créer mon profil"/><br>
+                    <input *ngIf="bEdit" type="button" (click)="onEditProfil()" [disabled]="!fProfil.valid" value="Édit mon profil"/><br>
+            </form>                        
         </ng-template>         
     </blockquote>    
 </div>
-
-

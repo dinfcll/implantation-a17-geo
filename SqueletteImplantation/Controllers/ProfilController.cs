@@ -73,7 +73,8 @@ namespace SqueletteImplantation.Controllers
                 if (utilisateur != null)
                 {
                     var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
-                    if (trouve == null)
+
+                    if (trouve == null || trouve.Id == utilisateur.Id)
                     {
                         utilisateur.email = updatedprofil.courriel;
 
@@ -85,11 +86,9 @@ namespace SqueletteImplantation.Controllers
 
                         _maBd.Profil.Attach(oldprofil);
                         _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
-                        _maBd.SaveChanges();
+                        _maBd.SaveChanges();                                             
 
-                        object[] profilETutil = { updatedprofil, utilisateur };
-
-                        return new OkObjectResult(profilETutil);
+                        return new OkObjectResult(updatedprofil);
                     }                    
                 }                
             }

@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var _1 = require("@angular/router/");
 var profilutilisateur_class_1 = require("./../../class/profilutilisateur.class");
@@ -17,10 +16,10 @@ var ProfilUtilisateurComponent = (function () {
     function ProfilUtilisateurComponent(utilisateurservice, router) {
         this.utilisateurservice = utilisateurservice;
         this.router = router;
+        this.bEdit = false;
     }
     ProfilUtilisateurComponent.prototype.ngOnInit = function () {
         this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), "", "", "");
-        this.email = this.utilisateurservice.loggedIn();
         this.onGetProfil();
     };
     ProfilUtilisateurComponent.prototype.onGetProfil = function () {
@@ -35,7 +34,7 @@ var ProfilUtilisateurComponent = (function () {
                 new jBox('Notice', {
                     content: 'Aucun profil trouvé. Vous pouvez en créer un',
                     color: 'red',
-                    autoClose: 2000
+                    autoClose: 5000
                 });
             }
         });
@@ -49,21 +48,46 @@ var ProfilUtilisateurComponent = (function () {
                 _this.profil = res;
                 _this.router.navigate(['/profil']);
                 new jBox('Notice', {
-                    content: 'Création de profil réussie',
+                    content: 'Création du profil réussie',
                     color: 'green',
                     autoClose: 5000
                 });
             }
             else {
                 new jBox('Notice', {
-                    content: 'impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
+                    content: 'Impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
                     color: 'red',
                     autoClose: 5000
                 });
             }
         });
     };
+    ProfilUtilisateurComponent.prototype.editActif = function () {
+        this.bEdit = true;
+    };
     ProfilUtilisateurComponent.prototype.onEditProfil = function () {
+        var _this = this;
+        this.utilisateurservice
+            .editProfil(this.profil.id, this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+            .subscribe(function (res) {
+            if (res) {
+                _this.profil = res;
+                localStorage.setItem('token', _this.profil.courriel);
+                _this.bEdit = false;
+                new jBox('Notice', {
+                    content: 'Édition du profil réussie',
+                    color: 'green',
+                    autoClose: 5000
+                });
+            }
+            else {
+                new jBox('Notice', {
+                    content: 'Impossible de modifier le profil pour cet utilisateur',
+                    color: 'red',
+                    autoClose: 5000
+                });
+            }
+        });
     };
     return ProfilUtilisateurComponent;
 }());

@@ -111,14 +111,14 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(profil: ProfilUtilisateur) {
+    editProfil(id: number, courriel: string, username: string, prenom: string, nom: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         
         return this.http
         .put(
             this.baseUrl + '/profil/edit', 
-            JSON.stringify({ profil }), { headers }
+            JSON.stringify({ id, courriel, username, prenom, nom }), { headers }
         )
         .map(res => {
             return res.json();
