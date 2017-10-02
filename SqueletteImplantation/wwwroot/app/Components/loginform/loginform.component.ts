@@ -37,7 +37,6 @@ export class LoginFormComponent {
                     autoClose: 2000
                 });
         });
-
     }
 
     resetPW(email:string){

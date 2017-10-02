@@ -1,5 +1,5 @@
-
 <form #loginForm="ngForm">
+
     <input checked id="signin" name="action" type="radio" [value]="signin"[(ngModel)]="option">
     <label for="signin">Sign in</label>
 
@@ -10,17 +10,20 @@
     <label for='reset'>Reset</label>
 
     <div id="wrapper">
+
         <div id="arrow"></div>
-        <input type="text" class="loginFirst" placeholder="Email" 
-        #userEmail="ngModel" name="email"
-         [(ngModel)]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
-         [ngClass]="{'has-error' : userEmail.touched && !userEmail?.valid,'has-success':userEmail.valid}" required email="true">
+
+        <input type="text" class="loginFirst" placeholder="Email" #userEmail="ngModel" name="email"
+            [(ngModel)]="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" email="true"
+            [ngClass]="{'has-error' : userEmail.touched && !userEmail?.valid,'has-success':userEmail.valid}" >
          
-         <input class="loginInput" *ngIf="option !='reset'" #userPW="ngModel"type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp"
-         [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}" required>
+        <input type="password" class="loginInput" placeholder="Mdp" #userPW="ngModel" name="mdp"
+            [(ngModel)]="mdp" required *ngIf="option !='reset'"
+            [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}">
          
-         <input  class="loginInput" *ngIf="option=='signup'" #confirmPW="ngModel" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp"
-         [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
+        <input type="password" class="loginInput" placeholder="Confirmer Mdp" #confirmPW="ngModel" name="confirm"
+            [(ngModel)]="confirm" required *ngIf="option=='signup'"
+            [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
 
     </div>
 

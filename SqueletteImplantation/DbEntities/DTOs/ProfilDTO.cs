@@ -11,7 +11,8 @@ namespace SqueletteImplantation.DbEntities.DTOs
 
         public Profil CreateProfil()
         {
-            return new Profil { courriel = Courriel, username = Username, prenom = Prenom, nom = Nom };
-        }        
+            return new Profil { courriel = Courriel, username = Username, 
+                prenom = Prenom, nom = Nom };
+        }
     }
 }
