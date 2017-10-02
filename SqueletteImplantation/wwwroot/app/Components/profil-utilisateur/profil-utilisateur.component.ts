@@ -16,9 +16,7 @@ export class ProfilUtilisateurComponent implements OnInit{
     profil: ProfilUtilisateur;    
     bEdit: boolean = false;
 
-    constructor( private utilisateurservice: UtilisateurService, private router: Router ) {
-
-    }
+    constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
     ngOnInit(): void {
         this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");

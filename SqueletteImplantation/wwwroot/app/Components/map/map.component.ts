@@ -10,6 +10,7 @@ declare var google: any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
+    styleUrls: ['./map.component.css']
 })
 
 export class MapComponent implements OnInit {

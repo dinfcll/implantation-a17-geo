@@ -20,6 +20,7 @@ namespace SqueletteImplantation.Controllers
         {
             _maBd = maBd;
         }
+
         private static Random random = new Random();
         public static string RandomString(int length)
         {
@@ -27,6 +28,7 @@ namespace SqueletteImplantation.Controllers
             return new string(Enumerable.Repeat(chars, length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+        
         [HttpGet]
         [Route("api/utilisateur")]
         public IEnumerable Index()
@@ -99,7 +101,7 @@ namespace SqueletteImplantation.Controllers
             if (identity == null)
             {
                 return new ObjectResult(null);
-            }
+            } 
             if (identity.reset==false)
             {
                 
