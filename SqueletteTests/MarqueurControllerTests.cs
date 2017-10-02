@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.Controllers;
@@ -47,6 +48,24 @@ namespace SqueletteTests
             var result = _marqueurControlleur.CreateMarqueur(marqueur);
             var retoursupp = _marqueurControlleur.DeleteMarqueur(1);
             Assert.Equal(200, (retoursupp as OkResult).StatusCode);
+        }
+
+        [Fact]
+        public void Testsurlist(){
+            var CreateMarqueur = _marqueurControlleur.CreateMarqueur(marqueur);
+            Marqueur marq2 = new Marqueur();
+            marq2.Id = 0;
+            marq2.Nom = "banane";
+            marq2.Desc = "woow";
+            marq2.Icone = 0;
+            marq2.Latitude = 2526.222m;
+            marq2.Longitude = -7744.355m;
+            marq2.Trajetlat = "tong";
+            marq2.Trajetlng = "zarg";
+            var Createsecondmarq = _marqueurControlleur.CreateMarqueur(marq2);
+            var delete = _marqueurControlleur.DeleteMarqueur(3);
+            var retourlist = _marqueurControlleur.Index() as List<Marqueur>;
+            Assert.Equal(1, retourlist.Count);
         }
         
 
