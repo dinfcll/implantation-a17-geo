@@ -45,8 +45,8 @@ namespace SqueletteTests
 
         [Fact]
         public void supprimermarqueur(){
-            var result = _marqueurControlleur.CreateMarqueur(marqueur);
-            var retoursupp = _marqueurControlleur.DeleteMarqueur(1);
+            var result = (_marqueurControlleur.CreateMarqueur(marqueur) as OkObjectResult).Value as Marqueur;
+            var retoursupp = _marqueurControlleur.DeleteMarqueur(result.Id);
             Assert.Equal(200, (retoursupp as OkResult).StatusCode);
         }
 
@@ -62,8 +62,8 @@ namespace SqueletteTests
             marq2.Longitude = -7744.355m;
             marq2.Trajetlat = "tong";
             marq2.Trajetlng = "zarg";
-            var Createsecondmarq = _marqueurControlleur.CreateMarqueur(marq2);
-            var delete = _marqueurControlleur.DeleteMarqueur(3);
+            var Createsecondmarq = (_marqueurControlleur.CreateMarqueur(marq2) as OkObjectResult).Value as Marqueur;
+            var delete = _marqueurControlleur.DeleteMarqueur(Createsecondmarq.Id);
             var retourlist = _marqueurControlleur.Index() as List<Marqueur>;
             Assert.Equal(1, retourlist.Count);
         }
