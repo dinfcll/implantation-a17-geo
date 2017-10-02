@@ -16,8 +16,6 @@
 
 .menu-item,
 .menu-open-button {
-  top: -225%;
-  right: -750%;
   background: #EEEEEE;
   border-radius: 100%;
   width: 80px;
@@ -87,13 +85,12 @@
 
 .menu {
   margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  top: 60px;
+  right: 20px;
   width: 80px;
   height: 80px;
+  float: right;
   text-align: center;
   box-sizing: border-box;
   font-size: 26px;
