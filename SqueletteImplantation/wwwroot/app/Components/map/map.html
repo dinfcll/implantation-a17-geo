@@ -4,9 +4,6 @@
     <div class="container">
         <div class="jumbotron">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <h2 class="jumboMessage">Planifiez votre prochaine randonnée !</h2>
-                </div>
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-6">
                         <div id="map"></div>
@@ -16,17 +13,15 @@
                     <div class="col-md-8 col-md-offset-2">
                         <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
                             <span>
-                                Ajouter un marqueur
+                                {{btnAjout}}
                             </span>
                         </button>
                     </div>
                 </div>
                 <div>
-                    <form>
-                        <span *ngIf="AcceptMarker">
-                            <span>Pour ajouter un marqueur clicker afin de choisir sa position,
-                                    ensuite inscrire un titre et une description
-                            </span>
+                    <form *ngIf="AcceptMarker">
+                        <span>
+                            
                             <br>
                             long:{{Longitude}}
                             <br> 

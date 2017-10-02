@@ -24,7 +24,7 @@ var MapComponent = (function () {
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
-        if (this.btnAjout === "Ajout marqueur") {
+        if (this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
         }
         else {

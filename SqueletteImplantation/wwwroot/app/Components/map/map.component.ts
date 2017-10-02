@@ -36,7 +36,7 @@ export class MapComponent implements OnInit {
 
     PermissionAjoutMarker():void{
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajout marqueur"){
+        if(this.btnAjout === "Ajouter un marqueur"){
             this.btnAjout = "Annuler";
         } else {
             this.btnAjout = "Ajout marqueur";

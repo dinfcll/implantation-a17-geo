@@ -21,9 +21,9 @@ h1 {
 }
 #map{
   margin: auto;
-  width: 90%;
+  width: 85%;
   height: 20%;
-  min-height: 50vh;
+  min-height: 65vh;
   padding:10px;
   background-color: grey;
 }
