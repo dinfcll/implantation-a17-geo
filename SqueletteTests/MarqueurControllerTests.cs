@@ -47,9 +47,6 @@ namespace SqueletteTests
             var result = _marqueurControlleur.CreateMarqueur(marqueur);
             var retoursupp = _marqueurControlleur.DeleteMarqueur(1);
             Assert.Equal(200, (retoursupp as OkResult).StatusCode);
-
-            var nontrouve = _marqueurControlleur.GetMarqueur(1);
-            Assert.Equal(404,((NotFoundResult)nontrouve).StatusCode);
         }
         
 
