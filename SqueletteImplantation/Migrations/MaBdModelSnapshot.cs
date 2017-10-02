@@ -64,11 +64,9 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("courriel")
                         .IsRequired();
 
-                    b.Property<string>("nom")
-                        .IsRequired();
+                    b.Property<string>("nom");
 
-                    b.Property<string>("prenom")
-                        .IsRequired();
+                    b.Property<string>("prenom");
 
                     b.Property<string>("username")
                         .IsRequired();
@@ -88,6 +86,8 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("mdp")
                         .IsRequired();
+
+                    b.Property<bool>("reset");
 
                     b.HasKey("Id");
 

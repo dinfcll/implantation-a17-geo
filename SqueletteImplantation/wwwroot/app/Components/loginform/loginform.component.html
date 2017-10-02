@@ -29,7 +29,7 @@
     </div>
 
     <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}">
-        <span>
+        <span (click)="loginForm.form.valid && resetPW(email)">
             Reset password
         </span>
         <span (click)="loginForm.form.valid && onLogin(email,mdp)">

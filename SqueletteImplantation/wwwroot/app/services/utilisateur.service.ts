@@ -40,6 +40,35 @@ export class UtilisateurService extends BaseService {
     logout() {
         localStorage.removeItem('token');
     }
+    newPW(mdp:string,email:string){
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+
+        return this.http
+            .post(
+                this.baseUrl + '/utilisateur/newpw',
+                JSON.stringify({ email,mdp }), { headers }
+            ) 
+            .map(res => {
+                return res.json();
+            })
+            .catch(this.handleError);
+    }
+    reset(email:string){
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+
+        return this.http
+            .post(
+                this.baseUrl + '/utilisateur/reset',
+                JSON.stringify({ email }), { headers }
+            ) 
+            .map(res => {
+                return res.json();
+            })
+            .catch(this.handleError);
+    
+    }
 
     signin(email: string, mdp: string) {
         let headers = new Headers();
@@ -60,6 +89,21 @@ export class UtilisateurService extends BaseService {
         return this.http
         .get(
             this.baseUrl + '/profil/' + this.loggedIn(), this.loggedIn()
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
+    }
+
+    createProfil(courriel: string, username: string, prenom: string, nom: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        
+        return this.http
+        .post(
+            this.baseUrl + '/profil/create', 
+            JSON.stringify({ courriel, username, prenom, nom }), { headers }
         )
         .map(res => {
             return res.json();
