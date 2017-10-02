@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Anurati-Regular';
+  src: url("../../../fonts/Anurati-Regular.otf");
+  font-family: 'Elianto-Regular';
+  src: url("../../../fonts/Elianto-Regular.otf");
+}
+
+#titre {
+  font-family: 'Elianto-Regular';
+  font-size: 50px;
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  color: #81A8AE;
+}
+
 .menu-item,
 .menu-open-button {
   top: -225%;
