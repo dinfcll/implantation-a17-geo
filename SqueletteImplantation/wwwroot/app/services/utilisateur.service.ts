@@ -40,7 +40,8 @@ export class UtilisateurService extends BaseService {
     logout() {
         localStorage.removeItem('token');
     }
-    newPW(mdp:string,email:string){
+
+    newPW(mdp:string,email:string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
@@ -54,7 +55,8 @@ export class UtilisateurService extends BaseService {
             })
             .catch(this.handleError);
     }
-    reset(email:string){
+
+    reset(email:string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
@@ -66,8 +68,7 @@ export class UtilisateurService extends BaseService {
             .map(res => {
                 return res.json();
             })
-            .catch(this.handleError);
-    
+            .catch(this.handleError);    
     }
 
     signin(email: string, mdp: string) {
