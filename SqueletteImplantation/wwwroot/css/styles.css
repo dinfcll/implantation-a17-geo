@@ -14,14 +14,10 @@ h1 {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
 }
-.nouveauMarqueur{
-  background-color: white;
-  margin: auto;
-  width: 50%;
-}
+
 #map{
   margin: auto;
-  width: 85%;
+  width: 100%;
   height: 20%;
   min-height: 65vh;
   padding:10px;
@@ -55,4 +51,11 @@ footer {
 
 .divprofil{
   background-color: rgba(255, 255, 255, 0.5)
+}
+.disabled{
+  background-color: #626262;
+}
+button.disabled:hover{
+  background-color:  #626262;
+  cursor:not-allowed;
 }

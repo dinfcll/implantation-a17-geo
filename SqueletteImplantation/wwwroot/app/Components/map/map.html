@@ -1,47 +1,50 @@
 <div>
     <navBar></navBar>
-    
-    <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron container">
             <div class="row">
-                <div class="row">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <div id="map"></div>
-                    </div>
+                <div class="col-md-offset-1 col-md-10">
+                    <div id="map"></div>
                 </div>
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
-                            <span>
-                                {{btnAjout}}
-                            </span>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <form *ngIf="AcceptMarker">
-                        <span>
-                            
-                            <br>
-                            long:{{Longitude}}
-                            <br> 
-                            lat:{{Latitude}}
-                            <br>
-                            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/>
-                            <br>
-                            <label for="desc" style="vertical-align: top">Description:</label>
-                            <textarea rows="4" cols="50" id="desc" style="resize:none" [(ngModel)]="DescriptionRando"></textarea>
-                            
-                            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">
-                                Confirmer</button>
-                        </span>
-                    </form>
-                </div>
-                
             </div>
-                 
+            <br>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-1">
+                    <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+                        <span class="buttonMessage" *ngIf="!AcceptMarker">
+                            Ajouter une marqueur
+                        </span>
+                        <span class="buttonMessage" *ngIf="AcceptMarker">
+                            Annuler
+                        </span>
+                    </button>
+                </div>
+                <div class="col-md-5">
+                    <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+                        <span class="buttonMessage" *ngIf="!AcceptMarker">
+                            Vue détaillée
+                        </span>
+                        <span class="buttonMessage" *ngIf="AcceptMarker">
+                            Fermer
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="AcceptMarker row">
+                <div class="container col-md-offset-1 col-md-10">
+                    <form #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+
+                        <div class="row">
+                            <label class="col-md-4">Titre de la randonnée</label>
+                            <input class="col-md-6 col-md-offset-2" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4" for="desc" style="vertical-align: top">Description:</label>
+                            <textarea  class="col-md-6 col-md-offset-2" type="text" name="desc" rows="4" cols="50" id="desc" style="resize:none"
+                            [(ngModel)]="currentmarqueur.desc" required></textarea>
+                        </div>
+                        <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                    </form>   
+                </div> 
+            </div>   
         </div>
-          
-    </div>
-   
 </div>

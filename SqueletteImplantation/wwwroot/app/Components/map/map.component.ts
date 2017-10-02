@@ -1,4 +1,4 @@
-import { Component, Input ,OnInit } from '@angular/core';
+import { Component, Input ,OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ConfigService } from "../utils/config.service";
@@ -11,13 +11,14 @@ declare var jBox:any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
-    styleUrls:['./map.css']
+    styleUrls:['./map.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
 export class MapComponent implements OnInit {
 
      name ='Map';
      private marqueurs:Marqueur[];
+     public currentmarqueur:Marqueur;
      public map:any;
      public btnAjout:string;
      public AcceptMarker:boolean;
@@ -25,6 +26,10 @@ export class MapComponent implements OnInit {
      public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
+     public marqtemp: any;
+
+     
+
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -32,6 +37,11 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.marqtemp = new google.maps.Marker ({
+            icon: this.banqueimageicone[1],
+            draggable: true,
+            });
     }
 
     PermissionAjoutMarker():void{
@@ -40,7 +50,9 @@ export class MapComponent implements OnInit {
             this.btnAjout = "Annuler";
         } else {
             this.btnAjout = "Ajout marqueur";
+            this.marqtemp.setMap(null);
         }
+        
     }
 
     getMarqueurs(): void {
@@ -105,49 +117,37 @@ export class MapComponent implements OnInit {
     }
         
     CreationMaker(Gdonne:any){
+
         if(this.AcceptMarker){
-            this.Latitude = Gdonne.latLng.lat();
-            this.Longitude = Gdonne.latLng.lng();
+            this.currentmarqueur.latitude = Gdonne.latLng.lat();
+            this.currentmarqueur.longitude = Gdonne.latLng.lng();
+            this.marqtemp.setPosition({lat: this.currentmarqueur.latitude, lng: this.currentmarqueur.longitude});
+            this.marqtemp.setMap(null); 
+            this.marqtemp.setMap(this.map);
         }
     }
     
-    ConfirmationMarker(titre:string, description:string){
-        var lat = this.Latitude;
-        var lng = this.Longitude;
-        var marker = new Marqueur(0, titre, lat, lng, description,1,"",""); 
-        this.AjoutMarker(marker);
-        
-        
-        this.http.post("api/marqueurs", marker)
-            .subscribe((res) => {
-                console.log(res.json());
+    ConfirmationMarker(){
+        if(this.currentmarqueur.latitude==0)
+        {
+            new jBox('Notice', {
+                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                color: 'red',
+                autoClose: 2000
             });
-
-        this.Latitude = 0;
-        this.Longitude = 0;
-        this.PermissionAjoutMarker();
-    }
-
-    detailToolTip():void{
-        new jBox("Tooltip",{
-            attach: "#detail",
-            target: "#detail",
-            theme: "TooltipBorder",
-            trigger: "click",
-            width:100 ,
-            adjustTracker: true,
-            closeOnClick: "body",
-            closeOnEsc: true,
-            animation: "move",
-            position: {
-                x: "right",
-                y: "center"
-            },
-            outside: "x",
-            content: "Scroll up and down or resize your browser, I will adjust my position!<br><br>Press [ESC] or click anywhere to close.",
+        }
+        else{
+            let marqposition = this.marqtemp.getPosition();
+            this.currentmarqueur.latitude = marqposition.lat();
+            this.currentmarqueur.longitude = marqposition.lng();
+            this.http.post("api/marqueurs", this.currentmarqueur)
+            .subscribe( res => {
+                this.marqueurs.push(res.json() as Marqueur);
+                this.PermissionAjoutMarker();
+                this.AjoutMarker(this.currentmarqueur);
+            });
             
-            
-        });
+        }
     }
 
     ngOnInit() : void {
@@ -183,7 +183,12 @@ export class MapComponent implements OnInit {
         }
 
         this.map.addListener('click', (e:any):void => {
-            this.CreationMaker(e); 
+
+                this.currentmarqueur.latitude=e.latLng.lat();
+                this.currentmarqueur.longitude=e.latLng.lng();
+
+                this.CreationMaker(e);        
+           
         });
         
 
