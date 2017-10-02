@@ -1,25 +1,28 @@
-<nav>
+<nav class="menu">
 
-    <div class="nav-icon">
-        <div></div>
-    </div>
+        <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
 
-    <ul>
-        <li>
-            <a class="nav-profil" routerLink="/profil" routerLinkActive="active">
-                <i class="fa fa-2x fa-address-card-o" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li>
-            <a class="logout" href="#" (click)="onLogout()">
-                <i class="fa fa-2x fa-power-off" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li>
-            <a class="bg-inverse navbar-brand" style="font-size:3em;" routerLink="/map" routerLinkActive="active">Ramble
-                <i class="fa fa-map-signs" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
+        <label class="menu-open-button" for="menu-open">
+            <span class="lines line-1"></span>
+            <span class="lines line-2"></span>
+            <span class="lines line-3"></span>
+        </label>
      
-</nav>
+        <!-- le menu contient 6 choix dont en ce moment 3 mock icons a visibility hidden -->
+        <a href="#" class="menu-item blue" style="visibility:hidden"> <i class="fa fa-anchor"></i> </a>
+        <a href="#" class="menu-item green" style="visibility:hidden"> <i class="fa fa-coffee"></i> </a>
+        <a href="#" class="menu-item purple" style="visibility:hidden"> <i class="fa fa-microphone"></i> </a>
+        
+        <a class="menu-item logout" (click)="onLogout()"> 
+            <i class="fa fa-power-off"></i> 
+        </a> 
+
+        <a routerLink="/profil" routerLinkActive="active" class="menu-item profil"> 
+            <i class="fa fa-address-card-o"></i> 
+        </a>
+        
+        <a routerLink="/map" routerLinkActive="active" class="menu-item map"> 
+            <i class="fa fa-map-signs"></i> 
+        </a>
+               
+     </nav>
