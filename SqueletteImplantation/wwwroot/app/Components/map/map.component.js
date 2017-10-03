@@ -160,7 +160,7 @@ MapComponent = __decorate([
         moduleId: module.id,
         selector: 'map',
         templateUrl: './map.html',
-        styleUrls: ['./map.css', './../../../lib/bootstrap/dist/css/bootstrap.css', './map.component.css']
+        styleUrls: ['./map.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
     }),
     __metadata("design:paramtypes", [http_1.Http])
 ], MapComponent);

@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'Anurati-Regular';
-  src: url("../../../fonts/Anurati-Regular.otf");
   font-family: 'Elianto-Regular';
   src: url("../../../fonts/Elianto-Regular.otf");
 }
 
 #titre {
+  float: left;
+  margin: auto;
+  margin-top: 10px;
+  margin-left: 20px;
   font-family: 'Elianto-Regular';
-  font-size: 50px;
-  position: absolute;
-  top: 0px;
-  left: 10px;
+  font-size: 70px;
   color: #81A8AE;
+  cursor: pointer;
 }
 
 .menu-item,
@@ -20,7 +20,6 @@
   border-radius: 100%;
   width: 80px;
   height: 80px;
-  margin-left: -40px;
   position: absolute;
   color: #FFFFFF;
   text-align: center;
@@ -85,9 +84,8 @@
 
 .menu {
   margin: auto;
-  position: relative;
-  top: 60px;
-  right: 20px;
+  margin-top: 15px;;
+  margin-right: 150px;
   width: 80px;
   height: 80px;
   float: right;
@@ -132,11 +130,20 @@
   transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
 }
 
+.menu-open:checked ~ .menu-item:nth-child(5) {
+  transition-duration: 380ms;
+  -webkit-transition-duration: 380ms;
+  -webkit-transform: translate3d(90.9466px, 52.47586px, 0);
+  transform: translate3d(90.9466px, 52.47586px, 0);
+  z-index: 1;
+}
+
 .menu-open:checked ~ .menu-item:nth-child(6) {
   transition-duration: 480ms;
   -webkit-transition-duration: 480ms;
   -webkit-transform: translate3d(0.08361px, 104.99997px, 0);
   transform: translate3d(0.08361px, 104.99997px, 0);
+  z-index: 1;
 }
 
 .menu-open:checked ~ .menu-item:nth-child(7) {
@@ -144,6 +151,7 @@
   -webkit-transition-duration: 580ms;
   -webkit-transform: translate3d(-90.86291px, 52.62064px, 0);
   transform: translate3d(-90.86291px, 52.62064px, 0);
+  z-index: 1;
 }
 
 .menu-open:checked ~ .menu-item:nth-child(8) {
@@ -151,13 +159,7 @@
   -webkit-transition-duration: 680ms;
   -webkit-transform: translate3d(-91.03006px, -52.33095px, 0);
   transform: translate3d(-91.03006px, -52.33095px, 0);
-}
-
-.menu-open:checked ~ .menu-item:nth-child(9) {
-  transition-duration: 780ms;
-  -webkit-transition-duration: 780ms;
-  -webkit-transform: translate3d(-0.25084px, -104.9997px, 0);
-  transform: translate3d(-0.25084px, -104.9997px, 0);
+  z-index: 1;
 }
 
 .profil {

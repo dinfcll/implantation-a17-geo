@@ -11,9 +11,8 @@ declare var jBox:any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
-    styleUrls:['./map.css','./../../../lib/bootstrap/dist/css/bootstrap.css','./map.component.css']
+    styleUrls:['./map.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
-
 
 export class MapComponent implements OnInit {
 
@@ -29,9 +28,6 @@ export class MapComponent implements OnInit {
      public banqueimageicone: Array<string>;
      public marqtemp: any;
 
-     
-
-
     constructor(private http: Http) {
         this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
@@ -42,18 +38,17 @@ export class MapComponent implements OnInit {
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
-            });
+        });
     }
 
     PermissionAjoutMarker():void{
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajouter un marqueur"){
+        if(this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
         } else {
             this.btnAjout = "Ajout marqueur";
             this.marqtemp.setMap(null);
-        }
-        
+        }       
     }
 
     getMarqueurs(): void {
@@ -84,7 +79,7 @@ export class MapComponent implements OnInit {
             `
         });
 
-        var chemin = new google.maps.Polyline({
+        var chemin = new google.maps.Polyline ({
             strokeColor: '#000000',
             strokeOpacity: 1.0,
             strokeWeight: 3,
@@ -92,17 +87,17 @@ export class MapComponent implements OnInit {
         });
 
         marker.addListener('click', () => {
-            if(!infoWindow.ouvert){
+            if(!infoWindow.ouvert) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
-                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null){
+                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
                     let chlng = info.trajetlng.split(",");
 
                     let path = chemin.getPath();
                     path.push(new google.maps.LatLng(info.latitude,info.longitude));
-                    for(let i = 0; i < chlat.length; i++){
+                    for(let i = 0; i < chlat.length; i++) {
                         path.push(new google.maps.LatLng(chlat[i], chlng[i]))
                     }
                 }
@@ -117,9 +112,9 @@ export class MapComponent implements OnInit {
         });
     }
         
-    CreationMaker(Gdonne:any){
+    CreationMaker(Gdonne:any) {
 
-        if(this.AcceptMarker){
+        if(this.AcceptMarker) {
             this.currentmarqueur.latitude = Gdonne.latLng.lat();
             this.currentmarqueur.longitude = Gdonne.latLng.lng();
             this.marqtemp.setPosition({lat: this.currentmarqueur.latitude, lng: this.currentmarqueur.longitude});
@@ -129,7 +124,7 @@ export class MapComponent implements OnInit {
     }
     
     ConfirmationMarker(){
-        if(this.currentmarqueur.latitude==0)
+        if(this.currentmarqueur.latitude == 0)
         {
             new jBox('Notice', {
                 content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
@@ -137,7 +132,7 @@ export class MapComponent implements OnInit {
                 autoClose: 2000
             });
         }
-        else{
+        else {
             let marqposition = this.marqtemp.getPosition();
             this.currentmarqueur.latitude = marqposition.lat();
             this.currentmarqueur.longitude = marqposition.lng();
@@ -146,8 +141,7 @@ export class MapComponent implements OnInit {
                 this.marqueurs.push(res.json() as Marqueur);
                 this.PermissionAjoutMarker();
                 this.AjoutMarker(this.currentmarqueur);
-            });
-            
+            });            
         }
     }
 
@@ -162,7 +156,6 @@ export class MapComponent implements OnInit {
         this.getMarqueurs();
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
     
-
         //géolocation
         if( navigator.geolocation ) {
             navigator.geolocation.getCurrentPosition (( position ) => {
@@ -188,10 +181,7 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur.latitude=e.latLng.lat();
                 this.currentmarqueur.longitude=e.latLng.lng();
 
-                this.CreationMaker(e);        
-           
+                this.CreationMaker(e);                  
         });
-        
-
     }         
 }
