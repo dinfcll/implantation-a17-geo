@@ -105,7 +105,7 @@ var UtilisateurService = (function (_super) {
         return this.http
             .delete(this.baseUrl + '/profil/delete/' + id, JSON.stringify({ id: id }))
             .map(function (res) {
-            return res.json();
+            return res;
         })
             .catch(this.handleError);
     };

@@ -132,8 +132,8 @@ export class UtilisateurService extends BaseService {
         .delete(
             this.baseUrl + '/profil/delete/' + id, JSON.stringify({id}),
         )
-        .map(res => {
-            return res.json();
+        .map(res => {            
+            return res;
         })
         .catch(this.handleError);
     }

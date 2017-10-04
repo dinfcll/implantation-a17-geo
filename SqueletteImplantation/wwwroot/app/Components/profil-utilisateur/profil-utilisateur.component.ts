@@ -92,13 +92,11 @@ export class ProfilUtilisateurComponent implements OnInit{
         
         var confirmation: boolean = false
         confirmation = confirm("Voulez vous supprimer votre profil?")
-        if (confirmation) {
-            alert("ok")
+        if (confirmation) {            
             this.utilisateurservice.deleteProfil(this.profil.id)
             .subscribe(res => {
-                if(res == 200) {
-                    this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");        
-                    
+                if(res.status == 200) {                    
+                    this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");                    
                     new jBox('Notice', {
                         content: 'Suppression du profil réussie',
                         color: 'green',

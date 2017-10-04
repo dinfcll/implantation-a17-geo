@@ -97,7 +97,8 @@ var ProfilUtilisateurComponent = (function () {
             alert("ok");
             this.utilisateurservice.deleteProfil(this.profil.id)
                 .subscribe(function (res) {
-                if (res == 200) {
+                if (res.status == 200) {
+                    alert("res==200");
                     _this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, _this.utilisateurservice.loggedIn(), "", "", "");
                     new jBox('Notice', {
                         content: 'Suppression du profil réussie',
