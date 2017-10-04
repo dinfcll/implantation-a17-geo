@@ -10,21 +10,19 @@
 
     <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
         <span *ngIf="AcceptMarker">
-            <span>Pour ajouter un marqueur clicker afin de choisir sa position,
-                 ensuite inscrire un titre et une description
+            <span>Pour ajouter un marqueur clicker afin de choisir sa position, pour repositionner
+                  le marqueur, vous pouvez cliquer dessus et le glisser ou cliquer à un autre endroit
+                  sur la carte. Ensuite inscrire un titre et une description puis confirmer.   
             </span>
-            <br>
-            long:{{Longitude}}
-            <br> 
-            lat:{{Latitude}}
-            <br>
-            Titre de la randonné:<input [(ngModel)]="TitreRando"  autofocus/>
-            <br>
-            <label for="desc" style="vertical-align: top">Description:</label>
-            <textarea rows="4" cols="50" id="desc" style="resize:none" [(ngModel)]="DescriptionRando"></textarea>
-            <br>
-            <button *ngIf="TitreRando" (click)="ConfirmationMarker(TitreRando, DescriptionRando)">
-                Confirmer</button>
+
+            <form #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+                Titre de la randonnée: <input type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                <br>
+                <label for="desc" style="vertical-align: top">Description:</label>
+                <textarea type="text" name="desc" rows="4" cols="50" id="desc" style="resize:none"
+                    [(ngModel)]="currentmarqueur.desc" required></textarea><br>
+                <button type="submit" *ngIf="f.valid">Confirmer</button>
+            </form>    
         </span>
 
         <br>
