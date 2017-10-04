@@ -87,4 +87,31 @@ export class ProfilUtilisateurComponent implements OnInit{
             }
         });
     }
+
+    onDeleteProfil() {
+        
+        var confirmation: boolean = false
+        confirmation = confirm("Voulez vous supprimer votre profil?")
+        if (confirmation) {
+            alert("ok")
+            this.utilisateurservice.deleteProfil(this.profil.id)
+            .subscribe(res => {
+                if(res == 200) {
+                    this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");        
+                    
+                    new jBox('Notice', {
+                        content: 'Suppression du profil réussie',
+                        color: 'green',
+                        autoClose: 5000
+                    });
+                } else {
+                    new jBox('Notice', {
+                        content: 'Impossible de supprimer le profil pour cet utilisateur',
+                        color: 'red',
+                        autoClose: 5000
+                    });
+                }
+            });
+        }       
+    }
 }

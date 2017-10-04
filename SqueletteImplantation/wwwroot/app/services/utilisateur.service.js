@@ -101,6 +101,14 @@ var UtilisateurService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    UtilisateurService.prototype.deleteProfil = function (id) {
+        return this.http
+            .delete(this.baseUrl + '/profil/delete/' + id, JSON.stringify({ id: id }))
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     return UtilisateurService;
 }(base_service_1.BaseService));
 UtilisateurService = __decorate([

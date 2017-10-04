@@ -126,4 +126,15 @@ export class UtilisateurService extends BaseService {
         })
         .catch(this.handleError);
     }
+
+    deleteProfil(id: number) {        
+        return this.http
+        .delete(
+            this.baseUrl + '/profil/delete/' + id, JSON.stringify({id}),
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
+    }
 }

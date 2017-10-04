@@ -89,6 +89,32 @@ var ProfilUtilisateurComponent = (function () {
             }
         });
     };
+    ProfilUtilisateurComponent.prototype.onDeleteProfil = function () {
+        var _this = this;
+        var confirmation = false;
+        confirmation = confirm("Voulez vous supprimer votre profil?");
+        if (confirmation) {
+            alert("ok");
+            this.utilisateurservice.deleteProfil(this.profil.id)
+                .subscribe(function (res) {
+                if (res == 200) {
+                    _this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, _this.utilisateurservice.loggedIn(), "", "", "");
+                    new jBox('Notice', {
+                        content: 'Suppression du profil réussie',
+                        color: 'green',
+                        autoClose: 5000
+                    });
+                }
+                else {
+                    new jBox('Notice', {
+                        content: 'Impossible de supprimer le profil pour cet utilisateur',
+                        color: 'red',
+                        autoClose: 5000
+                    });
+                }
+            });
+        }
+    };
     return ProfilUtilisateurComponent;
 }());
 ProfilUtilisateurComponent = __decorate([

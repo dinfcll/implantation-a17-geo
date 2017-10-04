@@ -96,5 +96,22 @@ namespace SqueletteImplantation.Controllers
             return new OkObjectResult(null);
                         
         }
+
+        [HttpDelete]
+        [Route("api/profil/delete/{id}")]
+        public IActionResult DeleteProfil(int id)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.id == id);
+
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            _maBd.Remove(profil);
+            _maBd.SaveChanges();
+
+            return new OkResult();
+        }
     }
 }

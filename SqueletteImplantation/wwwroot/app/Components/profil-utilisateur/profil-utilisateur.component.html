@@ -6,10 +6,9 @@
             Courriel : {{profil.courriel}}<br>
             Prénom : {{profil.prenom}}<br>
             Nom : {{profil.nom}}<br>                                       
-            <button (click)="editActif()">Éditer mon profil</button>
-            <!--work in progress ici-->
-            <button>Supprimer mon profil</button><br>
-            <!--à là-->
+            <button (click)="editActif()">Éditer mon profil</button>            
+            <button (click)="onDeleteProfil()">Supprimer mon profil</button><br>
+            
         </div>
         <ng-template #elseBlock>
             <form #fProfil="ngForm">
