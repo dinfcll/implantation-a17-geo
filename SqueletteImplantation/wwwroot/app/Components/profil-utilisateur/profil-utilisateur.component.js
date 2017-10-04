@@ -94,11 +94,9 @@ var ProfilUtilisateurComponent = (function () {
         var confirmation = false;
         confirmation = confirm("Voulez vous supprimer votre profil?");
         if (confirmation) {
-            alert("ok");
             this.utilisateurservice.deleteProfil(this.profil.id)
                 .subscribe(function (res) {
                 if (res.status == 200) {
-                    alert("res==200");
                     _this.profil = new profilutilisateur_class_1.ProfilUtilisateur(null, _this.utilisateurservice.loggedIn(), "", "", "");
                     new jBox('Notice', {
                         content: 'Suppression du profil réussie',
