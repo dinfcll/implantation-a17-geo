@@ -60,21 +60,58 @@ namespace SqueletteImplantation.Controllers
             }            
         }
 
-        [HttpPost]
-        [Route("api/profil/delete")]
-        public IActionResult DeleteProfil([FromBody] ProfilDto profilDto)
+        [HttpPut]
+        [Route("api/profil/edit")]
+        public IActionResult EditProfil([FromBody] Profil updatedprofil)
         {
-            var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.id == updatedprofil.id);
 
-            if (trouve == null)
+            if (oldprofil != null)
             {
-                return NotFound();
+                var utilisateur = _maBd.Utilisateur.FirstOrDefault(u => u.email == oldprofil.courriel);
+
+                if (utilisateur != null)
+                {
+                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
+
+                    if (trouve == null || trouve.Id == utilisateur.Id)
+                    {
+                        utilisateur.email = updatedprofil.courriel;
+
+                        _maBd.Utilisateur.Attach(utilisateur);
+
+                        var entry = _maBd.Entry(utilisateur);
+                        entry.Property(e => e.email).IsModified = true;
+                        _maBd.SaveChanges();
+
+                        _maBd.Profil.Attach(oldprofil);
+                        _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
+                        _maBd.SaveChanges();                                             
+
+                        return new OkObjectResult(updatedprofil);
+                    }                    
+                }                
             }
 
-            _maBd.Remove(trouve);
+            return new OkObjectResult(null);
+                        
+        }
+
+        [HttpDelete]
+        [Route("api/profil/delete/{id}")]
+        public IActionResult DeleteProfil(int id)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.id == id);
+
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            _maBd.Remove(profil);
             _maBd.SaveChanges();
 
-            return new OkResult();            
+            return new OkResult();
         }
     }
 }

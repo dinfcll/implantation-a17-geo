@@ -1,56 +1,85 @@
-<div>
-    <div class="jumbotron container">
 
-        <!-- <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
-            <label for="idusername">Nom d'utilisateur : </label>
-            <input type="text" id="idusername" [(ngModel)]="profil.username" name="username" required/><br>
-            <label for="idcourriel">Courriel : </label>
-            <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" disabled/><br>
-            <label for="idprenom">Prénom : </label>
-            <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom"/><br>
-            <label for="idnom">Nom : </label>
-            <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom"/><br>            
-            <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
-        </form>  -->
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                    <h2>Profil</h2>
-            <form class="form-horizontal" role="form" #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Nom d'utilisateur:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" name="profil.username" [(ngModel)]="profil.username" required>
+
+<div class="jumbotron container">        
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Profil</h2>               
+            
+            <form class="form-horizontal" role="form" #fProfil="ngForm">
+
+                <div *ngIf="profil.id && !bEdit; else elseBlock">
+                        
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom d'utilisateur :</label>
+                        <div class="col-lg-1 textprofil">
+                            {{profil.username}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Courriel :</label>
+                        <div class="col-lg-1 textprofil">
+                            {{profil.courriel}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Prénom :</label>
+                        <div class="col-lg-1 textprofil">
+                            {{profil.prenom}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom :</label>
+                        <div class="col-lg-1 textprofil">
+                            {{profil.nom}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">                                
+                                    <input type="button" class="btn btn-primary" (click)="editActif()" value="Éditer mon profil">            
+                                    <input type="button" class="btn btn-primary" (click)="onDeleteProfil()" value="Supprimer mon profil">
+                        </div>
+                    </div>                        
                 </div>
-                </div>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Courriel:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" name="profil.courriel" [(ngModel)]="profil.courriel" disabled>
-                </div>
-                </div>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Prénom:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" name="profil.prenom" [(ngModel)]="profil.prenom">
-                </div>
-                </div>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Nom:</label>
-                <div class="col-lg-8">
-                    <input class="form-control" type="text" name="profil.nom" [(ngModel)]="profil.nom">
-                </div>
-                </div>
-                <div class="form-group">
-                <label class="col-md-3 control-label"></label>
-                <div class="col-md-8">
-                    <input type="submit" class="btn btn-primary" [disabled]="!fCreationProfil.valid" value="Créer mon profil">
-                </div>
-                </div>
-            </form>
-            </div>
+                <ng-template #elseBlock>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom d'utilisateur :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="profil.username" [(ngModel)]="profil.username" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Courriel :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="profil.courriel" [(ngModel)]="profil.courriel" 
+                                [disabled]="!bEdit" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Prénom :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="profil.prenom" [(ngModel)]="profil.prenom">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Nom :</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="profil.nom" [(ngModel)]="profil.nom">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">                                
+                            <input *ngIf="!bEdit" type="button" class="btn btn-primary" (click)="onCreateProfil()" [disabled]="!fProfil.valid" value="Créer mon profil"/>
+                            <input *ngIf="bEdit" type="button" class="btn btn-primary" (click)="onEditProfil()" [disabled]="!fProfil.valid" value="Éditer mon profil"/>
+                        </div>
+                    </div>
+                </ng-template>
+            </form>                               
         </div>
-        <hr>           
     </div>
+    <hr>           
 </div>
+
 
 

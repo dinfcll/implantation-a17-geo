@@ -112,17 +112,29 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    deleteProfil(email: string) {
+    editProfil(id: number, courriel: string, username: string, prenom: string, nom: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-
+        
         return this.http
-        .post(
-            this.baseUrl + '/profil/delete', 
-            JSON.stringify({ email }), { headers }
+        .put(
+            this.baseUrl + '/profil/edit', 
+            JSON.stringify({ id, courriel, username, prenom, nom }), { headers }
         )
         .map(res => {
             return res.json();
+        })
+        .catch(this.handleError);
+    }
+
+    deleteProfil(id: number) {        
+        return this.http
+        .delete(
+            this.baseUrl + '/profil/delete/' + id, 
+            JSON.stringify({id}),
+        )
+        .map(res => {            
+            return res;
         })
         .catch(this.handleError);
     }
