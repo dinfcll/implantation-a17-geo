@@ -22,6 +22,47 @@ var NavBarComponent = (function () {
         this.utilisateurService.logout();
         this.router.navigate(['/login']);
     };
+    NavBarComponent.prototype.onDeleteUser = function () {
+        var _this = this;
+        var email = localStorage.getItem('token');
+        this.utilisateurService
+            .deleteProfil(email)
+            .subscribe(function (res) {
+            if (res) {
+                new jBox('Notice', {
+                    content: 'Votre profil a été supprimé.',
+                    color: 'blue',
+                    autoClose: 2000
+                });
+            }
+            else {
+                new jBox('Notice', {
+                    content: 'An error occured on delete pofil.',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
+        this.utilisateurService
+            .deleteUser(email)
+            .subscribe(function (res) {
+            if (res) {
+                new jBox('Notice', {
+                    content: 'Votre compte a été supprimé.',
+                    color: 'blue',
+                    autoClose: 2000
+                });
+                _this.router.navigate(['/login']);
+            }
+            else {
+                new jBox('Notice', {
+                    content: 'An error occured on delete user.',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
+    };
     return NavBarComponent;
 }());
 NavBarComponent = __decorate([

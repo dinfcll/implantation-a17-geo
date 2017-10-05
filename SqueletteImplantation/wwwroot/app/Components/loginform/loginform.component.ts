@@ -66,6 +66,7 @@ export class LoginFormComponent {
             }
         });
     }
+
     inscription(mail: string, mdp: string, cmdp: string) {
         if(mdp != cmdp)
             new jBox('Notice', {
@@ -96,6 +97,6 @@ export class LoginFormComponent {
                                 autoClose: 2000
                             });
                         }
-            });
+                });
         }}
 }
