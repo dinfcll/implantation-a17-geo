@@ -60,7 +60,6 @@ namespace SqueletteImplantation.Controllers
             }            
         }
 
-<<<<<<< HEAD
         [HttpPut]
         [Route("api/profil/edit")]
         public IActionResult EditProfil([FromBody] Profil updatedprofil)
@@ -113,23 +112,6 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
-=======
-        [HttpPost]
-        [Route("api/profil/delete")]
-        public IActionResult DeleteProfil([FromBody] ProfilDto profilDto)
-        {
-            var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
-
-            if (trouve == null)
-            {
-                return NotFound();
-            }
-
-            _maBd.Remove(trouve);
-            _maBd.SaveChanges();
-
-            return new OkResult();            
->>>>>>> 29c82a8ecbf4efde1c5f2b461ce07c91b9a02f38
         }
     }
 }
