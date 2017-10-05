@@ -59,5 +59,22 @@ namespace SqueletteImplantation.Controllers
                 return new OkObjectResult(null);
             }            
         }
+
+        [HttpPost]
+        [Route("api/profil/delete")]
+        public IActionResult DeleteProfil([FromBody] ProfilDto profilDto)
+        {
+            var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+
+            if (trouve == null)
+            {
+                return NotFound();
+            }
+
+            _maBd.Remove(trouve);
+            _maBd.SaveChanges();
+
+            return new OkResult();            
+        }
     }
 }

@@ -91,6 +91,26 @@ var UtilisateurService = (function (_super) {
         })
             .catch(this.handleError);
     };
+    UtilisateurService.prototype.deleteProfil = function (email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/profil/delete', JSON.stringify({ email: email }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
+    UtilisateurService.prototype.deleteUser = function (email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/profil/delete', JSON.stringify({ email: email }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+        })
+            .catch(this.handleError);
+    };
     return UtilisateurService;
 }(base_service_1.BaseService));
 UtilisateurService = __decorate([

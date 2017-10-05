@@ -142,7 +142,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/utilisateur/delete")]
         public IActionResult DeleteUser(UtilisateurDto user)
         {
-            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email && m.mdp == user.Mdp);
+            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email);
 
             if (identity == null)
             {
