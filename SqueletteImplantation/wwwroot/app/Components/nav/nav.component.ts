@@ -11,7 +11,8 @@ declare var jBox: any;
     styleUrls: ['./nav.component.css']
 })
 
-export class NavBarComponent{
+export class NavBarComponent {
+
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
         private activatedRoute: ActivatedRoute) { };
 
