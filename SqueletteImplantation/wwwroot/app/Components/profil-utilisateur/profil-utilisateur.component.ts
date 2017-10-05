@@ -8,7 +8,8 @@ declare var jBox :any;
 
 @Component({
     selector: 'profil-utilisateur',
-    templateUrl: './profil-utilisateur.component.html'
+    templateUrl: './profil-utilisateur.component.html',
+    styleUrls:['./profil-utilisateur.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
 export class ProfilUtilisateurComponent implements OnInit{

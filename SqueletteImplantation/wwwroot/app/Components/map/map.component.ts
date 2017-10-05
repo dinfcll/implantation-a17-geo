@@ -1,22 +1,24 @@
-import { Component, Input ,OnInit } from '@angular/core';
+import { Component, Input ,OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
+declare var jBox:any;
 
 @Component ({
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
-    styleUrls: ['./map.component.css']
+    styleUrls:['./map.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
 export class MapComponent implements OnInit {
 
      name ='Map';
      private marqueurs:Marqueur[];
+     public currentmarqueur:Marqueur;
      public map:any;
      public btnAjout:string;
      public AcceptMarker:boolean;
@@ -24,6 +26,7 @@ export class MapComponent implements OnInit {
      public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
+     public marqtemp: any;
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -31,15 +34,21 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.marqtemp = new google.maps.Marker ({
+            icon: this.banqueimageicone[1],
+            draggable: true,
+        });
     }
 
     PermissionAjoutMarker():void{
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajout marqueur"){
+        if(this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
         } else {
             this.btnAjout = "Ajout marqueur";
-        }
+            this.marqtemp.setMap(null);
+        }       
     }
 
     getMarqueurs(): void {
@@ -70,7 +79,7 @@ export class MapComponent implements OnInit {
             `
         });
 
-        var chemin = new google.maps.Polyline({
+        var chemin = new google.maps.Polyline ({
             strokeColor: '#000000',
             strokeOpacity: 1.0,
             strokeWeight: 3,
@@ -78,17 +87,17 @@ export class MapComponent implements OnInit {
         });
 
         marker.addListener('click', () => {
-            if(!infoWindow.ouvert){
+            if(!infoWindow.ouvert) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
-                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null){
+                if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
                     let chlng = info.trajetlng.split(",");
 
                     let path = chemin.getPath();
                     path.push(new google.maps.LatLng(info.latitude,info.longitude));
-                    for(let i = 0; i < chlat.length; i++){
+                    for(let i = 0; i < chlat.length; i++) {
                         path.push(new google.maps.LatLng(chlat[i], chlng[i]))
                     }
                 }
@@ -103,32 +112,38 @@ export class MapComponent implements OnInit {
         });
     }
         
-    CreationMaker(Gdonne:any){
-        if(this.AcceptMarker){
-            this.Latitude = Gdonne.latLng.lat();
-            this.Longitude = Gdonne.latLng.lng();
+    CreationMaker(Gdonne:any) {
+
+        if(this.AcceptMarker) {
+            this.currentmarqueur.latitude = Gdonne.latLng.lat();
+            this.currentmarqueur.longitude = Gdonne.latLng.lng();
+            this.marqtemp.setPosition({lat: this.currentmarqueur.latitude, lng: this.currentmarqueur.longitude});
+            this.marqtemp.setMap(null); 
+            this.marqtemp.setMap(this.map);
         }
     }
     
-    ConfirmationMarker(titre:string, description:string){
-        var lat = this.Latitude;
-        var lng = this.Longitude;
-        var marker = new Marqueur(0, titre, lat, lng, description,1,"",""); 
-        this.AjoutMarker(marker);
-        
-        
-        this.http.post("api/marqueurs", marker)
-            .subscribe((res) => {
-                console.log(res.json());
+    ConfirmationMarker(){
+        if(this.currentmarqueur.latitude == 0)
+        {
+            new jBox('Notice', {
+                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                color: 'red',
+                autoClose: 2000
             });
-
-        this.Latitude = 0;
-        this.Longitude = 0;
-        this.PermissionAjoutMarker();
+        }
+        else {
+            let marqposition = this.marqtemp.getPosition();
+            this.currentmarqueur.latitude = marqposition.lat();
+            this.currentmarqueur.longitude = marqposition.lng();
+            this.http.post("api/marqueurs", this.currentmarqueur)
+            .subscribe( res => {
+                this.marqueurs.push(res.json() as Marqueur);
+                this.PermissionAjoutMarker();
+                this.AjoutMarker(this.currentmarqueur);
+            });            
+        }
     }
-
-
-    
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 
@@ -141,7 +156,6 @@ export class MapComponent implements OnInit {
         this.getMarqueurs();
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
     
-
         //géolocation
         if( navigator.geolocation ) {
             navigator.geolocation.getCurrentPosition (( position ) => {
@@ -163,8 +177,11 @@ export class MapComponent implements OnInit {
         }
 
         this.map.addListener('click', (e:any):void => {
-            this.CreationMaker(e); 
-        });
 
+                this.currentmarqueur.latitude=e.latLng.lat();
+                this.currentmarqueur.longitude=e.latLng.lng();
+
+                this.CreationMaker(e);                  
+        });
     }         
 }

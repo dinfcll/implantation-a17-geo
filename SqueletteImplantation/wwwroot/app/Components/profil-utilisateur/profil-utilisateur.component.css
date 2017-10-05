@@ -1,0 +1,56 @@
+/* Main marketing message and sign up button */
+.jumbotron {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    border-radius: 8px;
+    padding-right:1%;
+    padding-left:1%;
+    padding-top:1%;
+    margin-top: 1%;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  
+  .jumboMessage {
+    font-family: 'Raleway', sans-serif;
+    font-size: 27px;
+  }
+  
+  button {
+    background: #81a8a3;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-size: 27px;
+    height: 72px;
+    width: 100%;
+    margin-top:10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    -webkit-transition: all .3s cubic-bezier(.6,0,.4,1);
+            transition: all .3s cubic-bezier(.6,0,.4,1);
+  }
+  .buttonMessage {
+    display: block;
+    line-height: 72px !important;
+    font-size: 27px;
+    color:white;
+    position: relative;
+    top: -2px;
+    -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
+  }
+  .disabled {
+    background-color: #626262;
+  }
+  button.disabled:hover {
+    background-color:  #626262;
+    cursor:not-allowed;
+  }
+
+  .textprofil{
+    padding-top: 7px;
+  }

@@ -21,14 +21,20 @@ var MapComponent = (function () {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
             '../../../images/user_icone.svg'];
+        this.currentmarqueur = new marqueur_class_1.Marqueur(0, "", 0, 0, "", 1, "", "");
+        this.marqtemp = new google.maps.Marker({
+            icon: this.banqueimageicone[1],
+            draggable: true,
+        });
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
-        if (this.btnAjout === "Ajout marqueur") {
+        if (this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
         }
         else {
             this.btnAjout = "Ajout marqueur";
+            this.marqtemp.setMap(null);
         }
     };
     MapComponent.prototype.getMarqueurs = function () {
@@ -86,22 +92,33 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.CreationMaker = function (Gdonne) {
         if (this.AcceptMarker) {
-            this.Latitude = Gdonne.latLng.lat();
-            this.Longitude = Gdonne.latLng.lng();
+            this.currentmarqueur.latitude = Gdonne.latLng.lat();
+            this.currentmarqueur.longitude = Gdonne.latLng.lng();
+            this.marqtemp.setPosition({ lat: this.currentmarqueur.latitude, lng: this.currentmarqueur.longitude });
+            this.marqtemp.setMap(null);
+            this.marqtemp.setMap(this.map);
         }
     };
-    MapComponent.prototype.ConfirmationMarker = function (titre, description) {
-        var lat = this.Latitude;
-        var lng = this.Longitude;
-        var marker = new marqueur_class_1.Marqueur(0, titre, lat, lng, description, 1, "", "");
-        this.AjoutMarker(marker);
-        this.http.post("api/marqueurs", marker)
-            .subscribe(function (res) {
-            console.log(res.json());
-        });
-        this.Latitude = 0;
-        this.Longitude = 0;
-        this.PermissionAjoutMarker();
+    MapComponent.prototype.ConfirmationMarker = function () {
+        var _this = this;
+        if (this.currentmarqueur.latitude == 0) {
+            new jBox('Notice', {
+                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                color: 'red',
+                autoClose: 2000
+            });
+        }
+        else {
+            var marqposition = this.marqtemp.getPosition();
+            this.currentmarqueur.latitude = marqposition.lat();
+            this.currentmarqueur.longitude = marqposition.lng();
+            this.http.post("api/marqueurs", this.currentmarqueur)
+                .subscribe(function (res) {
+                _this.marqueurs.push(res.json());
+                _this.PermissionAjoutMarker();
+                _this.AjoutMarker(_this.currentmarqueur);
+            });
+        }
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -131,6 +148,8 @@ var MapComponent = (function () {
             });
         }
         this.map.addListener('click', function (e) {
+            _this.currentmarqueur.latitude = e.latLng.lat();
+            _this.currentmarqueur.longitude = e.latLng.lng();
             _this.CreationMaker(e);
         });
     };
@@ -141,7 +160,7 @@ MapComponent = __decorate([
         moduleId: module.id,
         selector: 'map',
         templateUrl: './map.html',
-        styleUrls: ['./map.component.css']
+        styleUrls: ['./map.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
     }),
     __metadata("design:paramtypes", [http_1.Http])
 ], MapComponent);

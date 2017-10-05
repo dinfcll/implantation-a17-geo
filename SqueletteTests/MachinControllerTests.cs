@@ -78,9 +78,6 @@ namespace SqueletteTests
 
             Assert.Equal(200, (resultat as OkResult).StatusCode);
 
-            var entityNotFound = _machinController.GetMachin(((created as OkObjectResult).Value as Machin).Id);
-
-            Assert.Equal(404, ((NotFoundResult)entityNotFound).StatusCode);
         }
     }
 }

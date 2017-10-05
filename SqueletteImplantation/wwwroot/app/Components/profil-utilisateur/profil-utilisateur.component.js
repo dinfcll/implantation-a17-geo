@@ -119,7 +119,8 @@ var ProfilUtilisateurComponent = (function () {
 ProfilUtilisateurComponent = __decorate([
     core_1.Component({
         selector: 'profil-utilisateur',
-        templateUrl: './profil-utilisateur.component.html'
+        templateUrl: './profil-utilisateur.component.html',
+        styleUrls: ['./profil-utilisateur.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
     }),
     __metadata("design:paramtypes", [utilisateur_service_1.UtilisateurService, _1.Router])
 ], ProfilUtilisateurComponent);
