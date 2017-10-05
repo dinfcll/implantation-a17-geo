@@ -28,9 +28,17 @@ export class LoginFormComponent {
         .login(email, mdp)
         .subscribe( res => {          
             if(res){
-                localStorage.setItem('token', res.email),
-                this.router.navigate(['/map']); 
-            } else
+                if(res.reset)
+                {
+                    localStorage.setItem('token', res.email);
+                    this.router.navigate(['/resetPW']); 
+                }
+                else{
+                    localStorage.setItem('token', res.email);
+                    this.router.navigate(['/map']); 
+                }
+            }
+            else
                 new jBox('Notice', {
                     content: 'Courriel ou mot de passe invalide',
                     color: 'red',
@@ -56,7 +64,6 @@ export class LoginFormComponent {
                     autoClose: 2000
                 });
             }
-            
         });
     }
     inscription(mail: string, mdp: string, cmdp: string) {

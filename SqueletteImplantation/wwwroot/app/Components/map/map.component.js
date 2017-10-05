@@ -29,7 +29,7 @@ var MapComponent = (function () {
     }
     MapComponent.prototype.PermissionAjoutMarker = function () {
         this.AcceptMarker = !this.AcceptMarker;
-        if (this.btnAjout === "Ajout marqueur") {
+        if (this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
         }
         else {
@@ -101,15 +101,24 @@ var MapComponent = (function () {
     };
     MapComponent.prototype.ConfirmationMarker = function () {
         var _this = this;
-        var marqposition = this.marqtemp.getPosition();
-        this.currentmarqueur.latitude = marqposition.lat();
-        this.currentmarqueur.longitude = marqposition.lng();
-        this.AjoutMarker(this.currentmarqueur);
-        this.http.post("api/marqueurs", this.currentmarqueur)
-            .subscribe(function (res) {
-            _this.marqueurs.push(res.json());
-        });
-        this.PermissionAjoutMarker();
+        if (this.currentmarqueur.latitude == 0) {
+            new jBox('Notice', {
+                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                color: 'red',
+                autoClose: 2000
+            });
+        }
+        else {
+            var marqposition = this.marqtemp.getPosition();
+            this.currentmarqueur.latitude = marqposition.lat();
+            this.currentmarqueur.longitude = marqposition.lng();
+            this.http.post("api/marqueurs", this.currentmarqueur)
+                .subscribe(function (res) {
+                _this.marqueurs.push(res.json());
+                _this.PermissionAjoutMarker();
+                _this.AjoutMarker(_this.currentmarqueur);
+            });
+        }
     };
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -139,6 +148,8 @@ var MapComponent = (function () {
             });
         }
         this.map.addListener('click', function (e) {
+            _this.currentmarqueur.latitude = e.latLng.lat();
+            _this.currentmarqueur.longitude = e.latLng.lng();
             _this.CreationMaker(e);
         });
     };
@@ -149,7 +160,7 @@ MapComponent = __decorate([
         moduleId: module.id,
         selector: 'map',
         templateUrl: './map.html',
-        styleUrls: ['./map.component.css']
+        styleUrls: ['./map.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
     }),
     __metadata("design:paramtypes", [http_1.Http])
 ], MapComponent);

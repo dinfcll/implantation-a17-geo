@@ -1,34 +1,56 @@
-<div class="divprofil">
+<div>
+    <div class="jumbotron container">
 
-    <h1>Profil</h1>
-
-    <blockquote>
-
-        <div *ngIf="profil.id; else elseBlock">       
-            Nom d'utilisateur : {{profil.username}}<br>
-            Courriel : {{profil.courriel}}<br>
-            Prénom : {{profil.prenom}}<br>
-            Nom : {{profil.nom}}<br>
-            <!--work in progress ici-->                           
-            <button>Éditer mon profil</button>
-            <button>Supprimer mon profil</button><br>
-            <!--à là-->
+        <!-- <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
+            <label for="idusername">Nom d'utilisateur : </label>
+            <input type="text" id="idusername" [(ngModel)]="profil.username" name="username" required/><br>
+            <label for="idcourriel">Courriel : </label>
+            <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" disabled/><br>
+            <label for="idprenom">Prénom : </label>
+            <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom"/><br>
+            <label for="idnom">Nom : </label>
+            <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom"/><br>            
+            <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
+        </form>  -->
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                    <h2>Profil</h2>
+            <form class="form-horizontal" role="form" #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Nom d'utilisateur:</label>
+                <div class="col-lg-8">
+                    <input class="form-control" type="text" name="profil.username" [(ngModel)]="profil.username" required>
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Courriel:</label>
+                <div class="col-lg-8">
+                    <input class="form-control" type="text" name="profil.courriel" [(ngModel)]="profil.courriel" disabled>
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Prénom:</label>
+                <div class="col-lg-8">
+                    <input class="form-control" type="text" name="profil.prenom" [(ngModel)]="profil.prenom">
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Nom:</label>
+                <div class="col-lg-8">
+                    <input class="form-control" type="text" name="profil.nom" [(ngModel)]="profil.nom">
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+                <div class="col-md-8">
+                    <input type="submit" class="btn btn-primary" [disabled]="!fCreationProfil.valid" value="Créer mon profil">
+                </div>
+                </div>
+            </form>
+            </div>
         </div>
-
-        <ng-template #elseBlock>
-            <form #fCreationProfil="ngForm" (ngSubmit)="onCreateProfil()">
-                    <label for="idusername">Nom d'utilisateur : </label>
-                    <input type="text" id="idusername" [(ngModel)]="profil.username" name="username" required/><br>
-                    <label for="idcourriel">Courriel : </label>
-                    <input type="text" id="idcourriel" [(ngModel)]="profil.courriel" name="courriel" disabled/><br>
-                    <label for="idprenom">Prénom : </label>
-                    <input type="text" id="idprenom" [(ngModel)]="profil.prenom" name="prenom"/><br>
-                    <label for="idnom">Nom : </label>
-                    <input type="text" id="idnom" [(ngModel)]="profil.nom" name="nom"/><br>            
-                    <input type="submit" [disabled]="!fCreationProfil.valid" value="Créer mon profil"/><br>
-            </form>            
-        </ng-template>         
-    </blockquote>    
+        <hr>           
+    </div>
 </div>
 
 

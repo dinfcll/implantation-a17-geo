@@ -1,35 +1,53 @@
-<body>
-
-    <h1>MAP</h1>
-
-    <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-            <div id="map"></div>
-        </div>     
-    </div>
-
-    <div [ngClass]="{'nouveauMarqueur': AcceptMarker}">
-        <span *ngIf="AcceptMarker">
-            <span>Pour ajouter un marqueur clicker afin de choisir sa position, pour repositionner
-                  le marqueur, vous pouvez cliquer dessus et le glisser ou cliquer à un autre endroit
-                  sur la carte. Ensuite inscrire un titre et une description puis confirmer.   
-            </span>
-
-            <form #f="ngForm" (ngSubmit)="ConfirmationMarker()">
-                Titre de la randonnée: <input type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
-                <br>
-                <label for="desc" style="vertical-align: top">Description:</label>
-                <textarea type="text" name="desc" rows="4" cols="50" id="desc" style="resize:none"
-                    [(ngModel)]="currentmarqueur.desc" required></textarea><br>
-                <button type="submit" *ngIf="f.valid">Confirmer</button>
-            </form>    
-        </span>
-
+<div>
+    <div class="jumbotron container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div id="map"></div>
+            </div>
+        </div>
         <br>
-
-        <button (click)="PermissionAjoutMarker()">{{btnAjout}}</button>
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1">
+                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+                    <span class="buttonMessage" *ngIf="!AcceptMarker">
+                        Ajouter une marqueur
+                    </span>
+                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                        Annuler
+                    </span>
+                </button>
+            </div>
+            <div class="col-md-5">
+                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+                    <span class="buttonMessage" *ngIf="!AcceptMarker">
+                        Vue détaillée
+                    </span>
+                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                        Fermer
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div *ngIf="AcceptMarker" class="row marqueur-form">
+            <div class="container col-md-offset-1 col-md-10">
+                <h2>Nouveau marqueur</h2>
+                <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Titre:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description:</label>
+                        <div class="col-lg-8">
+                                <textarea  class="form-control" type="text" name="desc" id="desc" style="resize:none"
+                                [(ngModel)]="currentmarqueur.desc" required></textarea>
+                        </div>
+                    </div>
+                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                </form>
+            </div> 
+        </div>
     </div>
-
-    <br><br><br>
-
-</body>
+</div>
