@@ -130,10 +130,26 @@ export class UtilisateurService extends BaseService {
     deleteProfil(id: number) {        
         return this.http
         .delete(
-            this.baseUrl + '/profil/delete/' + id, JSON.stringify({id}),
+            this.baseUrl + '/profil/delete/' + id, 
+            JSON.stringify({id}),
         )
         .map(res => {            
             return res;
+        })
+        .catch(this.handleError);
+    }
+
+    deleteUser(email: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+
+        return this.http
+        .post(
+            this.baseUrl + '/profil/delete', 
+            JSON.stringify({ email }), { headers }
+        )
+        .map(res => {
+            return res.json();
         })
         .catch(this.handleError);
     }

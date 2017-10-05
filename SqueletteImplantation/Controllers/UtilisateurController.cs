@@ -92,6 +92,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(user);
         }
+
         [HttpPost]
         [Route("api/utilisateur/newpw")]
         public IActionResult newPW([FromBody]UtilisateurDto user)
@@ -107,7 +108,8 @@ namespace SqueletteImplantation.Controllers
                 
                 return new ObjectResult(false);
             }
-            else {
+            else 
+            {
                 identity.reset = false;
                 identity.mdp = user.Mdp;
                 _maBd.Utilisateur.Attach(identity);
@@ -134,6 +136,23 @@ namespace SqueletteImplantation.Controllers
             }
             user.reset = identity.reset;
             return new ObjectResult(user);
+        }
+
+        [HttpDelete]
+        [Route("api/utilisateur/delete")]
+        public IActionResult DeleteUser(UtilisateurDto user)
+        {
+            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email);
+
+            if (identity == null)
+            {
+                return NotFound();
+            }
+
+            _maBd.Remove(identity);
+            _maBd.SaveChanges();
+
+            return new OkResult();
         }
     }
 }

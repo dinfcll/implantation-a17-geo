@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { UtilisateurService } from '../../services/utilisateur.service';
 
+declare var jBox: any;
+
 @Component({
     selector: 'navBar',
     templateUrl: './nav.component.html',

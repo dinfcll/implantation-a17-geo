@@ -91,21 +91,39 @@ var UtilisateurService = (function (_super) {
         })
             .catch(this.handleError);
     };
+<<<<<<< HEAD
     UtilisateurService.prototype.editProfil = function (id, courriel, username, prenom, nom) {
         var headers = new http_1.Headers();
         headers.append('Content-type', 'application/json');
         return this.http
             .put(this.baseUrl + '/profil/edit', JSON.stringify({ id: id, courriel: courriel, username: username, prenom: prenom, nom: nom }), { headers: headers })
+=======
+    UtilisateurService.prototype.deleteProfil = function (email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/profil/delete', JSON.stringify({ email: email }), { headers: headers })
+>>>>>>> 29c82a8ecbf4efde1c5f2b461ce07c91b9a02f38
             .map(function (res) {
             return res.json();
         })
             .catch(this.handleError);
     };
+<<<<<<< HEAD
     UtilisateurService.prototype.deleteProfil = function (id) {
         return this.http
             .delete(this.baseUrl + '/profil/delete/' + id, JSON.stringify({ id: id }))
             .map(function (res) {
             return res;
+=======
+    UtilisateurService.prototype.deleteUser = function (email) {
+        var headers = new http_1.Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/profil/delete', JSON.stringify({ email: email }), { headers: headers })
+            .map(function (res) {
+            return res.json();
+>>>>>>> 29c82a8ecbf4efde1c5f2b461ce07c91b9a02f38
         })
             .catch(this.handleError);
     };
