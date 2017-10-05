@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
         });
     }
 
-    PermissionAjoutMarker():void{
+    PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
         if(this.btnAjout === "Ajouter un marqueur") {
             this.btnAjout = "Annuler";
@@ -123,7 +123,7 @@ export class MapComponent implements OnInit {
         }
     }
     
-    ConfirmationMarker(){
+    ConfirmationMarker() {
         if(this.currentmarqueur.latitude == 0)
         {
             new jBox('Notice', {

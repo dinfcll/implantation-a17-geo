@@ -3,6 +3,10 @@
   src: url("../../../fonts/Elianto-Regular.otf");
 }
 
+#gauche {
+  outline: none;
+}
+
 #titre {
   float: left;
   margin: auto;
