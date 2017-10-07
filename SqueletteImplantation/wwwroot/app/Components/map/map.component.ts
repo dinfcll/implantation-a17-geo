@@ -27,6 +27,9 @@ export class MapComponent implements OnInit {
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
+     public googlemarq: any[];
+     public tabmarqtemp: any[];
+     public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -39,6 +42,9 @@ export class MapComponent implements OnInit {
             icon: this.banqueimageicone[1],
             draggable: true,
         });
+        this.stadetrace = 0;
+        this.googlemarq = new Array();
+        this.tabmarqtemp = new Array();
     }
 
     PermissionAjoutMarker():void {
@@ -49,6 +55,16 @@ export class MapComponent implements OnInit {
             this.btnAjout = "Ajout marqueur";
             this.marqtemp.setMap(null);
         }       
+    }
+
+    ChangeStade():void {
+        if(this.stadetrace < 1){
+            this.stadetrace = 1;
+            this.googlemarq.forEach((mark) => {
+                mark.setAnimation(google.maps.Animation.BOUNCE);  
+            });
+        }
+
     }
 
     getMarqueurs(): void {
@@ -66,7 +82,12 @@ export class MapComponent implements OnInit {
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone],
-            title: info.nom
+            title: info.nom,
+            id: info.id,
+            valicone: info.icone,
+            desc: info.desc,
+            trajetlat: info.trajetlat,
+            trajetlng: info.trajetlng
         });
 
         google.maps.InfoWindow.prototype.ouvert = false;
@@ -100,9 +121,12 @@ export class MapComponent implements OnInit {
                     for(let i = 0; i < chlat.length; i++) {
                         path.push(new google.maps.LatLng(chlat[i], chlng[i]))
                     }
-                }
+                } 
                 chemin.setMap(this.map);
                 infoWindow.ouvert = true;
+                if(this.stadetrace === 1){
+                    this.stadetrace = 2;
+                }
             } else {
                 this.map.setZoom(10);
                 infoWindow.close();
@@ -110,6 +134,8 @@ export class MapComponent implements OnInit {
                 infoWindow.ouvert = false;
             }
         });
+
+        this.googlemarq.push(marker);
     }
         
     CreationMaker(Gdonne:any) {
