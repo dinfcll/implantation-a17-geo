@@ -17,7 +17,6 @@ declare var jBox:any;
 export class MapComponent implements OnInit {
 
      name ='Map';
-     private marqueurs:Marqueur[];
      public currentmarqueur:Marqueur;
      public map:any;
      public btnAjout:string;
@@ -70,14 +69,14 @@ export class MapComponent implements OnInit {
     getMarqueurs(): void {
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
-                    this.marqueurs = resdata.json() as Marqueur[];
-                    this.marqueurs.forEach((mark) => {
-                        this.AjoutMarker(mark);
+                    let marqueur:Marqueur[] = resdata.json() as Marqueur[];
+                    marqueur.forEach((mark) => {
+                       this.googlemarq.push(this.AjoutMarker(mark));
                     });
                 });
     }
 
-    AjoutMarker (info: Marqueur) {
+    AjoutMarker (info: Marqueur): any {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
@@ -135,7 +134,7 @@ export class MapComponent implements OnInit {
             }
         });
 
-        this.googlemarq.push(marker);
+        return marker;
     }
         
     CreationMaker(Gdonne:any) {
@@ -164,7 +163,7 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.longitude = marqposition.lng();
             this.http.post("api/marqueurs", this.currentmarqueur)
             .subscribe( res => {
-                this.marqueurs.push(res.json() as Marqueur);
+                this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                 this.PermissionAjoutMarker();
                 this.AjoutMarker(this.currentmarqueur);
             });            
