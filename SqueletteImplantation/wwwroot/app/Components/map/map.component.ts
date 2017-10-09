@@ -46,7 +46,7 @@ export class MapComponent implements OnInit {
         this.googlemarq = new Array();
         this.tabmarqtemp = new Array();
         this.tracetrajet = new google.maps.Polyline({
-            strokeColor: '#000000',
+            strokeColor: '#84ffb8',
             strokeOpacity: 1.0,
             strokeWeight: 3,
             path: []
@@ -169,27 +169,25 @@ export class MapComponent implements OnInit {
                 this.stadetrace = 3;
             }
 
-            let path = this.tracetrajet.getPath();
+            var path = this.tracetrajet.getPath();
             path.push(Gdonne.latLng);
-            this.tabmarqtemp.push( new google.maps.Marker({
+            let marktampon =  new google.maps.Marker({
                 position: Gdonne.latLng,
                 title: 'point #' + path.getLength(),
                 map: this.map,
                 draggable: true,
-                id: this.tabmarqtemp.length -1,
+                id: this.tabmarqtemp.length,
                 pathid: path.getLength() - 1
-            }));
-           
-            this.tabmarqtemp[this.tabmarqtemp.length - 1].addListener('drag', this.ClickMarkTrajet(
-                this.tabmarqtemp[this.tabmarqtemp.length -1].id, this.tabmarqtemp[this.tabmarqtemp.length -1].pathid
-            ));
+            });
+
+            marktampon.addListener('drag', (e:any) => {
+                let path = this.tracetrajet.getPath();
+                path.setAt(marktampon.pathid, this.tabmarqtemp[marktampon.id].getPosition());
+            });
+
+            this.tabmarqtemp.push(marktampon);   
 
         }
-    }
-
-    ClickMarkTrajet(idmark:number, idpath:number):any {
-        let path = this.tracetrajet.getPath();
-        path[idpath] = this.tabmarqtemp[idmark].getPosition();
     }
     
     ConfirmationMarker() {
