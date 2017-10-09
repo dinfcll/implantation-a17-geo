@@ -29,6 +29,7 @@ export class MapComponent implements OnInit {
      public googlemarq: any[];
      public tabmarqtemp: any[];
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
+     public tracetrajet: any;
 
     constructor(private http: Http) {
         this.getMarqueurs();
@@ -44,11 +45,17 @@ export class MapComponent implements OnInit {
         this.stadetrace = 0;
         this.googlemarq = new Array();
         this.tabmarqtemp = new Array();
+        this.tracetrajet = new google.maps.Polyline({
+            strokeColor: '#000000',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
     }
 
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajouter un marqueur") {
+        if(this.btnAjout === "Ajout marqueur") {
             this.btnAjout = "Annuler";
         } else {
             this.btnAjout = "Ajout marqueur";
@@ -62,6 +69,9 @@ export class MapComponent implements OnInit {
             this.googlemarq.forEach((mark) => {
                 mark.setAnimation(google.maps.Animation.BOUNCE);  
             });
+        } else if(this.stadetrace === 3){
+            //enregistrer dans la bd le tracer par coordonnée des marqueurs
+            this.stadetrace = 0;
         }
 
     }
@@ -107,6 +117,9 @@ export class MapComponent implements OnInit {
         });
 
         marker.addListener('click', () => {
+            if(this.AcceptMarker == false){
+                this.currentmarqueur = info;
+            }
             if(!infoWindow.ouvert) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
@@ -125,6 +138,8 @@ export class MapComponent implements OnInit {
                 infoWindow.ouvert = true;
                 if(this.stadetrace === 1){
                     this.stadetrace = 2;
+                    let path = this.tracetrajet.getPath();
+                    path.push(marker.position);
                 }
             } else {
                 this.map.setZoom(10);
@@ -136,7 +151,8 @@ export class MapComponent implements OnInit {
 
         return marker;
     }
-        
+    
+    //voir a changer de nom car va avoir plusieur fonction
     CreationMaker(Gdonne:any) {
 
         if(this.AcceptMarker) {
@@ -146,6 +162,34 @@ export class MapComponent implements OnInit {
             this.marqtemp.setMap(null); 
             this.marqtemp.setMap(this.map);
         }
+        
+        if(this.stadetrace === 2 || this.stadetrace === 3){
+            //permet de tracer
+            if(this.tabmarqtemp.length > 0){
+                this.stadetrace = 3;
+            }
+
+            let path = this.tracetrajet.getPath();
+            path.push(Gdonne.latLng);
+            this.tabmarqtemp.push( new google.maps.Marker({
+                position: Gdonne.latLng,
+                title: 'point #' + path.getLength(),
+                map: this.map,
+                draggable: true,
+                id: this.tabmarqtemp.length -1,
+                pathid: path.getLength() - 1
+            }));
+           
+            this.tabmarqtemp[this.tabmarqtemp.length - 1].addListener('drag', this.ClickMarkTrajet(
+                this.tabmarqtemp[this.tabmarqtemp.length -1].id, this.tabmarqtemp[this.tabmarqtemp.length -1].pathid
+            ));
+
+        }
+    }
+
+    ClickMarkTrajet(idmark:number, idpath:number):any {
+        let path = this.tracetrajet.getPath();
+        path[idpath] = this.tabmarqtemp[idmark].getPosition();
     }
     
     ConfirmationMarker() {
@@ -203,10 +247,12 @@ export class MapComponent implements OnInit {
 
         this.map.addListener('click', (e:any):void => {
 
-                this.currentmarqueur.latitude=e.latLng.lat();
-                this.currentmarqueur.longitude=e.latLng.lng();
+                //this.currentmarqueur.latitude=e.latLng.lat();
+                //this.currentmarqueur.longitude=e.latLng.lng();
 
                 this.CreationMaker(e);                  
         });
+
+        this.tracetrajet.setMap(this.map);
     }         
 }
