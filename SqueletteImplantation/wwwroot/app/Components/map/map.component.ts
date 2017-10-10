@@ -71,7 +71,45 @@ export class MapComponent implements OnInit {
             });
         } else if(this.stadetrace === 3){
             //enregistrer dans la bd le tracer par coordonnée des marqueurs
-            this.stadetrace = 0;
+            let cheminlat:string = "";
+            let cheminlng:string = "";
+            this.tabmarqtemp.forEach((mark) =>{
+                cheminlat += mark.getPosition().lat()+',';
+                cheminlng += mark.getPosition().lng()+',';
+            });
+
+            cheminlat = cheminlat.slice(0, -1);
+            cheminlng = cheminlng.slice(0, -1);
+            
+            this.currentmarqueur.trajetlat = cheminlat;
+            this.currentmarqueur.trajetlng = cheminlng;
+
+            this.http.post("api/marqueurs/trajet", this.currentmarqueur)
+                .subscribe((res) => {
+                    if(res != null){
+                        let mark = res.json() as Marqueur;
+                        let index = this.googlemarq.indexOf(mark, 0);
+                        if(index > -1){
+                            this.googlemarq.splice(index, 1);
+                        }
+                        this.googlemarq.push(mark);
+                        this.stadetrace = 0;
+                        this.tabmarqtemp.forEach((element) =>{
+                            element.setMap(null);
+                        });
+                        this.tabmarqtemp = new Array();
+                        this.tracetrajet.setMap(null);
+                        this.map.setZoom(10);
+                    }else {
+                        new jBox('Notice', {
+                            content: 'Erreur de connection au serveur',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                    
+                });
+            
         }
 
     }
