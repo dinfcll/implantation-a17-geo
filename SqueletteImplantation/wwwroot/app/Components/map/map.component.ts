@@ -71,7 +71,6 @@ export class MapComponent implements OnInit {
                 }
             });
         } else if(this.stadetrace === 3){
-            //enregistrer dans la bd le tracer par coordonnée des marqueurs
             let cheminlat:string = "";
             let cheminlng:string = "";
             this.tabmarqtemp.forEach((mark) =>{
@@ -85,14 +84,10 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.trajetlat = cheminlat;
             this.currentmarqueur.trajetlng = cheminlng;
 
-            this.http.post("api/marqueurs/trajet", this.currentmarqueur)
+            this.http.post("api/marqueurs/modification", this.currentmarqueur)
                 .subscribe((res) => {
                     if(res != null){
-                        let mark = res.json() as Marqueur;
-                        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
-                        if(index > -1){
-                            this.googlemarq.splice(index, 1, mark);
-                        }
+                        this.retourModMarqueur(res)
                         this.stadetrace = 0;
                         this.tabmarqtemp.forEach((element) =>{
                             element.setMap(null);
@@ -119,6 +114,14 @@ export class MapComponent implements OnInit {
             
         }
 
+    }
+
+    retourModMarqueur(retour:any): void {
+        let mark = retour.json() as Marqueur;
+        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
+        if(index > -1){
+            this.googlemarq.splice(index, 1, mark);
+        }
     }
 
     getMarqueurs(): void {
@@ -244,24 +247,38 @@ export class MapComponent implements OnInit {
     }
     
     ConfirmationMarker() {
-        if(this.currentmarqueur.latitude == 0)
-        {
-            new jBox('Notice', {
-                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
-                color: 'red',
-                autoClose: 2000
-            });
-        }
-        else {
-            let marqposition = this.marqtemp.getPosition();
-            this.currentmarqueur.latitude = marqposition.lat();
-            this.currentmarqueur.longitude = marqposition.lng();
-            this.http.post("api/marqueurs", this.currentmarqueur)
-            .subscribe( res => {
-                this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
-                this.PermissionAjoutMarker();
-                this.AjoutMarker(this.currentmarqueur);
-            });            
+        if(this.currentmarqueur.id === 0){
+            if(this.currentmarqueur.latitude == 0)
+            {
+                new jBox('Notice', {
+                    content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+            else {
+                let marqposition = this.marqtemp.getPosition();
+                this.currentmarqueur.latitude = marqposition.lat();
+                this.currentmarqueur.longitude = marqposition.lng();
+                this.http.post("api/marqueurs", this.currentmarqueur)
+                .subscribe( res => {
+                    this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
+                    this.PermissionAjoutMarker();
+                });            
+            }
+        } else {
+            this.http.post("api/marqueurs/modification",this.currentmarqueur)
+                .subscribe( res => {
+                    if(res != null){
+                        this.retourModMarqueur(res);
+                    } else {
+                        new jBox('Notice', {
+                            content: 'Erreur de connection au serveur',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                });
         }
     }
 
