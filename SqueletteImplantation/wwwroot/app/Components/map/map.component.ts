@@ -32,7 +32,6 @@ export class MapComponent implements OnInit {
      public tracetrajet: any;
 
     constructor(private http: Http) {
-        this.getMarqueurs();
         this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
@@ -67,7 +66,9 @@ export class MapComponent implements OnInit {
         if(this.stadetrace < 1){
             this.stadetrace = 1;
             this.googlemarq.forEach((mark) => {
-                mark.setAnimation(google.maps.Animation.BOUNCE);  
+                if(mark.valicone > 0){
+                    mark.setAnimation(google.maps.Animation.BOUNCE);
+                }
             });
         } else if(this.stadetrace === 3){
             //enregistrer dans la bd le tracer par coordonnée des marqueurs
@@ -90,7 +91,7 @@ export class MapComponent implements OnInit {
                         let mark = res.json() as Marqueur;
                         let index = this.googlemarq.indexOf(mark, 0);
                         if(index > -1){
-                            this.googlemarq.splice(index, 1);
+                            this.googlemarq.slice(index, 1);
                         }
                         this.googlemarq.push(mark);
                         this.stadetrace = 0;
@@ -99,8 +100,15 @@ export class MapComponent implements OnInit {
                         });
                         this.tabmarqtemp = new Array();
                         this.tracetrajet.setMap(null);
+                        this.tracetrajet = new google.maps.Polyline({
+                            strokeColor: '#84ffb8',
+                            strokeOpacity: 1.0,
+                            strokeWeight: 3,
+                            path: []
+                        });
                         this.map.setZoom(10);
-                    }else {
+                        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+                    } else {
                         new jBox('Notice', {
                             content: 'Erreur de connection au serveur',
                             color: 'red',
@@ -134,10 +142,10 @@ export class MapComponent implements OnInit {
             valicone: info.icone,
             desc: info.desc,
             trajetlat: info.trajetlat,
-            trajetlng: info.trajetlng
+            trajetlng: info.trajetlng,
+            click: false
         });
 
-        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
             content:`<div class="iw-titre"
                 <h2>`+info.nom+`</h2></div>
@@ -158,7 +166,7 @@ export class MapComponent implements OnInit {
             if(this.AcceptMarker == false){
                 this.currentmarqueur = info;
             }
-            if(!infoWindow.ouvert) {
+            if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
@@ -173,7 +181,7 @@ export class MapComponent implements OnInit {
                     }
                 } 
                 chemin.setMap(this.map);
-                infoWindow.ouvert = true;
+                marker.click = true;
                 if(this.stadetrace === 1){
                     this.stadetrace = 2;
                     let path = this.tracetrajet.getPath();
@@ -183,7 +191,7 @@ export class MapComponent implements OnInit {
                 this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
-                infoWindow.ouvert = false;
+                marker.click = false;
             }
         });
 
@@ -207,6 +215,7 @@ export class MapComponent implements OnInit {
                 this.stadetrace = 3;
             }
 
+            this.tracetrajet.setMap(this.map);
             var path = this.tracetrajet.getPath();
             path.push(Gdonne.latLng);
             let marktampon =  new google.maps.Marker({
@@ -258,8 +267,9 @@ export class MapComponent implements OnInit {
             mapTypeId: 'hybrid'
         }
 
-        this.getMarqueurs();
+        
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
+        this.getMarqueurs();
     
         //géolocation
         if( navigator.geolocation ) {
