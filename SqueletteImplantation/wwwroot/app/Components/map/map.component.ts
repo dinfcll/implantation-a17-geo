@@ -89,11 +89,10 @@ export class MapComponent implements OnInit {
                 .subscribe((res) => {
                     if(res != null){
                         let mark = res.json() as Marqueur;
-                        let index = this.googlemarq.indexOf(mark, 0);
+                        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
                         if(index > -1){
-                            this.googlemarq.slice(index, 1);
+                            this.googlemarq.splice(index, 1, mark);
                         }
-                        this.googlemarq.push(mark);
                         this.stadetrace = 0;
                         this.tabmarqtemp.forEach((element) =>{
                             element.setMap(null);
@@ -167,6 +166,7 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur = info;
             }
             if(!marker.click) {
+
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
@@ -192,6 +192,12 @@ export class MapComponent implements OnInit {
                 infoWindow.close();
                 chemin.setMap(null);
                 marker.click = false;
+                chemin = new google.maps.Polyline ({
+                    strokeColor: '#000000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 3,
+                    path: []
+                });
             }
         });
 
