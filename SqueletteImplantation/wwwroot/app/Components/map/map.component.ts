@@ -19,10 +19,7 @@ export class MapComponent implements OnInit {
      name ='Map';
      public currentmarqueur:Marqueur;
      public map:any;
-     public btnAjout:string;
      public AcceptMarker:boolean;
-     public Longitude:number;
-     public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
@@ -32,7 +29,6 @@ export class MapComponent implements OnInit {
      public tracetrajet: any;
 
     constructor(private http: Http) {
-        this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -54,12 +50,11 @@ export class MapComponent implements OnInit {
 
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajout marqueur") {
-            this.btnAjout = "Annuler";
+        if(this.AcceptMarker){
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
         } else {
-            this.btnAjout = "Ajout marqueur";
             this.marqtemp.setMap(null);
-        }       
+        }     
     }
 
     ChangeStade():void {
@@ -93,20 +88,7 @@ export class MapComponent implements OnInit {
                         if(index > -1){
                             this.googlemarq.splice(index, 1, mark);
                         }
-                        this.stadetrace = 0;
-                        this.tabmarqtemp.forEach((element) =>{
-                            element.setMap(null);
-                        });
-                        this.tabmarqtemp = new Array();
-                        this.tracetrajet.setMap(null);
-                        this.tracetrajet = new google.maps.Polyline({
-                            strokeColor: '#84ffb8',
-                            strokeOpacity: 1.0,
-                            strokeWeight: 3,
-                            path: []
-                        });
-                        this.map.setZoom(10);
-                        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+                        this.Annulation();
                     } else {
                         new jBox('Notice', {
                             content: 'Erreur de connection au serveur',
@@ -119,6 +101,26 @@ export class MapComponent implements OnInit {
             
         }
 
+    }
+
+    Annulation():void{
+        this.stadetrace = 0;
+        this.tabmarqtemp.forEach((element) =>{
+            element.setMap(null);
+        });
+        this.tabmarqtemp = new Array();
+        this.tracetrajet.setMap(null);
+        this.tracetrajet = new google.maps.Polyline({
+            strokeColor: '#84ffb8',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+        this.map.setZoom(10);
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.googlemarq.forEach((m) => {
+            m.setAnimation(null);
+        });
     }
 
     getMarqueurs(): void {
@@ -186,6 +188,9 @@ export class MapComponent implements OnInit {
                     this.stadetrace = 2;
                     let path = this.tracetrajet.getPath();
                     path.push(marker.position);
+                    this.googlemarq.forEach((m) => {
+                        m.setAnimation(null);
+                    });
                 }
             } else {
                 this.map.setZoom(10);
@@ -260,7 +265,7 @@ export class MapComponent implements OnInit {
             .subscribe( res => {
                 this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                 this.PermissionAjoutMarker();
-                this.AjoutMarker(this.currentmarqueur);
+                this.marqtemp.setMap(null);
             });            
         }
     }
