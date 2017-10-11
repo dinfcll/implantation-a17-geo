@@ -31,9 +31,9 @@ body {
 #reset:checked ~ button span { -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0); }
 
 form {
-  width: 450px;
+  width: 600px;
   height: 370px;
-  margin: -185px -225px;
+  margin: -185px -300px;
   position: absolute;
   left: 50%;
   top: 50%;

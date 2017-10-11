@@ -1,19 +1,19 @@
 <form #loginForm="ngForm">
 
     <input checked id="signin" name="action" type="radio" [value]="signin"[(ngModel)]="option">
-    <label for="signin">Sign in</label>
+    <label for="signin">Connexion</label>
 
     <input id='signup' name='action' type='radio' value='signup'[(ngModel)]="option">
-    <label for='signup'>Sign up</label>
+    <label for='signup'>Inscription</label>
 
     <input id='reset' name='action' type='radio' value='reset' [(ngModel)]="option">
-    <label for='reset'>Reset</label>
+    <label for='reset'>Réinitialisation</label>
 
     <div id="wrapper">
 
         <div id="arrow"></div>
 
-        <input type="text" class="loginFirst" placeholder="Email" #userEmail="ngModel" name="email"
+        <input type="text" class="loginFirst" placeholder="Courriel" #userEmail="ngModel" name="email"
             [(ngModel)]="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" email="true"
             [ngClass]="{'has-error' : userEmail.touched && !userEmail?.valid,'has-success':userEmail.valid}" >
          
@@ -29,13 +29,13 @@
 
     <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}">
         <span (click)="loginForm.form.valid && resetPW(email)">
-            Reset password
+            Réinitialiser Mdp
         </span>
         <span (click)="loginForm.form.valid && onLogin(email,mdp)">
-            Sign in
+            Se Connecter
         </span>
         <span (click)="loginForm.form.valid && inscription(email,mdp,confirm)">
-            Sign up
+            S'inscrire
         </span>
     </button>
 
