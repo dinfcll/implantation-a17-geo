@@ -61,6 +61,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(user);
         }
+
         [HttpPost]
         [Route("api/utilisateur/reset")]
         public IActionResult Reset([FromBody] UtilisateurDto user)
@@ -76,8 +77,7 @@ namespace SqueletteImplantation.Controllers
                 emailSender.SetMessage("Votre mot de passe temporaire est le " + identity.mdp.ToString() + "");
                 emailSender.setSubject("Nouveau Mot de passe");
                 emailSender.sendMessage();
-                
-                
+                               
                 _maBd.Utilisateur.Attach(identity);
                 
                 var entry = _maBd.Entry(identity);
@@ -89,7 +89,6 @@ namespace SqueletteImplantation.Controllers
             {
                 return new ObjectResult(null);
             }
-
             return new OkObjectResult(user);
         }
 
@@ -103,9 +102,9 @@ namespace SqueletteImplantation.Controllers
             {
                 return new ObjectResult(null);
             } 
+
             if (identity.reset==false)
-            {
-                
+            {               
                 return new ObjectResult(false);
             }
             else 
@@ -134,19 +133,34 @@ namespace SqueletteImplantation.Controllers
             {
                 return new ObjectResult(null);
             }
+            
             user.reset = identity.reset;
             return new ObjectResult(user);
         }
 
-        [HttpDelete]
-        [Route("api/utilisateur/delete")]
-        public IActionResult DeleteUser(UtilisateurDto user)
+        [HttpGet]
+        [Route("api/utilisateur/{email}")]
+        public IActionResult GetUser(string email)
         {
-            var identity = _maBd.Utilisateur.FirstOrDefault(m => m.email == user.Email);
+            var identity = _maBd.Utilisateur.FirstOrDefault(u => u.email == email);
 
             if (identity == null)
             {
-                return NotFound();
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(identity);
+        }
+
+        [HttpDelete]
+        [Route("api/utilisateur/delete/{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var identity = _maBd.Utilisateur.FirstOrDefault(u => u.Id == id);
+           
+            if (identity == null)
+            {
+                return new ObjectResult(null);
             }
 
             _maBd.Remove(identity);

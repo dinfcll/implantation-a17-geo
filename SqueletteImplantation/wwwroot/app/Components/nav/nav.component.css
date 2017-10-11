@@ -186,6 +186,7 @@
 .logout:hover {
   color: #085314;
   text-shadow: none;
+  cursor: pointer;
 }
 
 .map {
