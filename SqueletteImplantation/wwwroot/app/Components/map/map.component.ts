@@ -82,30 +82,8 @@ export class MapComponent implements OnInit {
             this.http.post("api/marqueurs/modification", this.currentmarqueur)
                 .subscribe((res) => {
                     if(res != null){
-<<<<<<< HEAD
                         this.retourModMarqueur(res)
-                        this.stadetrace = 0;
-                        this.tabmarqtemp.forEach((element) =>{
-                            element.setMap(null);
-                        });
-                        this.tabmarqtemp = new Array();
-                        this.tracetrajet.setMap(null);
-                        this.tracetrajet = new google.maps.Polyline({
-                            strokeColor: '#84ffb8',
-                            strokeOpacity: 1.0,
-                            strokeWeight: 3,
-                            path: []
-                        });
-                        this.map.setZoom(10);
-                        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
-=======
-                        let mark = res.json() as Marqueur;
-                        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
-                        if(index > -1){
-                            this.googlemarq.splice(index, 1, mark);
-                        }
                         this.Annulation();
->>>>>>> CreationTrajet
                     } else {
                         new jBox('Notice', {
                             content: 'Erreur de connection au serveur',
@@ -120,14 +98,15 @@ export class MapComponent implements OnInit {
 
     }
 
-<<<<<<< HEAD
+
     retourModMarqueur(retour:any): void {
         let mark = retour.json() as Marqueur;
         let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
         if(index > -1){
             this.googlemarq.splice(index, 1, mark);
         }
-=======
+    }
+
     Annulation():void{
         this.stadetrace = 0;
         this.tabmarqtemp.forEach((element) =>{
@@ -146,7 +125,6 @@ export class MapComponent implements OnInit {
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
->>>>>>> CreationTrajet
     }
 
     getMarqueurs(): void {
@@ -197,7 +175,6 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur = info;
             }
             if(!marker.click) {
-
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
@@ -278,7 +255,6 @@ export class MapComponent implements OnInit {
     }
     
     ConfirmationMarker() {
-<<<<<<< HEAD
         if(this.currentmarqueur.id === 0){
             if(this.currentmarqueur.latitude == 0)
             {
@@ -296,6 +272,7 @@ export class MapComponent implements OnInit {
                 .subscribe( res => {
                     this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                     this.PermissionAjoutMarker();
+                    this.marqtemp.setMap(null);
                 });            
             }
         } else {
@@ -313,26 +290,6 @@ export class MapComponent implements OnInit {
                         }
                     });
             }
-=======
-        if(this.currentmarqueur.latitude == 0)
-        {
-            new jBox('Notice', {
-                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
-                color: 'red',
-                autoClose: 2000
-            });
-        }
-        else {
-            let marqposition = this.marqtemp.getPosition();
-            this.currentmarqueur.latitude = marqposition.lat();
-            this.currentmarqueur.longitude = marqposition.lng();
-            this.http.post("api/marqueurs", this.currentmarqueur)
-            .subscribe( res => {
-                this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
-                this.PermissionAjoutMarker();
-                this.marqtemp.setMap(null);
-            });            
->>>>>>> CreationTrajet
         }
     }
 
@@ -369,10 +326,6 @@ export class MapComponent implements OnInit {
         }
 
         this.map.addListener('click', (e:any):void => {
-
-                //this.currentmarqueur.latitude=e.latLng.lat();
-                //this.currentmarqueur.longitude=e.latLng.lng();
-
                 this.CreationMaker(e);                  
         });
 
