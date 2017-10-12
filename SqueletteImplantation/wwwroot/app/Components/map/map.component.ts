@@ -19,10 +19,7 @@ export class MapComponent implements OnInit {
      name ='Map';
      public currentmarqueur:Marqueur;
      public map:any;
-     public btnAjout:string;
      public AcceptMarker:boolean;
-     public Longitude:number;
-     public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
@@ -32,7 +29,6 @@ export class MapComponent implements OnInit {
      public tracetrajet: any;
 
     constructor(private http: Http) {
-        this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -54,12 +50,11 @@ export class MapComponent implements OnInit {
 
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajout marqueur") {
-            this.btnAjout = "Annuler";
+        if(this.AcceptMarker){
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
         } else {
-            this.btnAjout = "Ajout marqueur";
             this.marqtemp.setMap(null);
-        }       
+        }     
     }
 
     ChangeStade():void {
@@ -87,6 +82,7 @@ export class MapComponent implements OnInit {
             this.http.post("api/marqueurs/modification", this.currentmarqueur)
                 .subscribe((res) => {
                     if(res != null){
+<<<<<<< HEAD
                         this.retourModMarqueur(res)
                         this.stadetrace = 0;
                         this.tabmarqtemp.forEach((element) =>{
@@ -102,6 +98,14 @@ export class MapComponent implements OnInit {
                         });
                         this.map.setZoom(10);
                         this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+=======
+                        let mark = res.json() as Marqueur;
+                        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
+                        if(index > -1){
+                            this.googlemarq.splice(index, 1, mark);
+                        }
+                        this.Annulation();
+>>>>>>> CreationTrajet
                     } else {
                         new jBox('Notice', {
                             content: 'Erreur de connection au serveur',
@@ -116,12 +120,33 @@ export class MapComponent implements OnInit {
 
     }
 
+<<<<<<< HEAD
     retourModMarqueur(retour:any): void {
         let mark = retour.json() as Marqueur;
         let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
         if(index > -1){
             this.googlemarq.splice(index, 1, mark);
         }
+=======
+    Annulation():void{
+        this.stadetrace = 0;
+        this.tabmarqtemp.forEach((element) =>{
+            element.setMap(null);
+        });
+        this.tabmarqtemp = new Array();
+        this.tracetrajet.setMap(null);
+        this.tracetrajet = new google.maps.Polyline({
+            strokeColor: '#84ffb8',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+        this.map.setZoom(10);
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.googlemarq.forEach((m) => {
+            m.setAnimation(null);
+        });
+>>>>>>> CreationTrajet
     }
 
     getMarqueurs(): void {
@@ -156,9 +181,12 @@ export class MapComponent implements OnInit {
                 </div>
             `
         });
-
+        var color:string = '#f3123d';
+        if(info.icone > 0){
+            color = '#84ffb8';
+        }
         var chemin = new google.maps.Polyline ({
-            strokeColor: '#000000',
+            strokeColor: color,
             strokeOpacity: 1.0,
             strokeWeight: 3,
             path: []
@@ -189,6 +217,9 @@ export class MapComponent implements OnInit {
                     this.stadetrace = 2;
                     let path = this.tracetrajet.getPath();
                     path.push(marker.position);
+                    this.googlemarq.forEach((m) => {
+                        m.setAnimation(null);
+                    });
                 }
             } else {
                 this.map.setZoom(10);
@@ -196,7 +227,7 @@ export class MapComponent implements OnInit {
                 chemin.setMap(null);
                 marker.click = false;
                 chemin = new google.maps.Polyline ({
-                    strokeColor: '#000000',
+                    strokeColor: color,
                     strokeOpacity: 1.0,
                     strokeWeight: 3,
                     path: []
@@ -247,6 +278,7 @@ export class MapComponent implements OnInit {
     }
     
     ConfirmationMarker() {
+<<<<<<< HEAD
         if(this.currentmarqueur.id === 0){
             if(this.currentmarqueur.latitude == 0)
             {
@@ -281,6 +313,26 @@ export class MapComponent implements OnInit {
                         }
                     });
             }
+=======
+        if(this.currentmarqueur.latitude == 0)
+        {
+            new jBox('Notice', {
+                content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                color: 'red',
+                autoClose: 2000
+            });
+        }
+        else {
+            let marqposition = this.marqtemp.getPosition();
+            this.currentmarqueur.latitude = marqposition.lat();
+            this.currentmarqueur.longitude = marqposition.lng();
+            this.http.post("api/marqueurs", this.currentmarqueur)
+            .subscribe( res => {
+                this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
+                this.PermissionAjoutMarker();
+                this.marqtemp.setMap(null);
+            });            
+>>>>>>> CreationTrajet
         }
     }
 

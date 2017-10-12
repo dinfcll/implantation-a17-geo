@@ -7,7 +7,7 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-2 col-md-offset-1">
                 <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
@@ -17,7 +17,7 @@
                     </span>
                 </button>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Vue détaillée
@@ -27,19 +27,26 @@
                     </span>
                 </button>
             </div>
-            <div class="col-md-3" (click)="ChangeStade()">
+            <div class="col-md-2" (click)="ChangeStade()">
                 <button>
                     <span class="buttonMessage" *ngIf="stadetrace==0">
-                        Ajout Trajet
+                        Ajout trajet
                     </span>
                     <span class="buttonMessage" *ngIf="stadetrace==1">
-                        choix du marqueur
+                        Choix du marqueur
                     </span>
                     <span class="buttonMessage" *ngIf="stadetrace==2">
                         Tracer trajet
                     </span>
                     <span class="buttonMessage" *ngIf="stadetrace==3">
                         Enregistrer trajet
+                    </span>
+                </button>
+            </div>
+            <div class="col-md-2" (click)="Annulation()" *ngIf="stadetrace>0">
+                <button>
+                    <span class="buttonMessage">
+                        Annuler
                     </span>
                 </button>
             </div>
