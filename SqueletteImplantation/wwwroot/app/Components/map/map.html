@@ -7,27 +7,27 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-3">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+            <div class="col-md-4">
+                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
                     </span>
-                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                    <span class="buttonMessage cancel" *ngIf="AcceptMarker">
                         Annuler
                     </span>
                 </button>
             </div>
-            <div class="col-md-3">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
-                    <span class="buttonMessage" *ngIf="!AcceptMarker">
+            <div class="col-md-4">
+                <button class="ajoutMarqueur" (click)="PermissionDetails()"[ngClass]="{'cancel': DetailsView}">
+                    <span class="buttonMessage" *ngIf="!DetailsView">
                         Vue détaillée
                     </span>
-                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                    <span class="buttonMessage cancel" *ngIf="DetailsView">
                         Fermer
                     </span>
                 </button>
             </div>
-            <div class="col-md-3" (click)="ChangeStade()">
+            <div class="col-md-4" (click)="ChangeStade()">
                 <button>
                     <span class="buttonMessage" *ngIf="stadetrace==0">
                         Ajout trajet
@@ -45,7 +45,7 @@
             </div>
             <div class="col-md-3" (click)="Annulation()" *ngIf="stadetrace>0">
                 <button>
-                    <span class="buttonMessage">
+                    <span class="buttonMessage cancel">
                         Annuler
                     </span>
                 </button>
@@ -72,5 +72,22 @@
                 </form>
             </div> 
         </div>
+        <div *ngIf="DetailsView" class="row">
+            <div class="col-md-offset-1 col-md-10 blog-main">
+                    
+                <div class="blog-post row">
+                <h2 class="blog-post-title">{{currentmarqueur.title}}</h2>
+                <p class="blog-post-meta">Crée par : <a href="">Utilisateur</a></p>
+                <span>
+                    <h3>Temperature :</h3>
+
+                </span>
+                <p>
+                    {{currentmarqueur.desc}}
+                </p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

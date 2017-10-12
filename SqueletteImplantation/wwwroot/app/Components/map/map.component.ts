@@ -1,4 +1,4 @@
-import { Component, Input ,OnInit} from '@angular/core';
+import { Component, Input ,OnInit,ChangeDetectorRef } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ConfigService } from "../utils/config.service";
@@ -17,9 +17,10 @@ declare var jBox:any;
 export class MapComponent implements OnInit {
 
      name ='Map';
-     public currentmarqueur:Marqueur;
+     public currentmarqueur:any;
      public map:any;
      public AcceptMarker:boolean;
+     public DetailsView:boolean;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
@@ -28,7 +29,7 @@ export class MapComponent implements OnInit {
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private ref: ChangeDetectorRef) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -50,11 +51,16 @@ export class MapComponent implements OnInit {
 
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
+        this.DetailsView=false;
         if(this.AcceptMarker){
             this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
         } else {
             this.marqtemp.setMap(null);
         }     
+    }
+    PermissionDetails():void {
+        this.DetailsView = !this.DetailsView;
+        this.AcceptMarker=false;
     }
 
     ChangeStade():void {
@@ -172,7 +178,10 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(this.AcceptMarker == false){
-                this.currentmarqueur = info;
+                    this.currentmarqueur = marker;
+                    console.log(this.currentmarqueur);
+                    this.ref.detectChanges();
+                    
             }
             if(!marker.click) {
                 this.map.setZoom(13);

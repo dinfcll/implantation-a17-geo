@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171012203540_RenameProfilId")]
+    partial class RenameProfilId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -47,15 +48,11 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("Nom")
                         .IsRequired();
 
-                    b.Property<int>("ProfilId");
-
                     b.Property<string>("Trajetlat");
 
                     b.Property<string>("Trajetlng");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProfilId");
 
                     b.ToTable("Marqueur");
                 });
@@ -96,14 +93,6 @@ namespace squeletteimplantation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilisateur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Marqueur", b =>
-                {
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
-                        .WithMany()
-                        .HasForeignKey("ProfilId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

@@ -53,3 +53,6 @@ button.disabled:hover {
 .marqueur-form{
   margin-top:0%;
 }
+.cancel{
+  background-color: rgb(190, 55, 55);
+}

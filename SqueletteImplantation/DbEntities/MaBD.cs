@@ -27,7 +27,7 @@ namespace SqueletteImplantation.DbEntities
 
             modelBuilder.Entity<Utilisateur>().Property(m => m.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Marqueur>().Property(m => m.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Profil>().Property(m => m.id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Profil>().Property(m => m.ProfilId).ValueGeneratedOnAdd();
         }
     }
 }
