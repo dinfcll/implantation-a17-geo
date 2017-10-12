@@ -155,9 +155,12 @@ export class MapComponent implements OnInit {
                 </div>
             `
         });
-
+        var color:string = '#f3123d';
+        if(info.icone > 0){
+            color = '#84ffb8';
+        }
         var chemin = new google.maps.Polyline ({
-            strokeColor: '#000000',
+            strokeColor: color,
             strokeOpacity: 1.0,
             strokeWeight: 3,
             path: []
@@ -198,7 +201,7 @@ export class MapComponent implements OnInit {
                 chemin.setMap(null);
                 marker.click = false;
                 chemin = new google.maps.Polyline ({
-                    strokeColor: '#000000',
+                    strokeColor: color,
                     strokeOpacity: 1.0,
                     strokeWeight: 3,
                     path: []
