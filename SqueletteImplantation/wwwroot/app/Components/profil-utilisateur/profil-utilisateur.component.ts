@@ -45,7 +45,9 @@ export class ProfilUtilisateurComponent implements OnInit{
         .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
         .subscribe(res => {
             if(res) {
+                
                 this.profil = res;
+                localStorage.setItem('token', this.profil.courriel);
                 this.router.navigate(['/profil'])
                 new jBox('Notice', {
                     content: 'Création du profil réussie',
