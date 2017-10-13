@@ -17,11 +17,11 @@
             [(ngModel)]="email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" email="true"
             [ngClass]="{'has-error' : userEmail.touched && !userEmail?.valid,'has-success':userEmail.valid}" >
          
-        <input type="password" class="loginInput" placeholder="Mdp" #userPW="ngModel" name="mdp"
+        <input type="password" class="loginInput" placeholder="Mot de passe" #userPW="ngModel" name="mdp"
             [(ngModel)]="mdp" required *ngIf="option !='reset'"
             [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}">
          
-        <input type="password" class="loginInput" placeholder="Confirmer Mdp" #confirmPW="ngModel" name="confirm"
+        <input type="password" class="loginInput" placeholder="Confirmer Mot de passe" #confirmPW="ngModel" name="confirm"
             [(ngModel)]="confirm" required *ngIf="option=='signup'"
             [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
 
@@ -29,7 +29,7 @@
 
     <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}">
         <span (click)="loginForm.form.valid && resetPW(email)">
-            Réinitialiser Mdp
+            Réinitialiser Mot de passe
         </span>
         <span (click)="loginForm.form.valid && onLogin(email,mdp)">
             Se Connecter

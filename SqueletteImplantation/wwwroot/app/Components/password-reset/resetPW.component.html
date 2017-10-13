@@ -6,10 +6,10 @@
     <div id="wrapper">
         <div id="arrow"></div>
        
-         <input class="loginFirst" #userPW="ngModel"type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mdp"
+         <input class="loginFirst" #userPW="ngModel"type="password" [(ngModel)]="mdp" required name="mdp" placeholder="Mot de passe"
          [ngClass]="{'has-error' : userPW.touched && !userPW?.valid,'has-success':userPW.valid}" required>
          
-         <input  class="loginInput" #confirmPW="ngModel" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mdp"
+         <input  class="loginInput" #confirmPW="ngModel" type="password" [(ngModel)]="confirm" required name="confirm" placeholder="Confirmer Mot de passe"
          [ngClass]="{'has-error' : confirmPW.touched && !confirmPW?.valid,'has-success':confirmPW.valid}">
 
     </div>
