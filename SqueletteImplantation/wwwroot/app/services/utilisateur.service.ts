@@ -5,7 +5,7 @@ import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
-import { ConfigService } from '../Components/utils/config.service';
+import { ConfigService } from './config.service';
 
 import { tokenNotExpired } from 'angular2-jwt';
 
