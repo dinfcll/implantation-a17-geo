@@ -181,11 +181,9 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(this.AcceptMarker == false){
-                    console.log(marker);
                     this.currentmarqueur = marker;
                     this.currentmarqueur.lat=marker.position.lat();
                     this.currentmarqueur.lng=marker.position.lng();
-                    console.log(this.currentmarqueur);
                     if(this.DetailsView){
                         this.LoadDetails()
                     }
@@ -368,9 +366,10 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.creator=res.username;
             this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.lat+'&lon='+this.currentmarqueur.lng+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
             .subscribe(res =>{
-                console.log(res.json());
+                var temp =res.json();
+                this.currentmarqueur.temp= Math.round(temp.main.temp-273.15);
+                this.currentmarqueur.weather=temp.weather[0].main;
                 this.ref.detectChanges();
-                console.log(this.currentmarqueur);
             });
         });
         
