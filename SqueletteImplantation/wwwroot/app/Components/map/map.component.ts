@@ -4,6 +4,8 @@ import { Http } from '@angular/http';
 import { ConfigService } from "../utils/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
+import { UtilisateurService } from './../../services/utilisateur.service';
+
 declare var google: any;
 declare var jBox:any;
 
@@ -29,11 +31,11 @@ export class MapComponent implements OnInit {
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
 
-    constructor(private http: Http, private ref: ChangeDetectorRef) {
+    constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -53,7 +55,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = !this.AcceptMarker;
         this.DetailsView=false;
         if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
         } else {
             this.marqtemp.setMap(null);
         }     
@@ -127,7 +129,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
@@ -154,7 +156,8 @@ export class MapComponent implements OnInit {
             desc: info.desc,
             trajetlat: info.trajetlat,
             trajetlng: info.trajetlng,
-            click: false
+            click: false,
+            profilId:info.profilId
         });
 
         var infoWindow = new google.maps.InfoWindow ({
@@ -178,8 +181,14 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(this.AcceptMarker == false){
+                    console.log(marker);
                     this.currentmarqueur = marker;
+                    this.currentmarqueur.lat=marker.position.lat();
+                    this.currentmarqueur.lng=marker.position.lng();
                     console.log(this.currentmarqueur);
+                    if(this.DetailsView){
+                        this.LoadDetails()
+                    }
                     this.ref.detectChanges();
                     
             }
@@ -274,15 +283,28 @@ export class MapComponent implements OnInit {
                 });
             }
             else {
-                let marqposition = this.marqtemp.getPosition();
-                this.currentmarqueur.latitude = marqposition.lat();
-                this.currentmarqueur.longitude = marqposition.lng();
-                this.http.post("api/marqueurs", this.currentmarqueur)
-                .subscribe( res => {
-                    this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
-                    this.PermissionAjoutMarker();
-                    this.marqtemp.setMap(null);
-                });            
+                if(localStorage.getItem('profilId')!="")
+                {   
+                    let marqposition = this.marqtemp.getPosition();
+                    this.currentmarqueur.latitude = marqposition.lat();
+                    this.currentmarqueur.longitude = marqposition.lng();
+                    this.currentmarqueur.profilId=localStorage.getItem('profilId');
+                    this.http.post("api/marqueurs", this.currentmarqueur)
+                    .subscribe( res => {
+                        console.log(res);
+                        this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
+                        this.PermissionAjoutMarker();
+                        this.marqtemp.setMap(null);
+                    });   
+                }
+                else{
+                    new jBox('Notice', {
+                        content: 'Veuillez créer un profil avant de créer un marqueur',
+                        color: 'red',
+                        autoClose: 2000
+                    });
+                }
+                         
             }
         } else {
             if(this.currentmarqueur.icone > 0){
@@ -339,5 +361,18 @@ export class MapComponent implements OnInit {
         });
 
         this.tracetrajet.setMap(this.map);
+    }
+    LoadDetails(){
+        this.utilisateurService.getProfilById(this.currentmarqueur.profilId)
+        .subscribe(res =>{
+            this.currentmarqueur.creator=res.username;
+            this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.lat+'&lon='+this.currentmarqueur.lng+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
+            .subscribe(res =>{
+                console.log(res.json());
+                this.ref.detectChanges();
+                console.log(this.currentmarqueur);
+            });
+        });
+        
     }         
 }

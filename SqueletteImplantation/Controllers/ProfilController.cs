@@ -39,7 +39,19 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+        [HttpGet]
+        [Route("api/profilbyid/{profilId}")]
+        public IActionResult GetProfibyId(string profilId)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.ProfilId ==int.Parse(profilId));
 
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(profil);
+        }
         [HttpPost]
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)

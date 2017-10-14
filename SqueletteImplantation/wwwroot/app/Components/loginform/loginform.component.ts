@@ -35,7 +35,23 @@ export class LoginFormComponent {
                 }
                 else{
                     localStorage.setItem('token', res.email);
-                    this.router.navigate(['/map']); 
+                    this.utilisateurService.getProfil(res.email)
+                    .subscribe(res=>{
+                        if(res){
+                            console.log(res);
+                            this.utilisateurService.profil=res;
+                            localStorage.setItem('profilId',res.profilId);
+                            localStorage.setItem('username',res.username);
+                            this.router.navigate(['/map']);
+                        }
+                        else{
+                            localStorage.setItem('profilId',"");
+                            localStorage.setItem('username',"");
+                            this.router.navigate(['/map']);
+                        }
+
+                    })
+                    
                 }
             }
             else
