@@ -12,29 +12,18 @@
             <span class="lines line-2"></span>
             <span class="lines line-3"></span>
         </label>
-     
-        <!-- le menu contient 3 mock icons a visibility hidden -->
-        <a href="#" class="menu-item blue" style="visibility:hidden"> 3 </a>
-        <a href="#" class="menu-item green" style="visibility:hidden"> 4 </a>
-        
-        <a routerLink="/map" routerLinkActive="active" class="menu-item map"> 
-            <i class="fa fa-map-signs"></i> 
-        </a>
         
         <a class="menu-item logout" (click)="onLogout()"> 
             <i class="fa fa-power-off"></i> 
-        </a> 
+        </a>
+
+        <a routerLink="/map" routerLinkActive="active" class="menu-item map"> 
+            <i class="fa fa-map-signs"></i> 
+        </a>        
 
         <a routerLink="/profil" routerLinkActive="active" class="menu-item profil"> 
             <i class="fa fa-address-card-o"></i> 
         </a>
-        
-        <a href="#" class="menu-item purple" style="visibility:hidden"> 5 </a>
                
      </nav>
 </div>
-
-
-<a id="deletion" (click)="onDeleteUser()" style="visibility:hidden">
-    <i class="fa fa-trash" aria-hidden="true"></i>
-</a>
