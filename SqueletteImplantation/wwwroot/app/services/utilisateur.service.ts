@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { BaseService } from './base.service';
-import { Utilisateur } from '../class/utilisateur.class';
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
+import { Utilisateur } from '../class/utilisateur.class';
+
+import { BaseService } from './base.service';
 import { ConfigService } from '../Components/utils/config.service';
 
 import { tokenNotExpired } from 'angular2-jwt';
@@ -24,13 +25,8 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
 
         return this.http
-            .post(
-                this.baseUrl + '/utilisateur/login',
-                JSON.stringify({ email, mdp }), { headers }
-            )
-            .map(res => {
-                return res.json();
-            })
+            .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email, mdp }), { headers })
+            .map(res => { return res.json() })
             .catch(this.handleError);
     }
 
@@ -42,33 +38,23 @@ export class UtilisateurService extends BaseService {
         localStorage.removeItem('token');
     }
 
-    newPW(mdp:string,email:string) {
+    newPW(mdp: string, email: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
         return this.http
-            .post(
-                this.baseUrl + '/utilisateur/newpw',
-                JSON.stringify({ email,mdp }), { headers }
-            ) 
-            .map(res => {
-                return res.json();
-            })
+            .post(this.baseUrl + '/utilisateur/newpw', JSON.stringify({ email,mdp }), { headers }) 
+            .map(res => { return res.json() })
             .catch(this.handleError);
     }
 
-    reset(email:string) {
+    reset(email: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
         return this.http
-            .post(
-                this.baseUrl + '/utilisateur/reset',
-                JSON.stringify({ email }), { headers }
-            ) 
-            .map(res => {
-                return res.json();
-            })
+            .post(this.baseUrl + '/utilisateur/reset', JSON.stringify({ email }), { headers }) 
+            .map(res => { return res.json() })
             .catch(this.handleError);    
     }
 
@@ -77,13 +63,9 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
 
         return this.http
-            .post(
-                this.baseUrl + '/utilisateur/signin',
-                JSON.stringify({ email, mdp }), { headers }
-            )
-            .map(res => {
-                return res.json();
-            })
+            .post(this.baseUrl + '/utilisateur/signin',
+                JSON.stringify({ email, mdp }), { headers })
+            .map(res => { return res.json() })
             .catch(this.handleError);
     }
     getProfilById(profilId:string){
@@ -112,13 +94,9 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
         
         return this.http
-        .post(
-            this.baseUrl + '/profil/create', 
-            JSON.stringify({ courriel, username, prenom, nom }), { headers }
-        )
-        .map(res => {
-            return res.json();
-        })
+        .post(this.baseUrl + '/profil/create', 
+            JSON.stringify({ courriel, username, prenom, nom }), { headers })
+        .map(res => { return res.json() })
         .catch(this.handleError);
     }
 
@@ -127,40 +105,30 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
         
         return this.http
-        .put(
-            this.baseUrl + '/profil/edit', 
-            JSON.stringify({ id, courriel, username, prenom, nom }), { headers }
-        )
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .put(this.baseUrl + '/profil/edit', 
+                JSON.stringify({ id, courriel, username, prenom, nom }), { headers })
+            .map(res => { return res.json() })
+            .catch(this.handleError);
     }
 
     deleteProfil(id: number) {        
         return this.http
-        .delete(
-            this.baseUrl + '/profil/delete/' + id, 
-            JSON.stringify({id}),
-        )
-        .map(res => {            
-            return res;
-        })
-        .catch(this.handleError);
+            .delete(this.baseUrl + '/profil/delete/' + id, JSON.stringify({ id }))
+            .map(res => { return res })
+            .catch(this.handleError);
     }
 
-    deleteUser(email: string) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-
+    getUser() {
         return this.http
-        .post(
-            this.baseUrl + '/profil/delete', 
-            JSON.stringify({ email }), { headers }
-        )
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .get(this.baseUrl + '/utilisateur/'+ this.loggedIn())
+            .map(res => { return res.json() })
+            .catch(this.handleError);
+    }
+
+    deleteUser(id: number) {
+        return this.http
+            .delete(this.baseUrl + '/utilisateur/delete/' + id, JSON.stringify({ id }))
+            .map(res => { return res })
+            .catch(this.handleError);
     }
 }

@@ -3,6 +3,7 @@ import { Router } from "@angular/router/";
 
 import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
 import { UtilisateurService } from '../../services/utilisateur.service';
+import { Utilisateur } from '../../class/utilisateur.class';
 
 declare var jBox :any;
 
@@ -16,12 +17,15 @@ export class ProfilUtilisateurComponent implements OnInit{
 
     profil: ProfilUtilisateur;    
     bEdit: boolean = false;
+    user: Utilisateur;
 
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
     ngOnInit(): void {
         this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");
         this.onGetProfil();
+        this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null);
+        this.onGetUser();
     }
 
     onGetProfil() {
@@ -37,6 +41,13 @@ export class ProfilUtilisateurComponent implements OnInit{
                     autoClose: 5000
                 });                
             }
+        });
+    }
+
+    onGetUser() {
+        this.utilisateurservice.getUser()
+            .subscribe(res => {
+                if(res) { this.user = res }
         });
     }
 
@@ -92,28 +103,57 @@ export class ProfilUtilisateurComponent implements OnInit{
         });
     }
 
-    onDeleteProfil() {
-        
+    onDeleteProfil() {       
         var confirmation: boolean = false
         confirmation = confirm("Voulez vous supprimer votre profil?")
         if (confirmation) {            
-            this.utilisateurservice.deleteProfil(this.profil.id)
-            .subscribe(res => {
-                if(res.status == 200) {                    
-                    this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");                    
-                    new jBox('Notice', {
-                        content: 'Suppression du profil réussie',
-                        color: 'green',
-                        autoClose: 5000
-                    });
-                } else {
-                    new jBox('Notice', {
-                        content: 'Impossible de supprimer le profil pour cet utilisateur',
-                        color: 'red',
-                        autoClose: 5000
-                    });
-                }
-            });
+            this.supprimerProfile();
         }       
+    }
+
+    supprimerProfile() {
+        this.utilisateurservice.deleteProfil(this.profil.id)
+        .subscribe(res => {
+            if(res.status == 200) {                    
+                this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");                    
+                new jBox('Notice', {
+                    content: 'Suppression du profil réussie',
+                    color: 'green',
+                    autoClose: 5000
+                });
+            } else {
+                new jBox('Notice', {
+                    content: 'Impossible de supprimer le profil pour cet utilisateur',
+                    color: 'red',
+                    autoClose: 5000
+                });
+            }
+        });
+    }
+
+    onDeleteUser() {
+        var confirmation: boolean = false
+        confirmation = confirm("Voulez vous vraiment supprimer votre compte?")
+        if(confirmation) {
+            this.supprimerProfile()
+            this.utilisateurservice.deleteUser(this.user.id)
+                .subscribe(res => {
+                        if(res.status == 200) {                                     
+                            new jBox('Notice', {
+                                content: 'Suppression de l\'utilisateur réussie',
+                                color: 'green',
+                                autoClose: 5000
+                            });
+                            this.utilisateurservice.logout();
+                            this.router.navigate(['/login']);
+                        } else {
+                            new jBox('Notice', {
+                                content: 'Impossible de supprimer l\'utilisateur',
+                                color: 'red',
+                                autoClose: 5000
+                            });
+                        }
+                });
+        }
     }
 }
