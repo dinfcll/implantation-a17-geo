@@ -1,7 +1,7 @@
 import { Component, Input ,OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ConfigService } from "../utils/config.service";
+import { ConfigService } from "../../services/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
