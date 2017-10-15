@@ -63,6 +63,12 @@ export class MapComponent implements OnInit {
     PermissionDetails():void {
         this.DetailsView = !this.DetailsView;
         this.AcceptMarker=false;
+        if(this.currentmarqueur.title){
+            if(this.currentmarqueur.title!=""){
+                this.LoadDetails();
+            }
+        }
+
     }
 
     ChangeStade():void {
@@ -370,7 +376,6 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur.temp= Math.round(temp.main.temp-273.15);
                 this.currentmarqueur.weather=temp.weather[0].main;
                 this.ref.detectChanges();
-                console.log(temp.weather[0].main);
             });
         });
         
