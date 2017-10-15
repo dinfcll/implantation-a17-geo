@@ -13,7 +13,7 @@ declare var jBox:any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
-    styleUrls:['./map.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
+    styleUrls:['./map.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css','./meteo.css']
 })
 
 export class MapComponent implements OnInit {
@@ -370,6 +370,7 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur.temp= Math.round(temp.main.temp-273.15);
                 this.currentmarqueur.weather=temp.weather[0].main;
                 this.ref.detectChanges();
+                console.log(temp.weather[0].main);
             });
         });
         
