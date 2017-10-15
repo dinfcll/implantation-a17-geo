@@ -35,6 +35,22 @@ namespace SqueletteImplantation.Controllers
             return new OkObjectResult(marqueur);
         }
 
+        [HttpPost]
+        [Route("api/marqueurs/trajet")]
+        public IActionResult AjoutTrajet([FromBody]Marqueur marqueur)
+        {
+            var oldmark = _maBd.Marqueur.FirstOrDefault(m => m.Id == marqueur.Id);
+
+            if(oldmark != null)
+            {
+                _maBd.Entry(oldmark).CurrentValues.SetValues(marqueur);
+                _maBd.SaveChanges();
+
+                return new OkObjectResult(marqueur);
+            }
+
+            return new OkObjectResult(null);
+        }
         [HttpGet]
         [Route("api/marqueurs/{id}")]
         public IActionResult GetMarqueur(int id)

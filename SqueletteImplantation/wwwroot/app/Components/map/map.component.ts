@@ -1,7 +1,7 @@
 import { Component, Input ,OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ConfigService } from "../utils/config.service";
+import { ConfigService } from "../../services/config.service";
 import { Marqueur } from "../../class/marqueur.class";
 
 declare var google: any;
@@ -17,20 +17,18 @@ declare var jBox:any;
 export class MapComponent implements OnInit {
 
      name ='Map';
-     private marqueurs:Marqueur[];
      public currentmarqueur:Marqueur;
      public map:any;
-     public btnAjout:string;
      public AcceptMarker:boolean;
-     public Longitude:number;
-     public Latitude:number;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
+     public googlemarq: any[];
+     public tabmarqtemp: any[];
+     public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
+     public tracetrajet: any;
 
     constructor(private http: Http) {
-        this.getMarqueurs();
-        this.btnAjout = "Ajout marqueur";
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -39,37 +37,116 @@ export class MapComponent implements OnInit {
             icon: this.banqueimageicone[1],
             draggable: true,
         });
+        this.stadetrace = 0;
+        this.googlemarq = new Array();
+        this.tabmarqtemp = new Array();
+        this.tracetrajet = new google.maps.Polyline({
+            strokeColor: '#84ffb8',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
     }
 
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
-        if(this.btnAjout === "Ajouter un marqueur") {
-            this.btnAjout = "Annuler";
+        if(this.AcceptMarker){
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
         } else {
-            this.btnAjout = "Ajout marqueur";
             this.marqtemp.setMap(null);
-        }       
+        }     
+    }
+
+    ChangeStade():void {
+        if(this.stadetrace < 1){
+            this.stadetrace = 1;
+            this.googlemarq.forEach((mark) => {
+                if(mark.valicone > 0){
+                    mark.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            });
+        } else if(this.stadetrace === 3){
+            //enregistrer dans la bd le tracer par coordonnée des marqueurs
+            let cheminlat:string = "";
+            let cheminlng:string = "";
+            this.tabmarqtemp.forEach((mark) =>{
+                cheminlat += mark.getPosition().lat()+',';
+                cheminlng += mark.getPosition().lng()+',';
+            });
+
+            cheminlat = cheminlat.slice(0, -1);
+            cheminlng = cheminlng.slice(0, -1);
+            
+            this.currentmarqueur.trajetlat = cheminlat;
+            this.currentmarqueur.trajetlng = cheminlng;
+
+            this.http.post("api/marqueurs/trajet", this.currentmarqueur)
+                .subscribe((res) => {
+                    if(res != null){
+                        let mark = res.json() as Marqueur;
+                        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
+                        if(index > -1){
+                            this.googlemarq.splice(index, 1, mark);
+                        }
+                        this.Annulation();
+                    } else {
+                        new jBox('Notice', {
+                            content: 'Erreur de connection au serveur',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                    
+                });
+            
+        }
+
+    }
+
+    Annulation():void{
+        this.stadetrace = 0;
+        this.tabmarqtemp.forEach((element) =>{
+            element.setMap(null);
+        });
+        this.tabmarqtemp = new Array();
+        this.tracetrajet.setMap(null);
+        this.tracetrajet = new google.maps.Polyline({
+            strokeColor: '#84ffb8',
+            strokeOpacity: 1.0,
+            strokeWeight: 3,
+            path: []
+        });
+        this.map.setZoom(10);
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","");
+        this.googlemarq.forEach((m) => {
+            m.setAnimation(null);
+        });
     }
 
     getMarqueurs(): void {
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
-                    this.marqueurs = resdata.json() as Marqueur[];
-                    this.marqueurs.forEach((mark) => {
-                        this.AjoutMarker(mark);
+                    let marqueur:Marqueur[] = resdata.json() as Marqueur[];
+                    marqueur.forEach((mark) => {
+                       this.googlemarq.push(this.AjoutMarker(mark));
                     });
                 });
     }
 
-    AjoutMarker (info: Marqueur) {
+    AjoutMarker (info: Marqueur): any {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone],
-            title: info.nom
+            title: info.nom,
+            id: info.id,
+            valicone: info.icone,
+            desc: info.desc,
+            trajetlat: info.trajetlat,
+            trajetlng: info.trajetlng,
+            click: false
         });
 
-        google.maps.InfoWindow.prototype.ouvert = false;
         var infoWindow = new google.maps.InfoWindow ({
             content:`<div class="iw-titre"
                 <h2>`+info.nom+`</h2></div>
@@ -78,16 +155,23 @@ export class MapComponent implements OnInit {
                 </div>
             `
         });
-
+        var color:string = '#f3123d';
+        if(info.icone > 0){
+            color = '#84ffb8';
+        }
         var chemin = new google.maps.Polyline ({
-            strokeColor: '#000000',
+            strokeColor: color,
             strokeOpacity: 1.0,
             strokeWeight: 3,
             path: []
         });
 
         marker.addListener('click', () => {
-            if(!infoWindow.ouvert) {
+            if(this.AcceptMarker == false){
+                this.currentmarqueur = info;
+            }
+            if(!marker.click) {
+
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
                 infoWindow.open(this.map, marker);
@@ -100,18 +184,35 @@ export class MapComponent implements OnInit {
                     for(let i = 0; i < chlat.length; i++) {
                         path.push(new google.maps.LatLng(chlat[i], chlng[i]))
                     }
-                }
+                } 
                 chemin.setMap(this.map);
-                infoWindow.ouvert = true;
+                marker.click = true;
+                if(this.stadetrace === 1){
+                    this.stadetrace = 2;
+                    let path = this.tracetrajet.getPath();
+                    path.push(marker.position);
+                    this.googlemarq.forEach((m) => {
+                        m.setAnimation(null);
+                    });
+                }
             } else {
                 this.map.setZoom(10);
                 infoWindow.close();
                 chemin.setMap(null);
-                infoWindow.ouvert = false;
+                marker.click = false;
+                chemin = new google.maps.Polyline ({
+                    strokeColor: color,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 3,
+                    path: []
+                });
             }
         });
+
+        return marker;
     }
-        
+    
+    //voir a changer de nom car va avoir plusieur fonction
     CreationMaker(Gdonne:any) {
 
         if(this.AcceptMarker) {
@@ -120,6 +221,33 @@ export class MapComponent implements OnInit {
             this.marqtemp.setPosition({lat: this.currentmarqueur.latitude, lng: this.currentmarqueur.longitude});
             this.marqtemp.setMap(null); 
             this.marqtemp.setMap(this.map);
+        }
+        
+        if(this.stadetrace === 2 || this.stadetrace === 3){
+            //permet de tracer
+            if(this.tabmarqtemp.length > 0){
+                this.stadetrace = 3;
+            }
+
+            this.tracetrajet.setMap(this.map);
+            var path = this.tracetrajet.getPath();
+            path.push(Gdonne.latLng);
+            let marktampon =  new google.maps.Marker({
+                position: Gdonne.latLng,
+                title: 'point #' + path.getLength(),
+                map: this.map,
+                draggable: true,
+                id: this.tabmarqtemp.length,
+                pathid: path.getLength() - 1
+            });
+
+            marktampon.addListener('drag', (e:any) => {
+                let path = this.tracetrajet.getPath();
+                path.setAt(marktampon.pathid, this.tabmarqtemp[marktampon.id].getPosition());
+            });
+
+            this.tabmarqtemp.push(marktampon);   
+
         }
     }
     
@@ -138,9 +266,9 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.longitude = marqposition.lng();
             this.http.post("api/marqueurs", this.currentmarqueur)
             .subscribe( res => {
-                this.marqueurs.push(res.json() as Marqueur);
+                this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                 this.PermissionAjoutMarker();
-                this.AjoutMarker(this.currentmarqueur);
+                this.marqtemp.setMap(null);
             });            
         }
     }
@@ -153,8 +281,9 @@ export class MapComponent implements OnInit {
             mapTypeId: 'hybrid'
         }
 
-        this.getMarqueurs();
+        
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
+        this.getMarqueurs();
     
         //géolocation
         if( navigator.geolocation ) {
@@ -178,10 +307,12 @@ export class MapComponent implements OnInit {
 
         this.map.addListener('click', (e:any):void => {
 
-                this.currentmarqueur.latitude=e.latLng.lat();
-                this.currentmarqueur.longitude=e.latLng.lng();
+                //this.currentmarqueur.latitude=e.latLng.lat();
+                //this.currentmarqueur.longitude=e.latLng.lng();
 
                 this.CreationMaker(e);                  
         });
+
+        this.tracetrajet.setMap(this.map);
     }         
 }

@@ -12,7 +12,7 @@ import { NavBarComponent }             from './Components/nav/nav.component';
 
 import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
-import { ConfigService }               from './Components/utils/config.service';
+import { ConfigService }               from './services/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
 import {ResetPWComponent}              from './Components/password-reset/resetPW.component';
 

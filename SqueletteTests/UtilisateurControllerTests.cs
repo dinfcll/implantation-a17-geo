@@ -37,10 +37,9 @@ namespace SqueletteTests
         [Fact]
         public void TestDeleteNotFound()
         {
-            UtilisateurDto udto = new UtilisateurDto("x", "x", false);
-            var test = _utilisateurController.DeleteUser(udto);
+            var test = _utilisateurController.DeleteUser(-666);
 
-            Assert.Equal(404, ((NotFoundResult)test).StatusCode);
+            Assert.Null((test as ObjectResult).StatusCode);
         }
 
         [Fact]
