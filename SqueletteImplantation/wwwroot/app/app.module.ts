@@ -5,6 +5,7 @@ import { FormsModule }                 from '@angular/forms';
 import { HttpModule }                  from '@angular/http';
 
 import { AppComponent }                from './app.component';
+import { AdminComponent }              from './Components/admin/admin.component'
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
@@ -14,11 +15,12 @@ import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './services/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
-import {ResetPWComponent}              from './Components/password-reset/resetPW.component';
+import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
 
 @NgModule({
   declarations: [ 
     AppComponent,
+    AdminComponent,
     LoginFormComponent, 
     MapComponent,
     ProfilUtilisateurComponent, 
