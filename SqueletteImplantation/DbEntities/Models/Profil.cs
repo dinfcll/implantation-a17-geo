@@ -2,7 +2,7 @@
 {
     public class Profil
     {
-        public int id { get; set; }
+        public int profilId { get; set; }
         public string courriel { get; set; }
         public string username { get; set; }
         public string prenom { get; set; }

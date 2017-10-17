@@ -15,5 +15,7 @@ namespace SqueletteImplantation.DbEntities.Models
         public int Icone { get; set; }
         public string Trajetlat { get; set; }
         public string Trajetlng { get; set; }
+        public int profilId { get; set; }
+        public Profil Profil { get; set; }
     }
 }

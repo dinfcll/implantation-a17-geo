@@ -14,6 +14,7 @@ namespace SqueletteImplantation.Controllers
     {
         private readonly MaBd _maBd;
 
+
         public ProfilController(MaBd maBd)
         {
             _maBd = maBd;
@@ -39,7 +40,19 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+        [HttpGet]
+        [Route("api/profilbyid/{profilId}")]
+        public IActionResult GetProfibyId(string profilId)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId ==int.Parse(profilId));
 
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(profil);
+        }
         [HttpPost]
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
@@ -64,7 +77,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil/edit")]
         public IActionResult EditProfil([FromBody] Profil updatedprofil)
         {
-            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.id == updatedprofil.id);
+            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == updatedprofil.profilId);
 
             if (oldprofil != null)
             {
@@ -101,7 +114,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil/delete/{id}")]
         public IActionResult DeleteProfil(int id)
         {
-            var profil = _maBd.Profil.FirstOrDefault(pr => pr.id == id);
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == id);
 
             if (profil == null)
             {

@@ -7,23 +7,46 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-5 col-md-offset-1">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
+            <div class="col-md-4">
+                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
                     </span>
-                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                    <span class="buttonMessage cancel" *ngIf="AcceptMarker">
                         Annuler
                     </span>
                 </button>
             </div>
-            <div class="col-md-5">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()">
-                    <span class="buttonMessage" *ngIf="!AcceptMarker">
+            <div class="col-md-4">
+                <button class="ajoutMarqueur" (click)="PermissionDetails()"[ngClass]="{'cancel': DetailsView}">
+                    <span class="buttonMessage" *ngIf="!DetailsView">
                         Vue détaillée
                     </span>
-                    <span class="buttonMessage" *ngIf="AcceptMarker">
+                    <span class="buttonMessage cancel" *ngIf="DetailsView">
                         Fermer
+                    </span>
+                </button>
+            </div>
+            <div class="col-md-4" (click)="ChangeStade()">
+                <button>
+                    <span class="buttonMessage" *ngIf="stadetrace==0">
+                        Ajout trajet
+                    </span>
+                    <span class="buttonMessage" *ngIf="stadetrace==1">
+                        Choix du marqueur
+                    </span>
+                    <span class="buttonMessage" *ngIf="stadetrace==2">
+                        Tracer trajet
+                    </span>
+                    <span class="buttonMessage" *ngIf="stadetrace==3">
+                        Enregistrer trajet
+                    </span>
+                </button>
+            </div>
+            <div class="col-md-3" (click)="Annulation()" *ngIf="stadetrace>0">
+                <button>
+                    <span class="buttonMessage cancel">
+                        Annuler
                     </span>
                 </button>
             </div>
@@ -48,6 +71,69 @@
                     <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
                 </form>
             </div> 
+        </div>
+        <div *ngIf="DetailsView row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="row rando_card">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div *ngIf="currentmarqueur.weather">
+                                    <div class="icon thunder-storm" *ngIf="currentmarqueur.weather==Thunderstorm"  >
+                                        <div class="cloud"></div>
+                                        <div class="lightning">
+                                            <div class="bolt"></div>
+                                            <div class="bolt"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="icon cloudy" *ngIf="currentmarqueur.weather=='Clouds'">
+                                        <div class="cloud"></div>
+                                        <div class="cloud"></div>
+                                    </div>
+                                        
+                                    <div class="icon flurries" *ngIf="currentmarqueur.weather==Snow">
+                                        <div class="cloud"></div>
+                                        <div class="snow">
+                                            <div class="flake"></div>
+                                            <div class="flake"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="icon sunny" *ngIf="currentmarqueur.weather==Clear">
+                                        <div class="sun">
+                                            <div class="rays"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="icon rainy" *ngIf="currentmarqueur.weather==Rain">
+                                        <div class="cloud"></div>
+                                        <div class="rain"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h2>{{currentmarqueur.temp}}°C</h2>
+                                <hr>
+                            </div>
+                            <div class="col-md-12">
+                                <h2>Crée par :{{currentmarqueur.creator}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>{{currentmarqueur.title}}</h2>
+                                <hr>
+                            </div>
+                            <div class="col-md-12">
+                                <h2>{{currentmarqueur.desc}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

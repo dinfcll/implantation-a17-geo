@@ -16,7 +16,15 @@
   font-family: 'Raleway', sans-serif;
   font-size: 27px;
 }
-
+.rando_card{
+  background-color: #FAF5F5;
+  border-color:rgba(65, 119, 92, 0.73);
+  border-radius: 5px;
+  border-width: 3px;
+  border:solid;
+  text-align: center;
+  margin-top:2%;
+}
 button {
   background: #81a8a3;
   border: none;
@@ -52,4 +60,7 @@ button.disabled:hover {
 }
 .marqueur-form{
   margin-top:0%;
+}
+.cancel{
+  background-color: rgb(190, 55, 55);
 }
