@@ -158,6 +158,14 @@
   z-index: 1;
 }
 
+.menu-open:checked ~ .menu-item:nth-child(6) {
+  transition-duration: 580ms;
+  -webkit-transition-duration: 580ms;
+  -webkit-transform: translate3d(-370.24125px, 0, 0);
+  transform: translate3d(-370.24125px, 0, 0);
+  z-index: 1;
+}
+
 .profil {
   background-color: #1D9279;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
@@ -189,6 +197,17 @@
 
 .map:hover {
   color: #85A2CE;
+  text-shadow: none;
+}
+
+.postUser {
+  background-color: #18AD6F;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.postUser:hover {
+  color: #18AD6F;
   text-shadow: none;
 }
 

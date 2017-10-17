@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { MapComponent } from './Components/map/map.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
+import { PostUserComponent } from './Components/post/post.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
 import { ResetPWComponent } from './Components/password-reset/resetPW.component';
 
@@ -21,6 +22,11 @@ export const routing: Routes = [
     { 
         path: 'map', 
         component: MapComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'postUser',
+        component: PostUserComponent,
         canActivate: [AuthGuard]
     },
     {   
