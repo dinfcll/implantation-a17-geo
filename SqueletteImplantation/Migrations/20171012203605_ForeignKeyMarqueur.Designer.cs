@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171012203605_ForeignKeyMarqueur")]
+    partial class ForeignKeyMarqueur
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -47,22 +48,22 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("Nom")
                         .IsRequired();
 
+                    b.Property<int>("ProfilId");
+
                     b.Property<string>("Trajetlat");
 
                     b.Property<string>("Trajetlng");
 
-                    b.Property<int>("profilId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("profilId");
+                    b.HasIndex("ProfilId");
 
                     b.ToTable("Marqueur");
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
                 {
-                    b.Property<int>("profilId")
+                    b.Property<int>("ProfilId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("courriel")
@@ -75,7 +76,7 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("username")
                         .IsRequired();
 
-                    b.HasKey("profilId");
+                    b.HasKey("ProfilId");
 
                     b.ToTable("Profil");
                 });
@@ -102,7 +103,7 @@ namespace squeletteimplantation.Migrations
                 {
                     b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
                         .WithMany()
-                        .HasForeignKey("profilId")
+                        .HasForeignKey("ProfilId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }
