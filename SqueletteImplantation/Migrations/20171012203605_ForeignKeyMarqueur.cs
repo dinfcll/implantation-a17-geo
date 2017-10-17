@@ -12,8 +12,8 @@ namespace squeletteimplantation.Migrations
             migrationBuilder.AddColumn<int>(
                 name: "ProfilId",
                 table: "Marqueur",
-                nullable: true,
-                defaultValue: null);
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Marqueur_ProfilId",

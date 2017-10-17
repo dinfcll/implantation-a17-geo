@@ -82,7 +82,7 @@ export class ProfilUtilisateurComponent implements OnInit{
 
     onEditProfil() {
         this.utilisateurservice
-        .editProfil(this.profil.id, this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+        .editProfil(this.profil.profilId, this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
         .subscribe(res => {
             if(res) {
                 this.profil = res;                
@@ -112,7 +112,7 @@ export class ProfilUtilisateurComponent implements OnInit{
     }
 
     supprimerProfile() {
-        this.utilisateurservice.deleteProfil(this.profil.id)
+        this.utilisateurservice.deleteProfil(this.profil.profilId)
         .subscribe(res => {
             if(res.status == 200) {                    
                 this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");                    

@@ -100,13 +100,13 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(id: number, courriel: string, username: string, prenom: string, nom: string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-        
+        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers });
         return this.http
             .put(this.baseUrl + '/profil/edit', 
-                JSON.stringify({ id, courriel, username, prenom, nom }), { headers })
+                JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers })
             .map(res => { return res.json() })
             .catch(this.handleError);
     }

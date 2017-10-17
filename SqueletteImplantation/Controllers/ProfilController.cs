@@ -14,6 +14,7 @@ namespace SqueletteImplantation.Controllers
     {
         private readonly MaBd _maBd;
 
+
         public ProfilController(MaBd maBd)
         {
             _maBd = maBd;
@@ -43,7 +44,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profilbyid/{profilId}")]
         public IActionResult GetProfibyId(string profilId)
         {
-            var profil = _maBd.Profil.FirstOrDefault(pr => pr.ProfilId ==int.Parse(profilId));
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId ==int.Parse(profilId));
 
             if (profil == null)
             {
@@ -76,7 +77,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil/edit")]
         public IActionResult EditProfil([FromBody] Profil updatedprofil)
         {
-            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.ProfilId == updatedprofil.ProfilId);
+            var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == updatedprofil.profilId);
 
             if (oldprofil != null)
             {
@@ -113,7 +114,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil/delete/{id}")]
         public IActionResult DeleteProfil(int id)
         {
-            var profil = _maBd.Profil.FirstOrDefault(pr => pr.ProfilId == id);
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == id);
 
             if (profil == null)
             {
