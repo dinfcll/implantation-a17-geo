@@ -23,7 +23,6 @@ namespace SqueletteImplantation
                 newUSer.email = "ramble.cll@gmail.com";
                 newUSer.mdp = "annieisbae";
                 newUSer.reset = false;
-                newUSer.Id = 0;
                 _maBd.Utilisateur.Add(newUSer);
             }
             var profil = _maBd.Profil.FirstOrDefault(pr => pr.courriel == "ramble.cll@gmail.com");
@@ -32,7 +31,6 @@ namespace SqueletteImplantation
                 Profil newpr = new Profil();
                 newpr.courriel = "ramble.cll@gmail.com";
                 newpr.username = "RAMBLE";
-                newpr.profilId = 0;
 
                 _maBd.Profil.Add(newpr);
                 _maBd.SaveChanges();               
