@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
+import { AdminGuard } from './admin.guard';
 
 import { AdminComponent } from './Components/admin/admin.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
@@ -12,26 +13,26 @@ import { ResetPWComponent } from './Components/password-reset/resetPW.component'
 
 
 export const routing: Routes = [
-    { 
-        path: '', 
-        redirectTo: '/login', 
-        pathMatch: 'full' 
+    {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
     },
-    { 
-        path: 'admin', 
+    {
+        path: 'admin',
         component: AdminComponent,
-        canActivate: [AuthGuard] 
-    },    
-    { 
-        path: 'login', 
-        component: LoginFormComponent 
+        canActivate: [AuthGuard, AdminGuard]
     },
-    { 
-        path: 'map', 
+    {
+        path: 'login',
+        component: LoginFormComponent
+    },
+    {
+        path: 'map',
         component: MapComponent,
         canActivate: [AuthGuard]
     },
-    {   
+    {
         path: 'profil',
         component: ProfilUtilisateurComponent,
         canActivate: [AuthGuard]
@@ -41,9 +42,9 @@ export const routing: Routes = [
         component: ResetPWComponent,
         canActivate: [AuthGuard]
     },
-    { 
-        path: '**', 
-        redirectTo: '' 
+    {
+        path: '**',
+        redirectTo: ''
     }
 ];
 

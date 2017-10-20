@@ -5,29 +5,30 @@ import { FormsModule }                 from '@angular/forms';
 import { HttpModule }                  from '@angular/http';
 
 import { AppComponent }                from './app.component';
-import { AdminComponent }              from './Components/admin/admin.component'
+import { AdminComponent }              from './Components/admin/admin.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
-import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
+import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component';
 import { NavBarComponent }             from './Components/nav/nav.component';
 
 import { AuthGuard }                   from './auth.guard';
+import { AdminGuard }                   from './admin.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './services/config.service';
 import { UtilisateurService }          from './services/utilisateur.service';
 import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     AppComponent,
     AdminComponent,
-    LoginFormComponent, 
+    LoginFormComponent,
     MapComponent,
-    ProfilUtilisateurComponent, 
+    ProfilUtilisateurComponent,
     NavBarComponent,
     ResetPWComponent
   ],
-  imports: [ 
+  imports: [
     CommonModule,
     BrowserModule,
     FormsModule,
@@ -36,6 +37,7 @@ import { ResetPWComponent }            from './Components/password-reset/resetPW
   ],
   providers: [
     AuthGuard,
+    AdminGuard,
     ConfigService,
     UtilisateurService
   ],
