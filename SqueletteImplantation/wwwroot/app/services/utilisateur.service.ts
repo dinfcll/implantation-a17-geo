@@ -13,6 +13,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class UtilisateurService extends BaseService {
 
     baseUrl: string = '';
+    profil:ProfilUtilisateur;
 
     constructor(private http: Http, private configService: ConfigService) {
         super();
@@ -67,12 +68,25 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json() })
             .catch(this.handleError);
     }
-
-    getProfil() {
+    getProfilById(profilId:string){
         return this.http
-            .get(this.baseUrl + '/profil/' + this.loggedIn(), this.loggedIn())
-            .map(res => { return res.json() })
-            .catch(this.handleError);
+        .get(
+            this.baseUrl + '/profilbyid/'+profilId, profilId
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
+    }
+    getProfil(courriel:string){
+        return this.http
+        .get(
+            this.baseUrl + '/profil/'+courriel, courriel
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
     }
 
     createProfil(courriel: string, username: string, prenom: string, nom: string) {
@@ -86,13 +100,13 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(id: number, courriel: string, username: string, prenom: string, nom: string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-        
+        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers });
         return this.http
             .put(this.baseUrl + '/profil/edit', 
-                JSON.stringify({ id, courriel, username, prenom, nom }), { headers })
+                JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers })
             .map(res => { return res.json() })
             .catch(this.handleError);
     }

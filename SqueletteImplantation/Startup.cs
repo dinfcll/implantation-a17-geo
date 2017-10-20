@@ -29,7 +29,7 @@ namespace SqueletteImplantation
         {
             // Add framework services.
             services.AddMvc();
-
+            services.AddTransient<initRamble>();
             services.AddSingleton<IConfiguration>(Configuration);
 
             services.AddDbContext<MaBd>(
@@ -37,7 +37,7 @@ namespace SqueletteImplantation
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, initRamble initramble)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -69,6 +69,7 @@ namespace SqueletteImplantation
                 // in case multiple SPAs required.
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "home", action = "index" });
             });
+            initramble.Seed().Wait();
         }
     }
 }
