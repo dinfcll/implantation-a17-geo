@@ -24,7 +24,7 @@ export class ProfilUtilisateurComponent implements OnInit{
     ngOnInit(): void {
         this.profil = new ProfilUtilisateur(null,this.utilisateurservice.loggedIn(),"","","");
         this.onGetProfil();
-        this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null);
+        this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null, 0);
         this.onGetUser();
     }
 
