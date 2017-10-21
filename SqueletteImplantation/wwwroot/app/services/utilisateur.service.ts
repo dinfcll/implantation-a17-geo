@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
-import { PostUser } from '../class/post.class';
 import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
@@ -142,9 +141,11 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);
     }
 
-    createpost(postTitle: string, postTxt: string) {
+    createpost(postTitle: string, postText: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postTxt}))
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
             .map(res => {return res})
             .catch(this.handleError);
     }

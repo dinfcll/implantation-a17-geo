@@ -8,7 +8,7 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    [Migration("20171021165137_postuser")]
+    [Migration("20171021175638_postuser")]
     partial class postuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace squeletteimplantation.Migrations
                     b.ToTable("Marqueur");
                 });
 
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostUser", b =>
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
                 {
                     b.Property<int>("postId")
                         .ValueGeneratedOnAdd();
@@ -78,7 +78,7 @@ namespace squeletteimplantation.Migrations
 
                     b.HasIndex("profilId");
 
-                    b.ToTable("PostUser");
+                    b.ToTable("PostsUser");
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
@@ -127,7 +127,7 @@ namespace squeletteimplantation.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostUser", b =>
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
                 {
                     b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
                         .WithMany()

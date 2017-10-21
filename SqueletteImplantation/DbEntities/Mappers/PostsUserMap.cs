@@ -3,9 +3,9 @@ using SqueletteImplantation.DbEntities.Models;
 
 namespace SqueletteImplantation.DbEntities.Mappers
 {
-    public class PostUserMap
+    public class PostsUserMap
     {
-        public PostUserMap(EntityTypeBuilder<PostUser> entityBuilder)
+        public PostsUserMap(EntityTypeBuilder<PostsUser> entityBuilder)
         {
             entityBuilder.HasKey(m => m.postId);
             entityBuilder.Property(m => m.postTitle).IsRequired();

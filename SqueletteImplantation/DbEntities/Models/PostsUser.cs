@@ -1,6 +1,6 @@
 namespace SqueletteImplantation.DbEntities.Models
 {
-    public class PostUser
+    public class PostsUser
     {
         public int postId { get; set; }
         public string postTitle { get; set; }

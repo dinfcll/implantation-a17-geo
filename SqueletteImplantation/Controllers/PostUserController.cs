@@ -20,19 +20,23 @@ namespace SqueletteImplantation.Controllers
         [Route("api/postUser")]
         public IEnumerable GetListPost()
         {
-            return _maBd.PostUser.ToList();
+            return _maBd.PostsUser.ToList();
         }
 
         [HttpPost]
         [Route("api/postUser/create")]
-        public IActionResult CreatePostUser(PostUserDto postUserDto)
+        public IActionResult CreatePostUser([FromBody]PostUserDto pu)
         {
-            var post = postUserDto.CreatePostUser();
+            var post = pu.CreatePostUser();
 
-            _maBd.PostUser.Add(post);
-            _maBd.SaveChanges();
+            if(post != null)
+            {
+                _maBd.PostsUser.Add(post);
+                _maBd.SaveChanges();
 
-            return new OkObjectResult(post);
+                return new OkObjectResult(post);
+            }
+            return new ObjectResult(null);           
         }
     }
 }

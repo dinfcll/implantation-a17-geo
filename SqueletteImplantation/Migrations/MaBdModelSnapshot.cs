@@ -60,7 +60,7 @@ namespace squeletteimplantation.Migrations
                     b.ToTable("Marqueur");
                 });
 
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostUser", b =>
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
                 {
                     b.Property<int>("postId")
                         .ValueGeneratedOnAdd();
@@ -77,7 +77,7 @@ namespace squeletteimplantation.Migrations
 
                     b.HasIndex("profilId");
 
-                    b.ToTable("PostUser");
+                    b.ToTable("PostsUser");
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
@@ -126,7 +126,7 @@ namespace squeletteimplantation.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostUser", b =>
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
                 {
                     b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
                         .WithMany()

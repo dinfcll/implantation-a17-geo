@@ -13,9 +13,9 @@ namespace SqueletteImplantation.DbEntities.DTOs
             this.postText = txt;
         }
 
-        public PostUser CreatePostUser()
+        public PostsUser CreatePostUser()
         {
-            return new PostUser { postTitle = postTitle, postText = postText };
+            return new PostsUser { postTitle = postTitle, postText = postText };
         }
     }
 }
