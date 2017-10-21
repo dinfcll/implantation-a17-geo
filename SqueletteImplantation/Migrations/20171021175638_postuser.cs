@@ -9,8 +9,6 @@ namespace squeletteimplantation.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "PostUser");
 
             migrationBuilder.CreateTable(
                 name: "PostsUser",
