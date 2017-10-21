@@ -79,7 +79,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div *ngIf="currentmarqueur.weather">
-                                    <div class="icon thunder-storm" *ngIf="currentmarqueur.weather==Thunderstorm"  >
+                                    <div class="icon thunder-storm" *ngIf="currentmarqueur.weather=='Thunderstorm'"  >
                                         <div class="cloud"></div>
                                         <div class="lightning">
                                             <div class="bolt"></div>
@@ -92,7 +92,7 @@
                                         <div class="cloud"></div>
                                     </div>
                                         
-                                    <div class="icon flurries" *ngIf="currentmarqueur.weather==Snow">
+                                    <div class="icon flurries" *ngIf="currentmarqueur.weather=='Snow'">
                                         <div class="cloud"></div>
                                         <div class="snow">
                                             <div class="flake"></div>
@@ -100,13 +100,13 @@
                                         </div>
                                     </div>
                                         
-                                    <div class="icon sunny" *ngIf="currentmarqueur.weather==Clear">
+                                    <div class="icon sunny" *ngIf="currentmarqueur.weather=='Clear'">
                                         <div class="sun">
                                             <div class="rays"></div>
                                         </div>
                                     </div>
                                         
-                                    <div class="icon rainy" *ngIf="currentmarqueur.weather==Rain">
+                                    <div class="icon rainy" *ngIf="currentmarqueur.weather=='Rain'">
                                         <div class="cloud"></div>
                                         <div class="rain"></div>
                                     </div>

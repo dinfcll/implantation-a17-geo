@@ -31,37 +31,3 @@
         </div>
     </div>
 </div>
-
-<div class="jumbotron container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <h2>Posts</h2>               
-            
-            <form class="form-horizontal" role="form" #fProfil="ngForm">
-                        
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Title :</label>
-                    <div class="col-lg-8 textpost">
-                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="post.title">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Post :</label>
-                    <div class="col-lg-8 textpost">
-                        <input class="form-control" type="text" name="postText" [(ngModel)]="post.text">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="submit()" value="Submit">            
-                    </div>
-                </div>                        
-                
-            </form>
-
-        </div>
-    </div>
-</div>
