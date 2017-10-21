@@ -29,6 +29,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
+                
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();
 
@@ -36,7 +37,7 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPost]
-        [Route("api/marqueurs/trajet")]
+        [Route("api/marqueurs/modification")]
         public IActionResult AjoutTrajet([FromBody]Marqueur marqueur)
         {
             var oldmark = _maBd.Marqueur.FirstOrDefault(m => m.Id == marqueur.Id);
