@@ -34,12 +34,5 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(post);
         }
-
-        [HttpGet]
-        [Route("api/postUser/getPosts")]
-        public IActionResult GetPostsUser(PostUserDto postUserDto)
-        {
-            
-        }
     }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
+import { PostUser } from '../class/post.class';
 import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
@@ -68,16 +69,18 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json() })
             .catch(this.handleError);
     }
+
     getProfilById(profilId:string){
         return this.http
         .get(
-            this.baseUrl + '/profilbyid/'+profilId, profilId
+            this.baseUrl + '/profilbyid/' + profilId, profilId
         )
         .map(res => {
             return res.json();
         })
         .catch(this.handleError);
     }
+
     getProfil(courriel:string){
         return this.http
         .get(
@@ -129,6 +132,20 @@ export class UtilisateurService extends BaseService {
         return this.http
             .delete(this.baseUrl + '/utilisateur/delete/' + id, JSON.stringify({ id }))
             .map(res => { return res })
+            .catch(this.handleError);
+    }
+
+    getListPost() {
+        return this.http
+            .get(this.baseUrl + '/postUser')
+            .map(res => { return res.json() })
+            .catch(this.handleError);
+    }
+
+    createpost(postTitle: string, postTxt: string) {
+        return this.http
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postTxt}))
+            .map(res => {return res})
             .catch(this.handleError);
     }
 }
