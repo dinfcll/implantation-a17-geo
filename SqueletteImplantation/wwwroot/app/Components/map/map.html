@@ -78,8 +78,8 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <div *ngIf="currentmarqueur.weather">
-                                    <div class="icon thunder-storm" *ngIf="currentmarqueur.weather==Thunderstorm"  >
+                                <div *ngIf="googlemarq[curidmarq].weather">
+                                    <div class="icon thunder-storm" *ngIf="googlemarq[curidmarq].weather=='Thunderstorm'"  >
                                         <div class="cloud"></div>
                                         <div class="lightning">
                                             <div class="bolt"></div>
@@ -87,12 +87,12 @@
                                         </div>
                                     </div>
                                         
-                                    <div class="icon cloudy" *ngIf="currentmarqueur.weather=='Clouds'">
+                                    <div class="icon cloudy" *ngIf="googlemarq[curidmarq].weather=='Clouds'">
                                         <div class="cloud"></div>
                                         <div class="cloud"></div>
                                     </div>
                                         
-                                    <div class="icon flurries" *ngIf="currentmarqueur.weather==Snow">
+                                    <div class="icon flurries" *ngIf="googlemarq[curidmarq].weather=='Snow'">
                                         <div class="cloud"></div>
                                         <div class="snow">
                                             <div class="flake"></div>
@@ -100,31 +100,31 @@
                                         </div>
                                     </div>
                                         
-                                    <div class="icon sunny" *ngIf="currentmarqueur.weather==Clear">
+                                    <div class="icon sunny" *ngIf="googlemarq[curidmarq].weather=='Clear'">
                                         <div class="sun">
                                             <div class="rays"></div>
                                         </div>
                                     </div>
                                         
-                                    <div class="icon rainy" *ngIf="currentmarqueur.weather==Rain">
+                                    <div class="icon rainy" *ngIf="googlemarq[curidmarq].weather=='Rain'">
                                         <div class="cloud"></div>
                                         <div class="rain"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <h2>{{currentmarqueur.temp}}°C</h2>
+                                <h2>{{googlemarq[curidmarq].temp}}°C</h2>
                                 <hr>
                             </div>
                             <div class="col-md-12">
-                                <h2>Crée par :{{currentmarqueur.creator}}</h2>
+                                <h2>Crée par :{{googlemarq[curidmarq].creator}}</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-12">
-                                <h2>{{currentmarqueur.title}}</h2>
+                                <h2>{{currentmarqueur.nom}}</h2>
                                 <hr>
                             </div>
                             <div class="col-md-12">
