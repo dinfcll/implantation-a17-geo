@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">                                
-                            <input type="button" class="btn btn-primary" (click)="editActif()" value="Éditer mon profil">            
+                            <input type="button" class="btn btn-primary" (click)="editToogle()" value="Éditer mon profil">            
                             <input type="button" class="btn btn-primary" (click)="onDeleteProfil()" value="Supprimer mon profil">
                             <input type="button" class="btn btn-primary" (click)="onDeleteUser()" value="Supprimer mon compte"/>
                         </div>
@@ -73,6 +73,7 @@
                         <div class="col-md-8">                                
                             <input *ngIf="!bEdit" type="button" class="btn btn-primary" (click)="onCreateProfil()" [disabled]="!fProfil.valid" value="Créer mon profil"/>
                             <input *ngIf="bEdit" type="button" class="btn btn-primary" (click)="onEditProfil()" [disabled]="!fProfil.valid" value="Éditer mon profil"/>
+                            <input *ngIf="bEdit" type="button" class="btn btn-primary" (click)="editAnnuler()" value="Annuler"/>
                         </div>
                     </div>
                 </ng-template>

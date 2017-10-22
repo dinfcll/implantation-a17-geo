@@ -15,14 +15,14 @@ declare var jBox: any;
 
 export class ProfilUtilisateurComponent implements OnInit {
 
-    profil: ProfilUtilisateur;
+    profil: ProfilUtilisateur;    
     bEdit: boolean = false;
     user: Utilisateur;
 
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
     ngOnInit(): void {
-        this.profil = new ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), '', '', '');
+        this.profil = new ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), '', '', '');        
         this.onGetProfil();
         this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null, 0);
         this.onGetUser();
@@ -56,8 +56,8 @@ export class ProfilUtilisateurComponent implements OnInit {
         .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
         .subscribe(res => {
             if (res) {
-
-                this.profil = res;
+                this.profil = res;                
+                
                 localStorage.setItem('profilId', res.profilId);
                 localStorage.setItem('username', res.username);
                 this.router.navigate(['/profil']);
@@ -76,8 +76,13 @@ export class ProfilUtilisateurComponent implements OnInit {
         });
     }
 
-    editActif() {
-        this.bEdit = true;
+    editToogle() {
+        this.bEdit = !this.bEdit;
+    }
+
+    editAnnuler() {
+        this.onGetProfil();
+        this.editToogle();
     }
 
     onEditProfil() {
@@ -87,6 +92,7 @@ export class ProfilUtilisateurComponent implements OnInit {
             if (res) {
                 this.profil = res;
                 localStorage.setItem('token', this.profil.courriel);
+                localStorage.setItem('username',this.profil.username);
                 this.bEdit = false;
                 new jBox('Notice', {
                     content: 'Édition du profil réussie',
