@@ -141,11 +141,29 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);
     }
 
-    createpost(postTitle: string, postText: string) {
+    createPost(postTitle: string, postText: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
             .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
+            .map(res => {return res})
+            .catch(this.handleError);
+    }
+
+    modifyPost(postTitle: string, postText: string, postId: number) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/postUser/modify/' + postId, JSON.stringify({ postTitle, postText, postId }), { headers })
+            .map(res => {return res})
+            .catch(this.handleError);
+    }
+
+    deletePost(postId: number) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }), { headers })
             .map(res => {return res})
             .catch(this.handleError);
     }

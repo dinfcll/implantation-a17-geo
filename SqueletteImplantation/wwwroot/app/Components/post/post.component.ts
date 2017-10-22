@@ -25,14 +25,36 @@ export class PostUserComponent implements OnInit {
             });
     }
 
-    submit(postTitle: string, postText: string) {
+    submitPost(postTitle: string, postText: string) {
         this.utilisateurservice
-            .createpost(postTitle, postText)
+            .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res)
                     alert("ok");
                 else
                     alert("pas ok");
              })
+    }
+
+    onModifyPost(postTitle: string, postText: string, postId: number) {
+        this.utilisateurservice
+            .modifyPost(postTitle, postText, postId)
+            .subscribe(res => {
+                if(res)
+                    alert("yeah modif");
+                else
+                    alert("pas yeah modif");
+            })
+    }
+
+    onDeletePost(postId: number) {
+        this.utilisateurservice
+            .deletePost(postId)
+            .subscribe(res => {
+                if(res.status == 200)
+                    alert("it's done son");
+                else
+                    alert("pas deleter dsl");
+            })
     }
 }

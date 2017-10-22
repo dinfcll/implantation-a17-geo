@@ -38,5 +38,38 @@ namespace SqueletteImplantation.Controllers
             }
             return new ObjectResult(null);           
         }
+
+        [HttpPut]
+        [Route("api/postUser/modify/{id}")]
+        public IActionResult ModifyPostUser(PostsUser updatedPost)
+        {
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == updatedPost.postId);
+
+            if (post == null)
+            {
+                return new ObjectResult(null);
+            }
+
+            _maBd.Entry(post).CurrentValues.SetValues(updatedPost);
+
+            return new OkObjectResult(post);
+        }
+
+        [HttpDelete]
+        [Route("api/postUser/delete/{id}")]
+        public IActionResult DeletePostUser(int id)
+        {
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            _maBd.Remove(post);
+            _maBd.SaveChanges();
+
+            return new OkResult();
+        }
     }
 }

@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="submit(postTitle, postText)" value="Submit">            
+                        <input type="button" class="btn btn-primary" (click)="submitPost(postTitle, postText)" value="Submit">            
                     </div>
                 </div>  
                 
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div class="jumbotron container" *ngFor="let p of posts">
+<div class="jumbotron container" *ngFor="let p of posts; let i = postId">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
@@ -53,9 +53,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-lg-3 control-label">Id :</label>
+                    <div class="col-lg-8 textpost">
+                        {{p.postId}}
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="submit(postTitle, postText)" value="Submit">            
+                        <input type="button" class="btn btn-primary" (click)="onDeletePost(i)" value="DeletePost">            
                     </div>
                 </div>  
                 
