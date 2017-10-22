@@ -19,7 +19,7 @@ declare var jBox:any;
 export class MapComponent implements OnInit {
 
      name ='Map';
-     public currentmarqueur:any;
+     public currentmarqueur:Marqueur;
      public map:any;
      public AcceptMarker:boolean;
      public DetailsView:boolean;
@@ -28,6 +28,7 @@ export class MapComponent implements OnInit {
      public marqtemp: any;
      public googlemarq: any[];
      public tabmarqtemp: any[];
+     public curidmarq:number;
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
 
@@ -63,8 +64,8 @@ export class MapComponent implements OnInit {
     PermissionDetails():void {
         this.DetailsView = !this.DetailsView;
         this.AcceptMarker=false;
-        if(this.currentmarqueur.title){
-            if(this.currentmarqueur.title!=""){
+        if(this.currentmarqueur.nom){
+            if(this.currentmarqueur.nom!=""){
                 this.LoadDetails();
             }
         }
@@ -163,7 +164,9 @@ export class MapComponent implements OnInit {
             trajetlat: info.trajetlat,
             trajetlng: info.trajetlng,
             click: false,
-            profilId:info.profilId
+            profilId:info.profilId,
+            curmarq: info,
+            marqid: this.googlemarq.length -1
         });
 
         var infoWindow = new google.maps.InfoWindow ({
@@ -187,9 +190,8 @@ export class MapComponent implements OnInit {
 
         marker.addListener('click', () => {
             if(this.AcceptMarker == false){
-                    this.currentmarqueur = marker;
-                    this.currentmarqueur.lat=marker.position.lat();
-                    this.currentmarqueur.lng=marker.position.lng();
+                    this.currentmarqueur = info;
+                    this.curidmarq = marker.marqid;
                     if(this.DetailsView){
                         this.LoadDetails()
                     }
@@ -292,7 +294,7 @@ export class MapComponent implements OnInit {
                     let marqposition = this.marqtemp.getPosition();
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
-                    this.currentmarqueur.profilId=localStorage.getItem('profilId');
+                    this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);
@@ -327,6 +329,21 @@ export class MapComponent implements OnInit {
             }
         }
     }
+
+    LoadDetails(){
+        this.utilisateurService.getProfilById(String(this.currentmarqueur.profilId))
+        .subscribe(res =>{
+            this.googlemarq[this.curidmarq].creator=res.username;
+            this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.latitude+'&lon='+this.currentmarqueur.longitude+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
+            .subscribe(res =>{
+                var temp =res.json();
+                this.googlemarq[this.curidmarq].temp= Math.round(temp.main.temp-273.15);
+                this.googlemarq[this.curidmarq].weather=temp.weather[0].main;
+                this.ref.detectChanges();
+            });
+        });
+        
+    } 
 
     ngOnInit() : void {
         var myCenter = { lat: 46.752560, lng: -71.228740 }; 
@@ -366,18 +383,5 @@ export class MapComponent implements OnInit {
 
         this.tracetrajet.setMap(this.map);
     }
-    LoadDetails(){
-        this.utilisateurService.getProfilById(this.currentmarqueur.profilId)
-        .subscribe(res =>{
-            this.currentmarqueur.creator=res.username;
-            this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.lat+'&lon='+this.currentmarqueur.lng+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
-            .subscribe(res =>{
-                var temp =res.json();
-                this.currentmarqueur.temp= Math.round(temp.main.temp-273.15);
-                this.currentmarqueur.weather=temp.weather[0].main;
-                this.ref.detectChanges();
-            });
-        });
         
-    }         
 }

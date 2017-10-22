@@ -210,6 +210,16 @@
   color: #18AD6F;
   text-shadow: none;
 }
+.username-div{
+  float:left;
+  margin: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-family: 'Elianto-Regular';
+  font-size: 55px;
+  color: #F7F4F4;
+  cursor: pointer;
+}
 
 
 
