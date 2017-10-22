@@ -27,14 +27,13 @@ export class LoginFormComponent {
         this.utilisateurService
         .login(email, mdp)
         .subscribe( res => {          
-            if(res){
-                if(res.reset)
-                {
-                    localStorage.setItem('token', res.email);
+            if(res) {
+                localStorage.setItem('token', res.email);
+                localStorage.setItem('bAdmin', res.typeutil);
+                if(res.reset) {                    
                     this.router.navigate(['/resetPW']); 
                 }
-                else{
-                    localStorage.setItem('token', res.email);
+                else {
                     this.utilisateurService.getProfil(res.email)
                     .subscribe(res=>{
                         if(res){
@@ -44,14 +43,12 @@ export class LoginFormComponent {
                             localStorage.setItem('username',res.username);
                             this.router.navigate(['/map']);
                         }
-                        else{
+                        else {
                             localStorage.setItem('profilId',"");
                             localStorage.setItem('username',"");
                             this.router.navigate(['/map']);
                         }
-
-                    })
-                    
+                    })                    
                 }
             }
             else
@@ -96,6 +93,7 @@ export class LoginFormComponent {
                 .subscribe(res => {
                     if(res) {
                         localStorage.setItem('token', mail);
+                        localStorage.setItem('bAdmin', "0");
                         this.router.navigate(['/map']);
                     } else
                     if(res==false){

@@ -14,8 +14,7 @@ export class UtilisateurService extends BaseService {
 
     baseUrl: string = '';
     profil: ProfilUtilisateur;
-    utilisateur: Utilisateur;
-
+    
     constructor(private http: Http, private configService: ConfigService) {
         super();
         this.baseUrl = configService.getApiURI();
@@ -41,6 +40,7 @@ export class UtilisateurService extends BaseService {
     logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('bAdmin');
     }
 
     newPW(mdp: string, email: string) {
@@ -136,18 +136,8 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res; })
             .catch(this.handleError);
     }
-
-    estAdmin(): any {
-        this.getUser()
-        .subscribe(res => {
-            if (res) {
-                this.utilisateur = res;
-                if (this.utilisateur.typeutil === 1) {
-                    return true;
-                }
-                return false;
-            }
-            return null;
-        });
+    
+    estAdmin() {
+        return localStorage.getItem('bAdmin');
     }
 }

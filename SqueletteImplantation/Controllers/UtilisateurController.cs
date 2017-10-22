@@ -134,8 +134,7 @@ namespace SqueletteImplantation.Controllers
                 return new ObjectResult(null);
             }
             
-            user.reset = identity.reset;
-            return new ObjectResult(user);
+            return new ObjectResult(identity);
         }
 
         [HttpGet]

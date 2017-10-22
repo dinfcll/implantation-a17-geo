@@ -28,7 +28,7 @@ namespace SqueletteImplantation
                 _maBd.Utilisateur.Add(newUSer);
             }
             var profil = _maBd.Profil.FirstOrDefault(pr => pr.courriel == "ramble.cll@gmail.com");
-            if (profil == null || profil.profilId == 0)
+            if (profil == null)
             {
                 Profil newpr = new Profil();
                 newpr.courriel = "ramble.cll@gmail.com";
