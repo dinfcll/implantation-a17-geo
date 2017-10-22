@@ -29,7 +29,8 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
-    getUsername(){
+
+    getUsername() {
         return localStorage.getItem('username');
     }
 
@@ -73,6 +74,7 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
+
     getProfilById(profilId: string) {
         return this.http
         .get(
@@ -83,6 +85,7 @@ export class UtilisateurService extends BaseService {
         })
         .catch(this.handleError);
     }
+    
     getProfil(courriel: string) {
         return this.http
         .get(
@@ -139,5 +142,21 @@ export class UtilisateurService extends BaseService {
     
     estAdmin() {
         return localStorage.getItem('bAdmin');
+    }
+
+    getListPost() {
+        return this.http
+            .get(this.baseUrl + '/postUser')
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
+    }
+
+    createpost(postTitle: string, postText: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
+            .map(res => { return res; })
+            .catch(this.handleError);
     }
 }

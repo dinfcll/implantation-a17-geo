@@ -33,7 +33,6 @@ namespace SqueletteImplantation
                 Profil newpr = new Profil();
                 newpr.courriel = "ramble.cll@gmail.com";
                 newpr.username = "RAMBLE";
-                newpr.profilId = 0;
 
                 _maBd.Profil.Add(newpr);
                 _maBd.SaveChanges();               
