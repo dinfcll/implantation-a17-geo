@@ -29,6 +29,9 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json() })
             .catch(this.handleError);
     }
+    getUsername(){
+        return localStorage.getItem('username');
+    }
 
     loggedIn() {
         return localStorage.getItem('token');
@@ -36,6 +39,7 @@ export class UtilisateurService extends BaseService {
 
     logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
     }
 
     newPW(mdp: string, email: string) {
