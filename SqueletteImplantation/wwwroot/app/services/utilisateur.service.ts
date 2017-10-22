@@ -72,16 +72,18 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res.json() })
             .catch(this.handleError);
     }
+
     getProfilById(profilId:string){
         return this.http
         .get(
-            this.baseUrl + '/profilbyid/'+profilId, profilId
+            this.baseUrl + '/profilbyid/' + profilId, profilId
         )
         .map(res => {
             return res.json();
         })
         .catch(this.handleError);
     }
+
     getProfil(courriel:string){
         return this.http
         .get(
@@ -133,6 +135,22 @@ export class UtilisateurService extends BaseService {
         return this.http
             .delete(this.baseUrl + '/utilisateur/delete/' + id, JSON.stringify({ id }))
             .map(res => { return res })
+            .catch(this.handleError);
+    }
+
+    getListPost() {
+        return this.http
+            .get(this.baseUrl + '/postUser')
+            .map(res => { return res.json() })
+            .catch(this.handleError);
+    }
+
+    createpost(postTitle: string, postText: string) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
+            .map(res => {return res})
             .catch(this.handleError);
     }
 }

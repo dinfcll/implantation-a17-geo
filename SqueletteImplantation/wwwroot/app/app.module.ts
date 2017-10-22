@@ -7,6 +7,7 @@ import { HttpModule }                  from '@angular/http';
 import { AppComponent }                from './app.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
+import { PostUserComponent }           from './Components/post/post.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
 import { NavBarComponent }             from './Components/nav/nav.component';
 
@@ -21,6 +22,7 @@ import {ResetPWComponent}              from './Components/password-reset/resetPW
     AppComponent,
     LoginFormComponent, 
     MapComponent,
+    PostUserComponent,
     ProfilUtilisateurComponent, 
     NavBarComponent,
     ResetPWComponent

@@ -1,0 +1,66 @@
+<div class="jumbotron container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Posts</h2>               
+            
+            <form class="form-horizontal" role="form" #fProfil="ngForm">
+                        
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Title :</label>
+                    <div class="col-lg-8 textpost">
+                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Text :</label>
+                    <div class="col-lg-8 textpost">
+                        <input class="form-control" type="text" name="postText" [(ngModel)]="postText">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">                                
+                        <input type="button" class="btn btn-primary" (click)="submit(postTitle, postText)" value="Submit">            
+                    </div>
+                </div>  
+                
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="jumbotron container" *ngFor="let p of posts">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <form class="form-horizontal">
+                        
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Title :</label>
+                    <div class="col-lg-8 textpost">
+                        {{p.postTitle}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Text :</label>
+                    <div class="col-lg-8 textpost">
+                        {{p.postText}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">                                
+                        <input type="button" class="btn btn-primary" (click)="submit(postTitle, postText)" value="Submit">            
+                    </div>
+                </div>  
+                
+            </form>
+
+        </div>
+    </div>
+</div>
