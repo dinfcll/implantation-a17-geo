@@ -14,7 +14,6 @@ export class PostUserComponent implements OnInit {
 
     posts : any[] = [];
     bModif: boolean = false;
-    userpost : UserPost;
 
     constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
 
@@ -32,7 +31,7 @@ export class PostUserComponent implements OnInit {
             .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res)
-                    window.location.reload()
+                    this.posts.concat(res);
              })
     }
 
@@ -40,13 +39,17 @@ export class PostUserComponent implements OnInit {
         this.bModif = !this.bModif;
     }
 
-    onModifyPost(p : UserPost) {
+    onModifyPost(p : UserPost, newTitle : string, newText : string) {
+        p.postTitle = newTitle;
+        p.postText = newText;
         console.log(p);
         this.utilisateurservice
             .modifyPost(p)
             .subscribe(res => {
-                if(res)
-                    console.log(res);
+                if(res) {
+                    p.postTitle = res.postTitle;
+                    p.postText = res.postText;
+                }
             })
     }
 
