@@ -57,7 +57,7 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPost]
-        [Route("api/postUser/like/{id}")]
+        [Route("api/postUser/like")]
         public IActionResult LikePostUser([FromBody] int id)
         {
             var post = _maBd.PostsUser.SingleOrDefault(m => m.postId == id);
