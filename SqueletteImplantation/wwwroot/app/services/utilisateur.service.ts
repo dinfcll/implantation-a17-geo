@@ -164,7 +164,7 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/like', JSON.stringify({ postId }), {headers})
+            .put(this.baseUrl + '/postUser/like/' + postId, JSON.stringify({ postId }), {headers})
             .map(res => {return res})
             .catch(this.handleError);
     }
