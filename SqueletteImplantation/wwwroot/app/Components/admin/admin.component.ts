@@ -1,25 +1,115 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { Utilisateur } from './../../class/utilisateur.class'
+import { Utilisateur } from './../../class/utilisateur.class';
+import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
+
+
+declare var jBox: any;
 
 @Component({
     selector: 'admin',
     templateUrl: './admin.component.html',
-    styleUrls:['./admin.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
+    styleUrls:['./admin.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
 })
-export class AdminComponent implements OnInit{
-    
-    utilisateur : Utilisateur;
+export class AdminComponent implements OnInit {
 
-    constructor(private utilisateurservice: UtilisateurService) { }
-    
+    utilisateurs: Utilisateur[];
+    profils: ProfilUtilisateur[];
+    profil: ProfilUtilisateur;
+
+    constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
+
     ngOnInit(): void {
-        this.utilisateur = new Utilisateur(null, this.utilisateurservice.loggedIn(), null, 0);
-        this.utilisateurservice.getUser()
-            .subscribe(res => {                
-                if(res) { this.utilisateur = res; }
+        this.getAllUser();
+        this.getAllProfil();
+        this.profil = new ProfilUtilisateur(-1, '', '', '', '');
+    }
+
+    getAllUser() {
+        this.utilisateurservice.getAllUser()
+        .subscribe(res => {
+            if (res) {
+                 this.utilisateurs = res;
+            }
+        });
+    }
+
+    getAllProfil() {
+        this.utilisateurservice.getAllProfil()
+        .subscribe(res => {
+            if (res) {
+                 this.profils = res;
+            }
+        });
+    }
+
+    deleteUser(u: Utilisateur) {
+        let confirmation: boolean;
+        confirmation = false;
+        confirmation = confirm('Voulez vous vraiment supprimer ce compte?');
+        if (confirmation) {
+            this.getProfilId(u.email);
+            console.log('profil:   ' + this.profil);
+            if (this.profil != null && this.profil.profilId > 0) {
+                this.deleteProfil(this.profil.profilId);
+            }
+            console.log('u:   ' + u);
+            this.utilisateurservice.deleteUser(u.id)
+            .subscribe(res => {
+                if (res.status === 200) {
+                    new jBox('Notice', {
+                        content: 'Suppression de l\'utilisateur réussie',
+                        color: 'green',
+                        autoClose: 5000
+                    });
+                    this.getAllUser();
+                    this.router.navigate(['/admin']);
+                } else {
+                    new jBox('Notice', {
+                        content: 'Impossible de supprimer l\'utilisateur',
+                        color: 'red',
+                        autoClose: 5000
+                    });
+                }
+            });
+        }
+    }
+
+    deleteProfil(profilId: number) {
+        this.utilisateurservice.deleteProfil(profilId)
+        .subscribe(res => {
+            if (res.status === 200) {
+                    new jBox('Notice', {
+                    content: 'Suppression du profil réussie',
+                    color: 'green',
+                    autoClose: 5000
+                });
+                this.getAllProfil();
+            } else {
+                new jBox('Notice', {
+                    content: 'Impossible de supprimer le profil pour cet utilisateur',
+                    color: 'red',
+                    autoClose: 5000
+                });
+            }
+        });
+    }
+
+    getProfilId(courriel: string): any {
+        this.utilisateurservice
+        .getProfil(courriel)
+        .subscribe(res => {
+            console.log(res);
+            if (res) {
+                this.profil = res;
+                return true;
+            } else {
+                this.profil.profilId = -1;
+                return false;
+            }
         });
     }
 }

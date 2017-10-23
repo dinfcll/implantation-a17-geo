@@ -14,7 +14,7 @@ export class UtilisateurService extends BaseService {
 
     baseUrl: string = '';
     profil: ProfilUtilisateur;
-    
+
     constructor(private http: Http, private configService: ConfigService) {
         super();
         this.baseUrl = configService.getApiURI();
@@ -85,11 +85,22 @@ export class UtilisateurService extends BaseService {
         })
         .catch(this.handleError);
     }
-    
+
     getProfil(courriel: string) {
         return this.http
         .get(
             this.baseUrl + '/profil/' + courriel, courriel
+        )
+        .map(res => {
+            return res.json();
+        })
+        .catch(this.handleError);
+    }
+
+    getAllProfil() {
+        return this.http
+        .get(
+            this.baseUrl + '/profil'
         )
         .map(res => {
             return res.json();
@@ -133,13 +144,20 @@ export class UtilisateurService extends BaseService {
             .catch(this.handleError);
     }
 
+    getAllUser() {
+        return this.http
+            .get(this.baseUrl + '/utilisateur')
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
+    }
+
     deleteUser(id: number) {
         return this.http
             .delete(this.baseUrl + '/utilisateur/delete/' + id, JSON.stringify({ id }))
             .map(res => { return res; })
             .catch(this.handleError);
     }
-    
+
     estAdmin() {
         return localStorage.getItem('bAdmin');
     }
