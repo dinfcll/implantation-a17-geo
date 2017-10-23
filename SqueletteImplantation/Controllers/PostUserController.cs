@@ -53,7 +53,7 @@ namespace SqueletteImplantation.Controllers
 
             _maBd.Entry(post).CurrentValues.SetValues(updatedPost);
 
-            return new OkObjectResult(post);
+            return new OkObjectResult(post.postLike);
         }
 
         [HttpPost]
@@ -68,11 +68,6 @@ namespace SqueletteImplantation.Controllers
             }
 
             post.postLike = post.postLike + 1;
-
-            _maBd.PostsUser.Attach(post);
-
-            var entry = _maBd.Entry(post);
-            entry.Property(e => e.postLike).IsModified = true;
 
             _maBd.SaveChanges();
 

@@ -59,13 +59,12 @@ export class PostUserComponent implements OnInit {
             })
     }
 
-    onLike(postId : number) {
-        console.log(postId);
+    onLike(p : UserPost) {
         this.utilisateurservice
-            .likePost(postId)
+            .likePost(p.postId)
             .subscribe(res => {
                 if(res)
-                    console.log(res);
+                    p.postLike = res.postLike;
             })
     }
 }

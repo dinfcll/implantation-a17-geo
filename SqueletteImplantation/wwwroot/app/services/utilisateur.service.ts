@@ -164,14 +164,14 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/like/',  postId , {headers})
+            .post(this.baseUrl + '/postUser/like', postId, {headers})
             .map(res => {return res.json();})
             .catch(this.handleError);
     }
 
     deletePost(postId: number) {
         return this.http
-            .delete(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }))
+            .delete(this.baseUrl + '/postUser/delete', JSON.stringify({ postId }))
             .map(res => {return res.json();})
             .catch(this.handleError);
     }
