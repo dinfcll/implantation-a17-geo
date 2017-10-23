@@ -8,7 +8,12 @@
         <br>
         <div class="row">
             <div class="col-md-4">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
+                <button class="ajoutMarqueur" (click)="PermissionMod()" *ngIf="modmarq">
+                    <span class="buttonMessage cancel">
+                        Annuler
+                    </span>
+                </button>
+                <button class="ajoutMarqueur" *ngIf="!modmarq" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
                     </span>
@@ -54,6 +59,27 @@
         <div *ngIf="AcceptMarker" class="row marqueur-form">
             <div class="container col-md-offset-1 col-md-10">
                 <h2>Nouveau marqueur</h2>
+                <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Titre:</label>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description:</label>
+                        <div class="col-lg-8">
+                                <textarea  class="form-control" type="text" name="desc" id="desc" style="resize:none"
+                                [(ngModel)]="currentmarqueur.desc" required></textarea>
+                        </div>
+                    </div>
+                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                </form>
+            </div> 
+        </div>
+        <div *ngIf="modmarq" class="row marqueur-form">
+            <div class="container col-md-offset-1 col-md-10">
+                <h2>Modification de {{currentmarqueur.nom}}</h2>
                 <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Titre:</label>
@@ -120,7 +146,7 @@
                                 <h2>Crée par :{{googlemarq[curidmarq].creator}}</h2>
                             </div>
                         </div>
-                    </div>
+                    </div>                   
                     <div class="col-md-8">
                         <div class="row">
                             <div class="col-md-12">
@@ -130,6 +156,15 @@
                             <div class="col-md-12">
                                 <h2>{{currentmarqueur.desc}}</h2>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" (click)="PermissionMod()" *ngIf="currentmarqueur.profilId>0">
+                            <button>
+                                <span class="buttonMessage">
+                                    Modification
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>
