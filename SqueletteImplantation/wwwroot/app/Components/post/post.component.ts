@@ -60,6 +60,7 @@ export class PostUserComponent implements OnInit {
     }
 
     onLike(postId : number) {
+        console.log(postId);
         this.utilisateurservice
             .likePost(postId)
             .subscribe(res => {

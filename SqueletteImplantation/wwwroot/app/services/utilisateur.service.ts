@@ -147,7 +147,7 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
         return this.http
             .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), {headers})
-            .map(res => {return res})
+            .map(res => {return res.json();})
             .catch(this.handleError);
     }
 
@@ -156,7 +156,7 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
         return this.http
             .put(this.baseUrl + '/postUser/modify', JSON.stringify({ p }), {headers})
-            .map(res => {return res})
+            .map(res => {return res.json();})
             .catch(this.handleError);
     }
 
@@ -164,15 +164,15 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/like/' + postId, JSON.stringify({ postId }), {headers})
-            .map(res => {return res})
+            .post(this.baseUrl + '/postUser/like/' + postId, JSON.stringify({ postId }), {headers})
+            .map(res => {return res.json();})
             .catch(this.handleError);
     }
 
     deletePost(postId: number) {
         return this.http
             .delete(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }))
-            .map(res => {return res})
+            .map(res => {return res.json();})
             .catch(this.handleError);
     }
 }

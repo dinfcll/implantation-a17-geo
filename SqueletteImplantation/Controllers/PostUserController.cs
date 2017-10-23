@@ -56,18 +56,24 @@ namespace SqueletteImplantation.Controllers
             return new OkObjectResult(post);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/postUser/like/{id}")]
         public IActionResult LikePostUser([FromBody] int id)
         {
-            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
+            var post = _maBd.PostsUser.SingleOrDefault(m => m.postId == id);
 
             if (post == null)
             {
-                return new ObjectResult(null);
+                return NotFound();
             }
-            
+
             post.postLike = post.postLike + 1;
+
+            _maBd.PostsUser.Attach(post);
+
+            var entry = _maBd.Entry(post);
+            entry.Property(e => e.postLike).IsModified = true;
+
             _maBd.SaveChanges();
 
             return new OkObjectResult(post);
