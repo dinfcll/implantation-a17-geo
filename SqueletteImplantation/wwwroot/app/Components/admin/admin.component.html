@@ -2,44 +2,81 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Administrateur</h2>
-            <h4>Utilisateurs <i class="fa fa-users" aria-hidden="true"></i></h4>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                    <th>Id</th>
-                    <th>Courriel</th>
-                    <th>Mot de passe</th>
-                    <th><abbr title="0 = utilisateur, 1 = admin">Type d'utilisateur</abbr></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-->faire boucle<-->
-                    <tr>
-                        <td>0</td>                    
-                        <td>Ramble@example.com</td>
-                        <td>Annieisbae</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>                    
-                        <td>john@example.com</td>
-                        <td>Doe</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>                    
-                        <td>mary@example.com</td>
-                        <td>Moe</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>                    
-                        <td>july@example.com</td>
-                        <td>Dooley</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>            
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#utils"><i class="fa fa-users" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#profils"><i class="fa fa-address-card" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#marqueurs"><i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#postusers"><i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="utils" class="tab-pane fade in active">
+                    <h4>Utilisateurs <i class="fa fa-users" aria-hidden="true"></i></h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                            <th>Id</th>
+                            <th>Courriel</th>
+                            <th>Mot de passe</th>
+                            <th><abbr title="0 = utilisateur, 1 = admin">Type d'utilisateur</abbr></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-->faire boucle<-->
+                            <tr>
+                                <td>0</td>                    
+                                <td>Ramble@example.com</td>
+                                <td>Annieisbae</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>                    
+                                <td>john@example.com</td>
+                                <td>Doe</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>                    
+                                <td>mary@example.com</td>
+                                <td>Moe</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>                    
+                                <td>july@example.com</td>
+                                <td>Dooley</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>       
+                </div>
+                <div id="profils" class="tab-pane fade">
+                    <h4>Profils <i class="fa fa-address-card" aria-hidden="true"></i></h4>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div id="marqueurs" class="tab-pane fade">
+                    <h4>Marqueurs <i class="fa fa-map-marker" aria-hidden="true"></i></h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                <div id="postusers" class="tab-pane fade">
+                    <h4>Postusers <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></h4>
+                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                 
         </div>
     </div>
 </div>
