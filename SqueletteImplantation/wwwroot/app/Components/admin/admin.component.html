@@ -1,2 +1,45 @@
-je suis un admin {{utilisateur.id}} {{utilisateur.email}} {{utilisateur.mdp}} {{utilisateur.typeutil}} 👮
-<h1>👮 </h1>👮  
+<div class="jumbotron container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Administrateur</h2>
+            <h4>Utilisateurs <i class="fa fa-users" aria-hidden="true"></i></h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th>Id</th>
+                    <th>Courriel</th>
+                    <th>Mot de passe</th>
+                    <th><abbr title="0 = utilisateur, 1 = admin">Type d'utilisateur</abbr></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-->faire boucle<-->
+                    <tr>
+                        <td>0</td>                    
+                        <td>Ramble@example.com</td>
+                        <td>Annieisbae</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>                    
+                        <td>john@example.com</td>
+                        <td>Doe</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>                    
+                        <td>mary@example.com</td>
+                        <td>Moe</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>                    
+                        <td>july@example.com</td>
+                        <td>Dooley</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+    </div>
+</div>
