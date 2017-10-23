@@ -17,7 +17,6 @@ declare var jBox:any;
 })
 
 export class MapComponent implements OnInit {
-
      name ='Map';
      public currentmarqueur:Marqueur;
      public map:any;
@@ -32,6 +31,7 @@ export class MapComponent implements OnInit {
      public curidmarq:number;
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
+     public image:string;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -51,6 +51,39 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+    }
+
+    UploadImage(event:any):void
+    {
+        /*
+        if(data.files && data.files[0]){
+            this.http.post("api/marqueurs/modification",data.files[0])
+                .subscribe((res) => {
+
+                });   
+        }
+        */
+        let files: FileList;
+        files = event.target.files;
+        if(files && files[0]){
+            if(files[0].name.match(/.(jpg|jpeg|png|gif)$/i))
+            {
+                let fr = new FileReader();
+                fr.onload = (e:any) => {
+                    this.image = e.target.result;
+                };
+                fr.readAsDataURL(files[0]);
+            } 
+            else
+            {
+                new jBox('Notice', {
+                    content: 'veuillez entrer une image',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+
+        }
     }
 
     PermissionAjoutMarker():void {

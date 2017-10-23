@@ -60,6 +60,9 @@
             <div class="container col-md-offset-1 col-md-10">
                 <h2>Nouveau marqueur</h2>
                 <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+                    <img *ngIf="image" [src]="image" class="img-thumbnail img-responsive" width="150" height="150">
+                    <input *ngIf="!image" type="file" (change)="UploadImage($event)" size="50"/>
+                    
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Titre:</label>
                         <div class="col-lg-8">
