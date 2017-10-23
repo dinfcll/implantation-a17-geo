@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.DTOs;
 using SqueletteImplantation.DbEntities.Models;
@@ -25,7 +26,7 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/postUser/create")]
-        public IActionResult CreatePostUser([FromBody]PostUserDto pu)
+        public IActionResult CreatePostUser([FromBody] PostUserDto pu)
         {
             var post = pu.CreatePostUser();
 
@@ -40,8 +41,8 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPut]
-        [Route("api/postUser/modify/{id}")]
-        public IActionResult ModifyPostUser(PostsUser updatedPost)
+        [Route("api/postUser/modify")]
+        public IActionResult ModifyPostUser([FromBody] PostUserDto updatedPost)
         {
             var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == updatedPost.postId);
 
@@ -51,6 +52,40 @@ namespace SqueletteImplantation.Controllers
             }
 
             _maBd.Entry(post).CurrentValues.SetValues(updatedPost);
+
+            return new OkObjectResult(post);
+        }
+
+        [HttpPut]
+        [Route("api/postUser/like")]
+        public IActionResult LikePostUser([FromBody] int id)
+        {
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
+
+            if (post == null)
+            {
+                return new ObjectResult(null);
+            }
+            
+            post.postLike = post.postLike + 1;
+            _maBd.SaveChanges();
+
+            return new OkObjectResult(post);
+        }
+
+        [HttpPut]
+        [Route("api/postUser/unlike")]
+        public IActionResult UnlikePostUser([FromBody] int id)
+        {
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
+
+            if (post == null)
+            {
+                return new ObjectResult(null);
+            }
+            
+            post.postLike = post.postLike - 1;
+            _maBd.SaveChanges();
 
             return new OkObjectResult(post);
         }

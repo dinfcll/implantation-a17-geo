@@ -32,12 +32,13 @@
     </div>
 </div>
 
-<div class="jumbotron container" *ngFor="let p of posts; let i = postId">
+<div class="jumbotron container" *ngFor="let p of posts;">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
             <form class="form-horizontal">
-                        
+                <div *ngIf="!bModif; else elseBlock">
+
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Title :</label>
                     <div class="col-lg-8 textpost">
@@ -62,9 +63,38 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="onDeletePost(i)" value="DeletePost">            
+                        <input type="button" class="btn btn-primary" (click)="onDeletePost(p)" value="Delete">
+                        <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Modify">
+                        <input type="button" class="btn btn-primary" (click)="onLike()" value="Like">  
+                        <label class="col-lg-3 control-label">Like : {{p.postLike}}</label>          
                     </div>
                 </div>  
+            </div>
+            <ng-template #elseBlock>
+                    <div class="form-group">
+                            <label class="col-lg-3 control-label">Title :</label>
+                            <div class="col-lg-8 textpost">
+                                <input class="form-control" type="text" name="p.postTitle" (ngModel)="p.postTitle" 
+                                    placeholder="{{p.postTitle}}">
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Text :</label>
+                            <div class="col-lg-8 textpost">
+                                <input class="form-control" type="text" name="p.postText" (ngModel)="p.postText" 
+                                    placeholder="{{p.postText}}">
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-8">                                
+                                <input type="button" class="btn btn-primary" (click)="onModifyPost(p)" value="Confirm Modif">
+                                <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Annuler">            
+                            </div>
+                        </div>
+            </ng-template>
                 
             </form>
 

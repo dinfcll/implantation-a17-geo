@@ -13,6 +13,8 @@ import { UtilisateurService } from '../../services/utilisateur.service';
 export class PostUserComponent implements OnInit {
 
     posts : any[] = [];
+    bModif: boolean = false;
+    userpost : UserPost;
 
     constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
 
@@ -30,31 +32,39 @@ export class PostUserComponent implements OnInit {
             .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res)
-                    alert("ok");
-                else
-                    alert("pas ok");
+                    window.location.reload()
              })
     }
 
-    onModifyPost(postTitle: string, postText: string, postId: number) {
+    onModifyBtn(){
+        this.bModif = !this.bModif;
+    }
+
+    onModifyPost(p : UserPost) {
+        console.log(p);
         this.utilisateurservice
-            .modifyPost(postTitle, postText, postId)
+            .modifyPost(p)
             .subscribe(res => {
                 if(res)
-                    alert("yeah modif");
-                else
-                    alert("pas yeah modif");
+                    console.log(res);
             })
     }
 
-    onDeletePost(postId: number) {
+    onDeletePost(p : UserPost) {
         this.utilisateurservice
-            .deletePost(postId)
+            .deletePost(p.postId)
             .subscribe(res => {
                 if(res.status == 200)
-                    alert("it's done son");
-                else
-                    alert("pas deleter dsl");
+                    window.location.reload()
+            })
+    }
+
+    onLike(postId : number) {
+        this.utilisateurservice
+            .likePost(postId)
+            .subscribe(res => {
+                if(res)
+                    console.log(res);
             })
     }
 }

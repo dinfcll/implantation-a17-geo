@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
+import { UserPost } from '../class/post.class';
 import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
@@ -145,25 +146,32 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), {headers})
             .map(res => {return res})
             .catch(this.handleError);
     }
 
-    modifyPost(postTitle: string, postText: string, postId: number) {
+    modifyPost(p : UserPost) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/modify/' + postId, JSON.stringify({ postTitle, postText, postId }), { headers })
+            .put(this.baseUrl + '/postUser/modify', JSON.stringify({ p }), {headers})
+            .map(res => {return res})
+            .catch(this.handleError);
+    }
+
+    likePost(postId : number) {
+        let headers = new Headers();
+        headers.append('Content-type', 'application/json');
+        return this.http
+            .put(this.baseUrl + '/postUser/like', JSON.stringify({ postId }), {headers})
             .map(res => {return res})
             .catch(this.handleError);
     }
 
     deletePost(postId: number) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }), { headers })
+            .delete(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }))
             .map(res => {return res})
             .catch(this.handleError);
     }
