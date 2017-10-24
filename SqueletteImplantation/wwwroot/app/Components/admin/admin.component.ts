@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 
 import { Utilisateur } from './../../class/utilisateur.class';
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
+import { UserPost } from '../../class/post.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
-
 
 declare var jBox: any;
 
@@ -18,14 +18,14 @@ export class AdminComponent implements OnInit {
 
     utilisateurs: Utilisateur[];
     profils: ProfilUtilisateur[];
-    profil: ProfilUtilisateur;
+    userposts: UserPost[];
 
     constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
 
     ngOnInit(): void {
         this.getAllUser();
         this.getAllProfil();
-        this.profil = new ProfilUtilisateur(-1, '', '', '', '');
+        this.getAllUserPost();        
     }
 
     getAllUser() {
@@ -42,6 +42,15 @@ export class AdminComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                  this.profils = res;
+            }
+        });
+    }
+
+    getAllUserPost() {
+        this.utilisateurservice.getListPost()
+        .subscribe(res => {
+            if (res) {
+                 this.userposts = res;
             }
         });
     }
@@ -98,5 +107,9 @@ export class AdminComponent implements OnInit {
                 });
             }
         });
+    }
+
+    deleteUserPost(postId:number) {
+        alert(postId + "WORK IN PROGRESS");
     }
 }

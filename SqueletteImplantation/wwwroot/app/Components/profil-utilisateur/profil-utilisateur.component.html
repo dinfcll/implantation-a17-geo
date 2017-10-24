@@ -7,7 +7,7 @@
             
             <form class="form-horizontal" role="form" #fProfil="ngForm">
 
-                <div *ngIf="profil.profilId && !bEdit; else elseBlock">
+                <div *ngIf="profil.profilId >= 0 && !bEdit; else elseBlock">
                         
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Nom d'utilisateur :</label>

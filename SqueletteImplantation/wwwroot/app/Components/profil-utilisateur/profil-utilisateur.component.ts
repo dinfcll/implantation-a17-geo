@@ -22,7 +22,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
     ngOnInit(): void {
-        this.profil = new ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), '', '', '');
+        this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '');
         this.onGetProfil();
         this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null, 0);
         this.onGetUser();
@@ -122,7 +122,8 @@ export class ProfilUtilisateurComponent implements OnInit {
         this.utilisateurservice.deleteProfil(this.profil.profilId)
         .subscribe(res => {
             if (res.status === 200) {
-                this.profil = new ProfilUtilisateur(null, this.utilisateurservice.loggedIn(), '', '', '');
+                this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '');
+                localStorage.setItem('username', '');
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',

@@ -65,26 +65,32 @@
                 </div>
                 <div id="marqueurs" class="tab-pane fade">
                     <h4>Marqueurs <i class="fa fa-map-marker" aria-hidden="true"></i></h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    <p>WORK IN PROGRESS Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
                 </div>
                 <div id="postusers" class="tab-pane fade">
-                    <h4>Postusers <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></h4>
-                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    <h4>Publications <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>PublicationId</th>
+                                <th>Titre</th>
+                                <th>Texte</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let up of userposts">
+                                <td>{{up.postId}}</td>                    
+                                <td>{{up.postTitle}}</td>
+                                <td>{{up.postText}}</td>                                
+                                <td>
+                                    <button class="btn-danger" (click)="deleteUserPost(up.postId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                 
+            </div>                 
         </div>
     </div>
 </div>
