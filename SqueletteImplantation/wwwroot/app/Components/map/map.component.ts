@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "");
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -53,10 +53,6 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
-    }
-
-    ChangeImage():void{
-        document.getElementById("imageMarkerUnique").click();
     }
 
     PreUploadImage(event:any):void
@@ -97,7 +93,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = !this.AcceptMarker;
         this.DetailsView=false;
         if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
         } else {
             this.marqtemp.setMap(null);
         }     
@@ -187,7 +183,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
@@ -352,6 +348,7 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
+                    this.currentmarqueur.imagemarqueur = this.image;
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);

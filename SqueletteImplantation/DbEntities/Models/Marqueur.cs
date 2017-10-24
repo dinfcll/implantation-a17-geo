@@ -17,5 +17,6 @@ namespace SqueletteImplantation.DbEntities.Models
         public string Trajetlng { get; set; }
         public int profilId { get; set; }
         public Profil Profil { get; set; }
+        public string ImageMarqueur { get; set; }
     }
 }
