@@ -32,6 +32,7 @@ export class MapComponent implements OnInit {
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
      public image:string;
+     public imagebuffer:any[];
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -45,6 +46,7 @@ export class MapComponent implements OnInit {
         this.stadetrace = 0;
         this.googlemarq = new Array();
         this.tabmarqtemp = new Array();
+        this.imagebuffer = new Array();
         this.tracetrajet = new google.maps.Polyline({
             strokeColor: '#84ffb8',
             strokeOpacity: 1.0,
@@ -53,16 +55,12 @@ export class MapComponent implements OnInit {
         });
     }
 
-    UploadImage(event:any):void
-    {
-        /*
-        if(data.files && data.files[0]){
-            this.http.post("api/marqueurs/modification",data.files[0])
-                .subscribe((res) => {
+    ChangeImage():void{
+        document.getElementById("imageMarkerUnique").click();
+    }
 
-                });   
-        }
-        */
+    PreUploadImage(event:any):void
+    {
         let files: FileList;
         files = event.target.files;
         if(files && files[0]){
@@ -73,6 +71,15 @@ export class MapComponent implements OnInit {
                     this.image = e.target.result;
                 };
                 fr.readAsDataURL(files[0]);
+                /*
+                let frUpload = new FileReader();
+                frUpload.onload = (e:any) => {
+                    this.imagebuffer = e.target.result;
+                    
+                    console.log(this.imagebuffer);
+                }
+                frUpload.readAsArrayBuffer(files[0]);
+                */
             } 
             else
             {
