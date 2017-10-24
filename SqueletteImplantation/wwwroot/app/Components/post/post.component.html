@@ -1,19 +1,17 @@
 <div class="jumbotron container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <h2>Posts</h2>               
-            
-            <form class="form-horizontal" role="form" #fProfil="ngForm">
-                        
+            <h2>Publications</h2>                           
+            <form class="form-horizontal" role="form" #fProfil="ngForm">                        
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Title :</label>
+                    <label class="col-lg-3 control-label">Titre :</label>
                     <div class="col-lg-8 textpost">
                         <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Text :</label>
+                    <label class="col-lg-3 control-label">Texte :</label>
                     <div class="col-lg-8 textpost">
                         <input class="form-control" type="text" name="postText" [(ngModel)]="postText">
                     </div>
@@ -22,82 +20,73 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="submitPost(postTitle, postText)" value="Submit">            
+                        <input type="button" class="btn btn-primary" (click)="submitPost(postTitle, postText)" value="Confirmer">            
                     </div>
-                </div>  
-                
+                </div>                 
             </form>
-
         </div>
     </div>
 </div>
 
-<div class="jumbotron container" *ngFor="let p of posts;">
+<div class="jumbotron container" *ngFor="let p of posts; let i = index; trackBy: trackById">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            <form class="form-horizontal" >
+                <div *ngIf="!bModif; else Modifier">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Titre :</label>
+                        <div class="col-lg-8 textpost">{{p.postTitle}}</div>
+                    </div>
 
-            <form class="form-horizontal">
-                <div *ngIf="!bModif; else elseBlock">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Texte :</label>
+                        <div class="col-lg-8 textpost">{{p.postText}}</div>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Identifiant :</label>
+                        <div class="col-lg-8 textpost">{{p.postId}} // {{i}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-8">                                
+                            <input type="button" class="btn btn-primary" (click)="onDeletePost(p)" value="Supprimer">
+                            <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Modifier">
+                            <input type="checkbox" id="checkbox" />
+                            <label for="checkbox" (click)="onLike(p)">
+                                <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg"><g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)"><path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2"/><circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/><g id="grp7" opacity="0" transform="translate(7 6)"><circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/><circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/></g><g id="grp6" opacity="0" transform="translate(0 28)"><circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/><circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/></g><g id="grp3" opacity="0" transform="translate(52 28)"><circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/><circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/></g><g id="grp2" opacity="0" transform="translate(44 6)" fill="#CC8EF5"><circle id="oval2" transform="matrix(-1 0 0 1 10 0)" cx="5" cy="6" r="2"/><circle id="oval1" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp5" opacity="0" transform="translate(14 50)" fill="#91D2FA"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp4" opacity="0" transform="translate(35 50)" fill="#F48EA7"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp1" opacity="0" transform="translate(24)" fill="#9FC7FA"><circle id="oval1" cx="2.5" cy="3" r="2"/><circle id="oval2" cx="7.5" cy="2" r="2"/></g></g></svg>                        
+                            </label>
+                            {{p.postLike}}      
+                        </div>
+                    </div>  
+                </div>
+            <ng-template #Modifier>
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Title :</label>
+                    <label class="col-lg-3 control-label">Titre :</label>
                     <div class="col-lg-8 textpost">
-                        {{p.postTitle}}
+                        <input class="form-control" type="text" name="newTitle" (ngModel)="newTitle"
+                            placeholder="{{p.postTitle}}">
                     </div>
                 </div>
-
+        
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Text :</label>
+                    <label class="col-lg-3 control-label">Texte :</label>
                     <div class="col-lg-8 textpost">
-                        {{p.postText}}
+                        <input class="form-control" type="text" name="newText" (ngModel)="newText"
+                            placeholder="{{p.postText}}">
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Id :</label>
-                    <div class="col-lg-8 textpost">
-                        {{p.postId}}
-                    </div>
-                </div>
-
+        
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                                
-                        <input type="button" class="btn btn-primary" (click)="onDeletePost(p)" value="Delete">
-                        <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Modify">
-                        <input type="button" class="btn btn-primary" (click)="onLike(p)" value="Like">  
-                        <label class="col-lg-3 control-label">Like : {{p.postLike}}</label>          
+                        <input type="button" class="btn btn-primary" (click)="onModifyPost(p, newTitle, newText)" value="Confirmer">
+                        <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Annuler">            
                     </div>
-                </div>  
-            </div>
-            <ng-template #elseBlock>
-                    <div class="form-group">
-                            <label class="col-lg-3 control-label">Title :</label>
-                            <div class="col-lg-8 textpost">
-                                <input class="form-control" type="text" name="newTitle" (ngModel)="newTitle"
-                                    placeholder="{{p.postTitle}}">
-                            </div>
-                        </div>
-        
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Text :</label>
-                            <div class="col-lg-8 textpost">
-                                <input class="form-control" type="text" name="newText" (ngModel)="newText"
-                                    placeholder="{{p.postText}}">
-                            </div>
-                        </div>
-        
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"></label>
-                            <div class="col-md-8">                                
-                                <input type="button" class="btn btn-primary" (click)="onModifyPost(p, newTitle, newText)" value="Confirm Modif">
-                                <input type="button" class="btn btn-primary" (click)="onModifyBtn()" value="Annuler">            
-                            </div>
-                        </div>
-            </ng-template>
-                
+                </div>
+            </ng-template>               
             </form>
-
         </div>
     </div>
 </div>

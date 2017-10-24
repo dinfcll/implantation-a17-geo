@@ -14,8 +14,9 @@ import { NavBarComponent }             from './Components/nav/nav.component';
 import { AuthGuard }                   from './auth.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './services/config.service';
+import { UserPostService }             from './services/userpost.service';
 import { UtilisateurService }          from './services/utilisateur.service';
-import {ResetPWComponent}              from './Components/password-reset/resetPW.component';
+import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
 
 @NgModule({
   declarations: [ 
@@ -37,6 +38,7 @@ import {ResetPWComponent}              from './Components/password-reset/resetPW
   providers: [
     AuthGuard,
     ConfigService,
+    UserPostService,
     UtilisateurService
   ],
   bootstrap: [ AppComponent ],

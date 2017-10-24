@@ -53,7 +53,7 @@ namespace SqueletteImplantation.Controllers
 
             _maBd.Entry(post).CurrentValues.SetValues(updatedPost);
 
-            return new OkObjectResult(post.postLike);
+            return new OkObjectResult(post);
         }
 
         [HttpPost]
@@ -74,7 +74,7 @@ namespace SqueletteImplantation.Controllers
             return new OkObjectResult(post);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/postUser/unlike")]
         public IActionResult UnlikePostUser([FromBody] int id)
         {

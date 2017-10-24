@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router/';
 
 import { UserPost } from '../../class/post.class';
-import { UtilisateurService } from '../../services/utilisateur.service';
+import { UserPostService } from '../../services/userpost.service';
 
 @Component({
     selector: 'postUser',
@@ -14,11 +14,12 @@ export class PostUserComponent implements OnInit {
 
     posts : any[] = [];
     bModif: boolean = false;
+    bLike: boolean = false;
 
-    constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
+    constructor(private userpostservice: UserPostService, private router: Router) { }
 
     ngOnInit(): void {
-        this.utilisateurservice
+        this.userpostservice
             .getListPost()
             .subscribe(res => {
                 this.posts = res;
@@ -26,8 +27,12 @@ export class PostUserComponent implements OnInit {
             });
     }
 
+    trackById(index: number, up: UserPost): number {
+        return up.postId;
+    }
+
     submitPost(postTitle: string, postText: string) {
-        this.utilisateurservice
+        this.userpostservice
             .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res)
@@ -39,11 +44,11 @@ export class PostUserComponent implements OnInit {
         this.bModif = !this.bModif;
     }
 
-    onModifyPost(p : UserPost, newTitle : string, newText : string) {
-        p.postTitle = newTitle;
-        p.postText = newText;
+    onModifyPost(p : UserPost, newtitle: string, newtext: string) {
+        p.postTitle = newtitle;
+        p.postText = newtext;
         console.log(p);
-        this.utilisateurservice
+        this.userpostservice
             .modifyPost(p)
             .subscribe(res => {
                 if(res) {
@@ -54,7 +59,7 @@ export class PostUserComponent implements OnInit {
     }
 
     onDeletePost(p : UserPost) {
-        this.utilisateurservice
+        this.userpostservice
             .deletePost(p.postId)
             .subscribe(res => {
                 if(res.status == 200)
@@ -63,11 +68,23 @@ export class PostUserComponent implements OnInit {
     }
 
     onLike(p : UserPost) {
-        this.utilisateurservice
+        if(!this.bLike) {
+            this.userpostservice
             .likePost(p.postId)
             .subscribe(res => {
                 if(res)
                     p.postLike = res.postLike;
             })
+        } else {
+            this.userpostservice
+            .unlikePost(p.postId)
+            .subscribe(res => {
+                if(res)
+                    p.postLike = res.postLike;
+                    
+            })
+        }
+        
+        this.bLike = !this.bLike;
     }
 }

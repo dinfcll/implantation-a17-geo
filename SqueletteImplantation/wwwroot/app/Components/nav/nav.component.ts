@@ -20,8 +20,6 @@ export class NavBarComponent {
     ngOnInit(): void {
         this.username=localStorage.getItem("username");
     }
-    
-    
 
     onLogout() {
         this.utilisateurService.logout();

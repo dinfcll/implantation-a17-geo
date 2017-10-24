@@ -2,13 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
-import { UserPost } from '../class/post.class';
 import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
-
-import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class UtilisateurService extends BaseService {
@@ -132,47 +129,6 @@ export class UtilisateurService extends BaseService {
         return this.http
             .delete(this.baseUrl + '/utilisateur/delete/' + id, JSON.stringify({ id }))
             .map(res => { return res })
-            .catch(this.handleError);
-    }
-
-    getListPost() {
-        return this.http
-            .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json() })
-            .catch(this.handleError);
-    }
-
-    createPost(postTitle: string, postText: string) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), {headers})
-            .map(res => {return res.json();})
-            .catch(this.handleError);
-    }
-
-    modifyPost(p : UserPost) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        return this.http
-            .put(this.baseUrl + '/postUser/modify', JSON.stringify({ p }), {headers})
-            .map(res => {return res.json();})
-            .catch(this.handleError);
-    }
-
-    likePost(postId : number) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        return this.http
-            .post(this.baseUrl + '/postUser/like', postId, {headers})
-            .map(res => {return res.json();})
-            .catch(this.handleError);
-    }
-
-    deletePost(postId: number) {
-        return this.http
-            .delete(this.baseUrl + '/postUser/delete', JSON.stringify({ postId }))
-            .map(res => {return res.json();})
             .catch(this.handleError);
     }
 }
