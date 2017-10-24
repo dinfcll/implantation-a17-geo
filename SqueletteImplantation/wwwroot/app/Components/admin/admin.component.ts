@@ -51,12 +51,14 @@ export class AdminComponent implements OnInit {
         confirmation = false;
         confirmation = confirm('Voulez vous vraiment supprimer ce compte?');
         if (confirmation) {
-            this.getProfilId(u.email);
-            console.log('profil:   ' + this.profil);
-            if (this.profil != null && this.profil.profilId > 0) {
-                this.deleteProfil(this.profil.profilId);
-            }
-            console.log('u:   ' + u);
+            this.utilisateurservice
+            .getProfil(u.email)
+            .subscribe(res => {
+                console.log(res);
+                if (res) {
+                    this.deleteProfil(res.profilId);
+                } 
+            });
             this.utilisateurservice.deleteUser(u.id)
             .subscribe(res => {
                 if (res.status === 200) {
@@ -94,21 +96,6 @@ export class AdminComponent implements OnInit {
                     color: 'red',
                     autoClose: 5000
                 });
-            }
-        });
-    }
-
-    getProfilId(courriel: string): any {
-        this.utilisateurservice
-        .getProfil(courriel)
-        .subscribe(res => {
-            console.log(res);
-            if (res) {
-                this.profil = res;
-                return true;
-            } else {
-                this.profil.profilId = -1;
-                return false;
             }
         });
     }
