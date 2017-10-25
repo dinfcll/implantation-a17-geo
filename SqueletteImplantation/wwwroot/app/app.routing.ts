@@ -12,8 +12,6 @@ import { PostUserComponent } from './Components/post/post.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
 import { ResetPWComponent } from './Components/password-reset/resetPW.component';
 
-
-
 export const routing: Routes = [
     {
         path: '',
