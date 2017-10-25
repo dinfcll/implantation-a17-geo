@@ -78,7 +78,7 @@ export class LoginFormComponent {
     }
 
     inscription(mail: string, mdp: string, cmdp: string) {
-        if (mdp != cmdp){
+        if (mdp != cmdp) {
             new jBox('Notice', {
                 content: 'Les mots de passe sont differents',
                 color: 'red',
@@ -93,14 +93,14 @@ export class LoginFormComponent {
                         localStorage.setItem('bAdmin', "0");
                         this.router.navigate(['/map']);
                     } else
-                    if (res == false){
+                    if (res == false) {
                         new jBox('Notice', {
                             content: 'Un problème est survenue , veuillez essayer plus tard',
                             color: 'red',
                             autoClose: 2000
                         });
                     } else {
-                        if (res == null){
+                        if (res == null) {
                             new jBox('Notice', {
                                 content: 'Il y a déjà un compte à ce courriel',
                                 color: 'red',
