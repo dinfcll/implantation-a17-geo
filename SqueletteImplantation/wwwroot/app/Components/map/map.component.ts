@@ -64,18 +64,15 @@ export class MapComponent implements OnInit {
             {
                 let fr = new FileReader();
                 fr.onload = (e:any) => {
-                    this.image = e.target.result;
+                    if(this.AcceptMarker){
+                        this.image = e.target.result;
+                    } else if (this.modmarq){
+                        this.currentmarqueur.imageMarqueur = e.target.result;
+                    }
                 };
                 fr.readAsDataURL(files[0]);
-                /*
-                let frUpload = new FileReader();
-                frUpload.onload = (e:any) => {
-                    this.imagebuffer = e.target.result;
-                    
-                    console.log(this.imagebuffer);
-                }
-                frUpload.readAsArrayBuffer(files[0]);
-                */
+
+                
             } 
             else
             {
@@ -115,8 +112,8 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.nom = this.googlemarq[this.curidmarq].curmarq.nom;
             this.currentmarqueur.desc = this.googlemarq[this.curidmarq].curmarq.desc;
         }
-        this.DetailsView = !this.DetailsView;
         this.modmarq = !this.modmarq;
+        this.PermissionDetails();
     }
 
     ChangeStade():void {
@@ -248,7 +245,6 @@ export class MapComponent implements OnInit {
                         this.LoadDetails()
                     }
                     this.ref.detectChanges();
-                    
             }
             if(!marker.click) {
                 this.map.setZoom(13);
@@ -348,7 +344,8 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
-                    this.currentmarqueur.imagemarqueur = this.image;
+                    this.currentmarqueur.imageMarqueur = this.image;
+                    this.image = "";
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);
