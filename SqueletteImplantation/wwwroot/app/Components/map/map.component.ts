@@ -23,6 +23,7 @@ export class MapComponent implements OnInit {
      public map:any;
      public AcceptMarker:boolean;
      public DetailsView:boolean;
+     public modmarq:boolean;
      public baseUrl: string = '';
      public banqueimageicone: Array<string>;
      public marqtemp: any;
@@ -72,6 +73,16 @@ export class MapComponent implements OnInit {
 
     }
 
+    PermissionMod():void {
+        if(this.modmarq)
+        {
+            this.currentmarqueur.nom = this.googlemarq[this.curidmarq].curmarq.nom;
+            this.currentmarqueur.desc = this.googlemarq[this.curidmarq].curmarq.desc;
+        }
+        this.DetailsView = !this.DetailsView;
+        this.modmarq = !this.modmarq;
+    }
+
     ChangeStade():void {
         if(this.stadetrace < 1){
             this.stadetrace = 1;
@@ -115,10 +126,10 @@ export class MapComponent implements OnInit {
 
 
     retourModMarqueur(retour:any): void {
-        let mark = retour.json() as Marqueur;
-        let index = this.googlemarq.indexOf(this.currentmarqueur, 0);
-        if(index > -1){
-            this.googlemarq.splice(index, 1, mark);
+        let mark = this.AjoutMarker(retour.json() as Marqueur);
+        this.googlemarq.splice(this.curidmarq, 1, mark);
+        if(this.modmarq){
+            this.PermissionMod();
         }
     }
 
@@ -169,6 +180,11 @@ export class MapComponent implements OnInit {
             marqid: this.googlemarq.length -1
         });
 
+        if(this.curidmarq < this.googlemarq.length -1)
+        {
+            marker.marqid = this.curidmarq;
+        }
+
         var infoWindow = new google.maps.InfoWindow ({
             content:`<div class="iw-titre"
                 <h2>`+info.nom+`</h2></div>
@@ -216,6 +232,7 @@ export class MapComponent implements OnInit {
                 marker.click = true;
                 if(this.stadetrace === 1){
                     this.stadetrace = 2;
+                    chemin.setMap(null);
                     let path = this.tracetrajet.getPath();
                     path.push(marker.position);
                     this.googlemarq.forEach((m) => {
