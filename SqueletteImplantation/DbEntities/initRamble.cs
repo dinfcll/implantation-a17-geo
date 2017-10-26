@@ -23,10 +23,12 @@ namespace SqueletteImplantation
                 newUSer.email = "ramble.cll@gmail.com";
                 newUSer.mdp = "annieisbae";
                 newUSer.reset = false;
+                newUSer.Id = 0;
+                newUSer.typeutil = 1;
                 _maBd.Utilisateur.Add(newUSer);
             }
             var profil = _maBd.Profil.FirstOrDefault(pr => pr.courriel == "ramble.cll@gmail.com");
-            if (profil == null || profil.profilId == 0)
+            if (profil == null)
             {
                 Profil newpr = new Profil();
                 newpr.courriel = "ramble.cll@gmail.com";
