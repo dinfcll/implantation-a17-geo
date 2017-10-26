@@ -96,12 +96,18 @@ export class MapComponent implements OnInit {
         }     
     }
     PermissionDetails():void {
-        this.DetailsView = !this.DetailsView;
-        this.AcceptMarker=false;
         if(this.currentmarqueur.nom){
-            if(this.currentmarqueur.nom!=""){
-                this.LoadDetails();
-            }
+            this.DetailsView = !this.DetailsView;
+            this.AcceptMarker=false;
+            this.LoadDetails();  
+        }
+        else
+        {
+            new jBox('Notice', {
+                content: 'Clicker sur un marqueur pour en voir les détails',
+                color: 'red',
+                autoClose: 2000
+            });
         }
 
     }
