@@ -1,4 +1,4 @@
-import { Component, Input ,OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, Input ,OnInit,ChangeDetectorRef, } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ConfigService } from "../../services/config.service";
@@ -224,14 +224,6 @@ export class MapComponent implements OnInit {
             marker.marqid = this.curidmarq;
         }
 
-        var infoWindow = new google.maps.InfoWindow ({
-            content:`<div class="iw-titre"
-                <h2>`+info.nom+`</h2></div>
-                <div *ngIf="info.desc">
-                    `+info.desc+`
-                </div>
-            `
-        });
         var color:string = '#f3123d';
         if(info.icone > 0){
             color = '#84ffb8';
@@ -255,7 +247,10 @@ export class MapComponent implements OnInit {
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
-                infoWindow.open(this.map, marker);
+                if(!this.DetailsView){
+                    this.PermissionDetails();
+                }
+                
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
                     let chlng = info.trajetlng.split(",");
@@ -279,7 +274,7 @@ export class MapComponent implements OnInit {
                 }
             } else {
                 this.map.setZoom(10);
-                infoWindow.close();
+                this.PermissionDetails();
                 chemin.setMap(null);
                 marker.click = false;
                 chemin = new google.maps.Polyline ({
