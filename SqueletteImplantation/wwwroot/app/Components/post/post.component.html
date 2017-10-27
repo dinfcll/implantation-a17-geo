@@ -2,25 +2,25 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Publications</h2>                           
-            <form class="form-horizontal" role="form" #fProfil="ngForm">                        
+            <form class="form-horizontal" role="form" #f="ngForm">                        
                 <div class="form-group">
                     <label id="littleLabel" class="col-lg-3 control-label">Titre :</label>
                     <div class="col-lg-8 textpost">
-                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle">
+                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label id="littleLabel" class="col-lg-3 control-label">Texte :</label>
                     <div class="col-lg-8 textpost">
-                        <input class="form-control" type="text" name="postText" [(ngModel)]="postText">
+                        <input class="form-control" type="text" name="postText" [(ngModel)]="postText" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">                            	
-                        <button class="btn" (click)="submitPost(postTitle, postText)">
+                        <button class="btn" (click)="submitPost(postTitle, postText)" [disabled]="!f.valid">
                             <span>Ajouter</span>
                             <img src="https://i.cloudup.com/2ZAX3hVsBE-3000x3000.png" height="20px" width="auto">
                         </button>           
