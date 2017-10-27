@@ -1,4 +1,4 @@
-import { Component, Input ,OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, Input ,OnInit,ChangeDetectorRef, } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { ConfigService } from "../../services/config.service";
@@ -17,7 +17,6 @@ declare var jBox:any;
 })
 
 export class MapComponent implements OnInit {
-
      name ='Map';
      public currentmarqueur:Marqueur;
      public map:any;
@@ -32,12 +31,14 @@ export class MapComponent implements OnInit {
      public curidmarq:number;
      public stadetrace: number;//0-bouton non click 1-peux tracé 2-peux enregistrer(mins 1 point)
      public tracetrajet: any;
+     public image:string;
+     public imagebuffer:any[];
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "");
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -45,6 +46,7 @@ export class MapComponent implements OnInit {
         this.stadetrace = 0;
         this.googlemarq = new Array();
         this.tabmarqtemp = new Array();
+        this.imagebuffer = new Array();
         this.tracetrajet = new google.maps.Polyline({
             strokeColor: '#84ffb8',
             strokeOpacity: 1.0,
@@ -53,22 +55,59 @@ export class MapComponent implements OnInit {
         });
     }
 
+    PreUploadImage(event:any):void
+    {
+        let files: FileList;
+        files = event.target.files;
+        if(files && files[0]){
+            if(files[0].name.match(/.(jpg|jpeg|png|gif)$/i))
+            {
+                let fr = new FileReader();
+                fr.onload = (e:any) => {
+                    if(this.AcceptMarker){
+                        this.image = e.target.result;
+                    } else if (this.modmarq){
+                        this.currentmarqueur.imageMarqueur = e.target.result;
+                    }
+                };
+                fr.readAsDataURL(files[0]);
+
+                
+            } 
+            else
+            {
+                new jBox('Notice', {
+                    content: 'veuillez entrer une image',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+
+        }
+    }
+
     PermissionAjoutMarker():void {
         this.AcceptMarker = !this.AcceptMarker;
         this.DetailsView=false;
         if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
         } else {
             this.marqtemp.setMap(null);
         }     
     }
     PermissionDetails():void {
-        this.DetailsView = !this.DetailsView;
-        this.AcceptMarker=false;
         if(this.currentmarqueur.nom){
-            if(this.currentmarqueur.nom!=""){
-                this.LoadDetails();
-            }
+            this.DetailsView = !this.DetailsView;
+            this.AcceptMarker=false;
+            this.LoadDetails();  
+        }
+        else
+        {
+            new jBox('Notice', {
+                content: 'Clicker sur un marqueur pour en voir les détails',
+                color: 'red',
+                autoClose: 2000
+            });
         }
 
     }
@@ -79,8 +118,8 @@ export class MapComponent implements OnInit {
             this.currentmarqueur.nom = this.googlemarq[this.curidmarq].curmarq.nom;
             this.currentmarqueur.desc = this.googlemarq[this.curidmarq].curmarq.desc;
         }
-        this.DetailsView = !this.DetailsView;
         this.modmarq = !this.modmarq;
+        this.PermissionDetails();
     }
 
     ChangeStade():void {
@@ -147,7 +186,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')));
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
@@ -185,14 +224,6 @@ export class MapComponent implements OnInit {
             marker.marqid = this.curidmarq;
         }
 
-        var infoWindow = new google.maps.InfoWindow ({
-            content:`<div class="iw-titre"
-                <h2>`+info.nom+`</h2></div>
-                <div *ngIf="info.desc">
-                    `+info.desc+`
-                </div>
-            `
-        });
         var color:string = '#f3123d';
         if(info.icone > 0){
             color = '#84ffb8';
@@ -212,12 +243,14 @@ export class MapComponent implements OnInit {
                         this.LoadDetails()
                     }
                     this.ref.detectChanges();
-                    
             }
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
-                infoWindow.open(this.map, marker);
+                if(!this.DetailsView){
+                    this.PermissionDetails();
+                }
+                
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
                     let chlng = info.trajetlng.split(",");
@@ -241,7 +274,7 @@ export class MapComponent implements OnInit {
                 }
             } else {
                 this.map.setZoom(10);
-                infoWindow.close();
+                this.PermissionDetails();
                 chemin.setMap(null);
                 marker.click = false;
                 chemin = new google.maps.Polyline ({
@@ -312,6 +345,8 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
+                    this.currentmarqueur.imageMarqueur = this.image;
+                    this.image = "";
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);
