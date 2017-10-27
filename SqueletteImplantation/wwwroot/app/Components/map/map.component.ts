@@ -166,6 +166,7 @@ export class MapComponent implements OnInit {
 
     retourModMarqueur(retour:any): void {
         let mark = this.AjoutMarker(retour.json() as Marqueur);
+        this.googlemarq[this.curidmarq].setMap(null);
         this.googlemarq.splice(this.curidmarq, 1, mark);
         if(this.modmarq){
             this.PermissionMod();
@@ -216,10 +217,10 @@ export class MapComponent implements OnInit {
             click: false,
             profilId:info.profilId,
             curmarq: info,
-            marqid: this.googlemarq.length -1
+            marqid: this.googlemarq.length
         });
 
-        if(this.curidmarq < this.googlemarq.length -1)
+        if(this.curidmarq < this.googlemarq.length)
         {
             marker.marqid = this.curidmarq;
         }
