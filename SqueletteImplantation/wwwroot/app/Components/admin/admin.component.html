@@ -1,0 +1,96 @@
+<div class="jumbotron container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Administrateur</h2>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#utils"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#profils"><i class="fa fa-address-card fa-lg" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#marqueurs"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></a></li>
+                <li><a data-toggle="tab" href="#postusers"><i class="fa fa-file-powerpoint-o fa-lg" aria-hidden="true"></i></a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="utils" class="tab-pane fade in active">
+                    <h4>Utilisateurs <i class="fa fa-users" aria-hidden="true"></i></h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Courriel</th>
+                                <th>Mot de passe</th>
+                                <th><abbr title="0 = utilisateur, 1 = admin">Type d'utilisateur</abbr></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let u of utilisateurs">
+                                <td>{{u.id}}</td>                    
+                                <td>{{u.email}}</td>
+                                <td>{{u.mdp}}</td>
+                                <td>{{u.typeutil}}</td>
+                                <td>
+                                    <button *ngIf="u.id!=0" class="btn-danger" (click)="deleteUser(u)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>       
+                </div>
+                <div id="profils" class="tab-pane fade">
+                    <h4>Profils <i class="fa fa-address-card" aria-hidden="true"></i></h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ProfilId</th>
+                                <th>Courriel</th>
+                                <th>Nom d'utilisateur</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of profils">
+                                <td>{{p.profilId}}</td>                    
+                                <td>{{p.courriel}}</td>
+                                <td>{{p.username}}</td>
+                                <td>{{p.prenom}}</td>
+                                <td>{{p.nom}}</td>
+                                <td>
+                                    <button *ngIf="p.profilId!=0" class="btn-danger" (click)="deleteProfil(p.profilId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+                <div id="marqueurs" class="tab-pane fade">
+                    <h4>Marqueurs <i class="fa fa-map-marker" aria-hidden="true"></i></h4>
+                    <p>WORK IN PROGRESS Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                <div id="postusers" class="tab-pane fade">
+                    <h4>Publications <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></h4>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>PublicationId</th>
+                                <th>Titre</th>
+                                <th>Texte</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let up of userposts">
+                                <td>{{up.postId}}</td>                    
+                                <td>{{up.postTitle}}</td>
+                                <td>{{up.postText}}</td>                                
+                                <td>
+                                    <button class="btn-danger" (click)="deleteUserPost(up.postId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>                 
+        </div>
+    </div>
+</div>

@@ -17,9 +17,12 @@ export class NavBarComponent {
     constructor(private utilisateurService: UtilisateurService, private router: Router, 
         private activatedRoute: ActivatedRoute) { };
     
+<<<<<<< HEAD
     ngOnInit(): void {
         this.username=localStorage.getItem("username");
     }
+=======
+>>>>>>> 8b31fad0a1636abea04f41ae87f5851532574396
 
     onLogout() {
         this.utilisateurService.logout();

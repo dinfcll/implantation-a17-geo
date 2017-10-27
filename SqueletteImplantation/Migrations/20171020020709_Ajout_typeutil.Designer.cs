@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171020020709_Ajout_typeutil")]
+    partial class Ajout_typeutil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -40,8 +41,6 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<int>("Icone");
 
-                    b.Property<string>("ImageMarqueur");
-
                     b.Property<decimal>("Latitude");
 
                     b.Property<decimal>("Longitude");
@@ -60,28 +59,6 @@ namespace squeletteimplantation.Migrations
                     b.HasIndex("profilId");
 
                     b.ToTable("Marqueur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
-                {
-                    b.Property<int>("postId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("postLike");
-
-                    b.Property<string>("postText")
-                        .IsRequired();
-
-                    b.Property<string>("postTitle")
-                        .IsRequired();
-
-                    b.Property<int>("profilId");
-
-                    b.HasKey("postId");
-
-                    b.HasIndex("profilId");
-
-                    b.ToTable("PostsUser");
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
@@ -125,14 +102,6 @@ namespace squeletteimplantation.Migrations
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Marqueur", b =>
-                {
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
-                        .WithMany()
-                        .HasForeignKey("profilId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.PostsUser", b =>
                 {
                     b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Profil")
                         .WithMany()
