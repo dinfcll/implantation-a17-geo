@@ -4,14 +4,14 @@
             <h2>Publications</h2>                           
             <form class="form-horizontal" role="form" #fProfil="ngForm">                        
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Titre :</label>
+                    <label id="littleLabel" class="col-lg-3 control-label">Titre :</label>
                     <div class="col-lg-8 textpost">
                         <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Texte :</label>
+                    <label id="littleLabel" class="col-lg-3 control-label">Texte :</label>
                     <div class="col-lg-8 textpost">
                         <input class="form-control" type="text" name="postText" [(ngModel)]="postText">
                     </div>
@@ -46,7 +46,7 @@
                         <div class="col-lg-8 textpost">{{p.postText}}</div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="visibility:hidden">
                         <label id="littleTitle" class="col-lg-3 control-label">Identifiant :</label>
                         <div class="col-lg-8 textpost">{{p.postId}} // {{i}}</div>
                     </div>

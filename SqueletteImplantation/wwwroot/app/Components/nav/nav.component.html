@@ -1,11 +1,6 @@
 <div id="gauche" routerLink="/map" routerLinkActive="active">
     <div id="titre">RAMBLE</div>
-<<<<<<< HEAD
-    <div class="username-div">@{{username}}</div>
-=======
     <div *ngIf="utilisateurService.getUsername()" class="username-div">@{{utilisateurService.getUsername()}}</div>
-
->>>>>>> 8b31fad0a1636abea04f41ae87f5851532574396
 </div>
 
 <div id="droite" *ngIf="utilisateurService.loggedIn()">

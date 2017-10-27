@@ -155,8 +155,6 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res; })
             .catch(this.handleError);
     }
-<<<<<<< HEAD
-=======
 
     estAdmin() {
         return localStorage.getItem('bAdmin');
@@ -177,5 +175,4 @@ export class UtilisateurService extends BaseService {
             .map(res => { return res; })
             .catch(this.handleError);
     }
->>>>>>> 8b31fad0a1636abea04f41ae87f5851532574396
 }
