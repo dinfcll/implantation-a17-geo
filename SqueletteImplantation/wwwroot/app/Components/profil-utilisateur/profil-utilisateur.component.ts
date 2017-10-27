@@ -18,6 +18,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     profil: ProfilUtilisateur;
     bEdit: boolean = false;
     user: Utilisateur;
+    imageDefaut: string="../../../images/hiker.jpg";
 
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
