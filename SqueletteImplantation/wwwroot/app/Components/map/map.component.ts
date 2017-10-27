@@ -69,6 +69,7 @@ export class MapComponent implements OnInit {
                     } else if (this.modmarq){
                         this.currentmarqueur.imageMarqueur = e.target.result;
                     }
+                    this.ref.detectChanges();
                 };
                 fr.readAsDataURL(files[0]);
 
