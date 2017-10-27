@@ -33,6 +33,7 @@ export class MapComponent implements OnInit {
      public tracetrajet: any;
      public image:string;
      public imagebuffer:any[];
+     public ProfilCourrant:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -53,7 +54,9 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+        this.ProfilCourrant = Number(localStorage.getItem('profilId'));
     }
+    
 
     PreUploadImage(event:any):void
     {
@@ -69,6 +72,7 @@ export class MapComponent implements OnInit {
                     } else if (this.modmarq){
                         this.currentmarqueur.imageMarqueur = e.target.result;
                     }
+                    this.ref.detectChanges();
                 };
                 fr.readAsDataURL(files[0]);
 
