@@ -61,10 +61,7 @@ export class PostUserComponent implements OnInit {
     onDeletePost(p : UserPost) {
         this.userpostservice
             .deletePost(p.postId)
-            .subscribe(res => {
-                if(res.status == 200)
-                    window.location.reload()
-            })
+            .subscribe(res => {})
     }
 
     onLike(p : UserPost) {
