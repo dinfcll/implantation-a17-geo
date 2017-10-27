@@ -13,7 +13,7 @@
                         Annuler
                     </span>
                 </button>
-                <button class="ajoutMarqueur" *ngIf="!modmarq" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
+                <button class="ajoutMarqueur" *ngIf="!modmarq" (click)="PermissionAjoutMarker()" [ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
                     </span>
