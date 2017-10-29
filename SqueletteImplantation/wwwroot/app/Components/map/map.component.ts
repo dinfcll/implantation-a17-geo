@@ -391,6 +391,12 @@ export class MapComponent implements OnInit {
         this.utilisateurService.getProfilById(String(this.currentmarqueur.profilId))
         .subscribe(res =>{
             this.googlemarq[this.curidmarq].creator=res.username;
+            if(res.profilimage)
+            {
+                this.googlemarq[this.curidmarq].proimg=res.profilimage;
+            } else {
+                this.googlemarq[this.curidmarq].proimg="../../../images/hiker.jpg";
+            }
             this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.latitude+'&lon='+this.currentmarqueur.longitude+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
             .subscribe(res =>{
                 var temp =res.json();
