@@ -32,6 +32,10 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('username');
     }
 
+    getProimage(){
+        return localStorage.getItem('Proimage');
+    }
+
     loggedIn() {
         return localStorage.getItem('token');
     }
@@ -106,24 +110,24 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    createProfil(courriel: string, username: string, prenom: string, nom: string, image: string) {
+    createProfil(courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
         return this.http
         .post(this.baseUrl + '/profil/create',
-            JSON.stringify({ courriel, username, prenom, nom, image }), { headers })
+            JSON.stringify({ courriel, username, prenom, nom, profilimage }), { headers })
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
 
-    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, image : string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage : string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, image }), { headers });
+        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers });
         return this.http
             .put(this.baseUrl + '/profil/edit',
-                JSON.stringify({ profilId, courriel, username, prenom, nom, image }), { headers })
+                JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers })
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

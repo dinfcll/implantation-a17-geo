@@ -63,6 +63,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 this.profil = res;
                 localStorage.setItem('profilId', res.profilId);
                 localStorage.setItem('username', res.username);
+                localStorage.setItem('Proimage', this.profil.profilimage);
                 this.router.navigate(['/profil']);
                 new jBox('Notice', {
                     content: 'Création du profil réussie',
@@ -96,6 +97,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 this.profil = res;
                 localStorage.setItem('token', this.profil.courriel);
                 localStorage.setItem('username', this.profil.username);
+                localStorage.setItem('Proimage', this.profil.profilimage);
                 this.bEdit = false;
                 new jBox('Notice', {
                     content: 'Édition du profil réussie',
@@ -127,6 +129,7 @@ export class ProfilUtilisateurComponent implements OnInit {
             if (res.status === 200) {
                 this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '',this.imageDefaut);
                 localStorage.setItem('username', '');
+                localStorage.setItem('Proimage', this.imageDefaut);
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',
@@ -178,7 +181,6 @@ export class ProfilUtilisateurComponent implements OnInit {
                 let fr = new FileReader();
                 fr.onload = (e:any) => {
                     this.profil.profilimage = e.target.result;
-                    //this.ref.detectChanges();
                 };
                 fr.readAsDataURL(files[0]);  
             } 
