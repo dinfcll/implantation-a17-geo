@@ -10,6 +10,7 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.HasKey(m => m.postId);
             entityBuilder.Property(m => m.postTitle).IsRequired();
             entityBuilder.Property(m => m.postText).IsRequired();
+            entityBuilder.Property(m => m.postLike);
         }
     }
 }
