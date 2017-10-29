@@ -106,24 +106,24 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    createProfil(courriel: string, username: string, prenom: string, nom: string) {
+    createProfil(courriel: string, username: string, prenom: string, nom: string, image: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
         return this.http
         .post(this.baseUrl + '/profil/create',
-            JSON.stringify({ courriel, username, prenom, nom }), { headers })
+            JSON.stringify({ courriel, username, prenom, nom, image }), { headers })
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
 
-    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, image : string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers });
+        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, image }), { headers });
         return this.http
             .put(this.baseUrl + '/profil/edit',
-                JSON.stringify({ profilId, courriel, username, prenom, nom }), { headers })
+                JSON.stringify({ profilId, courriel, username, prenom, nom, image }), { headers })
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

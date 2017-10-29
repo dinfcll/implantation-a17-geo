@@ -8,8 +8,8 @@
             <form class="form-horizontal" role="form" #fProfil="ngForm">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img [src]="imageDefaut" class="img-circle img-responsive" style="pointer-events: none;">
-                        <input *ngIf="profil.profilId == -1 || bEdit" type="file"/>   
+                        <img [src]="profil.profilimage" class="img-circle img-responsive" style="pointer-events: none;">
+                        <input *ngIf="profil.profilId == -1 || bEdit" type="file" (change)="OnPreLoadImage($event)"/>   
                     </div>
                     <div class="col-lg-10">
                         <div *ngIf="profil.profilId >= 0 && !bEdit; else elseBlock">

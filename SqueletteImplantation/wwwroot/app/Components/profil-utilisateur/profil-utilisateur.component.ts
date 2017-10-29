@@ -23,7 +23,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
     ngOnInit(): void {
-        this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '');
+        this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '', this.imageDefaut);
         this.onGetProfil();
         this.user = new Utilisateur(null, this.utilisateurservice.loggedIn(), null, 0);
         this.onGetUser();
@@ -35,6 +35,9 @@ export class ProfilUtilisateurComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                 this.profil = res;
+                if(!this.profil.profilimage){
+                    this.profil.profilimage = this.imageDefaut;
+                }
             } else {
                 new jBox('Notice', {
                     content: 'Aucun profil trouvé. Vous pouvez en créer un',
@@ -54,11 +57,13 @@ export class ProfilUtilisateurComponent implements OnInit {
 
     onCreateProfil() {
         this.utilisateurservice
-        .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+        .createProfil(this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom, this.profil.profilimage)
         .subscribe(res => {
             if (res) {
                 this.profil = res;
-
+                if(!this.profil.profilimage){
+                    this.profil.profilimage = this.imageDefaut;
+                }
                 localStorage.setItem('profilId', res.profilId);
                 localStorage.setItem('username', res.username);
                 this.router.navigate(['/profil']);
@@ -88,7 +93,7 @@ export class ProfilUtilisateurComponent implements OnInit {
 
     onEditProfil() {
         this.utilisateurservice
-        .editProfil(this.profil.profilId, this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom)
+        .editProfil(this.profil.profilId, this.profil.courriel, this.profil.username, this.profil.prenom, this.profil.nom, this.profil.profilimage)
         .subscribe(res => {
             if (res) {
                 this.profil = res;
@@ -123,7 +128,7 @@ export class ProfilUtilisateurComponent implements OnInit {
         this.utilisateurservice.deleteProfil(this.profil.profilId)
         .subscribe(res => {
             if (res.status === 200) {
-                this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '');
+                this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '',this.imageDefaut);
                 localStorage.setItem('username', '');
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
@@ -164,6 +169,31 @@ export class ProfilUtilisateurComponent implements OnInit {
                         });
                     }
                 });
+        }
+    }
+
+    OnPreLoadImage(event:any) {
+        let files: FileList;
+        files = event.target.files;
+        if(files && files[0]){
+            if(files[0].name.match(/.(jpg|jpeg|png|gif)$/i))
+            {
+                let fr = new FileReader();
+                fr.onload = (e:any) => {
+                    this.profil.profilimage = e.target.result;
+                    //this.ref.detectChanges();
+                };
+                fr.readAsDataURL(files[0]);  
+            } 
+            else
+            {
+                new jBox('Notice', {
+                    content: 'veuillez entrer une image',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+
         }
     }
 }
