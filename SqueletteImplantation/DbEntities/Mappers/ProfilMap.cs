@@ -12,6 +12,7 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.Property(m => m.username).IsRequired();
             entityBuilder.Property(m => m.prenom);
             entityBuilder.Property(m => m.nom);
+            entityBuilder.Property(m => m.profilimage);
         }
     }
 }
