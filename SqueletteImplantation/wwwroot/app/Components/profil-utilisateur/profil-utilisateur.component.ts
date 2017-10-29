@@ -35,7 +35,7 @@ export class ProfilUtilisateurComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                 this.profil = res;
-                if(!this.profil.profilimage){
+                if(this.profil.profilimage == null){
                     this.profil.profilimage = this.imageDefaut;
                 }
             } else {
@@ -61,9 +61,6 @@ export class ProfilUtilisateurComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                 this.profil = res;
-                if(!this.profil.profilimage){
-                    this.profil.profilimage = this.imageDefaut;
-                }
                 localStorage.setItem('profilId', res.profilId);
                 localStorage.setItem('username', res.username);
                 this.router.navigate(['/profil']);
