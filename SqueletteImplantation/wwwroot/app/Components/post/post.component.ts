@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router/';
 
 import { UserPost } from '../../class/post.class';
-import { UtilisateurService } from '../../services/utilisateur.service';
+import { UserPostService } from '../../services/userpost.service';
 
 @Component({
     selector: 'postUser',
@@ -13,11 +13,13 @@ import { UtilisateurService } from '../../services/utilisateur.service';
 export class PostUserComponent implements OnInit {
 
     posts : any[] = [];
+    bModif: boolean = false;
+    bLike: boolean = false;
 
-    constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
+    constructor(private userpostservice: UserPostService, private router: Router) { }
 
     ngOnInit(): void {
-        this.utilisateurservice
+        this.userpostservice
             .getListPost()
             .subscribe(res => {
                 this.posts = res;
@@ -25,14 +27,61 @@ export class PostUserComponent implements OnInit {
             });
     }
 
-    submit(postTitle: string, postText: string) {
-        this.utilisateurservice
-            .createpost(postTitle, postText)
+    trackById(index: number, up: UserPost): number {
+        return up.postId;
+    }
+
+    submitPost(postTitle: string, postText: string) {
+        this.userpostservice
+            .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res)
-                    alert("ok");
-                else
-                    alert("pas ok");
+                    this.posts.concat(res);
              })
+    }
+
+    onModifyBtn(){
+        this.bModif = !this.bModif;
+    }
+
+    onModifyPost(p : UserPost, newtitle: string, newtext: string) {
+        p.postTitle = newtitle;
+        p.postText = newtext;
+        console.log(p);
+        this.userpostservice
+            .modifyPost(p)
+            .subscribe(res => {
+                if(res) {
+                    p.postTitle = res.postTitle;
+                    p.postText = res.postText;
+                }
+            })
+    }
+
+    onDeletePost(p : UserPost) {
+        this.userpostservice
+            .deletePost(p.postId)
+            .subscribe(res => {})
+    }
+
+    onLike(p : UserPost) {
+        if(!this.bLike) {
+            this.userpostservice
+            .likePost(p.postId)
+            .subscribe(res => {
+                if(res)
+                    p.postLike = res.postLike;
+            })
+        } else {
+            this.userpostservice
+            .unlikePost(p.postId)
+            .subscribe(res => {
+                if(res)
+                    p.postLike = res.postLike;
+                    
+            })
+        }
+        
+        this.bLike = !this.bLike;
     }
 }

@@ -17,6 +17,7 @@ import { AuthGuard }                   from './auth.guard';
 import { AdminGuard }                   from './admin.guard';
 import { AppRouting }                  from './app.routing';
 import { ConfigService }               from './services/config.service';
+import { UserPostService }             from './services/userpost.service';
 import { UtilisateurService }          from './services/utilisateur.service';
 import { BuddyService }          from './services/buddy.service';
 import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
@@ -45,7 +46,9 @@ import { ResetPWComponent }            from './Components/password-reset/resetPW
     AdminGuard,
     ConfigService,
     UtilisateurService,
-    BuddyService
+    BuddyService,
+    UserPostService,
+    UtilisateurService
   ],
   bootstrap: [ AppComponent ],
 })

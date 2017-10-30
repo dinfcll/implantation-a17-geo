@@ -8,7 +8,12 @@
         <br>
         <div class="row">
             <div class="col-md-4">
-                <button class="ajoutMarqueur" (click)="PermissionAjoutMarker()"[ngClass]="{'cancel': AcceptMarker}" >
+                <button class="ajoutMarqueur" (click)="PermissionMod()" *ngIf="modmarq">
+                    <span class="buttonMessage cancel">
+                        Annuler
+                    </span>
+                </button>
+                <button class="ajoutMarqueur" *ngIf="!modmarq" (click)="PermissionAjoutMarker()" [ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
                     </span>
@@ -55,17 +60,54 @@
             <div class="container col-md-offset-1 col-md-10">
                 <h2>Nouveau marqueur</h2>
                 <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Titre:</label>
-                        <div class="col-lg-8">
-                            <input class="form-control" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img *ngIf="image" [src]="image" class="img-thumbnail img-responsive" style="pointer-events: none;">
+                            <input type="file" (change)="PreUploadImage($event)"/>        
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Titre:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Description:</label>
+                                <div class="col-lg-8">
+                                        <textarea  class="form-control" type="text" name="desc" id="desc" style="resize:none"
+                                        [(ngModel)]="currentmarqueur.desc" required></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Description:</label>
-                        <div class="col-lg-8">
-                                <textarea  class="form-control" type="text" name="desc" id="desc" style="resize:none"
-                                [(ngModel)]="currentmarqueur.desc" required></textarea>
+                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                </form>
+            </div> 
+        </div>
+        <div *ngIf="modmarq" class="row marqueur-form">
+            <div class="container col-md-offset-1 col-md-10">
+                <h2>Modification de {{currentmarqueur.nom}}</h2>
+                <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="ConfirmationMarker()">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <img *ngIf="currentmarqueur.imageMarqueur" [src]="currentmarqueur.imageMarqueur" class="img-thumbnail img-responsive" style="pointer-events: none;">
+                            <input type="file" (change)="PreUploadImage($event)"/>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Titre:</label>
+                                <div class="col-lg-8">
+                                    <input class="form-control" type="text" name="titre" [(ngModel)]="currentmarqueur.nom" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Description:</label>
+                                <div class="col-lg-8">
+                                        <textarea  class="form-control" type="text" name="desc" id="desc" style="resize:none"
+                                        [(ngModel)]="currentmarqueur.desc" required></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
@@ -73,7 +115,7 @@
             </div> 
         </div>
         <div *ngIf="DetailsView row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="row rando_card">
                     <div class="col-md-4">
                         <div class="row">
@@ -120,16 +162,30 @@
                                 <h2>Crée par :{{googlemarq[curidmarq].creator}}</h2>
                             </div>
                         </div>
-                    </div>
+                    </div>                   
                     <div class="col-md-8">
                         <div class="row">
-                            <div class="col-md-12">
-                                <h2>{{currentmarqueur.nom}}</h2>
-                                <hr>
+                            <div class="col-md-7">
+                                <div class="col-md-12">
+                                    <h2>{{currentmarqueur.nom}}</h2>
+                                    <hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <h2>{{currentmarqueur.desc}}</h2>
+                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <h2>{{currentmarqueur.desc}}</h2>
+                            <div *ngIf="currentmarqueur.imageMarqueur" class="col-md-5">
+                                    <img [src]="currentmarqueur.imageMarqueur" class="img-thumbnail img-responsive">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4" (click)="PermissionMod()" *ngIf="currentmarqueur.profilId==ProfilCourrant">
+                            <button>
+                                <span class="buttonMessage">
+                                    Modification
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>

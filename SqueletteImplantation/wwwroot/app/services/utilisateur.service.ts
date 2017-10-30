@@ -7,8 +7,6 @@ import { Utilisateur } from '../class/utilisateur.class';
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
 
-import { tokenNotExpired } from 'angular2-jwt';
-
 @Injectable()
 export class UtilisateurService extends BaseService {
 
