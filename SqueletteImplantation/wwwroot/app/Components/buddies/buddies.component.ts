@@ -11,7 +11,7 @@ import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
 
-declare var google: any;
+
 declare var jBox:any;
 
 @Component ({
@@ -34,6 +34,7 @@ export class BuddiesComponent implements OnInit {
          this.buddyService.getFollowed();
          this.buddyService.getFollower();
          this.buddyService.getUnknownUsers();
+         
      }
      searchUser(search:string){
          this.buddyService.searchUsers(search)
@@ -64,7 +65,7 @@ export class BuddiesComponent implements OnInit {
         this.buddyService.unfollow(user)
         .subscribe(res=>{
            if(res)
-            {
+           {
                 console.log("unfollow"+user.username);
                 var index=this.buddyService.Followed.indexOf(user);
                 this.buddyService.Followed.splice(index,1);

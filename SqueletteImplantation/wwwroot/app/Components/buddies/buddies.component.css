@@ -24,6 +24,8 @@
   }
   .panel-heading.user-pan-head{
     padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 3px;
   }
   .panel-body.no-padding{
     padding:0px;

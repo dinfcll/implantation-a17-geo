@@ -5,23 +5,30 @@
             <div class="col-md-3">
                 <div class="panel with-nav-tabs panel-default">
                     <div class="panel-heading user-pan-head">
+                        <ul>
+                            <form id="searchform">
+                                <input type="text" placeholder="username" name="search" [(ngModel)]="search">
+                                <button type="button" (click)="searchUser(search)" href="#tab2default" data-toggle="tab" >
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </ul>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab1default" data-toggle="tab">Suivi</a></li>
                             <li><a href="#tab2default" data-toggle="tab">Suiveurs</a></li>
+                            <li><a href="#tab4default" data-toggle="tab">Suggestion</a></li>
                         </ul>
                     </div>
                     <div class="panel-body no-padding">
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="tab1default">    
                                 <table class="table table-hover user-list">
-                                    
-                                        <tr *ngFor="let user of buddyService.Followed">
+                                    <tr *ngFor="let user of buddyService.Followed">
                                         <td>
                                             {{user.username}}
                                             <i class="fa fa-eercast followed pull-right"(click)="unfollow(user)" [ngClass]="{'unfollowed': user.unfollowed}" aria-hidden="true"></i>
-                                            
                                         </td>
-                                        </tr>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="tab-pane fade" id="tab2default">
@@ -30,45 +37,20 @@
                                         <td>
                                             {{user.username}}
                                             <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
-                                            
                                         </td>
                                         </tr>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <div class="col-md-9 search-user">
-                <div class="panel with-nav-tabs panel-default">
-                    <div class="panel-heading user-pan-head">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab3default" data-toggle="tab">Recherche</a></li>
-                            <li><a href="#tab4default" data-toggle="tab">Suggestion</a></li>
-                        </ul>
-                    </div>
-                    <div class="panel-body no-padding">
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active row" id="tab3default">
-                            <form>
-                               <div class="col-md-6">
-                                   <input type="text" placeholder="username" name="search" [(ngModel)]="search">
-                               </div>
-                               <div>
-                                 <input type="submit" value="Chercher" (click)="searchUser(search)">
-                               </div>
-                            </form>
-                            <div class="row">
-                                <table class="table table-hover user-list">
-                                    <tr *ngFor="let user of searchResult">
-                                        <td>
-                                            {{user.username}}
-                                            <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>  
-                            </div>
+                            <div class="tab-pane fade" id="tab3default">
+                                    <table class="table table-hover user-list">
+                                        <tr *ngFor="let user of searchResult">
+                                            <td>
+                                                {{user.username}}
+                                                <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>  
                             <div class="tab-pane fade" id="tab4default">
                                 <table class="table table-hover user-list">
                                         <tr *ngFor="let user of buddyService.UnknownUsers">
@@ -82,6 +64,7 @@
                         </div>
                     </div>
             </div>
+        </div>
         </div>
     </div>
 </div>
