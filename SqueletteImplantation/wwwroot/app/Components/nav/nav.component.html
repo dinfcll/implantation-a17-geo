@@ -28,12 +28,17 @@
         </a>
 
         <a routerLink="/postUser" routerLinkActive="active" class="menu-item postUser">
-            <i class="fa fa-bath"></i>
+            <i class="fa fa-commenting-o"></i>
         </a>
 
+        <a routerLink="/buddies" routerLinkActive="active" class="menu-item buddy"> 
+            <i class="fa fa-users" aria-hidden="true"></i>
+        </a>
+      
         <a *ngIf="utilisateurService.estAdmin()=='1'" routerLink="/admin" routerLinkActive="active" class="menu-item adminnav">
             👮
-        </a>
+        </a>   
+
                
      </nav>
 </div>

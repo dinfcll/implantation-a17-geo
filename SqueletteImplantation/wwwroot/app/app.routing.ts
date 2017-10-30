@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
 
 import { AdminComponent } from './Components/admin/admin.component';
+import { BuddiesComponent } from './Components/buddies/buddies.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
 import { MapComponent } from './Components/map/map.component';
 import { PostUserComponent } from './Components/post/post.component';
@@ -47,6 +48,11 @@ export const routing: Routes = [
     {
         path: 'resetPW',
         component: ResetPWComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'buddies',
+        component: BuddiesComponent,
         canActivate: [AuthGuard]
     },
     {
