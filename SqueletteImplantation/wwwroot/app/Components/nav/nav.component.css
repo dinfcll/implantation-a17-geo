@@ -7,6 +7,10 @@
   outline: none;
 }
 
+#imgpro{
+  margin-top: 23px;
+}
+
 #titre {
   float: left;
   margin: auto;
@@ -239,6 +243,7 @@
   font-size: 55px;
   color: #F7F4F4;
   cursor: pointer;
+  outline: none;
 }
 
 #imgpro{

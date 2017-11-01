@@ -1,9 +1,10 @@
 <div id="gauche" routerLink="/map" routerLinkActive="active">
     <div id="titre">RAMBLE</div>
-    <div *ngIf="utilisateurService.getUsername()" class="username-div">
-        <img id="imgpro" [src]="utilisateurService.getProimage()">
-        {{utilisateurService.getUsername()}}
-    </div>
+</div>
+
+<div *ngIf="utilisateurService.getUsername()" class="username-div" routerLink="/profil" routerLinkActive="active">
+    <img id="imgpro" [src]="utilisateurService.getProimage()">
+    {{utilisateurService.getUsername()}}
 </div>
 
 <div id="droite" *ngIf="utilisateurService.loggedIn()">
