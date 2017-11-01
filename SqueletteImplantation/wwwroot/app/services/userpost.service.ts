@@ -38,7 +38,7 @@ export class UserPostService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/modify', JSON.stringify({ p }), {headers})
+            .put(this.baseUrl + '/postUser/modify',  p , {headers})
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

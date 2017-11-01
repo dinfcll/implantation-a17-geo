@@ -6,6 +6,8 @@ import { UserPostService } from '../../services/userpost.service';
 
 import { Observable } from 'rxjs';
 
+declare var jBox :any;
+
 @Component({
     selector: 'postUser',
     templateUrl: './post.component.html',
@@ -26,10 +28,10 @@ export class PostUserComponent implements OnInit {
 
     onGetPosts() {
         this.userpostservice
-        .getListPost()
-        .subscribe(res => {
-            this.posts = res;
-            console.log(this.posts);
+            .getListPost()
+            .subscribe(res => {
+                this.posts = res;
+                console.log(this.posts);
         });
     }
 
@@ -37,8 +39,12 @@ export class PostUserComponent implements OnInit {
         this.userpostservice
             .createPost(postTitle, postText)
             .subscribe(res => {
-                if(res)
-                    this.posts.concat(res);
+                if(res) {
+                    new jBox('Notice', { 
+                        content: 'La publication est publiee.', color: 'green', autoClose: 2000 
+                    });
+                    this.router.navigate(['/postUser']);
+                }
              })
     }
 
@@ -51,17 +57,31 @@ export class PostUserComponent implements OnInit {
         this.userpostservice
             .modifyPost(p)
             .subscribe(res => {
-                if(res) {
-                    p.postTitle = res.postTitle;
-                    p.postText = res.postText;
+                if (res) {
+                    new jBox('Notice', {
+                        content: 'La publication a ete modifiee.',
+                        color: 'green',
+                        autoClose: 2000
+                    });
+                    this.bModif = false;
+                    this.router.navigate(['/postUser']);
                 }
-            })
+            });
     }
 
     onDeletePost(p : UserPost) {
-        this.userpostservice
-            .deletePost(p.postId)
-            .subscribe(res => {})
+        let confirmer: boolean = confirm("Voulez-vous vraiment supprimer cette publication?");
+        if (confirmer) {
+            this.userpostservice
+                .deletePost(p.postId)
+                .subscribe(res => {
+                    if(res.status == 200) {
+                        new jBox('Notice', {
+                            content: 'La publication a ete supprimee.', color: 'green', autoClose: 2000
+                        });
+                    }
+                });            
+        }     
     }
 
     onLike(p : UserPost) {

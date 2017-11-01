@@ -50,7 +50,10 @@
     background-color:  #626262;
     cursor:not-allowed;
   }
-
   .textprofil{
     padding-top: 7px;
+  }
+  .img-responsive{
+    max-width: 300px !important;
+    height: auto;
   }

@@ -32,13 +32,14 @@
   margin-bottom: 15px;
   text-transform: uppercase;
 }
-.disabled{
+.disabled {
   color: #626262;
 }
-button.disabled:hover{
+button.disabled:hover {
   color:  #626262;
   cursor:not-allowed;
 }
+
 
 
 
