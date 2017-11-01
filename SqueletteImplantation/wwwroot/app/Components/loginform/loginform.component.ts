@@ -40,10 +40,12 @@ export class LoginFormComponent {
                             this.utilisateurService.profil = res;
                             localStorage.setItem('profilId', res.profilId);
                             localStorage.setItem('username', res.username);
+                            localStorage.setItem('Proimage', res.profilimage);
                             this.router.navigate(['/map']);
                         } else {
                             localStorage.setItem('profilId', "");
                             localStorage.setItem('username', "");
+                            localStorage.setItem('Proimage', "");
                             this.router.navigate(['/map']);
                         }
                     });

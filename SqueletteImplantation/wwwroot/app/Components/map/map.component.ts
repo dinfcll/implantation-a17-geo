@@ -33,6 +33,7 @@ export class MapComponent implements OnInit {
      public tracetrajet: any;
      public image:string;
      public imagebuffer:any[];
+     public ProfilCourrant:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -53,7 +54,9 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+        this.ProfilCourrant = Number(localStorage.getItem('profilId'));
     }
+    
 
     PreUploadImage(event:any):void
     {
@@ -69,6 +72,7 @@ export class MapComponent implements OnInit {
                     } else if (this.modmarq){
                         this.currentmarqueur.imageMarqueur = e.target.result;
                     }
+                    this.ref.detectChanges();
                 };
                 fr.readAsDataURL(files[0]);
 
@@ -387,6 +391,12 @@ export class MapComponent implements OnInit {
         this.utilisateurService.getProfilById(String(this.currentmarqueur.profilId))
         .subscribe(res =>{
             this.googlemarq[this.curidmarq].creator=res.username;
+            if(res.profilimage)
+            {
+                this.googlemarq[this.curidmarq].proimg=res.profilimage;
+            } else {
+                this.googlemarq[this.curidmarq].proimg="../../../images/hiker.jpg";
+            }
             this.http.get('http://api.openweathermap.org/data/2.5/weather?lat='+this.currentmarqueur.latitude+'&lon='+this.currentmarqueur.longitude+'&APPID=43899e65e2972c9b020bf0aa269ab48a')
             .subscribe(res =>{
                 var temp =res.json();
