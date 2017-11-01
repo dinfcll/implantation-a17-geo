@@ -213,11 +213,7 @@ export class MapComponent implements OnInit {
             map: this.map,
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
-            id: info.id,
             valicone: info.icone,
-            desc: info.desc,
-            trajetlat: info.trajetlat,
-            trajetlng: info.trajetlng,
             click: false,
             profilId:info.profilId,
             curmarq: info,
@@ -241,20 +237,21 @@ export class MapComponent implements OnInit {
         });
 
         marker.addListener('click', () => {
-            if(this.AcceptMarker == false){
+            if(!marker.click) {
+                this.map.setZoom(13);
+                this.map.panTo(marker.position);
+                if(!this.AcceptMarker || this.stadetrace===0){
                     this.currentmarqueur = info;
                     this.curidmarq = marker.marqid;
                     if(this.DetailsView){
                         this.LoadDetails()
                     }
                     this.ref.detectChanges();
-            }
-            if(!marker.click) {
-                this.map.setZoom(13);
-                this.map.panTo(marker.position);
-                if(!this.DetailsView){
-                    this.PermissionDetails();
+                    if(!this.DetailsView){
+                        this.PermissionDetails();
+                    }
                 }
+
                 
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
