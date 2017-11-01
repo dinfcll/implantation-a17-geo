@@ -4,6 +4,8 @@ import { Router } from '@angular/router/';
 import { UserPost } from '../../class/post.class';
 import { UserPostService } from '../../services/userpost.service';
 
+import { Observable } from 'rxjs';
+
 @Component({
     selector: 'postUser',
     templateUrl: './post.component.html',
@@ -12,23 +14,23 @@ import { UserPostService } from '../../services/userpost.service';
 
 export class PostUserComponent implements OnInit {
 
-    posts : any[] = [];
+    posts : UserPost[];
     bModif: boolean = false;
     bLike: boolean = false;
 
     constructor(private userpostservice: UserPostService, private router: Router) { }
 
-    ngOnInit(): void {
-        this.userpostservice
-            .getListPost()
-            .subscribe(res => {
-                this.posts = res;
-                console.log(this.posts);
-            });
+    ngOnInit() {
+        this.onGetPosts();
     }
 
-    trackById(index: number, up: UserPost): number {
-        return up.postId;
+    onGetPosts() {
+        this.userpostservice
+        .getListPost()
+        .subscribe(res => {
+            this.posts = res;
+            console.log(this.posts);
+        });
     }
 
     submitPost(postTitle: string, postText: string) {
@@ -44,9 +46,7 @@ export class PostUserComponent implements OnInit {
         this.bModif = !this.bModif;
     }
 
-    onModifyPost(p : UserPost, newtitle: string, newtext: string) {
-        p.postTitle = newtitle;
-        p.postText = newtext;
+    onModifyPost(p : UserPost) {
         console.log(p);
         this.userpostservice
             .modifyPost(p)
@@ -77,8 +77,7 @@ export class PostUserComponent implements OnInit {
             .unlikePost(p.postId)
             .subscribe(res => {
                 if(res)
-                    p.postLike = res.postLike;
-                    
+                    p.postLike = res.postLike;                    
             })
         }
         

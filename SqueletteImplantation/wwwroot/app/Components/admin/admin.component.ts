@@ -5,6 +5,7 @@ import { Utilisateur } from './../../class/utilisateur.class';
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
+import { UserPostService } from './../../services/userpost.service';
 import { UtilisateurService } from './../../services/utilisateur.service';
 
 declare var jBox: any;
@@ -20,7 +21,8 @@ export class AdminComponent implements OnInit {
     profils: ProfilUtilisateur[];
     userposts: UserPost[];
 
-    constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
+    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService, 
+        private router: Router) { }
 
     ngOnInit(): void {
         this.getAllUser();
@@ -47,7 +49,7 @@ export class AdminComponent implements OnInit {
     }
 
     getAllUserPost() {
-        this.utilisateurservice.getListPost()
+        this.userpostservice.getListPost()
         .subscribe(res => {
             if (res) {
                  this.userposts = res;

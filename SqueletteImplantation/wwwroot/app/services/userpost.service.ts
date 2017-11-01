@@ -6,6 +6,8 @@ import { UserPost } from '../class/post.class';
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
 
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class UserPostService extends BaseService {
 
@@ -16,10 +18,10 @@ export class UserPostService extends BaseService {
         this.baseUrl = configService.getApiURI();
     }
 
-    getListPost() {
+    getListPost(): Observable<UserPost[]> {
         return this.http
             .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json() })
+            .map(res => { return <UserPost[]>res.json() })
             .catch(this.handleError);
     }
 

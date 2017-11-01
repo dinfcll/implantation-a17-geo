@@ -8,7 +8,7 @@ import { AppComponent }                from './app.component';
 import { AdminComponent }              from './Components/admin/admin.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
-import { PostUserComponent }           from './Components/post/post.component';
+import { PostUserComponent }                from './Components/post/post.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
 import { NavBarComponent }             from './Components/nav/nav.component';
 
