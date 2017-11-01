@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
     typeutilisateur: String[];
 
     constructor(private utilisateurservice: UtilisateurService, private router: Router) {
-        this.typeutilisateur = ['Administrateur', 'Utilisateur'];
+        this.typeutilisateur = ['Utilisateur', 'Administrateur'];
     }
 
     ngOnInit(): void {
