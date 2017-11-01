@@ -307,9 +307,10 @@ export class MapComponent implements OnInit {
         
         if(this.stadetrace === 2 || this.stadetrace === 3){
             //permet de tracer
-            if(this.tabmarqtemp.length > 0){
+            if(this.tabmarqtemp.length >= 0){
                 this.stadetrace = 3;
             }
+            this.ref.detectChanges();
 
             this.tracetrajet.setMap(this.map);
             var path = this.tracetrajet.getPath();
