@@ -7,6 +7,10 @@
   outline: none;
 }
 
+#imgpro{
+  margin-top: 23px;
+}
+
 #titre {
   float: left;
   margin: auto;
@@ -22,12 +26,12 @@
 .menu-open-button {
   background: #EEEEEE;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   position: absolute;
   color: #FFFFFF;
   text-align: center;
-  line-height: 80px;
+  line-height: 60px;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   -webkit-transition: -webkit-transform ease-out 200ms;
@@ -88,14 +92,14 @@
 
 .menu {
   margin: auto;
-  margin-top: 15px;;
+  margin-top: 25px;;
   margin-right: 80px;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   float: right;
   text-align: center;
   box-sizing: border-box;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 .menu-item:hover {
@@ -109,15 +113,15 @@
   transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -webkit-transition-duration: 400ms;
   transition-duration: 400ms;
-  -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-  transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+  -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+  transform: scale(1.2, 1.2) translate3d(0, 0, 0);
   cursor: pointer;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
 }
 
 .menu-open-button:hover {
-  -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
-  transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+  -webkit-transform: scale(1.3, 1.3) translate3d(0, 0, 0);
+  transform: scale(1.3, 1.3) translate3d(0, 0, 0);
 }
 
 .menu-open:checked + .menu-open-button {
@@ -137,24 +141,40 @@
 .menu-open:checked ~ .menu-item:nth-child(3) {
   transition-duration: 380ms;
   -webkit-transition-duration: 380ms;
-  -webkit-transform: translate3d(-92.47586px, 0, 0);
-  transform: translate3d(-92.47586px, 0, 0);
+  -webkit-transform: translate3d(-72.47586px, 0, 0);
+  transform: translate3d(-72.47586px, 0, 0);
   z-index: 1;
 }
 
 .menu-open:checked ~ .menu-item:nth-child(4) {
   transition-duration: 480ms;
   -webkit-transition-duration: 480ms;
-  -webkit-transform: translate3d(-184.99997px, 0, 0);
-  transform: translate3d(-184.99997px, 0, 0);
+  -webkit-transform: translate3d(-144.99997px, 0, 0);
+  transform: translate3d(-144.99997px, 0, 0);
   z-index: 1;
 }
 
 .menu-open:checked ~ .menu-item:nth-child(5) {
   transition-duration: 580ms;
   -webkit-transition-duration: 580ms;
-  -webkit-transform: translate3d(-277.62061px, 0, 0);
-  transform: translate3d(-277.62061px, 0, 0);
+  -webkit-transform: translate3d(-217.62061px, 0, 0);
+  transform: translate3d(-217.62061px, 0, 0);
+  z-index: 1;
+}
+
+.menu-open:checked ~ .menu-item:nth-child(6) {
+  transition-duration: 580ms;
+  -webkit-transition-duration: 580ms;
+  -webkit-transform: translate3d(-290.24125px, 0, 0);
+  transform: translate3d(-290.24125px, 0, 0);
+  z-index: 1;
+}
+
+.menu-open:checked ~ .menu-item:nth-child(7) {
+  transition-duration: 580ms;
+  -webkit-transition-duration: 580ms;
+  -webkit-transform: translate3d(-362.71711px, 0, 0);
+  transform: translate3d(-362.71711px, 0, 0);
   z-index: 1;
 }
 
@@ -182,16 +202,55 @@
 }
 
 .map {
-  background-color: #85A2CE;
+  background-color: #1E8853;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
 }
 
 .map:hover {
-  color: #85A2CE;
+  color: #1E8853;
   text-shadow: none;
 }
 
+.postUser {
+  background-color: #18AD6F;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
 
+.postUser:hover {
+  color: #18AD6F;
+  text-shadow: none;
+}
+
+.adminnav {
+  background-color: #47828f;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+  text-decoration: none !important;
+}
+
+.adminnav:hover {
+  color: #47828f;
+  text-shadow: none;
+}
+.username-div{
+  float:left;
+  margin: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-family: 'Elianto-Regular';
+  font-size: 55px;
+  color: #F7F4F4;
+  cursor: pointer;
+  outline: none;
+}
+
+#imgpro{
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  pointer-events: none;
+}
 
 

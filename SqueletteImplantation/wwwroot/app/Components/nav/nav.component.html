@@ -2,6 +2,11 @@
     <div id="titre">RAMBLE</div>
 </div>
 
+<div *ngIf="utilisateurService.getUsername()" class="username-div" routerLink="/profil" routerLinkActive="active">
+    <img id="imgpro" [src]="utilisateurService.getProimage()">
+    {{utilisateurService.getUsername()}}
+</div>
+
 <div id="droite" *ngIf="utilisateurService.loggedIn()">
     <nav class="menu">
 
@@ -22,7 +27,15 @@
         </a>        
 
         <a routerLink="/profil" routerLinkActive="active" class="menu-item profil"> 
-            <i class="fa fa-address-card-o"></i> 
+            <i class="fa fa-user"></i> 
+        </a>
+
+        <a routerLink="/postUser" routerLinkActive="active" class="menu-item postUser">
+            <i class="fa fa-commenting-o"></i>
+        </a>
+
+        <a *ngIf="utilisateurService.estAdmin()=='1'" routerLink="/admin" routerLinkActive="active" class="menu-item adminnav">
+            👮
         </a>
                
      </nav>
