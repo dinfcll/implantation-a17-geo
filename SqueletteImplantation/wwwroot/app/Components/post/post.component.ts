@@ -19,6 +19,7 @@ export class PostUserComponent implements OnInit {
     posts : UserPost[];
     bModif: boolean = false;
     bLike: boolean = false;
+    selectedPost: UserPost;
 
     constructor(private userpostservice: UserPostService, private router: Router) { }
 
@@ -48,8 +49,8 @@ export class PostUserComponent implements OnInit {
              })
     }
 
-    onModifyBtn(){
-        this.bModif = !this.bModif;
+    onModifyBtn(p: UserPost){
+        this.selectedPost = p;
     }
 
     onModifyPost(p : UserPost) {
@@ -63,7 +64,7 @@ export class PostUserComponent implements OnInit {
                         color: 'green',
                         autoClose: 2000
                     });
-                    this.bModif = false;
+                    this.selectedPost = null;
                     this.router.navigate(['/postUser']);
                 }
             });
