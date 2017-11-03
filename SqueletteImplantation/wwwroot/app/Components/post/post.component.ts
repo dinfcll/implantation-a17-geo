@@ -4,8 +4,6 @@ import { Router } from '@angular/router/';
 import { UserPost } from '../../class/post.class';
 import { UserPostService } from '../../services/userpost.service';
 
-import { Observable } from 'rxjs';
-
 declare var jBox :any;
 
 @Component({
@@ -16,15 +14,20 @@ declare var jBox :any;
 
 export class PostUserComponent implements OnInit {
 
-    posts : UserPost[];
-    bModif: boolean = false;
-    bLike: boolean = false;
+    posts: UserPost[];
     selectedPost: UserPost;
+    selectedLike: UserPost;
+    
+    test: any;
+
+    bLike: boolean = false;
+    bModif: boolean = false;
 
     constructor(private userpostservice: UserPostService, private router: Router) { }
 
     ngOnInit() {
         this.onGetPosts();
+        this.test = localStorage.getItem('Proimage');
     }
 
     onGetPosts() {
@@ -32,7 +35,6 @@ export class PostUserComponent implements OnInit {
             .getListPost()
             .subscribe(res => {
                 this.posts = res;
-                console.log(this.posts);
         });
     }
 
@@ -44,7 +46,6 @@ export class PostUserComponent implements OnInit {
                     new jBox('Notice', { 
                         content: 'La publication est publiee.', color: 'green', autoClose: 2000 
                     });
-                    this.router.navigate(['/postUser']);
                 }
              })
     }
@@ -53,19 +54,22 @@ export class PostUserComponent implements OnInit {
         this.selectedPost = p;
     }
 
+    cancelModifyBtn() {
+        this.selectedPost = null;
+    }
+
     onModifyPost(p : UserPost) {
         console.log(p);
         this.userpostservice
             .modifyPost(p)
             .subscribe(res => {
                 if (res) {
+                    this.selectedPost = null;
                     new jBox('Notice', {
                         content: 'La publication a ete modifiee.',
                         color: 'green',
                         autoClose: 2000
                     });
-                    this.selectedPost = null;
-                    this.router.navigate(['/postUser']);
                 }
             });
     }
@@ -78,15 +82,17 @@ export class PostUserComponent implements OnInit {
                 .subscribe(res => {
                     if(res.status == 200) {
                         new jBox('Notice', {
-                            content: 'La publication a ete supprimee.', color: 'green', autoClose: 2000
+                            content: 'La publication a ete supprimee.', 
+                            color: 'green', autoClose: 2000
                         });
                     }
                 });            
         }     
     }
 
-    onLike(p : UserPost) {
+    onLike(p : UserPost) {        
         if(!this.bLike) {
+            this.selectedLike = p;
             this.userpostservice
             .likePost(p.postId)
             .subscribe(res => {
@@ -94,11 +100,12 @@ export class PostUserComponent implements OnInit {
                     p.postLike = res.postLike;
             })
         } else {
+            this.selectedLike = null;
             this.userpostservice
             .unlikePost(p.postId)
             .subscribe(res => {
                 if(res)
-                    p.postLike = res.postLike;                    
+                    p.postLike = res.postLike;                 
             })
         }
         
