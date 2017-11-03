@@ -238,7 +238,7 @@ export class MapComponent implements OnInit {
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
-                if(!this.AcceptMarker || this.stadetrace===0){
+                if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
                     this.curidmarq = marker.marqid;
                     if(this.DetailsView){
