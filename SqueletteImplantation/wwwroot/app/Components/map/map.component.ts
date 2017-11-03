@@ -92,17 +92,28 @@ export class MapComponent implements OnInit {
 
 
     PermissionAjoutMarker():void {
-        this.AcceptMarker = !this.AcceptMarker;
-        this.DetailsView=false;
-        if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+        if(this.stadetrace === 0)
+        {
+            this.AcceptMarker = !this.AcceptMarker;
+            this.DetailsView=false;
+            if(this.AcceptMarker){
+                this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+                new jBox('Notice', {
+                    content: 'Clicker sur la carte pour positionner votre nouveau marqueur',
+                    color: 'green',
+                    autoClose: 5000
+                });
+            } else {
+                this.marqtemp.setMap(null);
+            }
+        }
+        else
+        {
             new jBox('Notice', {
-                content: 'Clicker sur la carte pour positionner votre nouveau marqueur',
-                color: 'green',
+                content: 'Action en cours sur la map',
+                color: 'red',
                 autoClose: 5000
             });
-        } else {
-            this.marqtemp.setMap(null);
         }     
     }
 
