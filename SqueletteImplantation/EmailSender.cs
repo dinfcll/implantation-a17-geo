@@ -41,9 +41,9 @@ namespace SqueletteImplantation
         }
         
         public void sendMessage() {
-            smtpClient.Connect("smtp.gmail.com", 587, false);
+            smtpClient.Connect("smtp.mailgun.org", 587, false);
             smtpClient.AuthenticationMechanisms.Remove("XOAUTH2");
-            smtpClient.Authenticate("ramble.cll@gmail.com", "annieisbae");
+            smtpClient.Authenticate("1eb@dinf.cll.qc.ca", "LB0rD6YYQR5nTzMA1EIr");
             smtpClient.Send(message);
             smtpClient.Disconnect(true);
         }

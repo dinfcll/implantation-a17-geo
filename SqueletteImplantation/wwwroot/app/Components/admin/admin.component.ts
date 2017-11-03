@@ -6,7 +6,7 @@ import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
-import { UserPostService } from '../../services/userpost.service';
+import { UserPostService } from './../../services/userpost.service';
 
 declare var jBox: any;
 

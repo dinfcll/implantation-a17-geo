@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
-import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
@@ -163,6 +162,7 @@ export class UtilisateurService extends BaseService {
     estAdmin() {
         return localStorage.getItem('bAdmin');
     }
+<<<<<<< HEAD
 
     modifTypeUtil(id: number, typeutil: number) {
         return this.http
@@ -171,4 +171,6 @@ export class UtilisateurService extends BaseService {
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
+=======
+>>>>>>> master
 }
