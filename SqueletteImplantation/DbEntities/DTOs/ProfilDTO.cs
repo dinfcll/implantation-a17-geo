@@ -8,11 +8,12 @@ namespace SqueletteImplantation.DbEntities.DTOs
         public string Username { get; set; }
         public string Prenom { get; set; }
         public string Nom { get; set; }
+        public string ProfilImage { get; set; }
 
         public Profil CreateProfil()
         {
             return new Profil { courriel = Courriel, username = Username, 
-                prenom = Prenom, nom = Nom };
+                prenom = Prenom, nom = Nom, profilimage = ProfilImage };
         }
     }
 }

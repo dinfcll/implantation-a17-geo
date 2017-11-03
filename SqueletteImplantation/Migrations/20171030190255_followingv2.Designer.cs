@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171030190255_followingv2")]
+    partial class followingv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -58,8 +59,6 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<int>("Icone");
 
-                    b.Property<string>("ImageMarqueur");
-
                     b.Property<decimal>("Latitude");
 
                     b.Property<decimal>("Longitude");
@@ -84,8 +83,6 @@ namespace squeletteimplantation.Migrations
                 {
                     b.Property<int>("postId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("postLike");
 
                     b.Property<string>("postText")
                         .IsRequired();
@@ -113,8 +110,6 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("nom");
 
                     b.Property<string>("prenom");
-
-                    b.Property<string>("profilimage");
 
                     b.Property<string>("username")
                         .IsRequired();

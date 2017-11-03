@@ -1,6 +1,10 @@
 <div id="gauche" routerLink="/map" routerLinkActive="active">
     <div id="titre">RAMBLE</div>
-    <div *ngIf="utilisateurService.getUsername()" class="username-div">@{{utilisateurService.getUsername()}}</div>
+</div>
+
+<div *ngIf="utilisateurService.getUsername()" class="username-div" routerLink="/profil" routerLinkActive="active">
+    <img id="imgpro" [src]="utilisateurService.getProimage()">
+    {{utilisateurService.getUsername()}}
 </div>
 
 <div id="droite" *ngIf="utilisateurService.loggedIn()">
@@ -30,9 +34,14 @@
             <i class="fa fa-commenting-o"></i>
         </a>
 
+        <a routerLink="/buddies" routerLinkActive="active" class="menu-item buddy"> 
+            <i class="fa fa-users" aria-hidden="true"></i>
+        </a>
+      
         <a *ngIf="utilisateurService.estAdmin()=='1'" routerLink="/admin" routerLinkActive="active" class="menu-item adminnav">
             👮
-        </a>
+        </a>   
+
                
      </nav>
 </div>

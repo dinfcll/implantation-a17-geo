@@ -158,8 +158,16 @@
                                 <h2>{{googlemarq[curidmarq].temp}}°C</h2>
                                 <hr>
                             </div>
-                            <div class="col-md-12">
-                                <h2>Crée par :{{googlemarq[curidmarq].creator}}</h2>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-4">
+                                            <img [src]="googlemarq[curidmarq].proimg" class="img-circle img-responsive" style="pointer-events: none;" height="60" width="60">
+                                        
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <h3>{{googlemarq[curidmarq].creator}}</h3>
+                                </div>
                             </div>
                         </div>
                     </div>                   

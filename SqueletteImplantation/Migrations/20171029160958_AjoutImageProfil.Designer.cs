@@ -8,31 +8,14 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171029160958_AjoutImageProfil")]
+    partial class AjoutImageProfil
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.2");
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Following", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("FollowedId");
-
-                    b.Property<int>("FollowerId");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("FollowedId");
-
-                    b.HasIndex("FollowerId");
-
-                    b.ToTable("Following");
-                });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Machin", b =>
                 {
@@ -142,19 +125,6 @@ namespace squeletteimplantation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilisateur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Following", b =>
-                {
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Followed")
-                        .WithMany()
-                        .HasForeignKey("FollowedId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "Follower")
-                        .WithMany()
-                        .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Marqueur", b =>
