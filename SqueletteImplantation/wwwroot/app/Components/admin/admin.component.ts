@@ -6,6 +6,7 @@ import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
+import { UserPostService } from './../../services/userpost.service';
 
 declare var jBox: any;
 
@@ -21,7 +22,7 @@ export class AdminComponent implements OnInit {
     userposts: UserPost[];
     typeutilisateur: String[];
 
-    constructor(private utilisateurservice: UtilisateurService, private router: Router) {
+    constructor(private utilisateurservice: UtilisateurService, private userpostservice: UserPostService, private router: Router) {
         this.typeutilisateur = ['Utilisateur', 'Administrateur'];
     }
 
@@ -50,7 +51,7 @@ export class AdminComponent implements OnInit {
     }
 
     getAllUserPost() {
-        this.utilisateurservice.getListPost()
+        this.userpostservice.getListPost()
         .subscribe(res => {
             if (res) {
                  this.userposts = res;
