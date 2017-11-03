@@ -118,8 +118,13 @@ export class AdminComponent implements OnInit {
         alert(postId + 'WORK IN PROGRESS');
     }
 
-    modifTypeUtil(u: Utilisateur){
-        console.log(u);
+    modifTypeUtil(u: Utilisateur) {
+        if (u.typeutil === 1) {
+            u.typeutil = 0;
+        } else {
+            u.typeutil = 1;
+        }
+
         this.utilisateurservice.modifTypeUtil(u.id, u.typeutil)
         .subscribe(res => {
             if (res) {
@@ -139,6 +144,5 @@ export class AdminComponent implements OnInit {
                 });
             }
         });
-        
     }
 }

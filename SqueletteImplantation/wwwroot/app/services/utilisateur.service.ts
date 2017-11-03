@@ -32,7 +32,7 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('username');
     }
 
-    getProimage(){
+    getProimage() {
         return localStorage.getItem('Proimage');
     }
 
@@ -121,7 +121,7 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage : string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers });
@@ -164,9 +164,9 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('bAdmin');
     }
 
-    modifTypeUtil(id: number, typeutil: number) {        
+    modifTypeUtil(id: number, typeutil: number) {
         return this.http
-            .put(this.baseUrl + '/utilisateur/modiftypeutil',
+            .put(this.baseUrl + '/utilisateur/modiftypeutil/' + id + '/' + typeutil,
                 JSON.stringify({ id, typeutil}))
         .map(res => { return res.json(); })
         .catch(this.handleError);

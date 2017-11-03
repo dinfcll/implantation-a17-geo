@@ -169,7 +169,7 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPut]
-        [Route("api/utilisateur/modiftypeutil")]
+        [Route("api/utilisateur/modiftypeutil/{id}/{typeutil}")]
         public IActionResult ModifTypeUtil(int id, int typeutil)
         {
             var user = _maBd.Utilisateur.FirstOrDefault(u => u.Id == id);
