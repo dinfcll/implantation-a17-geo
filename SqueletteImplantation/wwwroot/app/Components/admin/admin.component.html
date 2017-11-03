@@ -30,7 +30,8 @@
                                 <td>{{u.mdp}}</td>
                                 <td>{{typeutilisateur[u.typeutil]}}</td>
                                 <td>
-                                    <button *ngIf="u.id!=0" class="btn-danger" (click)="deleteUser(u)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button *ngIf="u.id != 0" class="btn-danger" (click)="deleteUser(u)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button *ngIf="u.id != 0" [ngClass]="{'btn-danger': u.typeutil == 0, 'btn-primary': u.typeutil == 1}"class="" (click)="modifTypeUtil(u)">👮</button>
                                 </td>
                             </tr>                            
                         </tbody>

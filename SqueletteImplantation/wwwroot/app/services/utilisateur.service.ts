@@ -160,19 +160,11 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('bAdmin');
     }
 
-    getListPost() {
+    modifTypeUtil(id: number, typeutil: number) {        
         return this.http
-            .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json(); })
-            .catch(this.handleError);
-    }
-
-    createpost(postTitle: string, postText: string) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
-            .map(res => { return res; })
-            .catch(this.handleError);
+            .put(this.baseUrl + '/utilisateur/modiftypeutil',
+                JSON.stringify({ id, typeutil}))
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
     }
 }

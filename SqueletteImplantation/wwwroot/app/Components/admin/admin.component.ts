@@ -6,6 +6,7 @@ import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
+import { UserPostService } from '../../services/userpost.service';
 
 declare var jBox: any;
 
@@ -21,8 +22,8 @@ export class AdminComponent implements OnInit {
     userposts: UserPost[];
     typeutilisateur: String[];
 
-    constructor(private utilisateurservice: UtilisateurService, private router: Router) {
-        this.typeutilisateur = ['Administrateur', 'Utilisateur'];
+    constructor(private utilisateurservice: UtilisateurService, private userpostservice: UserPostService, private router: Router) {
+        this.typeutilisateur = ['Utilisateur', 'Administrateur'];
     }
 
     ngOnInit(): void {
@@ -50,7 +51,7 @@ export class AdminComponent implements OnInit {
     }
 
     getAllUserPost() {
-        this.utilisateurservice.getListPost()
+        this.userpostservice.getListPost()
         .subscribe(res => {
             if (res) {
                  this.userposts = res;
@@ -96,7 +97,7 @@ export class AdminComponent implements OnInit {
         this.utilisateurservice.deleteProfil(p.profilId)
         .subscribe(res => {
             if (res.status === 200) {
-                    new jBox('Notice', {
+                new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',
                     autoClose: 5000
@@ -115,5 +116,29 @@ export class AdminComponent implements OnInit {
 
     deleteUserPost(postId: number) {
         alert(postId + 'WORK IN PROGRESS');
+    }
+
+    modifTypeUtil(u: Utilisateur){
+        console.log(u);
+        this.utilisateurservice.modifTypeUtil(u.id, u.typeutil)
+        .subscribe(res => {
+            if (res) {
+                new jBox('Notice', {
+                    content: 'Modification du type d\'utilisateur réussie',
+                    color: 'green',
+                    autoClose: 5000
+                });
+                let index = this.utilisateurs.indexOf(u);
+                this.utilisateurs[index].typeutil = res.typeutil;
+                console.log(this.utilisateurs[index]);
+            } else {
+                new jBox('Notice', {
+                    content: 'Impossible de modifier le type d\'utilisateur pour cet utilisateur',
+                    color: 'red',
+                    autoClose: 5000
+                });
+            }
+        });
+        
     }
 }
