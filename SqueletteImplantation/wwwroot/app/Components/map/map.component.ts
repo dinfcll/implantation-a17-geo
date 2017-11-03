@@ -130,7 +130,7 @@ export class MapComponent implements OnInit {
         if(this.stadetrace < 1){
             this.stadetrace = 1;
             this.googlemarq.forEach((mark) => {
-                if(mark.valicone > 0){
+                if(mark.curmarq.icone > 0){
                     mark.setAnimation(google.maps.Animation.BOUNCE);
                 }
             });
@@ -213,9 +213,7 @@ export class MapComponent implements OnInit {
             map: this.map,
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
-            valicone: info.icone,
             click: false,
-            profilId:info.profilId,
             curmarq: info,
             marqid: this.googlemarq.length
         });
