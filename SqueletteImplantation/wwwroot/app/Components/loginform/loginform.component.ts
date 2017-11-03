@@ -5,8 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
 
-import { Subscription } from 'rxjs';
-
 declare var jBox: any;
 
 @Component({
