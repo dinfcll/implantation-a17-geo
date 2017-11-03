@@ -92,20 +92,22 @@ export class PostUserComponent implements OnInit {
 
     onLike(p : UserPost) {        
         if(!this.bLike) {
-            this.selectedLike = p;
             this.userpostservice
             .likePost(p.postId)
             .subscribe(res => {
-                if(res)
+                if(res) {
                     p.postLike = res.postLike;
+                    this.selectedLike = p;
+                }
             })
-        } else {
-            this.selectedLike = null;
+        } else {           
             this.userpostservice
             .unlikePost(p.postId)
             .subscribe(res => {
-                if(res)
-                    p.postLike = res.postLike;                 
+                if(res) {
+                    p.postLike = res.postLike; 
+                    this.selectedLike = null;
+                }                
             })
         }
         
