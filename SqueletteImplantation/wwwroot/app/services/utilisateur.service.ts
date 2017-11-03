@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
-import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
@@ -32,7 +31,7 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('username');
     }
 
-    getProimage(){
+    getProimage() {
         return localStorage.getItem('Proimage');
     }
 
@@ -121,7 +120,7 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage : string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers });
@@ -162,21 +161,5 @@ export class UtilisateurService extends BaseService {
 
     estAdmin() {
         return localStorage.getItem('bAdmin');
-    }
-
-    getListPost() {
-        return this.http
-            .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json(); })
-            .catch(this.handleError);
-    }
-
-    createpost(postTitle: string, postText: string) {
-        let headers = new Headers();
-        headers.append('Content-type', 'application/json');
-        return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText}), { headers })
-            .map(res => { return res; })
-            .catch(this.handleError);
     }
 }
