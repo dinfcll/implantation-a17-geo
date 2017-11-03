@@ -4,6 +4,8 @@
 
 <div *ngIf="utilisateurService.getUsername()" class="username-div" routerLink="/profil" routerLinkActive="active">
     <img id="imgpro" [src]="utilisateurService.getProimage()">
+</div>
+<div *ngIf="utilisateurService.getUsername()" class="username-div" routerLink="/profil" routerLinkActive="active">
     {{utilisateurService.getUsername()}}
 </div>
 
