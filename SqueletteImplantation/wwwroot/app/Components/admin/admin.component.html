@@ -19,7 +19,7 @@
                                 <th>Id</th>
                                 <th>Courriel</th>
                                 <th>Mot de passe</th>
-                                <th><abbr title="0 = utilisateur, 1 = admin">Type d'utilisateur</abbr></th>
+                                <th>Type d'utilisateur</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -28,7 +28,7 @@
                                 <td>{{u.id}}</td>                    
                                 <td>{{u.email}}</td>
                                 <td>{{u.mdp}}</td>
-                                <td>{{u.typeutil}}</td>
+                                <td>{{typeutilisateur[u.typeutil]}}</td>
                                 <td>
                                     <button *ngIf="u.id!=0" class="btn-danger" (click)="deleteUser(u)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </td>
@@ -57,7 +57,7 @@
                                 <td>{{p.prenom}}</td>
                                 <td>{{p.nom}}</td>
                                 <td>
-                                    <button *ngIf="p.profilId!=0" class="btn-danger" (click)="deleteProfil(p.profilId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button *ngIf="p.profilId!=0" class="btn-danger" (click)="deleteProfil(p)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>                            
                         </tbody>
