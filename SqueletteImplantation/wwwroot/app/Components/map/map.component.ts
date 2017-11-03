@@ -126,8 +126,8 @@ export class MapComponent implements OnInit {
     PermissionMod():void {
         if(this.modmarq)
         {
-            this.currentmarqueur.nom = this.googlemarq[this.curidmarq].InformationMarqueur.nom;
-            this.currentmarqueur.desc = this.googlemarq[this.curidmarq].InformationMarqueur.desc;
+            this.currentmarqueur.nom = this.googlemarq[this.curidmarq].informationMarqueur.nom;
+            this.currentmarqueur.desc = this.googlemarq[this.curidmarq].informationMarqueur.desc;
         }
         this.modmarq = !this.modmarq;
         this.PermissionDetails();
@@ -137,7 +137,7 @@ export class MapComponent implements OnInit {
         if(this.stadetrace < 1){
             this.stadetrace = 1;
             this.googlemarq.forEach((mark) => {
-                if(mark.InformationMarqueur.icone > 0){
+                if(mark.informationMarqueur.icone > 0){
                     mark.setAnimation(google.maps.Animation.BOUNCE);
                 }
             });
@@ -221,7 +221,7 @@ export class MapComponent implements OnInit {
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
             click: false,
-            InformationMarqueur: info,
+            informationMarqueur: info,
             marqid: this.googlemarq.length
         });
 
