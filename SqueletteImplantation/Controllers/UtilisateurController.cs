@@ -33,7 +33,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/utilisateur")]
         public IEnumerable Index()
         {
-            return _maBd.Utilisateur.ToList();
+            return _maBd.Utilisateur.ToList().OrderBy(i =>i.Id);
         }
 
         [HttpPost]

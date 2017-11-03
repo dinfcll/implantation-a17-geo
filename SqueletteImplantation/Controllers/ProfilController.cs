@@ -24,7 +24,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil")]
         public IEnumerable Index()
         {
-            return _maBd.Profil.ToList();
+            return _maBd.Profil.ToList().OrderBy(i => i.profilId);
         }
 
         [HttpGet]
