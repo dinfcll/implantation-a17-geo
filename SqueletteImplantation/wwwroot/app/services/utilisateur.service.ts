@@ -162,7 +162,6 @@ export class UtilisateurService extends BaseService {
     estAdmin() {
         return localStorage.getItem('bAdmin');
     }
-<<<<<<< HEAD
 
     modifTypeUtil(id: number, typeutil: number) {
         return this.http
@@ -171,6 +170,4 @@ export class UtilisateurService extends BaseService {
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
-=======
->>>>>>> master
 }
