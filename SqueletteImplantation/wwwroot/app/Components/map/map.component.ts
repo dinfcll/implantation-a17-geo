@@ -248,7 +248,6 @@ export class MapComponent implements OnInit {
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
                     this.curidmarq = marker.marqid;
-                    this.LoadDetails()
                     this.ref.detectChanges();
                     this.PermissionDetails();                  
                 }
