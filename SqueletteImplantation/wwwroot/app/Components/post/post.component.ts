@@ -39,7 +39,12 @@ export class PostUserComponent implements OnInit {
     }
 
     submitPost(postTitle: string, postText: string) {
-        this.userpostservice
+        if(!postTitle || !postText) {
+            new jBox('Notice', { 
+                content: 'Entrer un titre et un texte.', color: 'red', autoClose: 2000 
+            });
+        } else {
+            this.userpostservice
             .createPost(postTitle, postText)
             .subscribe(res => {
                 if(res) {
@@ -47,7 +52,8 @@ export class PostUserComponent implements OnInit {
                         content: 'La publication est publiee.', color: 'green', autoClose: 2000 
                     });
                 }
-             })
+            })
+        }       
     }
 
     onModifyBtn(p: UserPost){
@@ -85,6 +91,7 @@ export class PostUserComponent implements OnInit {
                             content: 'La publication a ete supprimee.', 
                             color: 'green', autoClose: 2000
                         });
+                        this.router.navigate(['/postUser']);
                     }
                 });            
         }     

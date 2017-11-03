@@ -43,8 +43,10 @@ hr {
 	border: none;
 	background: none;
 	color: inherit;
-	position: relative;
-	z-index: 1;
+  position: relative;
+  border-radius: 40px;
+  z-index: 1;
+  font-weight: 500;
 }
 .button:focus {
 	outline: none;
@@ -52,14 +54,8 @@ hr {
 .button > span {
 	vertical-align: middle;
 }
-.button--round-l {
-	border-radius: 40px;
-}
-/* Sacnite */
-.button--text-medium {
-	font-weight: 500;
-}
-.button.button--sacnite {
+/* Post */
+.button.button--post {
 	width: 70px;
 	height: 70px;
 	min-width: 0;
@@ -67,13 +63,10 @@ hr {
 	color: #fff;
 	transition: color 0.3s;
 }
-.button--scanite.button--round-l {
-	border-radius: 50%;
-}
-.button--sacnite.button--inverted {
+.button--post.button--inverted {
 	color: #7CBB74;
 }
-.button--sacnite::before {
+.button--post::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -86,33 +79,33 @@ hr {
 	transform: scale3d(0.9, 0.9, 1);
 	transition: box-shadow 0.3s, transform 0.3s;
 }
-.button--sacnite.button--inverted::before {
+.button--post.button--inverted::before {
 	box-shadow: inset 0 0 0 35px #fff;
 }
-.button--sacnite .button__icon {
+.button--post .button__icon {
 	font-size: 22px;
 	width: 22px;
 }
-.button--sacnite > span {
+.button--post > span {
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
 }
-.button--sacnite:hover {
+.button--post:hover {
 	color: #37474f;
 }
-.button--sacnite.button--inverted:hover {
+.button--post.button--inverted:hover {
 	color: #fff;
 }
-.button--sacnite:hover::before {
+.button--post:hover::before {
 	box-shadow: inset 0 0 0 2px #37474f;
 	transform: scale3d(1, 1, 1);
 }
-.button--sacnite.button--inverted:hover::before {
+.button--post.button--inverted:hover::before {
 	box-shadow: inset 0 0 0 2px #fff;
 }
-/* Shikoba */
-.button.button--shikoba {
+/* Publier */
+.button.button--publier {
 	padding: 1em 30px 1em 50px;
 	overflow: hidden;
 	background: #fff;
@@ -120,17 +113,17 @@ hr {
 	border-color: #37474f;
 	transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
-.button--shikoba.button--inverted {
+.button--publier.button--inverted {
 	color: #fff;
 	background: #7986cb;
 }
-.button--shikoba > span {
+.button--publier > span {
 	display: inline-block;
 	transform: translate3d(-10px, 0, 0);
 	transition: transform 0.3s;
 	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
 }
-.button--shikoba .button__icon {
+.button--publier .button__icon {
 	position: absolute;
 	left: 20px;
 	font-size: 18px;
@@ -138,11 +131,11 @@ hr {
 	transition: transform 0.3s;
 	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
 }
-.button--shikoba:hover .button__icon,
-.button--shikoba:hover > span {
+.button--publier:hover .button__icon,
+.button--publier:hover > span {
 	transform: translate3d(0, 0, 0);
 }
-.button--shikoba:hover {
+.button--publier:hover {
 	background: #3f51b5;
 	border-color: #3f51b5;
 	color: #fff;
