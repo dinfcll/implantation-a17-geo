@@ -13,13 +13,14 @@ declare var jBox: any;
 @Component({
     selector: 'admin',
     templateUrl: './admin.component.html',
-    styleUrls:['./admin.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
+    styleUrls: ['./admin.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 export class AdminComponent implements OnInit {
 
     utilisateurs: Utilisateur[];
     profils: ProfilUtilisateur[];
     userposts: UserPost[];
+    typeutilisateur: String[];
 
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService, 
         private router: Router) { }
@@ -27,7 +28,7 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
         this.getAllUser();
         this.getAllProfil();
-        this.getAllUserPost();        
+        this.getAllUserPost();
     }
 
     getAllUser() {
@@ -67,8 +68,8 @@ export class AdminComponent implements OnInit {
             .subscribe(res => {
                 console.log(res);
                 if (res) {
-                    this.deleteProfil(res.profilId);
-                } 
+                    this.deleteProfil(res);
+                }
             });
             this.utilisateurservice.deleteUser(u.id)
             .subscribe(res => {
@@ -78,8 +79,8 @@ export class AdminComponent implements OnInit {
                         color: 'green',
                         autoClose: 5000
                     });
-                    this.getAllUser();
-                    this.router.navigate(['/admin']);
+                    let index = this.utilisateurs.indexOf(u);
+                    this.utilisateurs.splice(index, 1);
                 } else {
                     new jBox('Notice', {
                         content: 'Impossible de supprimer l\'utilisateur',
@@ -91,8 +92,8 @@ export class AdminComponent implements OnInit {
         }
     }
 
-    deleteProfil(profilId: number) {
-        this.utilisateurservice.deleteProfil(profilId)
+    deleteProfil(p: ProfilUtilisateur) {
+        this.utilisateurservice.deleteProfil(p.profilId)
         .subscribe(res => {
             if (res.status === 200) {
                     new jBox('Notice', {
@@ -100,7 +101,8 @@ export class AdminComponent implements OnInit {
                     color: 'green',
                     autoClose: 5000
                 });
-                this.getAllProfil();
+                let index = this.profils.indexOf(p);
+                this.profils.splice(index, 1);
             } else {
                 new jBox('Notice', {
                     content: 'Impossible de supprimer le profil pour cet utilisateur',
@@ -111,7 +113,7 @@ export class AdminComponent implements OnInit {
         });
     }
 
-    deleteUserPost(postId:number) {
-        alert(postId + "WORK IN PROGRESS");
+    deleteUserPost(postId: number) {
+        alert(postId + 'WORK IN PROGRESS');
     }
 }
