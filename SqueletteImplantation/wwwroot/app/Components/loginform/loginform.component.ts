@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Utilisateur } from './../../class/utilisateur.class';
 import { UtilisateurService } from './../../services/utilisateur.service';
-
-import { Subscription } from 'rxjs';
 
 declare var jBox: any;
 
@@ -20,8 +18,7 @@ export class LoginFormComponent {
     binscription: boolean = false;
     utilisateur: Utilisateur;
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router, 
-        private activatedRoute: ActivatedRoute) { }
+    constructor(private utilisateurService: UtilisateurService, private router: Router) { }
 
     onLogin(email: string, mdp: string) {
         this.utilisateurService
