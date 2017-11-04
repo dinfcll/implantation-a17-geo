@@ -34,6 +34,7 @@ export class MapComponent implements OnInit {
      public image:string;
      public imagebuffer:any[];
      public ProfilCourrant:number;
+     public couleurMarqueurCourant:string;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -55,6 +56,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        this.couleurMarqueurCourant = '../../../images/current_icone.svg'
     }
     
 
@@ -246,6 +248,13 @@ export class MapComponent implements OnInit {
                 });
     }
 
+    retraitCouleurCurrentMarqueur():void
+    {
+        this.googlemarq.forEach((mark)=>{
+            mark.setIcon(this.banqueimageicone[mark.informationMarqueur.icone]);
+        });
+    }
+
     AjoutMarker (info: Marqueur): any {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
@@ -278,6 +287,8 @@ export class MapComponent implements OnInit {
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
+                this.retraitCouleurCurrentMarqueur();
+                marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
                     this.curidmarq = marker.marqid;
