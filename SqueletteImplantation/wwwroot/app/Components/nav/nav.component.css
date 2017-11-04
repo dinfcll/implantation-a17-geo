@@ -177,6 +177,13 @@
   transform: translate3d(-362.71711px, 0, 0);
   z-index: 1;
 }
+.menu-open:checked ~ .menu-item:nth-child(8) {
+  transition-duration: 680ms;
+  -webkit-transition-duration: 680ms;
+  -webkit-transform: translate3d(-370.24125px, 0, 0);
+  transform: translate3d(-370.24125px, 0, 0);
+  z-index: 1;
+}
 
 .profil {
   background-color: #1D9279;
@@ -245,6 +252,17 @@
   cursor: pointer;
   outline: none;
 }
+.buddy {
+  background-color: #9B47BD;
+  box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+}
+
+.buddy:hover {
+  color: #AA5EC9;
+  text-shadow: none;
+}
+
 
 #imgpro{
   height: 60px;
