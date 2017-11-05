@@ -188,7 +188,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 col-md-offset-4" (click)="PermissionMod()" *ngIf="currentmarqueur.profilId==ProfilCourrant">
+                        <div class="col-md-4 col-md-offset-4" (click)="PermissionMod()" *ngIf="currentmarqueur.profilId==ProfilCourrant||utilisateurService.estAdmin()==1">
                             <button>
                                 <span class="buttonMessage">
                                     Modification
