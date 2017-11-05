@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
      public imagebuffer:any[];
      public ProfilCourrant:number;
      public couleurMarqueurCourant:string;
+     public banqueImageMarqueur:string[];
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -56,7 +57,8 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
-        this.couleurMarqueurCourant = '../../../images/current_icone.svg'
+        this.couleurMarqueurCourant = '../../../images/current_icone.svg';
+        this.banqueImageMarqueur = new Array();
     }
     
 
@@ -73,6 +75,8 @@ export class MapComponent implements OnInit {
                         this.image = e.target.result;
                     } else if (this.modmarq){
                         this.currentmarqueur.imageMarqueur = e.target.result;
+                    } else {
+                        this.AjoutImagesBanqueMarqueur(e.target.result);
                     }
                     this.ref.detectChanges();
                 };
@@ -88,6 +92,10 @@ export class MapComponent implements OnInit {
             }
 
         }
+    }
+
+    AjoutImagesBanqueMarqueur(imageUrl:string):void{
+        this.banqueImageMarqueur.unshift(imageUrl);
     }
 
     messageErreurActionSurCarte():void{
