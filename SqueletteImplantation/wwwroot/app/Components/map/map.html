@@ -195,7 +195,7 @@
                                 </span>
                             </button>
                         </div>
-                        <div class="col-md-4" (click)="supprimerMarqueur()" *ngIf="currentmarqueur.profilId==ProfilCourrant">
+                        <div class="col-md-4" (click)="supprimerMarqueur()" *ngIf="currentmarqueur.profilId==ProfilCourrant||utilisateurService.estAdmin()==1">
                             <button>
                                 <span class="buttonMessage cancel">
                                     Supprimer

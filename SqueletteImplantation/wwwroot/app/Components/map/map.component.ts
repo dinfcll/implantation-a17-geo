@@ -146,19 +146,22 @@ export class MapComponent implements OnInit {
 
     supprimerMarqueur():void{
         let informationSuppression= "";
+        let couleurBox = "";
         this.http.delete("api/marqueurs/"+ this.currentmarqueur.id)
         .subscribe((res)=>{
             if(res.status === 200){
                 informationSuppression = "le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
                 this.googlemarq[this.curidmarq].setMap(null);
+                couleurBox = "green";
                 this.DetailsView = false;
                 this.ref.detectChanges();
             } else{
                 informationSuppression = "échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
+                couleurBox = "red";
             }
             new jBox('Notice', {
                 content: informationSuppression,
-                color: 'red',
+                color: couleurBox,
                 autoClose: 5000
             });
         });
