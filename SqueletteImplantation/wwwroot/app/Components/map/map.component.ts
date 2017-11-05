@@ -77,8 +77,6 @@ export class MapComponent implements OnInit {
                     this.ref.detectChanges();
                 };
                 fr.readAsDataURL(files[0]);
-
-                
             } 
             else
             {
@@ -108,7 +106,7 @@ export class MapComponent implements OnInit {
             if(this.AcceptMarker){
                 this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
                 new jBox('Notice', {
-                    content: 'Clicker sur la carte pour positionner votre nouveau marqueur',
+                    content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
                     color: 'green',
                     autoClose: 5000
                 });
@@ -134,7 +132,7 @@ export class MapComponent implements OnInit {
             else
             {
                 new jBox('Notice', {
-                    content: 'Clicker sur un marqueur pour en voir les détails',
+                    content: 'Cliquer sur un marqueur pour en voir les détails',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -144,6 +142,27 @@ export class MapComponent implements OnInit {
         {
             this.messageErreurActionSurCarte();
         }
+    }
+
+    supprimerMarqueur():void{
+        let informationSuppression= "";
+        this.http.delete("api/marqueurs/"+ this.currentmarqueur.id)
+        .subscribe((res)=>{
+            if(res.status === 200){
+                informationSuppression = "le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
+                this.googlemarq[this.curidmarq].setMap(null);
+                this.DetailsView = false;
+                this.ref.detectChanges();
+            } else{
+                informationSuppression = "échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
+            }
+            new jBox('Notice', {
+                content: informationSuppression,
+                color: 'red',
+                autoClose: 5000
+            });
+        });
+
     }
 
     PermissionMod():void {
