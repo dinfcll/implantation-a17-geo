@@ -273,9 +273,10 @@ export class MapComponent implements OnInit {
 
     retraitCouleurCurrentMarqueur():void
     {
-        this.googlemarq.forEach((mark)=>{
-            mark.setIcon(this.banqueimageicone[mark.informationMarqueur.icone]);
-        });
+        if(this.currentmarqueur.nom){
+            this.googlemarq[this.curidmarq]
+            .setIcon(this.banqueimageicone[this.currentmarqueur.icone]);
+        }
     }
 
     AjoutMarker (info: Marqueur): any {
@@ -343,6 +344,7 @@ export class MapComponent implements OnInit {
                 }
             } else {
                 this.map.setZoom(10);
+                this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;
