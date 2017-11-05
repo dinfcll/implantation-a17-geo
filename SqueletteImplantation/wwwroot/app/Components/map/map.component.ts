@@ -151,6 +151,7 @@ export class MapComponent implements OnInit {
         .subscribe((res)=>{
             if(res.status === 200){
                 informationSuppression = "le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
+                this.googlemarq[this.curidmarq].cheminTrajet.setMap(null);
                 this.googlemarq[this.curidmarq].setMap(null);
                 couleurBox = "green";
                 this.DetailsView = false;
@@ -278,22 +279,6 @@ export class MapComponent implements OnInit {
     }
 
     AjoutMarker (info: Marqueur): any {
-        var marker = new google.maps.Marker ({
-            position: { lat:info.latitude,lng: info.longitude },
-            map: this.map,
-            icon: this.banqueimageicone[info.icone],
-            title: info.nom,
-            desc: info.desc,
-            click: false,
-            informationMarqueur: info,
-            marqid: this.googlemarq.length
-        });
-
-        if(this.curidmarq < this.googlemarq.length)
-        {
-            marker.marqid = this.curidmarq;
-        }
-
         var color:string = '#f3123d';
         if(info.icone > 0){
             color = '#84ffb8';
@@ -304,6 +289,22 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+        var marker = new google.maps.Marker ({
+            position: { lat:info.latitude,lng: info.longitude },
+            map: this.map,
+            icon: this.banqueimageicone[info.icone],
+            title: info.nom,
+            desc: info.desc,
+            click: false,
+            cheminTrajet: chemin,
+            informationMarqueur: info,
+            marqid: this.googlemarq.length
+        });
+
+        if(this.curidmarq < this.googlemarq.length)
+        {
+            marker.marqid = this.curidmarq;
+        }
 
         marker.addListener('click', () => {
             if(!marker.click) {
@@ -323,17 +324,17 @@ export class MapComponent implements OnInit {
                     let chlat = info.trajetlat.split(",");
                     let chlng = info.trajetlng.split(",");
 
-                    let path = chemin.getPath();
+                    let path = marker.cheminTrajet.getPath();
                     path.push(new google.maps.LatLng(info.latitude,info.longitude));
                     for(let i = 0; i < chlat.length; i++) {
                         path.push(new google.maps.LatLng(chlat[i], chlng[i]))
                     }
                 } 
-                chemin.setMap(this.map);
+                marker.cheminTrajet.setMap(this.map);
                 marker.click = true;
                 if(this.stadetrace === 1){
                     this.stadetrace = 2;
-                    chemin.setMap(null);
+                    marker.cheminTrajet.setMap(null);
                     let path = this.tracetrajet.getPath();
                     path.push(marker.position);
                     this.googlemarq.forEach((m) => {
@@ -343,9 +344,9 @@ export class MapComponent implements OnInit {
             } else {
                 this.map.setZoom(10);
                 this.PermissionDetails();
-                chemin.setMap(null);
+                marker.cheminTrajet.setMap(null);
                 marker.click = false;
-                chemin = new google.maps.Polyline ({
+                marker.cheminTrajet = new google.maps.Polyline ({
                     strokeColor: color,
                     strokeOpacity: 1.0,
                     strokeWeight: 3,
