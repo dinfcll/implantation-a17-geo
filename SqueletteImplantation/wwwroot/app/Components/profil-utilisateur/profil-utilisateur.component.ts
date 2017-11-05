@@ -18,7 +18,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     profil: ProfilUtilisateur;
     bEdit: boolean = false;
     user: Utilisateur;
-    imageDefaut: string="../../../images/hiker.jpg";
+    imageDefaut: string = '../../../images/hiker.jpg';
 
     constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
 
@@ -35,7 +35,7 @@ export class ProfilUtilisateurComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                 this.profil = res;
-                if(this.profil.profilimage == null){
+                if (this.profil.profilimage == null) {
                     this.profil.profilimage = this.imageDefaut;
                 }
             } else {
@@ -127,7 +127,7 @@ export class ProfilUtilisateurComponent implements OnInit {
         this.utilisateurservice.deleteProfil(this.profil.profilId)
         .subscribe(res => {
             if (res.status === 200) {
-                this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '',this.imageDefaut);
+                this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '', this.imageDefaut);
                 localStorage.setItem('username', '');
                 localStorage.setItem('Proimage', this.imageDefaut);
                 new jBox('Notice', {
@@ -172,27 +172,23 @@ export class ProfilUtilisateurComponent implements OnInit {
         }
     }
 
-    OnPreLoadImage(event:any) {
+    OnPreLoadImage(event: any) {
         let files: FileList;
         files = event.target.files;
-        if(files && files[0]){
-            if(files[0].name.match(/.(jpg|jpeg|png|gif)$/i))
-            {
+        if (files && files[0]) {
+            if (files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
                 let fr = new FileReader();
-                fr.onload = (e:any) => {
+                fr.onload = (e: any) => {
                     this.profil.profilimage = e.target.result;
                 };
-                fr.readAsDataURL(files[0]);  
-            } 
-            else
-            {
+                fr.readAsDataURL(files[0]);
+            } else {
                 new jBox('Notice', {
                     content: 'veuillez entrer une image',
                     color: 'red',
                     autoClose: 2000
                 });
             }
-
         }
     }
 }
