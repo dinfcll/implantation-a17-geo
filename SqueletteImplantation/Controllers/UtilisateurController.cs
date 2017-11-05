@@ -46,7 +46,7 @@ namespace SqueletteImplantation.Controllers
             {
                 emailSender.setDestination(user.Email);
                 emailSender.setSender("ramble.cll@gmail.com", "Welcome");
-                emailSender.SetHTMLMessage("<h1>Bienvenue sur Ramble !<h2><br><a href='https://rando.dinf.cll.qc.ca/login'>https://rando.dinf.cll.qc.ca/login</a>");
+                emailSender.SetHTMLMessage("<h1>Bienvenue sur Ramble !</h1><h2><br><a href='https://rando.dinf.cll.qc.ca/login'>https://rando.dinf.cll.qc.ca/login</a></h2>");
                 emailSender.setSubject("Bienvenue");
                 emailSender.sendMessage();
                 
