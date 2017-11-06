@@ -55,7 +55,11 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
-        this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        if(localStorage.getItem('profilId') === ""){
+            this.ProfilCourrant = -1;
+        }else{
+            this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        }
         this.couleurMarqueurCourant = '../../../images/current_icone.svg'
     }
     
