@@ -33,7 +33,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/utilisateur")]
         public IEnumerable Index()
         {
-            return _maBd.Utilisateur.ToList();
+            return _maBd.Utilisateur.ToList().OrderBy(i =>i.Id);
         }
 
         [HttpPost]
@@ -166,6 +166,28 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
+        }
+
+        [HttpPut]
+        [Route("api/utilisateur/modiftypeutil/{id}/{typeutil}")]
+        public IActionResult ModifTypeUtil(int id, int typeutil)
+        {
+            var user = _maBd.Utilisateur.FirstOrDefault(u => u.Id == id);
+
+            if (user == null || user.Id == 0)
+            {
+                return new OkObjectResult(null);
+            }
+
+            user.typeutil = typeutil;
+
+            _maBd.Utilisateur.Attach(user);
+
+            var entry = _maBd.Entry(user);
+            entry.Property(e => e.typeutil).IsModified = true;
+            _maBd.SaveChanges();
+
+            return new OkObjectResult(user);
         }
     }
 }
