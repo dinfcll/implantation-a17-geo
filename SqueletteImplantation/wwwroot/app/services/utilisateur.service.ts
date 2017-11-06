@@ -1,5 +1,5 @@
+import { Headers, Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers, } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 
@@ -12,7 +12,7 @@ export class UtilisateurService extends BaseService {
     baseUrl: string = '';
     profil: ProfilUtilisateur;
 
-    constructor(private http: Http, private configService: ConfigService) {
+    constructor(private configService: ConfigService, private http: Http) {
         super();
         this.baseUrl = configService.getApiURI();
     }
