@@ -7,7 +7,6 @@ import { UserPost } from '../../class/post.class';
 
 import { UserPostService } from './../../services/userpost.service';
 import { UtilisateurService } from './../../services/utilisateur.service';
-import { UserPostService } from './../../services/userpost.service';
 
 declare var jBox: any;
 
@@ -23,20 +22,9 @@ export class AdminComponent implements OnInit {
     userposts: UserPost[];
     typeutilisateur: String[];
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService, 
-        private router: Router) { }
-=======
     constructor(private utilisateurservice: UtilisateurService, private userpostservice: UserPostService, private router: Router) {
         this.typeutilisateur = ['Utilisateur', 'Administrateur'];
     }
->>>>>>> 815b6db39f0ac82c7bd33500e9954a099b3790ca
-=======
-    constructor(private utilisateurservice: UtilisateurService, private userpostservice: UserPostService, private router: Router) {
-        this.typeutilisateur = ['Utilisateur', 'Administrateur'];
-    }
->>>>>>> 1a579fbf1262e2c6250a154521604e185d44f1be
 
     ngOnInit(): void {
         this.getAllUser();

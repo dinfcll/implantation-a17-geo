@@ -78,35 +78,23 @@ export class UtilisateurService extends BaseService {
 
     getProfilById(profilId: string) {
         return this.http
-        .get(
-            this.baseUrl + '/profilbyid/' + profilId, profilId
-        )
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .get(this.baseUrl + '/profilbyid/' + profilId, profilId)
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
     }
 
     getProfil(courriel: string) {
         return this.http
-        .get(
-            this.baseUrl + '/profil/' + courriel, courriel
-        )
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .get(this.baseUrl + '/profil/' + courriel, courriel)
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
     }
 
     getAllProfil() {
         return this.http
-        .get(
-            this.baseUrl + '/profil'
-        )
-        .map(res => {
-            return res.json();
-        })
-        .catch(this.handleError);
+            .get(this.baseUrl + '/profil')
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
     }
 
     createProfil(courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
@@ -114,19 +102,19 @@ export class UtilisateurService extends BaseService {
         headers.append('Content-type', 'application/json');
 
         return this.http
-        .post(this.baseUrl + '/profil/create',
-            JSON.stringify({ courriel, username, prenom, nom, profilimage }), { headers })
-        .map(res => { return res.json(); })
-        .catch(this.handleError);
+            .post(this.baseUrl + '/profil/create', JSON.stringify({ courriel, username, 
+                prenom, nom, profilimage }), { headers })
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
     }
 
     editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-        console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers });
+
         return this.http
-            .put(this.baseUrl + '/profil/edit',
-                JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers })
+            .put(this.baseUrl + '/profil/edit', JSON.stringify({ profilId, courriel, 
+                username, prenom, nom, profilimage }), { headers })
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
@@ -167,7 +155,7 @@ export class UtilisateurService extends BaseService {
         return this.http
             .put(this.baseUrl + '/utilisateur/modiftypeutil/' + id + '/' + typeutil,
                 JSON.stringify({ id, typeutil}))
-        .map(res => { return res.json(); })
-        .catch(this.handleError);
+            .map(res => { return res.json(); })
+            .catch(this.handleError);
     }
 }
