@@ -64,3 +64,7 @@ button.disabled:hover {
 .cancel{
   background-color: rgb(190, 55, 55);
 }
+
+.banqueImgMarqueur{
+  height: 100px !important;
+}

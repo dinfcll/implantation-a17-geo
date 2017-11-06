@@ -207,8 +207,10 @@
                         <div class="col-md-3">
                             <input type="file" (change)="PreUploadImage($event)"/>
                         </div>
-                        <div class="col-md-3" *ngFor="let bimg of banqueImageMarqueur">
-                            <img [src]="bimg" class="img-thumbnail img-responsive" style="pointer-events: none;">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" *ngFor="let bimg of banqueImageMarqueur">
+                            <img [src]="bimg" class="img-thumbnail img-responsive banqueImgMarqueur" style="pointer-events: none;">
                         </div>
                     </div>
                 </div>
