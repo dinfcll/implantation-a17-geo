@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
-import { Utilisateur } from '../class/utilisateur.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
@@ -32,7 +31,7 @@ export class UtilisateurService extends BaseService {
         return localStorage.getItem('username');
     }
 
-    getProimage(){
+    getProimage() {
         return localStorage.getItem('Proimage');
     }
 
@@ -121,7 +120,7 @@ export class UtilisateurService extends BaseService {
         .catch(this.handleError);
     }
 
-    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage : string) {
+    editProfil(profilId: number, courriel: string, username: string, prenom: string, nom: string, profilimage: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         console.log(JSON.stringify({ profilId, courriel, username, prenom, nom, profilimage }), { headers });
@@ -162,5 +161,13 @@ export class UtilisateurService extends BaseService {
 
     estAdmin() {
         return localStorage.getItem('bAdmin');
+    }
+
+    modifTypeUtil(id: number, typeutil: number) {
+        return this.http
+            .put(this.baseUrl + '/utilisateur/modiftypeutil/' + id + '/' + typeutil,
+                JSON.stringify({ id, typeutil}))
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
     }
 }

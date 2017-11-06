@@ -34,6 +34,7 @@ export class MapComponent implements OnInit {
      public image:string;
      public imagebuffer:any[];
      public ProfilCourrant:number;
+     public couleurMarqueurCourant:string;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -55,6 +56,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        this.couleurMarqueurCourant = '../../../images/current_icone.svg'
     }
     
 
@@ -90,79 +92,118 @@ export class MapComponent implements OnInit {
         }
     }
 
-    PermissionAjoutMarker():void {
-        this.AcceptMarker = !this.AcceptMarker;
-        this.DetailsView=false;
-        if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
-        } else {
-            this.marqtemp.setMap(null);
-        }     
+    messageErreurActionSurCarte():void{
+        new jBox('Notice', {
+            content: 'Action en cours sur la map',
+            color: 'red',
+            autoClose: 5000
+        });
     }
-    PermissionDetails():void {
-        if(this.currentmarqueur.nom){
-            this.DetailsView = !this.DetailsView;
-            this.AcceptMarker=false;
-            this.LoadDetails();  
+
+    PermissionAjoutMarker():void {
+        if(this.stadetrace === 0)
+        {
+            this.AcceptMarker = !this.AcceptMarker;
+            this.DetailsView=false;
+            if(this.AcceptMarker){
+                this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+                new jBox('Notice', {
+                    content: 'Clicker sur la carte pour positionner votre nouveau marqueur',
+                    color: 'green',
+                    autoClose: 5000
+                });
+            } else {
+                this.marqtemp.setMap(null);
+            }
+            this.ref.detectChanges();
         }
         else
         {
-            new jBox('Notice', {
-                content: 'Clicker sur un marqueur pour en voir les détails',
-                color: 'red',
-                autoClose: 2000
-            });
-        }
+            this.messageErreurActionSurCarte();
+        }     
+    }
 
+    PermissionDetails():void {
+        if(this.stadetrace === 0 && !this.AcceptMarker && !this.modmarq)
+        {
+            if(this.currentmarqueur.nom){
+                this.DetailsView = !this.DetailsView;
+                this.AcceptMarker=false;
+                this.LoadDetails();  
+            }
+            else
+            {
+                new jBox('Notice', {
+                    content: 'Clicker sur un marqueur pour en voir les détails',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        }
+        else
+        {
+            this.messageErreurActionSurCarte();
+        }
     }
 
     PermissionMod():void {
         if(this.modmarq)
         {
-            this.currentmarqueur.nom = this.googlemarq[this.curidmarq].curmarq.nom;
-            this.currentmarqueur.desc = this.googlemarq[this.curidmarq].curmarq.desc;
-        }
-        this.modmarq = !this.modmarq;
-        this.PermissionDetails();
+            this.currentmarqueur.nom = this.googlemarq[this.curidmarq].title;
+            this.currentmarqueur.desc = this.googlemarq[this.curidmarq].desc;
+            this.modmarq = !this.modmarq;
+            this.PermissionDetails();
+        } else {
+            this.DetailsView = !this.DetailsView;
+            this.modmarq = !this.modmarq;
+            this.ref.detectChanges();   
+        }   
+          
     }
 
     ChangeStade():void {
-        if(this.stadetrace < 1){
-            this.stadetrace = 1;
-            this.googlemarq.forEach((mark) => {
-                if(mark.valicone > 0){
-                    mark.setAnimation(google.maps.Animation.BOUNCE);
-                }
-            });
-        } else if(this.stadetrace === 3){
-            let cheminlat:string = "";
-            let cheminlng:string = "";
-            this.tabmarqtemp.forEach((mark) =>{
-                cheminlat += mark.getPosition().lat()+',';
-                cheminlng += mark.getPosition().lng()+',';
-            });
-
-            cheminlat = cheminlat.slice(0, -1);
-            cheminlng = cheminlng.slice(0, -1);
-            
-            this.currentmarqueur.trajetlat = cheminlat;
-            this.currentmarqueur.trajetlng = cheminlng;
-
-            this.http.post("api/marqueurs/modification", this.currentmarqueur)
-                .subscribe((res) => {
-                    if(res != null){
-                        this.retourModMarqueur(res)
-                        this.Annulation();
-                    } else {
-                        new jBox('Notice', {
-                            content: 'Erreur de connection au serveur',
-                            color: 'red',
-                            autoClose: 2000
-                        });
+        if(!this.AcceptMarker && !this.DetailsView && !this.modmarq)
+        {
+            if(this.stadetrace < 1){
+                this.stadetrace = 1;
+                this.googlemarq.forEach((mark) => {
+                    if(mark.informationMarqueur.icone > 0){
+                        mark.setAnimation(google.maps.Animation.BOUNCE);
                     }
-                    
                 });
-            
+            } else if(this.stadetrace === 3){
+                let cheminlat:string = "";
+                let cheminlng:string = "";
+                this.tabmarqtemp.forEach((mark) =>{
+                    cheminlat += mark.getPosition().lat()+',';
+                    cheminlng += mark.getPosition().lng()+',';
+                });
+
+                cheminlat = cheminlat.slice(0, -1);
+                cheminlng = cheminlng.slice(0, -1);
+                
+                this.currentmarqueur.trajetlat = cheminlat;
+                this.currentmarqueur.trajetlng = cheminlng;
+
+                this.http.post("api/marqueurs/modification", this.currentmarqueur)
+                    .subscribe((res) => {
+                        if(res != null){
+                            this.retourModMarqueur(res)
+                            this.Annulation();
+                        } else {
+                            new jBox('Notice', {
+                                content: 'Erreur de connection au serveur',
+                                color: 'red',
+                                autoClose: 2000
+                            });
+                        }
+                        
+                    });
+                
+            }
+        }
+        else{
+            this.messageErreurActionSurCarte();
         }
 
     }
@@ -207,20 +248,23 @@ export class MapComponent implements OnInit {
                 });
     }
 
+    retraitCouleurCurrentMarqueur():void
+    {
+        if(this.currentmarqueur.nom){
+            this.googlemarq[this.curidmarq]
+            .setIcon(this.banqueimageicone[this.currentmarqueur.icone]);
+        }
+    }
+
     AjoutMarker (info: Marqueur): any {
         var marker = new google.maps.Marker ({
             position: { lat:info.latitude,lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
-            id: info.id,
-            valicone: info.icone,
             desc: info.desc,
-            trajetlat: info.trajetlat,
-            trajetlng: info.trajetlng,
             click: false,
-            profilId:info.profilId,
-            curmarq: info,
+            informationMarqueur: info,
             marqid: this.googlemarq.length
         });
 
@@ -241,20 +285,18 @@ export class MapComponent implements OnInit {
         });
 
         marker.addListener('click', () => {
-            if(this.AcceptMarker == false){
-                    this.currentmarqueur = info;
-                    this.curidmarq = marker.marqid;
-                    if(this.DetailsView){
-                        this.LoadDetails()
-                    }
-                    this.ref.detectChanges();
-            }
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
-                if(!this.DetailsView){
-                    this.PermissionDetails();
+                this.retraitCouleurCurrentMarqueur();
+                marker.setIcon(this.couleurMarqueurCourant);
+                if(!this.AcceptMarker && this.stadetrace===0){
+                    this.currentmarqueur = info;
+                    this.curidmarq = marker.marqid;
+                    this.ref.detectChanges();
+                    this.PermissionDetails();                  
                 }
+
                 
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
                     let chlat = info.trajetlat.split(",");
@@ -279,6 +321,7 @@ export class MapComponent implements OnInit {
                 }
             } else {
                 this.map.setZoom(10);
+                this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
                 chemin.setMap(null);
                 marker.click = false;
@@ -306,10 +349,8 @@ export class MapComponent implements OnInit {
         }
         
         if(this.stadetrace === 2 || this.stadetrace === 3){
-            //permet de tracer
-            if(this.tabmarqtemp.length > 0){
-                this.stadetrace = 3;
-            }
+            this.stadetrace = 3;
+            this.ref.detectChanges();
 
             this.tracetrajet.setMap(this.map);
             var path = this.tracetrajet.getPath();
