@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "");
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "",0);
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -94,7 +94,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = !this.AcceptMarker;
         this.DetailsView=false;
         if(this.AcceptMarker){
-            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+            this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"",0);
         } else {
             this.marqtemp.setMap(null);
         }     
@@ -191,7 +191,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"",0);
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
@@ -254,6 +254,7 @@ export class MapComponent implements OnInit {
                 this.map.panTo(marker.position);
                 if(!this.DetailsView){
                     this.PermissionDetails();
+                    console.log(marker)
                 }
                 
                 if(info.trajetlat != "" && info.trajetlat != null && info.trajetlng != "" && info.trajetlng != null) {
