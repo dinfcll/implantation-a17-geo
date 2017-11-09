@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router/';
 
 import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
-import { UtilisateurService } from '../../services/utilisateur.service';
 import { Utilisateur } from '../../class/utilisateur.class';
+
+import { UtilisateurService } from '../../services/utilisateur.service';
 
 declare var jBox: any;
 
@@ -20,7 +21,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     user: Utilisateur;
     imageDefaut: string = '../../../images/hiker.jpg';
 
-    constructor( private utilisateurservice: UtilisateurService, private router: Router ) { }
+    constructor(private utilisateurservice: UtilisateurService, private router: Router) { }
 
     ngOnInit(): void {
         this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '', this.imageDefaut);
@@ -42,7 +43,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Aucun profil trouvé. Vous pouvez en créer un',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             }
         });
@@ -50,8 +51,8 @@ export class ProfilUtilisateurComponent implements OnInit {
 
     onGetUser() {
         this.utilisateurservice.getUser()
-            .subscribe(res => {
-                if (res) { this.user = res; }
+        .subscribe(res => {
+            if (res) { this.user = res; }
         });
     }
 
@@ -68,13 +69,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Création du profil réussie',
                     color: 'green',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
                     content: 'Impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             }
         });
@@ -152,23 +153,19 @@ export class ProfilUtilisateurComponent implements OnInit {
         if (confirmation) {
             this.supprimerProfile();
             this.utilisateurservice.deleteUser(this.user.id)
-                .subscribe(res => {
-                    if (res.status === 200) {
-                        new jBox('Notice', {
-                            content: 'Suppression de l\'utilisateur réussie',
-                            color: 'green',
-                            autoClose: 5000
-                        });
-                        this.utilisateurservice.logout();
-                        this.router.navigate(['/login']);
-                    } else {
-                        new jBox('Notice', {
-                            content: 'Impossible de supprimer l\'utilisateur',
-                            color: 'red',
-                            autoClose: 5000
-                        });
-                    }
-                });
+            .subscribe(res => {
+                if (res.status === 200) {
+                    new jBox('Notice', {
+                        content: 'Suppression de l\'utilisateur réussie', color: 'green', autoClose: 2000
+                    });
+                    this.utilisateurservice.logout();
+                    this.router.navigate(['/login']);
+                } else {
+                    new jBox('Notice', {
+                        content: 'Impossible de supprimer l\'utilisateur', color: 'red', autoClose: 2000
+                    });
+                }
+            });
         }
     }
 

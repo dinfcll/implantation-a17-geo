@@ -14,7 +14,6 @@ namespace SqueletteImplantation.Controllers
     {
         private readonly MaBd _maBd;
 
-
         public ProfilController(MaBd maBd)
         {
             _maBd = maBd;
@@ -40,6 +39,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+
         [HttpGet]
         [Route("api/profilbyid/{profilId}")]
         public IActionResult GetProfibyId(string profilId)
@@ -53,6 +53,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+
         [HttpPost]
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
@@ -125,6 +126,20 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
+        }
+
+        [HttpPost]
+        [Route("api/profil/getImage")]
+        public IActionResult GetImage(int id)
+        {
+            var img = _maBd.Profil.FirstOrDefault(pr => pr.profilId == id);
+
+            if (img == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(img.profilimage);
         }
     }
 }
