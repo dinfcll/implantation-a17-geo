@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace SqueletteImplantation.Controllers
 {
@@ -85,6 +86,22 @@ namespace SqueletteImplantation.Controllers
             _maBd.Remove(marqueur);
             _maBd.SaveChanges();
 
+            return new OkResult();
+        }
+
+        [HttpPost]
+        [Route("api/marqueurs/banqueimage/{id}")]
+        public IActionResult AjoutImageABanqueImage(int id, string image)
+        {
+            var marqueur = _maBd.Marqueur.FirstOrDefault(m => m.Id == id);
+
+            if(marqueur == null)
+            {
+                return NotFound();
+            }
+            int idUniqueFichier = Directory.GetFiles("../wwwwroot/images/banqueImageMarqueur/","*",SearchOption.TopDirectoryOnly).Length;
+            string CheminImage = "../wwwwroot/images/banqueImageMarqueur/" + id.ToString() + marqueur.Nom + idUniqueFichier.ToString();
+            File.WriteAllBytes(CheminImage,Convert.FromBase64String(image));            
             return new OkResult();
         }
     }

@@ -60,6 +60,10 @@ export class MapComponent implements OnInit {
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
         this.banqueImageMarqueur = new Array();
     }
+
+    showGallery(){
+        new jBox('Image');
+    }
     
 
     PreUploadImage(event:any):void
