@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "");
+        this.remiseZeroMarqueurCurrentMarqueur();
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -61,6 +61,10 @@ export class MapComponent implements OnInit {
         this.banqueImageMarqueur = new Array();
     }
 
+    remiseZeroMarqueurCurrentMarqueur():void
+    {
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","");
+    }
     showGallery(){
         new jBox('Image');
     }
@@ -116,7 +120,7 @@ export class MapComponent implements OnInit {
             this.AcceptMarker = !this.AcceptMarker;
             this.DetailsView=false;
             if(this.AcceptMarker){
-                this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+                this.remiseZeroMarqueurCurrentMarqueur();
                 new jBox('Notice', {
                     content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
                     color: 'green',
@@ -267,7 +271,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"");
+        this.remiseZeroMarqueurCurrentMarqueur();
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
