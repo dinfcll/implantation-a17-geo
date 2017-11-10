@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { UtilisateurService } from '../../services/utilisateur.service';
 
@@ -14,8 +14,7 @@ declare var jBox: any;
 export class NavBarComponent {
     public username :string;
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router, 
-        private activatedRoute: ActivatedRoute) { };
+    constructor(private utilisateurService: UtilisateurService, private router: Router) { };
     
     ngOnInit(): void {
         this.username=localStorage.getItem("username");

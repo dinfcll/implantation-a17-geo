@@ -33,7 +33,7 @@ export class BuddiesComponent implements OnInit {
         this.buddyService.init();
          this.buddyService.getFollowed();
          this.buddyService.getFollower();
-         this.buddyService.getUnknownUsers();
+         this.buddyService.getUserNotFollowed();
          
      }
      searchUser(search:string){
@@ -47,7 +47,6 @@ export class BuddiesComponent implements OnInit {
          .subscribe(res=>{
              if(res.json()==true)
                 {
-                    console.log("follow"+user.username);
                     this.buddyService.Followed.push(user);
                     this.buddyService.resetSuggestion();
                 }
@@ -66,7 +65,6 @@ export class BuddiesComponent implements OnInit {
         .subscribe(res=>{
            if(res)
            {
-                console.log("unfollow"+user.username);
                 var index=this.buddyService.Followed.indexOf(user);
                 this.buddyService.Followed.splice(index,1);
                 this.buddyService.resetSuggestion();

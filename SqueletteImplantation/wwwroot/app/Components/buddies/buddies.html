@@ -53,7 +53,7 @@
                                 </div>  
                             <div class="tab-pane fade" id="tab4default">
                                 <table class="table table-hover user-list">
-                                        <tr *ngFor="let user of buddyService.UnknownUsers">
+                                        <tr *ngFor="let user of buddyService.UserNotFollowed">
                                         <td>
                                             {{user.username}}
                                             <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>

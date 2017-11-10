@@ -14,7 +14,7 @@ export class BuddyService extends BaseService {
 
     Followed:ProfilUtilisateur[];
     Follower:ProfilUtilisateur[];
-    UnknownUsers:ProfilUtilisateur[];
+    UserNotFollowed:ProfilUtilisateur[];
 
     constructor(private http: Http, private configService: ConfigService) {
         super();
@@ -22,7 +22,7 @@ export class BuddyService extends BaseService {
     init(){
         this.Followed=new Array<ProfilUtilisateur>();
         this.Follower=new Array<ProfilUtilisateur>();
-        this.UnknownUsers=new Array<ProfilUtilisateur>();
+        this.UserNotFollowed=new Array<ProfilUtilisateur>();
     }
     getFollowed(){
         this.http
@@ -38,15 +38,14 @@ export class BuddyService extends BaseService {
             this.Follower=res.json() as ProfilUtilisateur[];
         })
     }
-    getUnknownUsers(){
+    getUserNotFollowed(){
         this.http
         .get("/api/profil")
         .subscribe(res =>{
-            this.UnknownUsers=this.array_diff(res.json() as ProfilUtilisateur[],this.Followed);
-            console.log(this.UnknownUsers);
+            this.UserNotFollowed=this.substractArray(res.json() as ProfilUtilisateur[],this.Followed);
         })
     }
-    array_diff(arr1:ProfilUtilisateur[], arr2:ProfilUtilisateur[]){
+    substractArray(arr1:ProfilUtilisateur[], arr2:ProfilUtilisateur[]){
         var temp_arr = [];
         for(var i=0; i<arr1.length; i++){
             if(arr2.indexOf(arr1[i]) == -1){  
@@ -68,7 +67,7 @@ export class BuddyService extends BaseService {
         .post("/api/following/unfollow/"+localStorage.getItem("profilId")+"/"+user.profilId,null);
     }
     resetSuggestion(){
-        this.UnknownUsers=this.array_diff(this.UnknownUsers,this.Followed);
+        this.UserNotFollowed=this.substractArray(this.UserNotFollowed,this.Followed);
     }
    
 }
