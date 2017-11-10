@@ -56,8 +56,9 @@ export class MapComponent implements OnInit {
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
     }
-    
-
+    updateZone():void{
+        this.ref.detectChanges();
+    }
     PreUploadImage(event:any):void
     {
         let files: FileList;

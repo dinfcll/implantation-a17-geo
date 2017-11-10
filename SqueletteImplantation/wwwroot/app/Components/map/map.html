@@ -132,22 +132,21 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Difficulté</label>
                                 <div class="col-lg-8">
+                                        <h3 class="margin-fix" *ngIf="currentmarqueur.difficulte==1">Débutant</h3>
+                                        <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==2">Intermédiaire</h3>
+                                        <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==3">Avancé </h3>
                                     <label>
-                                        <input type="radio" name="1" value="1" [(ngModel)]="currentmarqueur.difficulte" />
+                                        <input type="radio" name="1" value="1" [(ngModel)]="currentmarqueur.difficulte" (click)="updateZone()"/>
                                         <i class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-1': currentmarqueur.difficulte==1,'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}" aria-hidden="true"></i>
                                     </label>
                                     <label>
-                                        <input type="radio" name="2" value="2" [(ngModel)]="currentmarqueur.difficulte" />
+                                        <input type="radio" name="2" value="2" [(ngModel)]="currentmarqueur.difficulte" (click)="updateZone()"/>
                                         <i class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>
                                     </label>
                                     <label>
-                                        <input type="radio" name="3" value="3" [(ngModel)]="currentmarqueur.difficulte"/>
+                                        <input type="radio" name="3" value="3" [(ngModel)]="currentmarqueur.difficulte" (click)="updateZone()"/>
                                         <i class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>
-                                    </label>
-                                    :  <h3 class="margin-fix" *ngIf="currentmarqueur.difficulte==1">Débutant</h3>
-                                    <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==2">Intermédiaire</h3>
-                                    <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==3">Avancé </h3>
-                              
+                                    </label>         
                                 </div>
                             </div>
                         </div>
