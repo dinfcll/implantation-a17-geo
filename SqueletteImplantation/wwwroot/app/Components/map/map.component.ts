@@ -537,6 +537,7 @@ export class MapComponent implements OnInit {
             this.tServicesRando.push(s.toString())
         }
         console.log(this.tServicesRando);
+        this.ref.detectChanges();
     }
         
 }

@@ -149,6 +149,33 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-lg-3 control-label">Services:</label>
+                                <div class="col-lg-8">
+                                    <div class="row services-icones">
+                                        <button class="col-md-2 btn-danger" type="button" (click)="modifServicesRandonne(0)" 
+                                            [ngClass]="{'btn-danger': tServicesRando.indexOf('0') == -1, 'btn-success': tServicesRando.indexOf('0') >= 0}"
+                                            title="Toilettes"><img src="{{tPathServicesImages[0]}}" alt="Toilettes">
+                                        </button>
+                                        <button class="col-md-2 btn-danger" type="button" (click)="modifServicesRandonne(1)" 
+                                            [ngClass]="{'btn-danger': tServicesRando.indexOf('1') == -1, 'btn-success': tServicesRando.indexOf('1') >= 0}"
+                                            title="Eau Potable"><img src="{{tPathServicesImages[1]}}" alt="Eau Potable">
+                                        </button>
+                                        <button class="col-md-2 btn-danger" type="button" (click)="modifServicesRandonne(2)" 
+                                            [ngClass]="{'btn-danger': tServicesRando.indexOf('2') == -1, 'btn-success': tServicesRando.indexOf('2') >= 0}"
+                                            title="Accès Handicapé"><img src="{{tPathServicesImages[2]}}" alt="Accès Handicapé">
+                                        </button>
+                                        <button class="col-md-2 btn-danger" type="button" (click)="modifServicesRandonne(3)" 
+                                            [ngClass]="{'btn-danger': tServicesRando.indexOf('3') == -1, 'btn-success': tServicesRando.indexOf('3') >= 0}"
+                                            title="Stationnement"><img src="{{tPathServicesImages[3]}}" alt="Stationnement">
+                                        </button>
+                                        <button class="col-md-2 btn-danger" type="button" (click)="modifServicesRandonne(4)" 
+                                            [ngClass]="{'btn-danger': tServicesRando.indexOf('4') == -1, 'btn-success': tServicesRando.indexOf('4') >= 0}"
+                                            title="Chemin Balisé"><img src="{{tPathServicesImages[4]}}" alt="Chemin Balisé">
+                                        </button>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-lg-3 control-label">Difficulté</label>
                                 <div class="col-lg-8">
                                         <h3 class="margin-fix" *ngIf="currentmarqueur.difficulte==1">Débutant</h3>
