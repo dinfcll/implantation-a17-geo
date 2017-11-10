@@ -35,6 +35,8 @@ export class MapComponent implements OnInit {
      public imagebuffer:any[];
      public ProfilCourrant:number;
      public couleurMarqueurCourant:string;
+     public tPathServicesImages: string[];
+     public tServicesRando: string[];
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -57,6 +59,12 @@ export class MapComponent implements OnInit {
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
         this.couleurMarqueurCourant = '../../../images/current_icone.svg'
+        this.tPathServicesImages = ['../../../images/servicesimages/toilettes.PNG',
+                                    '../../../images/servicesimages/eaupotable.PNG',
+                                    '../../../images/servicesimages/acceshandicape.PNG',
+                                    '../../../images/servicesimages/stationnement.PNG',
+                                    '../../../images/servicesimages/balise.PNG'];
+        this.tServicesRando = new Array();
     }
     
 
@@ -486,6 +494,18 @@ export class MapComponent implements OnInit {
         });
 
         this.tracetrajet.setMap(this.map);
+    }
+
+    modifServicesRandonne(s: number){
+        console.log(this.tServicesRando);
+        let index = this.tServicesRando.indexOf(s.toString());
+        if(index >= 0) {
+            this.tServicesRando.splice(index, 1);            
+        }
+        else {
+            this.tServicesRando.push(s.toString())
+        }
+        console.log(this.tServicesRando);
     }
         
 }

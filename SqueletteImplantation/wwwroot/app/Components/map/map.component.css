@@ -64,6 +64,17 @@ button.disabled:hover {
 .cancel{
   background-color: rgb(190, 55, 55);
 }
+
 .services-icones{
-  font-size: 100px;
+  padding-right: 15px;
+  padding-left: 15px
+}
+.services-icones button{
+  padding: 0px;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+.services-icones button img{
+  height: 25px;
 }
