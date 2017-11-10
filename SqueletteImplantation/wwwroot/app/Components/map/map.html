@@ -79,6 +79,26 @@
                                         [(ngModel)]="currentmarqueur.desc" required></textarea>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Services:</label>
+                                <div class="col-lg-8 services-icones">
+                                    <div class="checkbox-inline" title="Toilettes">
+                                        <label><input type="checkbox" value="">🚻</label>
+                                    </div>
+                                    <div class="checkbox-inline" title="Eau Potable">
+                                        <label><input type="checkbox" value="">🚰</label>
+                                    </div>
+                                    <div class="checkbox-inline" title="Accès Handicapé">
+                                        <label><input type="checkbox" value="">♿</label>
+                                    </div>
+                                    <div class="checkbox-inline"title="Stationnement">
+                                        <label><input type="checkbox" value="">🅿</label>
+                                    </div>
+                                    <div class="checkbox-inline" title="Chemin Balisé">
+                                        <label><input type="checkbox" value="">🚩</label>
+                                    </div> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
