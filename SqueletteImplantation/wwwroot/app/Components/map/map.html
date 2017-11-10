@@ -49,7 +49,7 @@
                 </button>
             </div>
             <div class="col-md-3" (click)="Annulation()" *ngIf="stadetrace>0">
-                <button>
+                <button class="cancel">
                     <span class="buttonMessage cancel">
                         Annuler
                     </span>
@@ -236,7 +236,7 @@
                             </button>
                         </div>
                         <div class="col-md-4" (click)="supprimerMarqueur()" *ngIf="currentmarqueur.profilId==ProfilCourrant||utilisateurService.estAdmin()==1">
-                            <button>
+                            <button class="cancel">
                                 <span class="buttonMessage cancel">
                                     Supprimer
                                 </span>
