@@ -12,7 +12,6 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class BuddyService extends BaseService {
 
-    
     Followed:ProfilUtilisateur[];
     Follower:ProfilUtilisateur[];
     UserNotFollowed:ProfilUtilisateur[];
