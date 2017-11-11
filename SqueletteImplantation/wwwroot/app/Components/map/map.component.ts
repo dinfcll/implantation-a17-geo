@@ -64,11 +64,7 @@ export class MapComponent implements OnInit {
     remiseZeroMarqueurCurrentMarqueur():void
     {
         this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","");
-    }
-    showGallery(){
-        new jBox('Image');
-    }
-    
+    }    
 
     PreUploadImage(event:any):void
     {
@@ -323,6 +319,9 @@ export class MapComponent implements OnInit {
         if(images)
         {
             let tabImage = images.split(',');
+            console.log(tabImage);
+            tabImage.splice(tabImage.length-1, 1)
+            console.log(tabImage);
             for(let i = 0; i < tabImage.length; i++)
             {
                 tabImage[i] = "../../../images/banqueImageMarqueur/" + tabImage[i];
