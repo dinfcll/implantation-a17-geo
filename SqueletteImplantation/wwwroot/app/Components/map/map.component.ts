@@ -111,12 +111,12 @@ export class MapComponent implements OnInit {
     AjoutImagesBanqueMarqueur(fichierImage:File):void{
         const formData = new FormData();
         formData.append("fichier", fichierImage);
-        formData.append("nomFichier", fichierImage.name);
-        this.http.post("api/marqueurs/banqueimage/" + this.curidmarq, formData)
+        formData.append("extFichier", fichierImage.name.split('.').pop());
+        this.http.post("api/marqueurs/banqueimage/" + this.currentmarqueur.id, formData)
         .subscribe( res => {
             if(res)
             {
-                console.log(res.json());
+                console.log(res);
                 //this.banqueImageMarqueur.unshift(res.json());
             }
             else

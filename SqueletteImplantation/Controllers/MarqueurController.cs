@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.Models;
 using System;
@@ -14,10 +15,12 @@ namespace SqueletteImplantation.Controllers
     public class MarqueurController
     {
         private readonly MaBd _maBd;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public MarqueurController(MaBd maBd)
+        public MarqueurController(MaBd maBd, IHostingEnvironment env)
         {
             _maBd = maBd;
+            _hostingEnvironment = env;
         }
 
         [HttpGet]
@@ -92,27 +95,24 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/marqueurs/banqueimage/{id}")]
-        public IActionResult AjoutImageABanqueImage(int id, IList<IFormFile> fichier, string nomFichier)
-        {
-            int nb = fichier.Count;
-            
-            /* 
-            var marqueurCourant = _maBd.Marqueur.FirstOrDefault(m => m.Id == id);
-
-            if(marqueurCourant == null)
+        public IActionResult AjoutImageABanqueImage(int id, IFormFile fichier, string extFichier)
+        {                   
+            var marqueur = _maBd.Marqueur.FirstOrDefault(m => m.Id == id);
+            if(marqueur == null)
             {
                 return NotFound();
             }
-            
-            int idUniqueFichier = Directory.GetFiles("../wwwwroot/images/banqueImageMarqueur/","*",SearchOption.TopDirectoryOnly).Length;
-            string nomUniqueFichier = id.ToString() + marqueurCourant.Nom + idUniqueFichier.ToString();
-            string CheminImage = "../wwwwroot/images/banqueImageMarqueur/" + nomUniqueFichier;
-            
+            string cheminRoot = _hostingEnvironment.WebRootPath;
+            string cheminImageUbuntu = "/images/banqueImageMarqueur/";
+            int idUniqueFichier = Directory.GetFiles(cheminRoot + cheminImageUbuntu,"*",SearchOption.TopDirectoryOnly).Length;
+            string nomUniqueFichier = id.ToString() + marqueur.Nom + idUniqueFichier.ToString()+ "." + extFichier;
+            fichier.CopyTo(new FileStream(cheminRoot + cheminImageUbuntu + nomUniqueFichier, FileMode.Create));
 
-            marqueurCourant.BanqueImage = nomUniqueFichier + marqueurCourant.BanqueImage;
-            _maBd.SaveChanges(); */
+            marqueur.BanqueImage = nomUniqueFichier + "," + marqueur.BanqueImage;
+            _maBd.SaveChanges(); 
+                
+            return new OkObjectResult(nomUniqueFichier);
             
-            return new OkObjectResult(nb);
         }
     }
 }
