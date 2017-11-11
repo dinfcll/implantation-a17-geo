@@ -116,8 +116,8 @@ export class MapComponent implements OnInit {
         .subscribe( res => {
             if(res)
             {
-                console.log(res);
-                //this.banqueImageMarqueur.unshift(res.json());
+                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift("../../../images/banqueImageMarqueur/" + res.text());
+                this.ref.detectChanges();
             }
             else
             {
@@ -318,6 +318,24 @@ export class MapComponent implements OnInit {
         });
     }
 
+    constructionArrayImageMarqueur(images:string):string[]
+    {
+        if(images)
+        {
+            let tabImage = images.split(',');
+            for(let i = 0; i < tabImage.length; i++)
+            {
+                tabImage[i] = "../../../images/banqueImageMarqueur/" + tabImage[i];
+            }
+            return tabImage;
+        }
+        else
+        {
+            let tabVide = new Array();
+            return tabVide;
+        }
+    }
+
     AjoutMarker (info: Marqueur): any {
         var color:string = '#f3123d';
         if(info.icone > 0){
@@ -338,7 +356,8 @@ export class MapComponent implements OnInit {
             click: false,
             cheminTrajet: chemin,
             informationMarqueur: info,
-            marqid: this.googlemarq.length
+            marqid: this.googlemarq.length,
+            tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
         if(this.curidmarq < this.googlemarq.length)
