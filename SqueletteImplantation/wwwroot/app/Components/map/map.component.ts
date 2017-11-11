@@ -83,12 +83,18 @@ export class MapComponent implements OnInit {
                         this.image = e.target.result;
                     } else if (this.modmarq){
                         this.currentmarqueur.imageMarqueur = e.target.result;
-                    } else {
-                        this.AjoutImagesBanqueMarqueur(e.target.result);
                     }
                     this.ref.detectChanges();
                 };
-                fr.readAsDataURL(files[0]);
+                if(this.DetailsView)
+                {
+                    this.AjoutImagesBanqueMarqueur(files[0]);
+                }
+                else{
+                    fr.readAsDataURL(files[0]);
+                }
+                
+                
             } 
             else
             {
@@ -102,8 +108,26 @@ export class MapComponent implements OnInit {
         }
     }
 
-    AjoutImagesBanqueMarqueur(imageUrl:string):void{
-        this.banqueImageMarqueur.unshift(imageUrl);
+    AjoutImagesBanqueMarqueur(fichierImage:File):void{
+        const formData = new FormData();
+        formData.append("fichier", fichierImage);
+        formData.append("nomFichier", fichierImage.name);
+        this.http.post("api/marqueurs/banqueimage/" + this.curidmarq, formData)
+        .subscribe( res => {
+            if(res)
+            {
+                console.log(res.json());
+                //this.banqueImageMarqueur.unshift(res.json());
+            }
+            else
+            {
+                new jBox('Notice', {
+                    content: 'Intégration non possible',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
     }
 
     messageErreurActionSurCarte():void{

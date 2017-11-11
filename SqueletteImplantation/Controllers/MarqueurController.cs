@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -91,22 +92,27 @@ namespace SqueletteImplantation.Controllers
 
         [HttpPost]
         [Route("api/marqueurs/banqueimage/{id}")]
-        public IActionResult AjoutImageABanqueImage(int id, string image)
+        public IActionResult AjoutImageABanqueImage(int id, IList<IFormFile> fichier, string nomFichier)
         {
+            int nb = fichier.Count;
+            
+            /* 
             var marqueurCourant = _maBd.Marqueur.FirstOrDefault(m => m.Id == id);
 
             if(marqueurCourant == null)
             {
                 return NotFound();
             }
+            
             int idUniqueFichier = Directory.GetFiles("../wwwwroot/images/banqueImageMarqueur/","*",SearchOption.TopDirectoryOnly).Length;
-            string nomUniqueFichier = id.ToString() + marqueurCourant.Nom + idUniqueFichier.ToString() + ".gif";
+            string nomUniqueFichier = id.ToString() + marqueurCourant.Nom + idUniqueFichier.ToString();
             string CheminImage = "../wwwwroot/images/banqueImageMarqueur/" + nomUniqueFichier;
-            File.WriteAllBytes(CheminImage,Convert.FromBase64String(image));
+            
 
             marqueurCourant.BanqueImage = nomUniqueFichier + marqueurCourant.BanqueImage;
-            _maBd.SaveChanges();
-            return new OkResult();
+            _maBd.SaveChanges(); */
+            
+            return new OkObjectResult(nb);
         }
     }
 }
