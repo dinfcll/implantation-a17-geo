@@ -35,7 +35,6 @@ export class MapComponent implements OnInit {
      public imagebuffer:any[];
      public ProfilCourrant:number;
      public couleurMarqueurCourant:string;
-     public banqueImageMarqueur:string[];
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -58,7 +57,20 @@ export class MapComponent implements OnInit {
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
-        this.banqueImageMarqueur = new Array();
+
+    }
+
+    showGallery(index:number):void{
+        document.getElementById('GalleryImage').style.width = "100%";
+        let image = document.createElement("img");
+        image.src = this.googlemarq[this.curidmarq].tabImageMarqueur[index];
+        image.id = 'ImageDansGallery';
+        document.getElementById('PresentationImage').appendChild(image);
+    }
+
+    fermeGallery():void{
+        document.getElementById('GalleryImage').style.width = "0%";
+        document.getElementById('ImageDansGallery').remove();
     }
 
     remiseZeroMarqueurCurrentMarqueur():void
@@ -319,9 +331,7 @@ export class MapComponent implements OnInit {
         if(images)
         {
             let tabImage = images.split(',');
-            console.log(tabImage);
             tabImage.splice(tabImage.length-1, 1)
-            console.log(tabImage);
             for(let i = 0; i < tabImage.length; i++)
             {
                 tabImage[i] = "../../../images/banqueImageMarqueur/" + tabImage[i];

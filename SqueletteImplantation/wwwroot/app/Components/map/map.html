@@ -209,8 +209,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2" *ngFor="let bimg of googlemarq[curidmarq].tabImageMarqueur">
-                            <a [href]="bimg" data-jbox-gallery="gallery1" title="My image">
+                        <div class="col-md-2" *ngFor="let bimg of googlemarq[curidmarq].tabImageMarqueur; let i = index">
+                            <a (click)="showGallery(i)">
                                 <img [src]="bimg" class="img-thumbnail img-responsive banqueImgMarqueur" style="pointer-events: none;">
                             </a>
                         </div>
@@ -218,5 +218,12 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="GalleryImage" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" (click)="fermeGallery()">x</a>
+    <div id="PresentationImage" class="overlay-content">
+
     </div>
 </div>
