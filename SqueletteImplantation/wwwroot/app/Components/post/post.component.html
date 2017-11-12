@@ -1,56 +1,13 @@
-<div class="jumbotron container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-
-            <h2>Publications</h2> <br> 
-                                     
-            <form class="form-horizontal" role="form"> 
-
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-2">
-                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Titre...">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-2">
-                        <input class="form-control" type="text" name="postText" [(ngModel)]="postText" placeholder="Texte...">
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="col-md-1">
-                            <img [src]="postSubmit" class="imgSubmit" style="pointer-events: none;" height="auto" width="300px;">
-                            <input type="file" (change)="OnPreLoadImage($event)"/>   
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-2 col-md-offset-7"> 
-                                <button class="button button--publier button--text button--inverted pull-right" 
-                                    (click)="submitPost(postTitle, postText)">
-                                    <i class="button__icon fa fa-paper-plane"></i>
-                                    <span>Publier</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>            
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="jumbotron container" *ngFor="let p of posts">
+<div class="jumbotron container" >
         
     <div class="row">
 
         <div class="col-md-10 col-md-offset-1">
 
             <div class="col-md-1">
-                <img [src]="utilisateurservice.getProimage()" class="img-circle img-responsive" 
+                <img [src]="utilisateurservice." class="img-circle img-responsive" 
                     style="pointer-events: none;">
-                <div class="usernamepost text-center">@{{utilisateurservice.getUsername()}}</div>
+                <div class="usernamepost text-center"></div>
             </div>
             
             <div class="form-group">
@@ -66,7 +23,7 @@
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-3">  
 
-                    <button class="button button--post" (click)="onDeletePost(p)">
+                    <button class="button button--post" (click)="onDeletePost()">
                         <i class="button__icon fa fa-trash"></i>
                         <span>Supprimer</span>
                     </button>
@@ -75,17 +32,17 @@
                         <i class="button__icon fa fa-pencil"></i>
                         <span>Modifier</span>
                     </button>
-    
-                    <input type="checkbox" class="pull-right" id="checkbox" [checked]="selectedLike == p"/>
-                    <label for="checkbox" class="pull-right" (click)="onLike(p)">
+
+                    <input type="checkbox" class="pull-right checkboxx" [checked]="bLike == true"/>
+                    <label for="checkboxx" class="pull-right" (click)="onLike()">
                         <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg"><g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)"><path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2"/><circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/><g id="grp7" opacity="0" transform="translate(7 6)"><circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/><circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/></g><g id="grp6" opacity="0" transform="translate(0 28)"><circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/><circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/></g><g id="grp3" opacity="0" transform="translate(52 28)"><circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/><circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/></g><g id="grp2" opacity="0" transform="translate(44 6)" fill="#CC8EF5"><circle id="oval2" transform="matrix(-1 0 0 1 10 0)" cx="5" cy="6" r="2"/><circle id="oval1" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp5" opacity="0" transform="translate(14 50)" fill="#91D2FA"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp4" opacity="0" transform="translate(35 50)" fill="#F48EA7"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp1" opacity="0" transform="translate(24)" fill="#9FC7FA"><circle id="oval1" cx="2.5" cy="3" r="2"/><circle id="oval2" cx="7.5" cy="2" r="2"/></g></g></svg>                        
                         {{p.postLike}} 
-                    </label> 
-
+                    </label>
+                                     
                 </div>  
             </div>
        
-            <div *ngIf="selectedPost == p">
+            <div *ngIf="bModif">
        
                 <div class="form-group">
                     <label id="littleTitle" class="col-md-2 col-md-offset-3 control-label">Titre :</label>
@@ -112,7 +69,7 @@
                             <span>Confirmer</span>
                         </button>
 
-                        <button class="button button--post" (click)="cancelModifyBtn()">
+                        <button class="button button--post" (click)="onModifyBtn()">
                             <i class="button__icon fa fa-times"></i>
                             <span>Annuler</span>
                         </button> 
