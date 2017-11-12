@@ -66,7 +66,7 @@ export class MapComponent implements OnInit {
         document.getElementById('GalleryImage').style.width = "100%";
         let image = document.createElement("img");
         image.src = this.googlemarq[this.curidmarq].tabImageMarqueur[index];
-        image.style.height = "100%";
+        image.style.maxHeight = "100%";
         image.id = 'ImageDansGallery';
         document.getElementById('PresentationImage').appendChild(image);
     }
