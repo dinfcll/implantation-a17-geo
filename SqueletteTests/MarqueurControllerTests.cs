@@ -11,14 +11,14 @@ using Xunit;
 
 namespace SqueletteTests
 {
+
     public class MarqueurControllerTests
     {
         //un commentaire
         private Marqueur marqueur;
-
         private readonly MarqueurController _marqueurControlleur;
 
-        public MarqueurControllerTests(IHostingEnvironment env)
+        public MarqueurControllerTests()
         {
             var options = new DbContextOptionsBuilder<MaBd>()
                 .UseInMemoryDatabase("DatabaseMarqueur-" + $"{Guid.NewGuid()}")
@@ -34,9 +34,8 @@ namespace SqueletteTests
             marqueur.Longitude = -71.256m;
             marqueur.Trajetlat = "lat";
             marqueur.Trajetlng = "lng";
-            
 
-            _marqueurControlleur = new MarqueurController(bdEnMemoire, env);
+            _marqueurControlleur = new MarqueurController(bdEnMemoire, null);
         }
 
         [Fact]
