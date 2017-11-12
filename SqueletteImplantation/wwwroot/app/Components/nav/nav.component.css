@@ -180,8 +180,8 @@
 .menu-open:checked ~ .menu-item:nth-child(8) {
   transition-duration: 680ms;
   -webkit-transition-duration: 680ms;
-  -webkit-transform: translate3d(-370.24125px, 0, 0);
-  transform: translate3d(-370.24125px, 0, 0);
+  -webkit-transform: translate3d(-434.85516px, 0, 0);
+  transform: translate3d(-434.85516px, 0, 0);
   z-index: 1;
 }
 

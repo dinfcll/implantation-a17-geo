@@ -162,4 +162,12 @@ export class UtilisateurService extends BaseService {
     estAdmin() {
         return localStorage.getItem('bAdmin');
     }
+
+    modifTypeUtil(id: number, typeutil: number) {
+        return this.http
+            .put(this.baseUrl + '/utilisateur/modiftypeutil/' + id + '/' + typeutil,
+                JSON.stringify({ id, typeutil}))
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
 }

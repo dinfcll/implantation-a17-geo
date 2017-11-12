@@ -56,7 +56,12 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
-        this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+
+        if(localStorage.getItem('profilId') === ""){
+            this.ProfilCourrant = -1;
+        }else{
+            this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        }        
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
         this.imageActuelGallery = -1;
     }
@@ -99,8 +104,13 @@ export class MapComponent implements OnInit {
 
     remiseZeroMarqueurCurrentMarqueur():void
     {
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","");
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0);
     }    
+
+    updateDifficulte(selectedDiff:number):void{
+        this.currentmarqueur.difficulte=selectedDiff;
+        this.ref.detectChanges();
+    }
 
     PreUploadImage(event:any):void
     {
@@ -193,6 +203,7 @@ export class MapComponent implements OnInit {
         }     
     }
 
+
     PermissionDetails():void {
         if(this.stadetrace === 0 && !this.AcceptMarker && !this.modmarq)
         {
@@ -222,14 +233,14 @@ export class MapComponent implements OnInit {
         this.http.delete("api/marqueurs/"+ this.currentmarqueur.id)
         .subscribe((res)=>{
             if(res.status === 200){
-                informationSuppression = "le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
+                informationSuppression = "Le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
                 this.googlemarq[this.curidmarq].cheminTrajet.setMap(null);
                 this.googlemarq[this.curidmarq].setMap(null);
                 couleurBox = "green";
                 this.DetailsView = false;
                 this.ref.detectChanges();
             } else{
-                informationSuppression = "échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
+                informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
                 couleurBox = "red";
             }
             new jBox('Notice', {
@@ -345,9 +356,10 @@ export class MapComponent implements OnInit {
 
     retraitCouleurCurrentMarqueur():void
     {
-        this.googlemarq.forEach((mark)=>{
-            mark.setIcon(this.banqueimageicone[mark.informationMarqueur.icone]);
-        });
+        if(this.currentmarqueur.nom){
+            this.googlemarq[this.curidmarq]
+            .setIcon(this.banqueimageicone[this.currentmarqueur.icone]);
+        }
     }
 
     constructionArrayImageMarqueur(images:string):string[]
@@ -407,8 +419,9 @@ export class MapComponent implements OnInit {
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
                     this.curidmarq = marker.marqid;
+                    this.PermissionDetails();      
                     this.ref.detectChanges();
-                    this.PermissionDetails();                  
+                    console.log(this.googlemarq[this.curidmarq]);          
                 }
 
                 
@@ -435,6 +448,7 @@ export class MapComponent implements OnInit {
                 }
             } else {
                 this.map.setZoom(10);
+                this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;

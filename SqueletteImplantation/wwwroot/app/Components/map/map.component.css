@@ -69,8 +69,6 @@ button.disabled:hover {
   height: 100px !important;
 }
 
-
-
 .overlay{
   height: 100%;
   width: 0;
@@ -119,4 +117,27 @@ button.disabled:hover {
   font-size: 60px;
 }
 
+.margin-fix{
+  margin:4px;
+}
+.difficult-not{
+  color:rgba(149, 146, 146, 0.90);
+}
+.difficult-1{
+  color:#1DDF1D;
+}
+.difficult-2{
+  color:yellow;
+}
+.difficult-3{
+  color:red;
+}
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + i{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
 

@@ -18,7 +18,7 @@ namespace SqueletteImplantation.DbEntities.Models
         public int profilId { get; set; }
         public Profil Profil { get; set; }
         public string ImageMarqueur { get; set; }
-
         public string BanqueImage { get; set; }
+        public int Difficulte { get; set; }
     }
 }
