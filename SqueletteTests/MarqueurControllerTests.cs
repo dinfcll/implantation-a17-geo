@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.Controllers;
 using SqueletteImplantation.DbEntities;
@@ -17,7 +18,7 @@ namespace SqueletteTests
 
         private readonly MarqueurController _marqueurControlleur;
 
-        public MarqueurControllerTests()
+        public MarqueurControllerTests(IHostingEnvironment env)
         {
             var options = new DbContextOptionsBuilder<MaBd>()
                 .UseInMemoryDatabase("DatabaseMarqueur-" + $"{Guid.NewGuid()}")
@@ -33,8 +34,9 @@ namespace SqueletteTests
             marqueur.Longitude = -71.256m;
             marqueur.Trajetlat = "lat";
             marqueur.Trajetlng = "lng";
+            
 
-            _marqueurControlleur = new MarqueurController(bdEnMemoire);
+            _marqueurControlleur = new MarqueurController(bdEnMemoire, env);
         }
 
         [Fact]
