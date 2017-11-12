@@ -64,3 +64,26 @@ button.disabled:hover {
 .cancel{
   background-color: rgb(190, 55, 55);
 }
+.margin-fix{
+  margin:4px;
+}
+.difficult-not{
+  color:rgba(149, 146, 146, 0.90);
+}
+.difficult-1{
+  color:#1DDF1D;
+}
+.difficult-2{
+  color:yellow;
+}
+.difficult-3{
+  color:red;
+}
+label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + i{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:2px solid transparent;
+}
