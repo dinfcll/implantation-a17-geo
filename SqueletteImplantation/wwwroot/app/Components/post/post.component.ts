@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
+import { UtilisateurService } from '../../services/utilisateur.service';
 import { UserPostService } from '../../services/userpost.service';
 
 declare var jBox :any;
@@ -16,11 +17,24 @@ declare var jBox :any;
 export class PostUserComponent {
 
     @Input() p: UserPost;
+    profil : ProfilUtilisateur;
 
     bLike: boolean = false;
     bModif: boolean = false;
 
-    constructor(private userpostservice: UserPostService) { }
+    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
+        this.onGetImageProfil();
+    }
+
+    onGetImageProfil() {
+        this.utilisateurservice
+        .getProfilById(String(this.p.profilId))
+        .subscribe(res => {
+            if(res) {
+                this.profil = res;
+            }
+        })
+    }
 
     onModifyBtn() {
         this.bModif = !this.bModif;

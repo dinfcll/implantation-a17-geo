@@ -127,19 +127,5 @@ namespace SqueletteImplantation.Controllers
 
             return new OkResult();
         }
-
-        [HttpPost]
-        [Route("api/profil/getImage")]
-        public IActionResult GetImage(int id)
-        {
-            var img = _maBd.Profil.FirstOrDefault(pr => pr.profilId == id);
-
-            if (img == null)
-            {
-                return new OkObjectResult(null);
-            }
-
-            return new OkObjectResult(img.profilimage);
-        }
     }
 }
