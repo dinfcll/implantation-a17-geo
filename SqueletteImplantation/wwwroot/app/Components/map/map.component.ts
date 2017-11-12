@@ -35,6 +35,7 @@ export class MapComponent implements OnInit {
      public imagebuffer:any[];
      public ProfilCourrant:number;
      public couleurMarqueurCourant:string;
+     public imageActuelGallery:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
@@ -57,13 +58,15 @@ export class MapComponent implements OnInit {
         });
         this.ProfilCourrant = Number(localStorage.getItem('profilId'));
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
-
+        this.imageActuelGallery = -1;
     }
 
     showGallery(index:number):void{
+        this.imageActuelGallery = index;
         document.getElementById('GalleryImage').style.width = "100%";
         let image = document.createElement("img");
         image.src = this.googlemarq[this.curidmarq].tabImageMarqueur[index];
+        image.style.height = "100%";
         image.id = 'ImageDansGallery';
         document.getElementById('PresentationImage').appendChild(image);
     }
@@ -71,6 +74,27 @@ export class MapComponent implements OnInit {
     fermeGallery():void{
         document.getElementById('GalleryImage').style.width = "0%";
         document.getElementById('ImageDansGallery').remove();
+        this.imageActuelGallery = -1;
+    }
+
+    prochaineImageGallery():void{
+        this.imageActuelGallery++;
+        if(this.imageActuelGallery >= this.googlemarq[this.curidmarq].tabImageMarqueur.length)
+        {
+            this.imageActuelGallery = 0;
+        }
+        document.getElementById('ImageDansGallery').setAttribute('src',
+            this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
+    }
+
+    imagePrecedentGallery():void{
+        this.imageActuelGallery--;
+        if(this.imageActuelGallery < 0)
+        {
+            this.imageActuelGallery = this.googlemarq[this.curidmarq].tabImageMarqueur.length - 1;
+        }
+        document.getElementById('ImageDansGallery').setAttribute('src',
+            this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
     }
 
     remiseZeroMarqueurCurrentMarqueur():void
