@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 
 import { UtilisateurService } from '../../services/utilisateur.service';
 
-declare var jBox: any;
-
 @Component({
     selector: 'navBar',
     templateUrl: './nav.component.html',
@@ -12,12 +10,13 @@ declare var jBox: any;
 })
 
 export class NavBarComponent {
-    public username :string;
+
+    public username: string;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router) { };
     
     ngOnInit(): void {
-        this.username=localStorage.getItem("username");
+        this.username = localStorage.getItem("username");
     }
 
     onLogout() {

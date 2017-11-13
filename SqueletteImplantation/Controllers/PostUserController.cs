@@ -52,6 +52,7 @@ namespace SqueletteImplantation.Controllers
             }
 
             _maBd.Entry(post).CurrentValues.SetValues(updatedPost);
+            _maBd.SaveChanges();
 
             return new OkObjectResult(post);
         }

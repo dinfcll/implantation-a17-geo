@@ -57,6 +57,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(null);
         }
+        
         [HttpGet]
         [Route("api/marqueurs/{id}")]
         public IActionResult GetMarqueur(int id)

@@ -14,7 +14,6 @@ namespace SqueletteImplantation.Controllers
     {
         private readonly MaBd _maBd;
 
-
         public ProfilController(MaBd maBd)
         {
             _maBd = maBd;
@@ -40,11 +39,12 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+
         [HttpGet]
         [Route("api/profilbyid/{profilId}")]
-        public IActionResult GetProfibyId(string profilId)
+        public IActionResult GetProfibyId(int profilId)
         {
-            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId ==int.Parse(profilId));
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == profilId);
 
             if (profil == null)
             {
@@ -53,11 +53,13 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+
         [HttpPost]
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
         {
             var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+
             if (trouve == null)
             {
                 var profil = profilDto.CreateProfil();
@@ -67,10 +69,8 @@ namespace SqueletteImplantation.Controllers
 
                 return new OkObjectResult(profil);
             }
-            else
-            {
-                return new OkObjectResult(null);
-            }            
+
+            return new OkObjectResult(null);          
         }
 
         [HttpPut]
@@ -107,7 +107,7 @@ namespace SqueletteImplantation.Controllers
             }
 
             return new OkObjectResult(null);
-                        
+
         }
 
         [HttpDelete]

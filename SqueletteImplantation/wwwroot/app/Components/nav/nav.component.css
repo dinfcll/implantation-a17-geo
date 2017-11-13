@@ -252,6 +252,16 @@
   cursor: pointer;
   outline: none;
 }
+#imgpro {
+  float:left;
+  margin: auto;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  pointer-events: none;
+  cursor: pointer;
+  outline: none;
+}
 .buddy {
   background-color: #9B47BD;
   box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
@@ -264,11 +274,5 @@
 }
 
 
-#imgpro{
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  pointer-events: none;
-}
 
 

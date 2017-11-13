@@ -7,6 +7,8 @@ namespace SqueletteImplantation.DbEntities.DTOs
         public string postTitle { get; set; }
         public string postText { get; set; }
         public int postId { get; set; }
+        public string postImg { get; set; }
+        public int profilId { get; set; }
 
         public PostUserDto(string title, string txt) 
         {
@@ -16,7 +18,8 @@ namespace SqueletteImplantation.DbEntities.DTOs
 
         public PostsUser CreatePostUser()
         {
-            return new PostsUser { postTitle = postTitle, postText = postText, postId = postId };
+            return new PostsUser { postTitle = postTitle, postText = postText, 
+                postId = postId, profilId = profilId, postImg = postImg };
         }
     }
 }
