@@ -79,15 +79,35 @@ namespace SqueletteImplantation.Controllers
         {
             var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == updatedprofil.profilId);
 
-            if (oldprofil == null)
+            if (oldprofil != null)
             {
-                return new OkObjectResult(null);
+                var utilisateur = _maBd.Utilisateur.FirstOrDefault(u => u.email == oldprofil.courriel);
+
+                if (utilisateur != null)
+                {
+                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
+
+                    if (trouve == null || trouve.Id == utilisateur.Id)
+                    {
+                        utilisateur.email = updatedprofil.courriel;
+
+                        _maBd.Utilisateur.Attach(utilisateur);
+
+                        var entry = _maBd.Entry(utilisateur);
+                        entry.Property(e => e.email).IsModified = true;
+                        _maBd.SaveChanges();
+
+                        _maBd.Profil.Attach(oldprofil);
+                        _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
+                        _maBd.SaveChanges();                                             
+
+                        return new OkObjectResult(updatedprofil);
+                    }                    
+                }                
             }
 
-            _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
-            _maBd.SaveChanges();                                             
+            return new OkObjectResult(null);
 
-            return new OkObjectResult(updatedprofil);
         }
 
         [HttpDelete]
