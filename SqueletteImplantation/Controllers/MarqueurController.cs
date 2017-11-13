@@ -39,12 +39,6 @@ namespace SqueletteImplantation.Controllers
                             select ami.FollowedId;
             //where id == followerId
             return _maBd.Marqueur.Where(m => idFollow.Contains(m.profilId) && m.profilId == id).ToList();
-
-
-                        return from b in _maBd.Following
-                   join c in _maBd.Profil on b.FollowedId equals c.profilId
-                   where b.FollowerId == int.Parse(id)
-                   select c;
         }
 
         [HttpPost]
