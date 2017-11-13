@@ -37,12 +37,13 @@ export class MapComponent implements OnInit {
      public couleurMarqueurCourant:string;
      public tPathServicesImages: string[];
      public tServicesRando: string[];
+     public imageActuelGallery:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "",0);
+        this.remiseZeroMarqueurCurrentMarqueur();
         this.marqtemp = new google.maps.Marker ({
             icon: this.banqueimageicone[1],
             draggable: true,
@@ -57,10 +58,47 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+
         if(localStorage.getItem('profilId') === ""){
             this.ProfilCourrant = -1;
         }else{
             this.ProfilCourrant = Number(localStorage.getItem('profilId'));
+        }        
+        this.couleurMarqueurCourant = '../../../images/current_icone.svg';
+        this.imageActuelGallery = -1;
+    }
+
+    showGallery(index:number):void{
+        this.imageActuelGallery = index;
+        document.getElementById('GalleryImage').style.width = "100%";
+        let image = document.createElement("img");
+        image.src = this.googlemarq[this.curidmarq].tabImageMarqueur[index];
+        image.style.maxHeight = "100%";
+        image.id = 'ImageDansGallery';
+        document.getElementById('PresentationImage').appendChild(image);
+    }
+
+    fermeGallery():void{
+        document.getElementById('GalleryImage').style.width = "0%";
+        document.getElementById('ImageDansGallery').remove();
+        this.imageActuelGallery = -1;
+    }
+
+    prochaineImageGallery():void{
+        this.imageActuelGallery++;
+        if(this.imageActuelGallery >= this.googlemarq[this.curidmarq].tabImageMarqueur.length)
+        {
+            this.imageActuelGallery = 0;
+        }
+        document.getElementById('ImageDansGallery').setAttribute('src',
+            this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
+    }
+
+    imagePrecedentGallery():void{
+        this.imageActuelGallery--;
+        if(this.imageActuelGallery < 0)
+        {
+            this.imageActuelGallery = this.googlemarq[this.curidmarq].tabImageMarqueur.length - 1;
         }
         this.couleurMarqueurCourant = '../../../images/current_icone.svg'
         this.tPathServicesImages = ['../../../images/servicesimages/toilettes.PNG',
@@ -69,11 +107,20 @@ export class MapComponent implements OnInit {
                                     '../../../images/servicesimages/stationnement.PNG',
                                     '../../../images/servicesimages/balise.PNG'];
         this.tServicesRando = new Array();
+        document.getElementById('ImageDansGallery').setAttribute('src',
+            this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
     }
+
+    remiseZeroMarqueurCurrentMarqueur():void
+    {
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0);
+    }    
+
     updateDifficulte(selectedDiff:number):void{
         this.currentmarqueur.difficulte=selectedDiff;
         this.ref.detectChanges();
     }
+
     PreUploadImage(event:any):void
     {
         let files: FileList;
@@ -90,7 +137,15 @@ export class MapComponent implements OnInit {
                     }
                     this.ref.detectChanges();
                 };
-                fr.readAsDataURL(files[0]);
+                if(this.DetailsView)
+                {
+                    this.AjoutImagesBanqueMarqueur(files[0]);
+                }
+                else{
+                    fr.readAsDataURL(files[0]);
+                }
+                
+                
             } 
             else
             {
@@ -102,6 +157,28 @@ export class MapComponent implements OnInit {
             }
 
         }
+    }
+
+    AjoutImagesBanqueMarqueur(fichierImage:File):void{
+        const formData = new FormData();
+        formData.append("fichier", fichierImage);
+        formData.append("extFichier", fichierImage.name.split('.').pop());
+        this.http.post("api/marqueurs/banqueimage/" + this.currentmarqueur.id, formData)
+        .subscribe( res => {
+            if(res)
+            {
+                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift("../../../images/banqueImageMarqueur/" + res.text());
+                this.ref.detectChanges();
+            }
+            else
+            {
+                new jBox('Notice', {
+                    content: 'Intégration non possible',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
     }
 
     messageErreurActionSurCarte():void{
@@ -118,7 +195,7 @@ export class MapComponent implements OnInit {
             this.AcceptMarker = !this.AcceptMarker;
             this.DetailsView=false;
             if(this.AcceptMarker){
-                this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"",0);
+                this.remiseZeroMarqueurCurrentMarqueur();
                 new jBox('Notice', {
                     content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
                     color: 'green',
@@ -270,7 +347,7 @@ export class MapComponent implements OnInit {
             path: []
         });
         this.map.setZoom(10);
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')),"",0);
+        this.remiseZeroMarqueurCurrentMarqueur();
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
@@ -294,6 +371,25 @@ export class MapComponent implements OnInit {
         }
     }
 
+    constructionArrayImageMarqueur(images:string):string[]
+    {
+        if(images)
+        {
+            let tabImage = images.split(',');
+            tabImage.splice(tabImage.length-1, 1)
+            for(let i = 0; i < tabImage.length; i++)
+            {
+                tabImage[i] = "../../../images/banqueImageMarqueur/" + tabImage[i];
+            }
+            return tabImage;
+        }
+        else
+        {
+            let tabVide = new Array();
+            return tabVide;
+        }
+    }
+
     AjoutMarker (info: Marqueur): any {
         var color:string = '#f3123d';
         if(info.icone > 0){
@@ -314,7 +410,8 @@ export class MapComponent implements OnInit {
             click: false,
             cheminTrajet: chemin,
             informationMarqueur: info,
-            marqid: this.googlemarq.length
+            marqid: this.googlemarq.length,
+            tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
         if(this.curidmarq < this.googlemarq.length)

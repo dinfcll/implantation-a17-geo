@@ -9,7 +9,7 @@ import { AdminComponent } from './Components/admin/admin.component';
 import { BuddiesComponent } from './Components/buddies/buddies.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
 import { MapComponent } from './Components/map/map.component';
-import { PostUserComponent } from './Components/post/post.component';
+import { PostPersoComponent } from './Components/postperso/postperso.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
 import { ResetPWComponent } from './Components/password-reset/resetPW.component';
 
@@ -34,8 +34,8 @@ export const routing: Routes = [
         canActivate: [AuthGuard]
     },
     {   
-        path: 'postUser',
-        component: PostUserComponent,
+        path: 'postPerso',
+        component: PostPersoComponent,
         canActivate: [AuthGuard]
     },
     {

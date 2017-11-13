@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router/';
+import { Component, Input, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
+import { PostPersoComponent } from '../postperso/postperso.component';
+
+import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
+
+import { UtilisateurService } from '../../services/utilisateur.service';
 import { UserPostService } from '../../services/userpost.service';
+
+declare var jBox :any;
 
 @Component({
     selector: 'postUser',
@@ -10,77 +18,73 @@ import { UserPostService } from '../../services/userpost.service';
     styleUrls: ['./post.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
-export class PostUserComponent implements OnInit {
+export class PostUserComponent implements OnInit{
 
-    posts : any[] = [];
-    bModif: boolean = false;
+    @Input() p: UserPost;
+    profil : ProfilUtilisateur;
+
     bLike: boolean = false;
+    bModif: boolean = false;
+    showPost: boolean = true;
 
-    constructor(private userpostservice: UserPostService, private router: Router) { }
-
-    ngOnInit(): void {
-        this.userpostservice
-            .getListPost()
-            .subscribe(res => {
-                this.posts = res;
-                console.log(this.posts);
-            });
+    constructor(private http: Http, private userpostservice: UserPostService, private router: Router) {
+        this.profil = new ProfilUtilisateur(-1,"","","","","");
     }
 
-    trackById(index: number, up: UserPost): number {
-        return up.postId;
+    ngOnInit() {
+        this.http
+        .get('api/profilbyid/' + this.p.profilId)
+        .subscribe(res => { this.profil = res.json(); })
     }
 
-    submitPost(postTitle: string, postText: string) {
-        this.userpostservice
-            .createPost(postTitle, postText)
-            .subscribe(res => {
-                if(res)
-                    this.posts.concat(res);
-             })
-    }
-
-    onModifyBtn(){
+    onModifyBtn() {
         this.bModif = !this.bModif;
     }
 
-    onModifyPost(p : UserPost, newtitle: string, newtext: string) {
-        p.postTitle = newtitle;
-        p.postText = newtext;
-        console.log(p);
+    onModifyPost(p : UserPost) {
         this.userpostservice
-            .modifyPost(p)
+        .modifyPost(p)
+        .subscribe(res => {
+            if (res) {
+                new jBox('Notice', {
+                    content: 'La publication a ete modifiee.', color: 'green', autoClose: 2000
+                });
+                this.bModif = !this.bModif;
+            }
+        });
+    }
+
+    onDeletePost() {
+        let confirmer: boolean = confirm("Voulez-vous vraiment supprimer cette publication?");
+        if (confirmer) {
+            this.userpostservice
+            .deletePost(this.p.postId)
             .subscribe(res => {
-                if(res) {
-                    p.postTitle = res.postTitle;
-                    p.postText = res.postText;
+                if(res.status == 200) {
+                    this.showPost = false;
                 }
-            })
+            });            
+        }     
     }
 
-    onDeletePost(p : UserPost) {
-        this.userpostservice
-            .deletePost(p.postId)
-            .subscribe(res => {})
-    }
-
-    onLike(p : UserPost) {
+    onLike() { 
         if(!this.bLike) {
             this.userpostservice
-            .likePost(p.postId)
+            .likePost(this.p.postId)
             .subscribe(res => {
-                if(res)
-                    p.postLike = res.postLike;
+                if(res) {
+                    this.p.postLike = res.postLike;
+                }
             })
-        } else {
+        } else { 
             this.userpostservice
-            .unlikePost(p.postId)
+            .unlikePost(this.p.postId)
             .subscribe(res => {
-                if(res)
-                    p.postLike = res.postLike;
-                    
+                if(res) {
+                    this.p.postLike = res.postLike; 
+                }                
             })
-        }
+        }  
         
         this.bLike = !this.bLike;
     }

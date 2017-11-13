@@ -7,11 +7,11 @@
             
             <form class="form-horizontal" role="form" #fProfil="ngForm">
                 <div class="row">
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <img [src]="profil.profilimage" class="img-circle img-responsive" style="pointer-events: none;" height="175px">
                         <input *ngIf="profil.profilId == -1 || bEdit" type="file" (change)="OnPreLoadImage($event)"/>   
                     </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-8 col-lg-offset-1">
                         <div *ngIf="profil.profilId >= 0 && !bEdit; else elseBlock">
                                 
                             <div class="form-group">
@@ -39,12 +39,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-8">                                
-                                    <input type="button" class="btn btn-primary" (click)="editToogle()" value="Éditer mon profil">            
-                                    <input type="button" class="btn btn-primary" (click)="onDeleteProfil()" value="Supprimer mon profil">
-                                    <input type="button" class="btn btn-primary" (click)="onDeleteUser()" value="Supprimer mon compte"/>
-                                </div>
+                                <button class="button button--profil button--inverted" (click)="editToogle()">
+                                    Éditer
+                                </button>
+                                <button class="button button--profil button--inverted" (click)="onDeleteProfil()">
+                                    Supprimer profil
+                                </button>
+                                <button class="button button--profil button--inverted" (click)="onDeleteUser()">
+                                    Supprimer compte
+                                </button>                                                                                     
                             </div>                        
                         </div>
                         <ng-template #elseBlock>
@@ -74,11 +77,19 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-8">                                
-                                    <input *ngIf="!bEdit" type="button" class="btn btn-primary" (click)="onCreateProfil()" [disabled]="!fProfil.valid" value="Créer mon profil"/>
-                                    <input *ngIf="bEdit" type="button" class="btn btn-primary" (click)="onEditProfil()" [disabled]="!fProfil.valid" value="Éditer mon profil"/>
-                                    <input *ngIf="bEdit" type="button" class="btn btn-primary" (click)="editAnnuler()" value="Annuler"/>
+                                <div class="col-md-12">
+                                    <button *ngIf="!bEdit" class="button button--profil button--inverted" 
+                                        (click)="onCreateProfil()" [disabled]="!fProfil.valid">
+                                        Créer mon profil
+                                    </button>
+                                    <button *ngIf="bEdit" class="button button--profil button--inverted" 
+                                        (click)="onEditProfil()" [disabled]="!fProfil.valid">
+                                        Confirmer
+                                    </button>
+                                    <button *ngIf="bEdit" class="button button--profil button--inverted" 
+                                        (click)="editAnnuler()">
+                                        Annuler
+                                    </button>                           
                                 </div>
                             </div>
                         </ng-template>

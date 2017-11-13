@@ -9,9 +9,11 @@ export class Marqueur {
     public trajetlng:string;
     public profilId:number;
     public imageMarqueur:string;
+    public banqueImage:string;
     public difficulte:number;
 
-    constructor( Id : number, Nom : string, Latitude : number, Longitude : number, Desc : string , Icone : number, Trajetlat: string, Trajetlng: string, ProfilId:number, ImageMarqueur:string,Difficulte:number ) {
+    
+    constructor( Id : number, Nom : string, Latitude : number, Longitude : number, Desc : string , Icone : number, Trajetlat: string, Trajetlng: string, ProfilId:number, ImageMarqueur:string, BanqueImage:string, Difficulte:number ) {
         this.id=Id;
         this.nom=Nom;
         this.latitude=Latitude;
@@ -22,6 +24,7 @@ export class Marqueur {
         this.trajetlng=Trajetlng;
         this.profilId=ProfilId;
         this.imageMarqueur= ImageMarqueur;
+        this.banqueImage= BanqueImage;
         this.difficulte=Difficulte;
     }
 }

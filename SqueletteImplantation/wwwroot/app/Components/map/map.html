@@ -297,8 +297,34 @@
                             </button>    
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <h3>Gallerie d'images</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="file" (change)="PreUploadImage($event)"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2" *ngFor="let bimg of googlemarq[curidmarq].tabImageMarqueur; let i = index">
+                            <a (click)="showGallery(i)">
+                                <img [src]="bimg" class="img-thumbnail img-responsive banqueImgMarqueur" >
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="GalleryImage" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" (click)="fermeGallery()">x</a>
+    <a href="javascript:void(0)" class="lastbtn" (click)="imagePrecedentGallery()"> &#8810; </a>
+    <a href="javascript:void(0)" class="nextbtn" (click)="prochaineImageGallery()"> &#8811; </a>
+    <div id="PresentationImage" class="overlay-content">
+
     </div>
 </div>
