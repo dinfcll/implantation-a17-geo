@@ -1,6 +1,9 @@
 <div class="jumbotron container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-3">
+                    <buddies></buddies>
+                </div>
+        <div class="col-md-8 col-md-offset-0">
 
             <h2>Publications</h2> <br> 
                                      
@@ -37,10 +40,10 @@
                     </div>
                 </div>            
             </form>
+            <hr>
+            <div *ngFor="let pub of posts">
+                    <postUser [p]='pub'></postUser>
+            </div>
         </div>
     </div>
-</div>
-
-<div *ngFor="let pub of posts">
-    <postUser [p]='pub'></postUser>
 </div>
