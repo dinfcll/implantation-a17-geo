@@ -66,6 +66,12 @@ export class MapComponent implements OnInit {
         }        
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
         this.imageActuelGallery = -1;
+        this.tPathServicesImages = ['../../../images/servicesimages/toilettes.PNG',
+                                    '../../../images/servicesimages/eaupotable.PNG',
+                                    '../../../images/servicesimages/acceshandicape.PNG',
+                                    '../../../images/servicesimages/stationnement.PNG',
+                                    '../../../images/servicesimages/balise.PNG'];
+        this.tServicesRando = new Array();
     }
 
     showGallery(index:number):void{
@@ -101,12 +107,6 @@ export class MapComponent implements OnInit {
             this.imageActuelGallery = this.googlemarq[this.curidmarq].tabImageMarqueur.length - 1;
         }
         this.couleurMarqueurCourant = '../../../images/current_icone.svg'
-        this.tPathServicesImages = ['../../../images/servicesimages/toilettes.PNG',
-                                    '../../../images/servicesimages/eaupotable.PNG',
-                                    '../../../images/servicesimages/acceshandicape.PNG',
-                                    '../../../images/servicesimages/stationnement.PNG',
-                                    '../../../images/servicesimages/balise.PNG'];
-        this.tServicesRando = new Array();
         document.getElementById('ImageDansGallery').setAttribute('src',
             this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
     }
