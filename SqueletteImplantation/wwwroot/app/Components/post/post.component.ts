@@ -25,6 +25,7 @@ export class PostUserComponent implements OnInit{
 
     bLike: boolean = false;
     bModif: boolean = false;
+    showPost: boolean = true;
 
     constructor(private http: Http, private userpostservice: UserPostService, private router: Router) {
         this.profil = new ProfilUtilisateur(-1,"","","","","");
@@ -60,7 +61,7 @@ export class PostUserComponent implements OnInit{
             .deletePost(this.p.postId)
             .subscribe(res => {
                 if(res.status == 200) {
-                    /*************/
+                    this.showPost = false;
                 }
             });            
         }     
