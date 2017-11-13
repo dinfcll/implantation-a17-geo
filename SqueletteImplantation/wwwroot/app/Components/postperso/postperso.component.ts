@@ -21,8 +21,7 @@ export class PostPersoComponent implements OnInit {
 
     profil: ProfilUtilisateur;
 
-    constructor(private userpostservice: UserPostService, 
-        private utilisateurservice: UtilisateurService) { }
+    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { }
 
     ngOnInit() {
         this.utilisateurservice

@@ -59,6 +59,7 @@ namespace SqueletteImplantation.Controllers
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
         {
             var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+
             if (trouve == null)
             {
                 var profil = profilDto.CreateProfil();
@@ -68,10 +69,8 @@ namespace SqueletteImplantation.Controllers
 
                 return new OkObjectResult(profil);
             }
-            else
-            {
-                return new OkObjectResult(null);
-            }            
+
+            return new OkObjectResult(null);          
         }
 
         [HttpPut]
@@ -80,35 +79,15 @@ namespace SqueletteImplantation.Controllers
         {
             var oldprofil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == updatedprofil.profilId);
 
-            if (oldprofil != null)
+            if (oldprofil == null)
             {
-                var utilisateur = _maBd.Utilisateur.FirstOrDefault(u => u.email == oldprofil.courriel);
-
-                if (utilisateur != null)
-                {
-                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
-
-                    if (trouve == null || trouve.Id == utilisateur.Id)
-                    {
-                        utilisateur.email = updatedprofil.courriel;
-
-                        _maBd.Utilisateur.Attach(utilisateur);
-
-                        var entry = _maBd.Entry(utilisateur);
-                        entry.Property(e => e.email).IsModified = true;
-                        _maBd.SaveChanges();
-
-                        _maBd.Profil.Attach(oldprofil);
-                        _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
-                        _maBd.SaveChanges();                                             
-
-                        return new OkObjectResult(updatedprofil);
-                    }                    
-                }                
+                return new OkObjectResult(null);
             }
 
-            return new OkObjectResult(null);
-                        
+            _maBd.Entry(oldprofil).CurrentValues.SetValues(updatedprofil);
+            _maBd.SaveChanges();                                             
+
+            return new OkObjectResult(updatedprofil);
         }
 
         [HttpDelete]
