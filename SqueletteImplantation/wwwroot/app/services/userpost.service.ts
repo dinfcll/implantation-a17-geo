@@ -7,6 +7,8 @@ import { UserPost } from '../class/post.class';
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
 
+declare var jBox: any;
+
 @Injectable()
 export class UserPostService extends BaseService {
 

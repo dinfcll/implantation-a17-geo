@@ -21,7 +21,9 @@ export class PostPersoComponent implements OnInit {
 
     profil: ProfilUtilisateur;
 
-    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { }
+    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
+        this.profil = new ProfilUtilisateur(-1,"","","","","");
+    }
 
     ngOnInit() {
         this.utilisateurservice
@@ -35,6 +37,7 @@ export class PostPersoComponent implements OnInit {
         .getListPost()
         .subscribe(res => {
             this.posts = res;
+            console.log(res);
         });      
     }
 

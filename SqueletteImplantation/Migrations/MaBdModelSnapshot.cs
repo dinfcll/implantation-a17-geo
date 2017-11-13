@@ -111,6 +111,8 @@ namespace squeletteimplantation.Migrations
                     b.Property<int>("profilId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Id");
+
                     b.Property<string>("courriel")
                         .IsRequired();
 
@@ -123,7 +125,11 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("username")
                         .IsRequired();
 
+                    b.Property<int?>("utilisateurId");
+
                     b.HasKey("profilId");
+
+                    b.HasIndex("utilisateurId");
 
                     b.ToTable("Profil");
                 });
@@ -175,6 +181,13 @@ namespace squeletteimplantation.Migrations
                         .WithMany()
                         .HasForeignKey("profilId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
+                {
+                    b.HasOne("SqueletteImplantation.DbEntities.Models.Utilisateur", "utilisateur")
+                        .WithMany()
+                        .HasForeignKey("utilisateurId");
                 });
         }
     }
