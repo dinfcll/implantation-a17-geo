@@ -30,6 +30,23 @@ namespace SqueletteImplantation.Controllers
             return _maBd.Marqueur.ToList();
         }
 
+        [HttpGet]
+        [Route("api/marqueurs/suivi/{id}")]
+        public IEnumerable marqueursuivi(int id)
+        {
+            var idFollow = from ami in _maBd.Following
+                            where ami.FollowedId == id
+                            select ami.FollowedId;
+            //where id == followerId
+            return _maBd.Marqueur.Where(m => idFollow.Contains(m.profilId) && m.profilId == id).ToList();
+
+
+                        return from b in _maBd.Following
+                   join c in _maBd.Profil on b.FollowedId equals c.profilId
+                   where b.FollowerId == int.Parse(id)
+                   select c;
+        }
+
         [HttpPost]
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
