@@ -1,13 +1,13 @@
-<div class="jumbotron container" >
+<div class="jumbotron container">
         
-    <div class="row" *ngIf="profil">
+    <div class="row">
 
         <div class="col-md-10 col-md-offset-1">
 
             <div class="col-md-1">
-                <img [src]="profil.profilimage" class="img-circle img-responsive" 
+                <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive" 
                     style="pointer-events: none;">
-                <div class="usernamepost text-center">{{profil.username}}</div>
+                <div class="usernamepost text-center"></div>
             </div>
             
             <div class="form-group">

@@ -42,5 +42,8 @@
 </div>
 
 <div *ngFor="let pub of posts">
-    <postUser [p]='pub'></postUser>
+    <div id="pub.postId" >
+            <postUser [p]='pub'></postUser>
+    </div>
+    
 </div>

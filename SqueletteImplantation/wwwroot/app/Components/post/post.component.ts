@@ -1,4 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
+
+import { PostPersoComponent } from '../postperso/postperso.component';
 
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
@@ -14,7 +18,7 @@ declare var jBox :any;
     styleUrls: ['./post.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
-export class PostUserComponent {
+export class PostUserComponent implements OnInit{
 
     @Input() p: UserPost;
     profil : ProfilUtilisateur;
@@ -22,18 +26,14 @@ export class PostUserComponent {
     bLike: boolean = false;
     bModif: boolean = false;
 
-    constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
-        this.onGetImageProfil();
+    constructor(private http: Http, private userpostservice: UserPostService, private router: Router) {
+        this.profil = new ProfilUtilisateur(-1,"","","","","");
     }
 
-    onGetImageProfil() {
-        this.utilisateurservice
-        .getProfilById(String(this.p.profilId))
-        .subscribe(res => {
-            if(res) {
-                this.profil = res;
-            }
-        })
+    ngOnInit() {
+        this.http
+        .get('api/profilbyid/' + this.p.profilId)
+        .subscribe(res => { this.profil = res.json(); })
     }
 
     onModifyBtn() {
@@ -48,6 +48,7 @@ export class PostUserComponent {
                 new jBox('Notice', {
                     content: 'La publication a ete modifiee.', color: 'green', autoClose: 2000
                 });
+                this.bModif = !this.bModif;
             }
         });
     }
@@ -59,9 +60,7 @@ export class PostUserComponent {
             .deletePost(this.p.postId)
             .subscribe(res => {
                 if(res.status == 200) {
-                    new jBox('Notice', {
-                        content: 'La publication a ete supprimee.', color: 'green', autoClose: 2000
-                    });
+                    /*************/
                 }
             });            
         }     

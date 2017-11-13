@@ -67,7 +67,7 @@ export class PostPersoComponent implements OnInit {
                         new jBox('Notice', { 
                             content: 'La publication est publiee.', color: 'green', autoClose: 2000 
                         });
-                        this.posts.splice(0);
+                        this.posts.unshift(res);
                     }
                 })
             } else {

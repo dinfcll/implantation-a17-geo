@@ -42,9 +42,9 @@ namespace SqueletteImplantation.Controllers
 
         [HttpGet]
         [Route("api/profilbyid/{profilId}")]
-        public IActionResult GetProfibyId(string profilId)
+        public IActionResult GetProfibyId(int profilId)
         {
-            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId ==int.Parse(profilId));
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == profilId);
 
             if (profil == null)
             {
