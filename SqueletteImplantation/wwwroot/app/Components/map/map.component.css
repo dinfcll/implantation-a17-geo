@@ -64,6 +64,59 @@ button.disabled:hover {
 .cancel{
   background-color: rgb(190, 55, 55);
 }
+
+.banqueImgMarqueur{
+  height: 100px !important;
+}
+
+.overlay{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  bottom: 15%;
+  width: 100%;
+  height: 50%;
+  margin-top: 30px;
+  transform: translate(-20%,-60%); 
+}
+
+.overlay .closebtn {
+  position: absolute;
+  z-index: 5;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+.overlay .nextbtn{
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  right: 45px;
+  font-size: 60px;
+}
+
+.overlay .lastbtn{
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  left: 45px;
+  font-size: 60px;
+}
+
 .margin-fix{
   margin:4px;
 }
@@ -87,3 +140,4 @@ label > input + i{ /* IMAGE STYLES */
   cursor:pointer;
   border:2px solid transparent;
 }
+

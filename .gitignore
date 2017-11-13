@@ -3,6 +3,7 @@
 
 SqueletteImplantation/wwwroot/**/*.js
 SqueletteImplantation/wwwroot/**/*.map
+SqueletteImplantation/wwwroot/images/banqueImageMarqueur
 
 # User-specific files
 *.suo
