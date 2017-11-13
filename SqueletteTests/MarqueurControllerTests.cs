@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using SqueletteImplantation.Controllers;
 using SqueletteImplantation.DbEntities;
@@ -10,11 +11,11 @@ using Xunit;
 
 namespace SqueletteTests
 {
+
     public class MarqueurControllerTests
     {
         //un commentaire
         private Marqueur marqueur;
-
         private readonly MarqueurController _marqueurControlleur;
 
         public MarqueurControllerTests()
@@ -34,7 +35,7 @@ namespace SqueletteTests
             marqueur.Trajetlat = "lat";
             marqueur.Trajetlng = "lng";
 
-            _marqueurControlleur = new MarqueurController(bdEnMemoire);
+            _marqueurControlleur = new MarqueurController(bdEnMemoire, null);
         }
 
         [Fact]

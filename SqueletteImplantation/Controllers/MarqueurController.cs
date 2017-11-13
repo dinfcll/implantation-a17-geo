@@ -1,21 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace SqueletteImplantation.Controllers
 {
     public class MarqueurController
     {
         private readonly MaBd _maBd;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public MarqueurController(MaBd maBd)
+        public MarqueurController(MaBd maBd, IHostingEnvironment env)
         {
             _maBd = maBd;
+            _hostingEnvironment = env;
         }
 
         [HttpGet]
@@ -87,6 +92,28 @@ namespace SqueletteImplantation.Controllers
             _maBd.SaveChanges();
 
             return new OkResult();
+        }
+
+        [HttpPost]
+        [Route("api/marqueurs/banqueimage/{id}")]
+        public IActionResult AjoutImageABanqueImage(int id, IFormFile fichier, string extFichier)
+        {                   
+            var marqueur = _maBd.Marqueur.FirstOrDefault(m => m.Id == id);
+            if(marqueur == null)
+            {
+                return NotFound();
+            }
+            string cheminRoot = _hostingEnvironment.WebRootPath;
+            string cheminImageUbuntu = "/images/banqueImageMarqueur/";
+            int idUniqueFichier = Directory.GetFiles(cheminRoot + cheminImageUbuntu,"*",SearchOption.TopDirectoryOnly).Length;
+            string nomUniqueFichier = id.ToString() + marqueur.Nom + idUniqueFichier.ToString()+ "." + extFichier;
+            fichier.CopyTo(new FileStream(cheminRoot + cheminImageUbuntu + nomUniqueFichier, FileMode.Create));
+
+            marqueur.BanqueImage = nomUniqueFichier + "," + marqueur.BanqueImage;
+            _maBd.SaveChanges(); 
+                
+            return new OkObjectResult(nomUniqueFichier);
+            
         }
     }
 }

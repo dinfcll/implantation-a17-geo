@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171109202246_BanqueImageMarqueur")]
+    partial class BanqueImageMarqueur
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -58,8 +59,6 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("Desc");
 
-                    b.Property<int>("Difficulte");
-
                     b.Property<int>("Icone");
 
                     b.Property<string>("ImageMarqueur");
@@ -89,8 +88,6 @@ namespace squeletteimplantation.Migrations
                     b.Property<int>("postId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("postImg");
-
                     b.Property<int>("postLike");
 
                     b.Property<string>("postText")
@@ -113,8 +110,6 @@ namespace squeletteimplantation.Migrations
                     b.Property<int>("profilId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Id");
-
                     b.Property<string>("courriel")
                         .IsRequired();
 
@@ -127,11 +122,7 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("username")
                         .IsRequired();
 
-                    b.Property<int?>("utilisateurId");
-
                     b.HasKey("profilId");
-
-                    b.HasIndex("utilisateurId");
 
                     b.ToTable("Profil");
                 });
@@ -183,13 +174,6 @@ namespace squeletteimplantation.Migrations
                         .WithMany()
                         .HasForeignKey("profilId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Profil", b =>
-                {
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Utilisateur", "utilisateur")
-                        .WithMany()
-                        .HasForeignKey("utilisateurId");
                 });
         }
     }
