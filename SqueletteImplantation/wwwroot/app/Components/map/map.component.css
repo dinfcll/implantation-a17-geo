@@ -74,8 +74,13 @@ button.disabled:hover {
   width: 40px;
   margin: 5px;
 }
-.services-icones button img{
+.services-icones img{
   height: 25px;
+}
+
+.services-icones h3 img{
+  height: 25px;
+  margin: 5px;
 }
 
 .banqueImgMarqueur{

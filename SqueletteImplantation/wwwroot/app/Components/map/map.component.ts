@@ -37,6 +37,7 @@ export class MapComponent implements OnInit {
      public couleurMarqueurCourant:string;
      public tPathServicesImages: string[];
      public tServicesRando: string[];
+     public tTitreServices: string[];
      public imageActuelGallery:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
@@ -71,6 +72,7 @@ export class MapComponent implements OnInit {
                                     '../../../images/servicesimages/acceshandicape.PNG',
                                     '../../../images/servicesimages/stationnement.PNG',
                                     '../../../images/servicesimages/balise.PNG'];
+        this.tTitreServices = ["Toilettes", "Eau Potable", "Accès Handicapé", "Stationnement","Chemin Balisé"];
         this.tServicesRando = new Array();
     }
 
@@ -113,7 +115,7 @@ export class MapComponent implements OnInit {
 
     remiseZeroMarqueurCurrentMarqueur():void
     {
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0);
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0,"");
     }    
 
     updateDifficulte(selectedDiff:number):void{
@@ -351,6 +353,7 @@ export class MapComponent implements OnInit {
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
+        this.tServicesRando = [];
     }
 
     getMarqueurs(): void {
@@ -427,6 +430,7 @@ export class MapComponent implements OnInit {
                 marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
+                    this.tServicesRando = info.servicesRando.split('&');
                     this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
                     this.ref.detectChanges();
@@ -529,6 +533,8 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
+                    this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+                    this.tServicesRando=[];
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);
@@ -624,17 +630,22 @@ export class MapComponent implements OnInit {
         this.tracetrajet.setMap(this.map);
     }
 
-    modifServicesRandonne(s: number){
-        console.log(this.tServicesRando);
-        let index = this.tServicesRando.indexOf(s.toString());
+    modifServicesRandonne(s: string){
+        //console.log(this.tServicesRando);
+        let index = this.tServicesRando.indexOf(s);
+        //let teststring;
+        //let testtab;
         if(index >= 0) {
             this.tServicesRando.splice(index, 1);            
         }
         else {
-            this.tServicesRando.push(s.toString())
+            this.tServicesRando.push(s)
         }
-        console.log(this.tServicesRando);
+        //console.log(this.tServicesRando);
+        //teststring = this.tServicesRando.join('&')
+        //testtab = teststring.split('&');
+        //console.log(teststring);
+        //console.log(testtab);
         this.ref.detectChanges();
-    }
-        
+    }        
 }
