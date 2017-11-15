@@ -531,9 +531,11 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
+                    if(this.utilisateurService.estAdmin() == '1'){
+                        this.currentmarqueur.icone = 0;
+                    }
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
-                        console.log(res);
                         this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                         this.PermissionAjoutMarker();
                         this.marqtemp.setMap(null);
