@@ -354,6 +354,17 @@ export class MapComponent implements OnInit {
                 });
     }
 
+    getMarqueursSuivi():void{
+        this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
+            .subscribe((resdata) => {
+                let marqueursuivi:Marqueur[] = resdata.json() as Marqueur[];
+                marqueursuivi.forEach((mark) => {
+                    this.googlemarq.push(this.AjoutMarker(mark));
+                });
+            });
+             
+    }
+
     retraitCouleurCurrentMarqueur():void
     {
         if(this.currentmarqueur.nom){
@@ -586,7 +597,8 @@ export class MapComponent implements OnInit {
 
         
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
-        this.getMarqueurs();
+        //this.getMarqueurs();
+        this.getMarqueursSuivi();
     
         //géolocation
         if( navigator.geolocation ) {
