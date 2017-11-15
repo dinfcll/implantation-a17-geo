@@ -597,8 +597,15 @@ export class MapComponent implements OnInit {
 
         
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
-        //this.getMarqueurs();
-        this.getMarqueursSuivi();
+        if(this.utilisateurService.estAdmin() == '1')
+        {
+            this.getMarqueurs();
+        }
+        else
+        {
+            this.getMarqueursSuivi();
+        }
+        
     
         //géolocation
         if( navigator.geolocation ) {
