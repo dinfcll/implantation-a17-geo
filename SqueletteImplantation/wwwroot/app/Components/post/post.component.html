@@ -4,24 +4,25 @@
 
         <div class="col-md-10 col-md-offset-1">
 
+            <div class="col-md-1" class="imagePost">
+                <img [src]="imgTree">
+            </div>
+
             <div class="col-md-1">
                 <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive" 
                     style="pointer-events: none;">
-                <div class="usernamepost text-center"></div>
             </div>
             
             <div class="form-group">
-                <div class="col-md-offset-4 titrepost text-center">{{p.postTitle}}</div>
+                <div class="col-md-8 col-md-offset-4 titrepost text-center">{{p.postTitle}}</div>
             </div>
     
             <div class="form-group">
-                <div class="col-md-offset-4 textpost">{{p.postText}}</div>
+                <div class="col-md-8 col-md-offset-4 textpost">{{p.postText}}</div>
             </div>
-
-            <hr class="col md-8 col-md-offset-4">
     
             <div class="form-group">
-                <div class="col-md-8 col-md-offset-3">  
+                <div class="col-md-6 col-md-offset-6">  
 
                     <button class="button button--post" (click)="onDeletePost()">
                         <i class="button__icon fa fa-trash"></i>
@@ -40,6 +41,10 @@
                     </label>
                                      
                 </div>  
+            </div>
+
+            <div class="md-col-3 pull-left">
+                <div *ngIf="profil.username" class="usernamepost text-center">@{{profil.username}}</div>
             </div>
        
             <div *ngIf="bModif">

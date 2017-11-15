@@ -4,7 +4,7 @@
   outline: 0 !important;
 }
 .jumbotron { 
-    background-color: rgba(255, 255, 255, 0.75) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
     border-radius: 8px;
     font-family: 'Raleway', sans-serif;
     margin-top: 1%;
@@ -26,13 +26,10 @@ button.disabled:hover {
 .img-responsive{
   max-width: 200px !important;
   height: auto;
-  border: solid white 10px;  
-}
-hr {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border: solid white 10px; 
+  position: absolute; 
+  top: 225px;
+  left: -10px;
 }
 .usernamepost{
   font-size: 25px;
@@ -45,6 +42,14 @@ hr {
 .textpost {
   font-size: 18px;
   color: grey;
+}
+.imagePost {
+  width: 300px;
+  height: 300px;
+  margin-left: -5%;
+  overflow: hidden;
+  position: absolute;
+  
 }
 
 

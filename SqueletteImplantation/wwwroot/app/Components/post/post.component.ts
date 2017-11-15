@@ -27,6 +27,8 @@ export class PostUserComponent implements OnInit{
     bModif: boolean = false;
     showPost: boolean = true;
 
+    imgTree = "../../../images/tree.jpg";
+
     constructor(private http: Http, private userpostservice: UserPostService, private router: Router) {
         this.profil = new ProfilUtilisateur(-1,"","","","","");
     }
