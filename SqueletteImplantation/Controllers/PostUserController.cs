@@ -105,7 +105,7 @@ namespace SqueletteImplantation.Controllers
         {
             return from b in _maBd.Following
             join c in _maBd.PostsUser on b.FollowedId equals c.profilId
-            where b.FollowerId == id
+            where (b.FollowerId == id || c.profilId==id)
             select c;
 
         }
