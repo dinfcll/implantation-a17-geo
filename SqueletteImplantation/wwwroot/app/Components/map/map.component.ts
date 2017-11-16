@@ -104,7 +104,12 @@ export class MapComponent implements OnInit {
 
     remiseZeroMarqueurCurrentMarqueur():void
     {
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0);
+        let typeUtilisateuricone = 1;
+        if(this.utilisateurService.estAdmin() == '1')
+        {
+            typeUtilisateuricone = 0;
+        }
+        this.currentmarqueur = new Marqueur(0,"",0,0,"",typeUtilisateuricone,"","",Number(localStorage.getItem('profilId')), "","",0);
     }    
 
     updateDifficulte(selectedDiff:number):void{
@@ -238,6 +243,7 @@ export class MapComponent implements OnInit {
                 this.googlemarq[this.curidmarq].setMap(null);
                 couleurBox = "green";
                 this.DetailsView = false;
+                this.remiseZeroMarqueurCurrentMarqueur();
                 this.ref.detectChanges();
             } else{
                 informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
@@ -531,9 +537,6 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
-                    if(this.utilisateurService.estAdmin() == '1'){
-                        this.currentmarqueur.icone = 0;
-                    }
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
