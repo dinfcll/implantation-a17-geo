@@ -442,6 +442,7 @@ export class MapComponent implements OnInit {
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
+                this.curidmarq = marker.marqid;
                 this.retraitCouleurCurrentMarqueur();
                 marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
@@ -451,7 +452,6 @@ export class MapComponent implements OnInit {
                     } else {
                         this.tServicesRando = [];
                     }                   
-                    this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
                     this.ref.detectChanges();          
                 }
@@ -544,8 +544,9 @@ export class MapComponent implements OnInit {
                 });
             }
             else {
-                if(localStorage.getItem('profilId')!="")
+                if(localStorage.getItem('profilId'))
                 {   
+                    console.log(localStorage.getItem('profilId'));
                     let marqposition = this.marqtemp.getPosition();
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
