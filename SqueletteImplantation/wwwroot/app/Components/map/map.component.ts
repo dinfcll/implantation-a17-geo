@@ -35,6 +35,9 @@ export class MapComponent implements OnInit {
      public imagebuffer:any[];
      public ProfilCourrant:number;
      public couleurMarqueurCourant:string;
+     public tPathServicesImages: string[];
+     public tServicesRando: string[];
+     public tTitreServices: string[];
      public imageActuelGallery:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
@@ -64,6 +67,13 @@ export class MapComponent implements OnInit {
         }        
         this.couleurMarqueurCourant = '../../../images/current_icone.svg';
         this.imageActuelGallery = -1;
+        this.tPathServicesImages = ['../../../images/servicesimages/toilettes.PNG',
+                                    '../../../images/servicesimages/eaupotable.PNG',
+                                    '../../../images/servicesimages/acceshandicape.PNG',
+                                    '../../../images/servicesimages/stationnement.PNG',
+                                    '../../../images/servicesimages/balise.PNG'];
+        this.tTitreServices = ["Toilettes", "Eau Potable", "Accès Handicapé", "Stationnement","Chemin Balisé"];
+        this.tServicesRando = new Array();
     }
 
     showGallery(index:number):void{
@@ -98,13 +108,19 @@ export class MapComponent implements OnInit {
         {
             this.imageActuelGallery = this.googlemarq[this.curidmarq].tabImageMarqueur.length - 1;
         }
+        this.couleurMarqueurCourant = '../../../images/current_icone.svg'
         document.getElementById('ImageDansGallery').setAttribute('src',
             this.googlemarq[this.curidmarq].tabImageMarqueur[this.imageActuelGallery]);
     }
 
     remiseZeroMarqueurCurrentMarqueur():void
     {
-        this.currentmarqueur = new Marqueur(0,"",0,0,"",1,"","",Number(localStorage.getItem('profilId')), "","",0);
+        let typeUtilisateuricone = 1;
+        if(this.utilisateurService.estAdmin() == '1')
+        {
+            typeUtilisateuricone = 0;
+        }
+        this.currentmarqueur = new Marqueur(0, "", 0, 0, "", typeUtilisateuricone, "", "", Number(localStorage.getItem('profilId')), "", "", 0, "");
     }    
 
     updateDifficulte(selectedDiff:number):void{
@@ -183,6 +199,7 @@ export class MapComponent implements OnInit {
     PermissionAjoutMarker():void {
         if(this.stadetrace === 0)
         {
+            this.tServicesRando = [];
             this.AcceptMarker = !this.AcceptMarker;
             this.DetailsView=false;
             if(this.AcceptMarker){
@@ -238,6 +255,7 @@ export class MapComponent implements OnInit {
                 this.googlemarq[this.curidmarq].setMap(null);
                 couleurBox = "green";
                 this.DetailsView = false;
+                this.remiseZeroMarqueurCurrentMarqueur();
                 this.ref.detectChanges();
             } else{
                 informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
@@ -311,7 +329,6 @@ export class MapComponent implements OnInit {
         else{
             this.messageErreurActionSurCarte();
         }
-
     }
 
 
@@ -352,6 +369,17 @@ export class MapComponent implements OnInit {
                        this.googlemarq.push(this.AjoutMarker(mark));
                     });
                 });
+    }
+
+    getMarqueursSuivi():void{
+        this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
+            .subscribe((resdata) => {
+                let marqueursuivi:Marqueur[] = resdata.json() as Marqueur[];
+                marqueursuivi.forEach((mark) => {
+                    this.googlemarq.push(this.AjoutMarker(mark));
+                });
+            });
+             
     }
 
     retraitCouleurCurrentMarqueur():void
@@ -418,6 +446,11 @@ export class MapComponent implements OnInit {
                 marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
+                    if (info.servicesRando) {
+                        this.tServicesRando = info.servicesRando.split('&');
+                    } else {
+                        this.tServicesRando = [];
+                    }                   
                     this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
                     this.ref.detectChanges();
@@ -450,6 +483,7 @@ export class MapComponent implements OnInit {
                 this.map.setZoom(10);
                 this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
+                this.remiseZeroMarqueurCurrentMarqueur();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;
                 marker.cheminTrajet = new google.maps.Polyline ({
@@ -520,9 +554,9 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
+                    this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
-                        console.log(res);
                         this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                         this.PermissionAjoutMarker();
                         this.marqtemp.setMap(null);
@@ -539,6 +573,7 @@ export class MapComponent implements OnInit {
             }
         } else {
             if(this.currentmarqueur.icone > 0){
+                this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
                 this.http.post("api/marqueurs/modification",this.currentmarqueur)
                     .subscribe( res => {
                         if(res != null){
@@ -586,7 +621,15 @@ export class MapComponent implements OnInit {
 
         
         this.map = new google.maps.Map( document.getElementById('map'),mapOptions );
-        this.getMarqueurs();
+        if(this.utilisateurService.estAdmin() == '1')
+        {
+            this.getMarqueurs();
+        }
+        else
+        {
+            this.getMarqueursSuivi();
+        }
+        
     
         //géolocation
         if( navigator.geolocation ) {
@@ -614,5 +657,15 @@ export class MapComponent implements OnInit {
 
         this.tracetrajet.setMap(this.map);
     }
-        
+
+    modifServicesRandonne(s: string){
+        let index = this.tServicesRando.indexOf(s);
+        if(index >= 0) {
+            this.tServicesRando.splice(index, 1);            
+        }
+        else {
+            this.tServicesRando.push(s)
+        }
+        this.ref.detectChanges();
+    }        
 }
