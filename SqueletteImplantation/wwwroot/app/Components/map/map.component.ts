@@ -467,6 +467,7 @@ export class MapComponent implements OnInit {
                 this.map.setZoom(10);
                 this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
+                this.remiseZeroMarqueurCurrentMarqueur();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;
                 marker.cheminTrajet = new google.maps.Polyline ({
