@@ -411,7 +411,7 @@ export class MapComponent implements OnInit {
 
     AjoutMarker (info: Marqueur): any {
         var color:string = '#f3123d';
-        if(info.icone > 0){
+        if(this.utilisateurService.estAdmin() == '0'){
             color = '#84ffb8';
         }
         var chemin = new google.maps.Polyline ({
@@ -453,8 +453,7 @@ export class MapComponent implements OnInit {
                     }                   
                     this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
-                    this.ref.detectChanges();
-                    console.log(this.googlemarq[this.curidmarq]);          
+                    this.ref.detectChanges();          
                 }
 
                 
@@ -483,7 +482,6 @@ export class MapComponent implements OnInit {
                 this.map.setZoom(10);
                 this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
-                this.remiseZeroMarqueurCurrentMarqueur();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;
                 marker.cheminTrajet = new google.maps.Polyline ({
