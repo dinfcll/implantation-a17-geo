@@ -91,7 +91,24 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(post);
         }
+        [HttpGet]
+        [Route("api/postUser/myPosts/{id}")]
+        public IEnumerable GetmyPost(int id)
+        {
+            return from c in _maBd.PostsUser
+                   where c.profilId == id
+                   select c;
+        }
+        [HttpGet]
+        [Route("api/postUser/followedPost/{id}")]
+        public IEnumerable GetFollowedPost(int id)
+        {
+            return from b in _maBd.Following
+            join c in _maBd.PostsUser on b.FollowedId equals c.profilId
+            where b.FollowerId == id
+            select c;
 
+        }
         [HttpDelete]
         [Route("api/postUser/delete/{id}")]
         public IActionResult DeletePostUser(int id)
