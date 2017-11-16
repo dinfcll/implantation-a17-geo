@@ -174,7 +174,9 @@ export class MapComponent implements OnInit {
         .subscribe( res => {
             if(res)
             {
-                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift("../../../images/banqueImageMarqueur/" + res.text());
+                let baseUrlLocalImage = "../../../images/banqueImageMarqueur/";
+                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift( baseUrlLocalImage + res.text());
+                this.currentmarqueur.banqueImage = res.text() + "," + this.currentmarqueur.banqueImage;
                 this.ref.detectChanges();
             }
             else
@@ -335,7 +337,9 @@ export class MapComponent implements OnInit {
     retourModMarqueur(retour:any): void {
         let mark = this.AjoutMarker(retour.json() as Marqueur);
         this.googlemarq[this.curidmarq].setMap(null);
+        this.googlemarq[this.curidmarq].cheminTrajet.setMap(null);
         this.googlemarq.splice(this.curidmarq, 1, mark);
+        this.googlemarq[this.curidmarq].marqid = this.curidmarq;
         if(this.modmarq){
             this.PermissionMod();
         }
@@ -410,8 +414,9 @@ export class MapComponent implements OnInit {
     }
 
     AjoutMarker (info: Marqueur): any {
+        let markerid = this.googlemarq.length
         var color:string = '#f3123d';
-        if(info.icone > 0){
+        if(this.utilisateurService.estAdmin() == '0'){
             color = '#84ffb8';
         }
         var chemin = new google.maps.Polyline ({
@@ -429,19 +434,18 @@ export class MapComponent implements OnInit {
             click: false,
             cheminTrajet: chemin,
             informationMarqueur: info,
-            marqid: this.googlemarq.length,
+            marqid: markerid,
             tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
-        if(this.curidmarq < this.googlemarq.length)
-        {
-            marker.marqid = this.curidmarq;
-        }
+        console.log(marker.marqid);
+        console.log(this.googlemarq);
 
         marker.addListener('click', () => {
             if(!marker.click) {
                 this.map.setZoom(13);
                 this.map.panTo(marker.position);
+                this.curidmarq = marker.marqid;
                 this.retraitCouleurCurrentMarqueur();
                 marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
@@ -451,10 +455,8 @@ export class MapComponent implements OnInit {
                     } else {
                         this.tServicesRando = [];
                     }                   
-                    this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
-                    this.ref.detectChanges();
-                    console.log(this.googlemarq[this.curidmarq]);          
+                    this.ref.detectChanges();          
                 }
 
                 
@@ -483,7 +485,6 @@ export class MapComponent implements OnInit {
                 this.map.setZoom(10);
                 this.retraitCouleurCurrentMarqueur();
                 this.PermissionDetails();
-                this.remiseZeroMarqueurCurrentMarqueur();
                 marker.cheminTrajet.setMap(null);
                 marker.click = false;
                 marker.cheminTrajet = new google.maps.Polyline ({
@@ -546,8 +547,9 @@ export class MapComponent implements OnInit {
                 });
             }
             else {
-                if(localStorage.getItem('profilId')!="")
+                if(localStorage.getItem('profilId'))
                 {   
+                    console.log(localStorage.getItem('profilId'));
                     let marqposition = this.marqtemp.getPosition();
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
@@ -572,21 +574,19 @@ export class MapComponent implements OnInit {
                          
             }
         } else {
-            if(this.currentmarqueur.icone > 0){
-                this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-                this.http.post("api/marqueurs/modification",this.currentmarqueur)
-                    .subscribe( res => {
-                        if(res != null){
-                            this.retourModMarqueur(res);
-                        } else {
-                            new jBox('Notice', {
-                                content: 'Erreur de connection au serveur',
-                                color: 'red',
-                                autoClose: 2000
-                            });
-                        }
-                    });
-            }
+            this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+            this.http.post("api/marqueurs/modification",this.currentmarqueur)
+                .subscribe( res => {
+                    if(res != null){
+                        this.retourModMarqueur(res);
+                    } else {
+                        new jBox('Notice', {
+                            content: 'Erreur de connection au serveur',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                });
         }
     }
 
