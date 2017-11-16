@@ -572,21 +572,19 @@ export class MapComponent implements OnInit {
                          
             }
         } else {
-            if(this.currentmarqueur.icone > 0){
-                this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-                this.http.post("api/marqueurs/modification",this.currentmarqueur)
-                    .subscribe( res => {
-                        if(res != null){
-                            this.retourModMarqueur(res);
-                        } else {
-                            new jBox('Notice', {
-                                content: 'Erreur de connection au serveur',
-                                color: 'red',
-                                autoClose: 2000
-                            });
-                        }
-                    });
-            }
+            this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+            this.http.post("api/marqueurs/modification",this.currentmarqueur)
+                .subscribe( res => {
+                    if(res != null){
+                        this.retourModMarqueur(res);
+                    } else {
+                        new jBox('Notice', {
+                            content: 'Erreur de connection au serveur',
+                            color: 'red',
+                            autoClose: 2000
+                        });
+                    }
+                });
         }
     }
 
