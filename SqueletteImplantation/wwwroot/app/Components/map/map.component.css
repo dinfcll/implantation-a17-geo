@@ -64,6 +64,24 @@ button.disabled:hover {
 .cancel{
   background-color: rgb(190, 55, 55);
 }
+.services-icones{
+  padding-right: 15px;
+  padding-left: 15px
+}
+.services-icones button{
+  padding: 0px;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+.services-icones img{
+  height: 25px;
+}
+
+.services-icones h3 img{
+  height: 25px;
+  margin: 5px;
+}
 
 .banqueImgMarqueur{
   height: 100px !important;
