@@ -174,7 +174,9 @@ export class MapComponent implements OnInit {
         .subscribe( res => {
             if(res)
             {
-                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift("../../../images/banqueImageMarqueur/" + res.text());
+                let baseUrlLocalImage = "../../../images/banqueImageMarqueur/";
+                this.googlemarq[this.curidmarq].tabImageMarqueur.unshift( baseUrlLocalImage + res.text());
+                this.currentmarqueur.banqueImage = res.text() + "," + this.currentmarqueur.banqueImage;
                 this.ref.detectChanges();
             }
             else
