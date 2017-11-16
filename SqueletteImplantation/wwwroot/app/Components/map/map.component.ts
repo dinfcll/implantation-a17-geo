@@ -337,6 +337,7 @@ export class MapComponent implements OnInit {
     retourModMarqueur(retour:any): void {
         let mark = this.AjoutMarker(retour.json() as Marqueur);
         this.googlemarq[this.curidmarq].setMap(null);
+        this.googlemarq[this.curidmarq].cheminTrajet.setMap(null);
         this.googlemarq.splice(this.curidmarq, 1, mark);
         this.googlemarq[this.curidmarq].marqid = this.curidmarq;
         if(this.modmarq){
