@@ -194,6 +194,7 @@ export class MapComponent implements OnInit {
     PermissionAjoutMarker():void {
         if(this.stadetrace === 0)
         {
+            this.tServicesRando = [];
             this.AcceptMarker = !this.AcceptMarker;
             this.DetailsView=false;
             if(this.AcceptMarker){
@@ -322,7 +323,6 @@ export class MapComponent implements OnInit {
         else{
             this.messageErreurActionSurCarte();
         }
-
     }
 
 
@@ -353,7 +353,6 @@ export class MapComponent implements OnInit {
         this.googlemarq.forEach((m) => {
             m.setAnimation(null);
         });
-        this.tServicesRando = [];
     }
 
     getMarqueurs(): void {
@@ -430,7 +429,11 @@ export class MapComponent implements OnInit {
                 marker.setIcon(this.couleurMarqueurCourant);
                 if(!this.AcceptMarker && this.stadetrace===0){
                     this.currentmarqueur = info;
-                    this.tServicesRando = info.servicesRando.split('&');
+                    if (info.servicesRando) {
+                        this.tServicesRando = info.servicesRando.split('&');
+                    } else {
+                        this.tServicesRando = [];
+                    }                   
                     this.curidmarq = marker.marqid;
                     this.PermissionDetails();      
                     this.ref.detectChanges();
@@ -534,7 +537,6 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
                     this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-                    this.tServicesRando=[];
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         console.log(res);
@@ -554,6 +556,7 @@ export class MapComponent implements OnInit {
             }
         } else {
             if(this.currentmarqueur.icone > 0){
+                this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
                 this.http.post("api/marqueurs/modification",this.currentmarqueur)
                     .subscribe( res => {
                         if(res != null){
@@ -631,21 +634,13 @@ export class MapComponent implements OnInit {
     }
 
     modifServicesRandonne(s: string){
-        //console.log(this.tServicesRando);
         let index = this.tServicesRando.indexOf(s);
-        //let teststring;
-        //let testtab;
         if(index >= 0) {
             this.tServicesRando.splice(index, 1);            
         }
         else {
             this.tServicesRando.push(s)
         }
-        //console.log(this.tServicesRando);
-        //teststring = this.tServicesRando.join('&')
-        //testtab = teststring.split('&');
-        //console.log(teststring);
-        //console.log(testtab);
         this.ref.detectChanges();
     }        
 }

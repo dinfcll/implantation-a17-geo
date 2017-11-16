@@ -276,7 +276,7 @@
                                     <h2>{{currentmarqueur.desc}}</h2>
                                 </div>
                                 <div class="col-md-12 services-icones">
-                                    <h3>Services: <img *ngFor="let s of tServicesRando" src="{{tPathServicesImages[s]}}" alt="{{tTitreServices[s]}}" title="{{tTitreServices[s]}}"></h3>
+                                    <h3 *ngIf="tServicesRando.length" >Services: <img *ngFor="let s of tServicesRando" src="{{tPathServicesImages[s]}}" alt="{{tTitreServices[s]}}" title="{{tTitreServices[s]}}"></h3>
                                 </div>
                             </div>
                             <div *ngIf="currentmarqueur.imageMarqueur" class="col-md-5">
