@@ -338,6 +338,7 @@ export class MapComponent implements OnInit {
         let mark = this.AjoutMarker(retour.json() as Marqueur);
         this.googlemarq[this.curidmarq].setMap(null);
         this.googlemarq.splice(this.curidmarq, 1, mark);
+        this.googlemarq[this.curidmarq].marqid = this.curidmarq;
         if(this.modmarq){
             this.PermissionMod();
         }
@@ -412,6 +413,7 @@ export class MapComponent implements OnInit {
     }
 
     AjoutMarker (info: Marqueur): any {
+        let markerid = this.googlemarq.length
         var color:string = '#f3123d';
         if(this.utilisateurService.estAdmin() == '0'){
             color = '#84ffb8';
@@ -431,14 +433,12 @@ export class MapComponent implements OnInit {
             click: false,
             cheminTrajet: chemin,
             informationMarqueur: info,
-            marqid: this.googlemarq.length,
+            marqid: markerid,
             tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
-        if(this.curidmarq < this.googlemarq.length)
-        {
-            marker.marqid = this.curidmarq;
-        }
+        console.log(marker.marqid);
+        console.log(this.googlemarq);
 
         marker.addListener('click', () => {
             if(!marker.click) {
