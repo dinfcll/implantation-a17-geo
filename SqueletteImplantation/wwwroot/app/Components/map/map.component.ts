@@ -438,9 +438,6 @@ export class MapComponent implements OnInit {
             tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
-        console.log(marker.marqid);
-        console.log(this.googlemarq);
-
         marker.addListener('click', () => {
             if(!marker.click) {
                 this.map.setZoom(13);
@@ -549,7 +546,6 @@ export class MapComponent implements OnInit {
             else {
                 if(localStorage.getItem('profilId'))
                 {   
-                    console.log(localStorage.getItem('profilId'));
                     let marqposition = this.marqtemp.getPosition();
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();

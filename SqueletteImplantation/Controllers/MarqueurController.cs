@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using SqueletteImplantation.DbEntities;
 using SqueletteImplantation.DbEntities.Models;
+using SqueletteImplantation.DbEntities.DTOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.IO;
+
 
 namespace SqueletteImplantation.Controllers
 {
@@ -48,7 +50,16 @@ namespace SqueletteImplantation.Controllers
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
-                
+            var profil = _maBd.Profil.FirstOrDefault(p => p.profilId == marqueur.profilId);
+            PostsUser nouveauPost = new PostsUser();
+            nouveauPost.profilId = marqueur.profilId;
+            nouveauPost.Profil = marqueur.Profil;
+            nouveauPost.postTitle = "Marqueur " + marqueur.Nom + " créé par: " + profil.username;
+            nouveauPost.postText = marqueur.Desc;
+            nouveauPost.postLike = 0;
+            nouveauPost.postImg = "";
+
+            _maBd.PostsUser.Add(nouveauPost);
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();
 
