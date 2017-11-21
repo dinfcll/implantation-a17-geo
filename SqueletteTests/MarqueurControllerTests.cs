@@ -17,7 +17,8 @@ namespace SqueletteTests
         //un commentaire
         private Marqueur marqueur;
         private readonly MarqueurController _marqueurControlleur;
-
+        private readonly ProfilController _profilController;
+        Profil profil = new Profil();
         public MarqueurControllerTests()
         {
             var options = new DbContextOptionsBuilder<MaBd>()
@@ -25,6 +26,13 @@ namespace SqueletteTests
                 .Options;
 
             var bdEnMemoire = new MaBd(options);
+            
+            profil.nom = "bla";
+            profil.courriel = "bla@bla.bla";
+            profil.prenom = "blob";
+            profil.profilId = 0;
+            profil.profilimage = "";
+            profil.username = "blablob";
             marqueur = new Marqueur();
             marqueur.Id = 0;
             marqueur.Nom = "woot";
@@ -34,8 +42,15 @@ namespace SqueletteTests
             marqueur.Longitude = -71.256m;
             marqueur.Trajetlat = "lat";
             marqueur.Trajetlng = "lng";
-
+            marqueur.profilId = 0;
+            marqueur.Profil = profil;
+            marqueur.Difficulte = 0;
+            marqueur.BanqueImage = "";
+            marqueur.ImageMarqueur = "";
+            marqueur.ServicesRando = "";
+            
             _marqueurControlleur = new MarqueurController(bdEnMemoire, null);
+            _profilController = new ProfilController(bdEnMemoire);
         }
 
         [Fact]
@@ -63,6 +78,12 @@ namespace SqueletteTests
             marq2.Longitude = -7744.355m;
             marq2.Trajetlat = "tong";
             marq2.Trajetlng = "zarg";
+            marq2.profilId = 0;
+            marq2.Profil = profil;
+            marq2.ImageMarqueur = "";
+            marq2.BanqueImage = "";
+            marq2.Difficulte = 0;
+            marq2.ServicesRando = "";
             var Createsecondmarq = (_marqueurControlleur.CreateMarqueur(marq2) as OkObjectResult).Value as Marqueur;
             var delete = _marqueurControlleur.DeleteMarqueur(Createsecondmarq.Id);
             var retourlist = _marqueurControlleur.Index() as List<Marqueur>;
