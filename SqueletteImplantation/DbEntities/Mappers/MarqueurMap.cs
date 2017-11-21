@@ -22,6 +22,8 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.Property(m => m.ImageMarqueur);
             entityBuilder.Property(m => m.BanqueImage);
             entityBuilder.Property(m => m.Difficulte);
+            entityBuilder.Property(m => m.ServicesRando);
+            entityBuilder.Property(m => m.dateCreation);
 
         }
     }

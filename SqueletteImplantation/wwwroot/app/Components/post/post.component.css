@@ -24,12 +24,21 @@ button.disabled:hover {
   cursor:not-allowed;
 }
 .img-responsive{
-  max-width: 200px !important;
+  max-width: 120px !important;
   height: auto;
   border: solid white 10px; 
   position: absolute; 
   top: 225px;
   left: -10px;
+}
+.padding-fix{
+  padding-bottom: 3%;
+}
+hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 .usernamepost{
   font-size: 25px;
@@ -312,4 +321,7 @@ svg #main-circ {
 @keyframes animateHeartOut{
   0%{transform:scale(1.4);}
   100%{transform:scale(1);}
+}
+.card-shadow{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

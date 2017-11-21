@@ -20,5 +20,7 @@ namespace SqueletteImplantation.DbEntities.Models
         public string ImageMarqueur { get; set; }
         public string BanqueImage { get; set; }
         public int Difficulte { get; set; }
+        public string ServicesRando { get; set; }
+        public string dateCreation { get; set; }
     }
 }

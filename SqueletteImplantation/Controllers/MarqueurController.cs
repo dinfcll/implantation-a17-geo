@@ -30,10 +30,26 @@ namespace SqueletteImplantation.Controllers
             return _maBd.Marqueur.ToList();
         }
 
+        [HttpGet]
+        [Route("api/marqueurs/suivi/{id}")]
+        public IEnumerable marqueursuivi(int id)
+        {
+            var marquser = _maBd.Marqueur.Where( m => m.profilId == id).ToList();
+            var marqami = from suivi in _maBd.Following
+                    join marq in _maBd.Marqueur on suivi.FollowedId equals marq.profilId
+                    where suivi.FollowerId == id
+                    select marq;
+
+            marquser.AddRange(marqami);
+            return marquser;
+        }
+
         [HttpPost]
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
+            DateTime today = DateTime.Today;
+            marqueur.dateCreation = today.ToString("d");
                 
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();

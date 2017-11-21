@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171114010358_AjoutServicesRando")]
+    partial class AjoutServicesRando
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -76,8 +77,6 @@ namespace squeletteimplantation.Migrations
                     b.Property<string>("Trajetlat");
 
                     b.Property<string>("Trajetlng");
-
-                    b.Property<string>("dateCreation");
 
                     b.Property<int>("profilId");
 

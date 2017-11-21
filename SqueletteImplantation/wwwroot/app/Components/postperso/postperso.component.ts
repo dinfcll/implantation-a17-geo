@@ -15,7 +15,7 @@ declare var jBox: any;
 })
 
 export class PostPersoComponent implements OnInit {
-
+    followedPosts: UserPost[];
     posts: UserPost[];
     postSubmit: string;
 
@@ -33,11 +33,15 @@ export class PostPersoComponent implements OnInit {
                 this.profil = res;
         });
 
+        this.userpostservice.getFollowedPosts()
+        .subscribe(res =>{
+            this.followedPosts=res;
+        })
+
         this.userpostservice
-        .getListPost()
+        .getmyPosts()
         .subscribe(res => {
             this.posts = res;
-            console.log(res);
         });      
     }
 
@@ -54,7 +58,17 @@ export class PostPersoComponent implements OnInit {
             }
         }
     }
-
+    updatePosts(){
+        this.userpostservice.getmyPosts()
+        .subscribe(res =>{
+            this.posts=res;
+        })
+        this.userpostservice.getFollowedPosts()
+        .subscribe(res =>{
+            this.followedPosts=res;
+        })
+     
+    }
     submitPost(postTitle: string, postText: string) {
         if(!postTitle || !postText) {
             new jBox('Notice', { 
