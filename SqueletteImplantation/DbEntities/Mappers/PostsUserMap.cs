@@ -11,6 +11,7 @@ namespace SqueletteImplantation.DbEntities.Mappers
             entityBuilder.Property(m => m.postTitle).IsRequired();
             entityBuilder.Property(m => m.postText).IsRequired();
             entityBuilder.Property(m => m.postLike);
+            entityBuilder.Property(m => m.datePublication);
         }
     }
 }
