@@ -549,7 +549,6 @@ export class MapComponent implements OnInit {
             else {
                 if(localStorage.getItem('profilId'))
                 {   
-                    console.log(localStorage.getItem('profilId'));
                     let marqposition = this.marqtemp.getPosition();
                     this.currentmarqueur.latitude = marqposition.lat();
                     this.currentmarqueur.longitude = marqposition.lng();
