@@ -279,6 +279,9 @@
                                     <h3 *ngIf="tServicesRando.length" >Services: <img *ngFor="let s of tServicesRando" src="{{tPathServicesImages[s]}}" alt="{{tTitreServices[s]}}" title="{{tTitreServices[s]}}"></h3>
                                 </div>
                             </div>
+                            <div *ngIf="currentmarqueur.dateCreation">
+                                <span>crée le {{currentmarqueur.dateCreation}}</span>
+                            </div>
                             <div *ngIf="currentmarqueur.imageMarqueur" class="col-md-5">
                                     <img [src]="currentmarqueur.imageMarqueur" class="img-thumbnail img-responsive">
                             </div>

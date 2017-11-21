@@ -48,6 +48,8 @@ namespace SqueletteImplantation.Controllers
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
+            DateTime today = DateTime.Today;
+            marqueur.dateCreation = today.ToString("d");
                 
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();
