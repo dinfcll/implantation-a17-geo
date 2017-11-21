@@ -34,7 +34,6 @@ namespace SqueletteTests
             profils.Prenom = "blob";
             profils.ProfilImage = "";
             profils.Username = "blablob";
-            //_profilController.CreateProfil(profils);
             
             marqueur = new Marqueur();
             marqueur.Id = 0;
