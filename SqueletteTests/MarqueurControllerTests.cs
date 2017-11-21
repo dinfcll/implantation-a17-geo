@@ -34,7 +34,7 @@ namespace SqueletteTests
             profils.Prenom = "blob";
             profils.ProfilImage = "";
             profils.Username = "blablob";
-            _profilController.CreateProfil(profils);
+            //_profilController.CreateProfil(profils);
             
             marqueur = new Marqueur();
             marqueur.Id = 0;
@@ -56,14 +56,20 @@ namespace SqueletteTests
 
         [Fact]
         public void testajoutmarqueur(){
-            _profilController.CreateProfil(profils);
+            var profil = (_profilController.CreateProfil(profils) as OkObjectResult).Value as Profil;
+
+            marqueur.profilId = profil.profilId;
+
             var result = _marqueurControlleur.CreateMarqueur(marqueur);
             Assert.Equal("woot", ((result as OkObjectResult).Value as Marqueur).Nom);
         }
 
         [Fact]
         public void supprimermarqueur(){
-            _profilController.CreateProfil(profils);
+            var profil = (_profilController.CreateProfil(profils) as OkObjectResult).Value as Profil;
+
+            marqueur.profilId = profil.profilId;
+
             var result = (_marqueurControlleur.CreateMarqueur(marqueur) as OkObjectResult).Value as Marqueur;
             var retoursupp = _marqueurControlleur.DeleteMarqueur(result.Id);
             Assert.Equal(200, (retoursupp as OkResult).StatusCode);
@@ -71,7 +77,10 @@ namespace SqueletteTests
 
         [Fact]
         public void Testsurlist(){
-            _profilController.CreateProfil(profils);
+            var profil = (_profilController.CreateProfil(profils) as OkObjectResult).Value as Profil;
+
+            marqueur.profilId = profil.profilId;
+
             var CreateMarqueur = _marqueurControlleur.CreateMarqueur(marqueur);
             Marqueur marq2 = new Marqueur();
             marq2.Id = 0;
@@ -82,7 +91,7 @@ namespace SqueletteTests
             marq2.Longitude = -7744.355m;
             marq2.Trajetlat = "tong";
             marq2.Trajetlng = "zarg";
-            marq2.profilId = 0;
+            marq2.profilId = profil.profilId;
             marq2.ImageMarqueur = "";
             marq2.BanqueImage = "";
             marq2.Difficulte = 0;
