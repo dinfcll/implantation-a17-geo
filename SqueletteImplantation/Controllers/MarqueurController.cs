@@ -50,6 +50,9 @@ namespace SqueletteImplantation.Controllers
         [Route("api/marqueurs")]
         public IActionResult CreateMarqueur([FromBody]Marqueur marqueur)
         {
+            DateTime today = DateTime.Today;
+            marqueur.dateCreation = today.ToString("d");
+            
             var profil = _maBd.Profil.FirstOrDefault(p => p.profilId == marqueur.profilId);
             PostsUser nouveauPost = new PostsUser();
             nouveauPost.profilId = marqueur.profilId;
@@ -60,6 +63,7 @@ namespace SqueletteImplantation.Controllers
             nouveauPost.postImg = marqueur.ImageMarqueur;
 
             _maBd.PostsUser.Add(nouveauPost);
+
             _maBd.Marqueur.Add(marqueur);
             _maBd.SaveChanges();
 
