@@ -1,0 +1,6 @@
+<div>
+    {{loadingservice.loadingActive}}
+    <i *ngIf="loadingservice.loadingActive" id="loadingicone" class="fa fa-spinner fa-pulse fa-3x"></i>
+    <button *ngIf="loadingservice.loadingActive" type="button" (click)="loadingservice.stopLoad()">stop</button>
+    <button *ngIf="!loadingservice.loadingActive" type="button" (click)="loadingservice.startLoad()">start</button>
+</div>
