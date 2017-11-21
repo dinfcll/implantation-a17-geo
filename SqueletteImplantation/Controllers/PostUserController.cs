@@ -32,6 +32,8 @@ namespace SqueletteImplantation.Controllers
 
             if(post != null)
             {
+                DateTime today = DateTime.Today;
+                post.datePublication = today.ToString("d");
                 _maBd.PostsUser.Add(post);
                 _maBd.SaveChanges();
 
