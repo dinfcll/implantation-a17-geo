@@ -18,7 +18,7 @@ namespace SqueletteTests
         private Marqueur marqueur;
         private readonly MarqueurController _marqueurControlleur;
         private readonly ProfilController _profilController;
-        Profil profil = new Profil();
+        ProfilDto profils = new ProfilDto();
         public MarqueurControllerTests()
         {
             var options = new DbContextOptionsBuilder<MaBd>()
@@ -26,13 +26,16 @@ namespace SqueletteTests
                 .Options;
 
             var bdEnMemoire = new MaBd(options);
+            _marqueurControlleur = new MarqueurController(bdEnMemoire, null);
+            _profilController = new ProfilController(bdEnMemoire);
             
-            profil.nom = "bla";
-            profil.courriel = "bla@bla.bla";
-            profil.prenom = "blob";
-            profil.profilId = 0;
-            profil.profilimage = "";
-            profil.username = "blablob";
+            profils.Nom = "bla";
+            profils.Courriel = "bla@bla.bla";
+            profils.Prenom = "blob";
+            profils.ProfilImage = "";
+            profils.Username = "blablob";
+            _profilController.CreateProfil(profils);
+            
             marqueur = new Marqueur();
             marqueur.Id = 0;
             marqueur.Nom = "woot";
@@ -43,24 +46,24 @@ namespace SqueletteTests
             marqueur.Trajetlat = "lat";
             marqueur.Trajetlng = "lng";
             marqueur.profilId = 0;
-            marqueur.Profil = profil;
             marqueur.Difficulte = 0;
             marqueur.BanqueImage = "";
             marqueur.ImageMarqueur = "";
             marqueur.ServicesRando = "";
             
-            _marqueurControlleur = new MarqueurController(bdEnMemoire, null);
-            _profilController = new ProfilController(bdEnMemoire);
+
         }
 
         [Fact]
         public void testajoutmarqueur(){
+            _profilController.CreateProfil(profils);
             var result = _marqueurControlleur.CreateMarqueur(marqueur);
             Assert.Equal("woot", ((result as OkObjectResult).Value as Marqueur).Nom);
         }
 
         [Fact]
         public void supprimermarqueur(){
+            _profilController.CreateProfil(profils);
             var result = (_marqueurControlleur.CreateMarqueur(marqueur) as OkObjectResult).Value as Marqueur;
             var retoursupp = _marqueurControlleur.DeleteMarqueur(result.Id);
             Assert.Equal(200, (retoursupp as OkResult).StatusCode);
@@ -68,6 +71,7 @@ namespace SqueletteTests
 
         [Fact]
         public void Testsurlist(){
+            _profilController.CreateProfil(profils);
             var CreateMarqueur = _marqueurControlleur.CreateMarqueur(marqueur);
             Marqueur marq2 = new Marqueur();
             marq2.Id = 0;
@@ -79,7 +83,6 @@ namespace SqueletteTests
             marq2.Trajetlat = "tong";
             marq2.Trajetlng = "zarg";
             marq2.profilId = 0;
-            marq2.Profil = profil;
             marq2.ImageMarqueur = "";
             marq2.BanqueImage = "";
             marq2.Difficulte = 0;
