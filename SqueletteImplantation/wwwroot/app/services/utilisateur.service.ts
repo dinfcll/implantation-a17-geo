@@ -5,6 +5,7 @@ import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
+import { LoadingService } from './loading.service';
 
 @Injectable()
 export class UtilisateurService extends BaseService {
@@ -12,7 +13,7 @@ export class UtilisateurService extends BaseService {
     baseUrl: string = '';
     profil: ProfilUtilisateur;
 
-    constructor(private configService: ConfigService, private http: Http) {
+    constructor(private configService: ConfigService, private http: Http, private loadingservice: LoadingService) {
         super();
         this.baseUrl = configService.getApiURI();
     }
@@ -21,9 +22,15 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
+        this.loadingservice.startLoad();      
+
         return this.http
             .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email, mdp }), { headers })
-            .map(res => { return res.json(); })
+            .map(res => { 
+                //this.loadingservice.delayTest(3000);
+                this.loadingservice.stopLoad();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
