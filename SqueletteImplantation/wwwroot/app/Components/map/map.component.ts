@@ -226,7 +226,6 @@ export class MapComponent implements OnInit {
         }     
     }
 
-
     PermissionDetails(): void {
         if(this.stadetrace === 0 && !this.AcceptMarker && !this.modmarq) {
             if(this.currentmarqueur.nom) {

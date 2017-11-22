@@ -17,16 +17,6 @@
                     </span>
                 </button>
             </div>
-            <div class="col-md-4">
-                <button class="ajoutMarqueur" (click)="PermissionDetails()" [ngClass]="{'cancel': DetailsView}">
-                    <span class="buttonMessage" *ngIf="!DetailsView">
-                        Vue détaillée
-                    </span>
-                    <span class="buttonMessage cancel" *ngIf="DetailsView">
-                        Fermer
-                    </span>
-                </button>
-            </div>
             <div class="col-md-4" (click)="ChangeStade()">
                 <button>
                     <span class="buttonMessage" *ngIf="stadetrace==0">
