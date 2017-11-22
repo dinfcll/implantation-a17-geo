@@ -19,16 +19,23 @@ export class UserPostService extends BaseService {
         this.baseUrl = configService.getApiURI();
     }
 
+    getListPost() {
+        return this.http
+        .get(this.baseUrl + '/postUser')
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
+
     getFollowedPosts() {
         return this.http
-        .get(this.baseUrl+'/postUser/followedPost/' + localStorage.getItem("profilId"))
+        .get(this.baseUrl + '/postUser/followedPost/' + localStorage.getItem("profilId"))
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
 
     getmyPosts() {
         return this.http
-        .get(this.baseUrl+'/postUser/myPosts/' + localStorage.getItem("profilId"))
+        .get(this.baseUrl + '/postUser/myPosts/' + localStorage.getItem("profilId"))
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
