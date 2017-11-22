@@ -4,63 +4,39 @@
   outline: 0 !important;
 }
 .jumbotron { 
-    background-color: rgba(255, 255, 255, 1) !important;
-    border-radius: 8px;
+    background-color: white !important;
     font-family: 'Raleway', sans-serif;
-    margin-top: 1%;
-    overflow: scroll;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    padding-right:1%;
-    padding-left:1%;
-    padding-top:1%;
-    position: relative;  
-}
-.disabled {
-  color: #626262;
-}
-button.disabled:hover {
-  color:  #626262;
-  cursor:not-allowed;
+    position: relative;
 }
 .img-responsive{
-  max-width: 120px !important;
+  max-width: 150px !important;
   height: auto;
-  border: solid white 10px; 
-  position: absolute; 
-  top: 225px;
-  left: -10px;
+  position: absolute;
+  margin-top: 50px;
 }
 .padding-fix{
   padding-bottom: 3%;
 }
-hr {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-}
 .usernamepost{
   font-size: 25px;
   color: #AAAAAA;
+  top: 200px;
+  left: 50px;
+  position: absolute;
 }
 .titrepost {
-  font-size: 50px;
+  font-size: 30px;
   color: #AAAAAA;
+  margin-top: 30px;
 }
 .textpost {
   font-size: 18px;
   color: grey;
+  margin-top: 30px;
 }
-.imagePost {
-  width: 300px;
-  height: 300px;
-  margin-left: -5%;
-  overflow: hidden;
-  position: absolute;
-  
+#littleTitle {
+  margin-top: 8px;
 }
-
 
 
 
@@ -69,7 +45,9 @@ hr {
 	min-width: 150px;
 	max-width: 250px;
 	display: block;
-	margin: 1em;
+  margin: 1em;
+  margin-top: 30px;
+  margin-bottom: 20px;
 	padding: 1em 2em;
 	border: none;
 	background: none;

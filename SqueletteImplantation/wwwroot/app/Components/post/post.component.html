@@ -1,12 +1,8 @@
-
+<div class="jumbotron">
         
     <div class="row padding-fix">
 
         <div class="col-md-10 col-md-offset-1 card-shadow">
-
-            <div class="col-md-1" class="imagePost">
-                <img [src]="imgTree">
-            </div>
 
             <div class="col-md-1">
                 <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive" 
@@ -22,7 +18,7 @@
             </div>
     
             <div class="form-group">
-                <div class="col-md-6 col-md-offset-6">  
+                <div class="col-md-8 col-md-offset-4">  
 
                     <button class="button button--post" (click)="onDeletePost()">
                         <i class="button__icon fa fa-trash"></i>
@@ -50,7 +46,7 @@
             <div *ngIf="bModif">
        
                 <div class="form-group">
-                    <label id="littleTitle" class="col-md-2 col-md-offset-3 control-label">Titre :</label>
+                    <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Titre :</label>
                     <div class="col-md-offset-4 textpost">
                         <input class="form-control" type="text" name="p.postTitle" [(ngModel)]="p.postTitle"
                             placeholder="{{p.postTitle}}">
@@ -58,7 +54,7 @@
                 </div>
             
                 <div class="form-group">
-                    <label id="littleTitle" class="col-md-2 col-md-offset-3 control-label">Texte :</label>
+                    <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Texte :</label>
                     <div class="col-md-offset-4 textpost">
                         <input class="form-control" type="text" name="p.postText" [(ngModel)]="p.postText"
                             placeholder="{{p.postText}}">
@@ -84,5 +80,4 @@
             </div>                           
         </div>
     </div>
-
-
+</div>
