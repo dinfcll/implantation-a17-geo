@@ -25,9 +25,9 @@ html *:after { box-sizing: inherit; }
   box-shadow:
     -2.1875em 0.6875em 0 -0.6875em gray,
     2.0625em 0.9375em 0 -0.9375em gray,
-    0 0 0 0.375em black,
-    -2.1875em 0.6875em 0 -0.3125em black,
-    2.0625em 0.9375em 0 -0.5625em black;
+    0 0 0 0.375em white,
+    -2.1875em 0.6875em 0 -0.3125em white,
+    2.0625em 0.9375em 0 -0.5625em white;
 }
 .cloud:after {
   content: '';
@@ -38,22 +38,22 @@ html *:after { box-sizing: inherit; }
   width: 4.5625em;
   height: 1em;
   background: gray;
-  box-shadow: 0 0.375em black;
+  box-shadow: 0 0.375em white;
 }
 .cloud:nth-child(2) {
   z-index: 0;
-  background: black;
+  background: white;
   box-shadow:
-    -2.1875em 0.6875em 0 -0.6875em black,
-    2.0625em 0.9375em 0 -0.9375em black,
-    0 0 0 0.375em black,
-    -2.1875em 0.6875em 0 -0.3125em black,
-    2.0625em 0.9375em 0 -0.5625em black;
+    -2.1875em 0.6875em 0 -0.6875em white,
+    2.0625em 0.9375em 0 -0.9375em white,
+    0 0 0 0.375em white,
+    -2.1875em 0.6875em 0 -0.3125em white,
+    2.0625em 0.9375em 0 -0.5625em white;
   opacity: 0.3;
   transform: scale(0.5) translate(6em, -3em);
   animation: cloud 4s linear infinite;
 }
-.cloud:nth-child(2):after { background: black; }
+.cloud:nth-child(2):after { background: white; }
 
 .sun {
   position: absolute;
@@ -64,7 +64,7 @@ html *:after { box-sizing: inherit; }
   margin: -1.25em;
   background: yellow;
   border-radius: 50%;
-  box-shadow: 0 0 0 0.375em black;
+  box-shadow: 0 0 0 0.375em white;
   animation: spin 12s infinite linear;
 }
 .rays {
@@ -75,9 +75,9 @@ html *:after { box-sizing: inherit; }
   width: 0.375em;
   height: 1.125em;
   margin-left: -0.1875em;
-  background: black;
+  background: white;
   border-radius: 0.25em;
-  box-shadow: 0 5.375em black;
+  box-shadow: 0 5.375em white;
 }
 .rays:before,
 .rays:after {
@@ -90,9 +90,9 @@ html *:after { box-sizing: inherit; }
   height: 1.125em;
   transform: rotate(60deg);
   transform-origin: 50% 3.25em;
-  background: black;
+  background: white;
   border-radius: 0.25em;
-  box-shadow: 0 5.375em black;
+  box-shadow: 0 5.375em white;
 }
 .rays:before {
   transform: rotate(120deg);
@@ -138,7 +138,7 @@ html *:after { box-sizing: inherit; }
   top: 50%;
   left: 50%;
   margin: -0.25em 0 0 -0.125em;
-  color: black;
+  color: white;
   opacity: 0.3;
   animation: lightning 2s linear infinite;
 }
@@ -194,7 +194,7 @@ html *:after { box-sizing: inherit; }
   top: 50%;
   left: 50%;
   margin: -1.025em 0 0 -1.0125em;
-  color: black;
+  color: white;
   height: 1em;
   opacity: 0.2;
   animation: spin 8s linear infinite reverse;
@@ -265,8 +265,8 @@ html *:after { box-sizing: inherit; }
 
 @keyframes lightning {
   45% {
-    color: black;
-    background: black;
+    color: white;
+    background: white;
     opacity: 0.2;
   }
   50% {
@@ -275,8 +275,8 @@ html *:after { box-sizing: inherit; }
     opacity: 1;
   }
   55% {
-    color: black;
-    background: black;
+    color: white;
+    background: white;
     opacity: 0.2;
   }
 }

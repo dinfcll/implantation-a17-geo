@@ -13,7 +13,11 @@ declare var jBox:any;
     moduleId: module.id,
     selector: 'map',
     templateUrl:'./map.html',
-    styleUrls:['./map.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css','./meteo.css']
+    styleUrls: [
+        './map.component.css',
+        './../../../lib/bootstrap/dist/css/bootstrap.css',
+        './meteo.css'
+    ]
 })
 
 export class MapComponent implements OnInit {
@@ -223,26 +227,22 @@ export class MapComponent implements OnInit {
     }
 
 
-    PermissionDetails():void {
-        if(this.stadetrace === 0 && !this.AcceptMarker && !this.modmarq)
-        {
-            if(this.currentmarqueur.nom){
+    PermissionDetails(): void {
+        if(this.stadetrace === 0 && !this.AcceptMarker && !this.modmarq) {
+            if(this.currentmarqueur.nom) {
                 this.DetailsView = !this.DetailsView;
                 this.AcceptMarker=false;
                 this.LoadDetails();  
-            }
-            else
-            {
+            } else {
                 new jBox('Notice', {
                     content: 'Cliquer sur un marqueur pour en voir les détails',
                     color: 'red',
                     autoClose: 2000
                 });
             }
-        }
-        else
-        {
+        } else {
             this.messageErreurActionSurCarte();
+            this.Annulation();
         }
     }
 
