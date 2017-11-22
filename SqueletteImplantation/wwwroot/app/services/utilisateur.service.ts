@@ -22,13 +22,13 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
-        this.loadingservice.startLoad();      
+        this.loadingservice.startLoadLocal();
 
         return this.http
             .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email, mdp }), { headers })
-            .map(res => { 
-                //this.loadingservice.delayTest(3000);
-                this.loadingservice.stopLoad();
+            .map(res => {
+                this.loadingservice.delayTest(3000);
+                this.loadingservice.stopLoadLocal();
                 return res.json();
             })
             .catch(this.handleError);

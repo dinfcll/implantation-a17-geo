@@ -4,22 +4,31 @@ import { BaseService } from './base.service';
 
 @Injectable()
 export class LoadingService extends BaseService {
-    loadingActive: boolean = false;
-    
-    startLoad() {
-        this.loadingActive = true;
+    loadingGlobalActive: boolean = false;
+    loadingLocalActive: boolean = false;
+
+    startLoadGlobal() {
+        this.loadingGlobalActive = true;
     }
 
-    stopLoad() {
-        this.loadingActive = false;
+    stopLoadGlobal() {
+        this.loadingGlobalActive = false;
+    }
+
+    startLoadLocal() {
+        this.loadingLocalActive = true;
+    }
+
+    stopLoadLocal() {
+        this.loadingLocalActive = false;
     }
 
     delayTest(ms: number) {
         let dateCourrante: number;
-        let dateObjectif:number;
+        let dateObjectif: number;
         dateCourrante = Date.now();
         dateObjectif = dateCourrante + ms;
-        while(dateCourrante != dateObjectif) {
+        while (dateCourrante !== dateObjectif) {
             dateCourrante = Date.now();
         }
     }

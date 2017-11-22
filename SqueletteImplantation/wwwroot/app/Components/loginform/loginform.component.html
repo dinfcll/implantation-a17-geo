@@ -32,7 +32,7 @@
             Réinitialiser Mot de passe
         </span>
         <span (click)="loginForm.form.valid && onLogin(email,mdp)">
-            Se Connecter
+            Se Connecter <loading></loading>
         </span>
         <span (click)="loginForm.form.valid && inscription(email,mdp,confirm)">
             S'inscrire
