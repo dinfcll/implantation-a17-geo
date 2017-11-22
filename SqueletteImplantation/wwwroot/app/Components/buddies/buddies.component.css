@@ -22,6 +22,9 @@
   .user-list{
     padding:0px;
   }
+  a{
+    padding:2px;
+  }
   .panel-heading.user-pan-head{
     padding-bottom: 0px;
     padding-left: 0px;

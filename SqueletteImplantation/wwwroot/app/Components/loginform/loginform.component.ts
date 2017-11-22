@@ -17,9 +17,24 @@ export class LoginFormComponent {
 
     binscription: boolean = false;
     utilisateur: Utilisateur;
+    option:string;
 
-    constructor(private utilisateurService: UtilisateurService, private router: Router) { }
-
+    constructor(private utilisateurService: UtilisateurService, private router: Router) {
+     
+     }
+    formSubmit(option:any,email:string,mdp:string,confirm:string){
+        if(this.option=="signin" || this.option==undefined){
+            this.onLogin(email,mdp);
+        }
+        else if(this.option=="signup")
+            {
+                this.inscription(email,mdp,confirm);
+            }
+            else if(this.option=="reset")
+                {
+                    this.resetPW(email);
+                }
+    }
     onLogin(email: string, mdp: string) {
         this.utilisateurService
         .login(email, mdp)

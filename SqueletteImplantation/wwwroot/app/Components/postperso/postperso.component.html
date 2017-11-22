@@ -1,46 +1,61 @@
 <div class="jumbotron container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-
-            <h2>Publications</h2> <br> 
-                                     
-            <form class="form-horizontal" role="form"> 
-
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-2">
-                        <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Titre...">
-                    </div>
+            <div class="col-md-3">
+                    <buddies></buddies>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-9 col-md-offset-2">
-                        <input class="form-control" type="text" name="postText" [(ngModel)]="postText" placeholder="Texte...">
-                    </div>
+        <div class="col-md-8 col-md-offset-0">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading user-pan-head">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabjournal " data-toggle="tab">Journal</a></li>
+                        <li><a href="#tabactu" data-toggle="tab">Actualité</a></li>
+                        <button type="button" class="btn pull-right" (click)="updatePosts()">Mettre à jour</button>
+                    </ul>
                 </div>
-                
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="col-md-1">
-                            <img [src]="postSubmit" class="imgSubmit" style="pointer-events: none;" height="auto" width="300px;">
-                            <input type="file" (change)="OnPreLoadImage($event)"/>   
+                <div class="panel-body no-padding">
+                        <form class="form-horizontal" role="form"> 
+                            <div class="form-group">
+                                <div class="col-md-9 col-md-offset-2">
+                                    <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Titre...">
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-md-9 col-md-offset-2">
+                                    <input class="form-control" type="text" name="postText" [(ngModel)]="postText" placeholder="Texte...">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-1">
+                                        <img [src]="postSubmit" class="imgSubmit" style="pointer-events: none;" height="auto" width="300px;">
+                                        <input type="file" (change)="OnPreLoadImage($event)"/>   
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-2 col-md-offset-7"> 
+                                            <button class="button button--publier button--text button--inverted pull-right" 
+                                                (click)="submitPost(postTitle, postText)">
+                                                <i class="button__icon fa fa-paper-plane"></i>
+                                                <span>Publier</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>            
+                        </form>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="tabjournal"> 
+                            <div *ngFor="let pub of posts">
+                                    <postUser [p]='pub'></postUser>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-2 col-md-offset-7"> 
-                                <button class="button button--publier button--text button--inverted pull-right" 
-                                    (click)="submitPost(postTitle, postText)">
-                                    <i class="button__icon fa fa-paper-plane"></i>
-                                    <span>Publier</span>
-                                </button>
+                        <div class="tab-pane fade in" id="tabactu">
+                            <div *ngFor="let pub of followedPosts">
+                                    <postUser [p]='pub'></postUser>
                             </div>
                         </div>
                     </div>
-                </div>            
-            </form>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<div *ngFor="let pub of posts">
-    <postUser [p]='pub'></postUser>
 </div>

@@ -8,6 +8,7 @@ namespace SqueletteImplantation.DbEntities.Models
         public int postLike { get; set; }
         public string postImg { get; set; }
         public int profilId { get; set; }
+        public string datePublication { get; set; }
         public Profil Profil { get; set; }
    }
 }
