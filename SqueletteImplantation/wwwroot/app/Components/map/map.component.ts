@@ -242,7 +242,6 @@ export class MapComponent implements OnInit {
             }
         } else {
             this.messageErreurActionSurCarte();
-            this.Annulation();
         }
     }
 
