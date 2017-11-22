@@ -4,9 +4,17 @@
   outline: 0 !important;
 }
 .jumbotron { 
-    background-color: white !important;
     font-family: 'Raleway', sans-serif;
     position: relative;
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    border-radius: 8px;
+    padding-right:1%;
+    padding-left:1%;
+    padding-top:1%;
+    margin-top: 1%;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .img-responsive{
   max-width: 150px !important;
