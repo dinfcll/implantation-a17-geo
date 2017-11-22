@@ -16,6 +16,13 @@ namespace SqueletteImplantation.DbEntities.DTOs
             this.postText = txt;
         }
 
+        public PostUserDto(string title, string txt, int proId)
+        {
+            this.postTitle = title;
+            this.postText = txt;
+            this.profilId = proId;
+        }
+
         public PostsUser CreatePostUser()
         {
             return new PostsUser { postTitle = postTitle, postText = postText, 

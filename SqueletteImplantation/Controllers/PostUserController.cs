@@ -22,7 +22,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/postUser")]
         public IEnumerable GetListPost()
         {
-            return _maBd.PostsUser.ToList();
+            return _maBd.PostsUser.ToList().OrderByDescending(p => p.postId);
         }
 
         [HttpPost]
@@ -99,7 +99,7 @@ namespace SqueletteImplantation.Controllers
         public IEnumerable GetmyPost(int id)
         {
             return from c in _maBd.PostsUser
-                   where c.profilId == id
+                   where c.profilId == id orderby c.postId descending
                    select c;
         }
         [HttpGet]
@@ -108,7 +108,7 @@ namespace SqueletteImplantation.Controllers
         {
             return from b in _maBd.Following
             join c in _maBd.PostsUser on b.FollowedId equals c.profilId
-            where (b.FollowerId == id || c.profilId==id)
+            where (b.FollowerId == id || c.profilId==id) orderby c.postId descending
             select c;
 
         }

@@ -438,9 +438,6 @@ export class MapComponent implements OnInit {
             tabImageMarqueur: this.constructionArrayImageMarqueur(info.banqueImage)
         });
 
-        console.log(marker.marqid);
-        console.log(this.googlemarq);
-
         marker.addListener('click', () => {
             if(!marker.click) {
                 this.map.setZoom(13);
