@@ -12,9 +12,17 @@
   }
   .followed{
     color:#1CA2E8;
+    font-size: 20px;
+  }
+  .followed:hover {
+    color: darkred;
   }
   .unfollowed{
     color:grey;
+    font-size: 20px;
+  }
+  .unfollowed:hover {
+    color: #1CA2E8;
   }
   i:hover{
     color:black;
