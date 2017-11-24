@@ -21,28 +21,30 @@ export class UserPostService extends BaseService {
 
     getListPost() {
         return this.http
-            .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json(); })
-            .catch(this.handleError);
-    }
-    getFollowedPosts(){
-        return this.http
-        .get(this.baseUrl+'/postUser/followedPost/'+localStorage.getItem("profilId"))
+        .get(this.baseUrl + '/postUser')
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
-    getmyPosts(){
+
+    getFollowedPosts() {
         return this.http
-        .get(this.baseUrl+'/postUser/myPosts/'+localStorage.getItem("profilId"))
+        .get(this.baseUrl + '/postUser/followedPost/' + localStorage.getItem("profilId"))
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
-    createPost(postTitle: string, postText: string, profilId: number, postImg: string) {
+
+    getmyPosts() {
+        return this.http
+        .get(this.baseUrl + '/postUser/myPosts/' + localStorage.getItem("profilId"))
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
+
+    createPost(postTitle: string, postText: string, profilId: number) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, 
-                profilId, postImg}), {headers})
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, profilId }), {headers})
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

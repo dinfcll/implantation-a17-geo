@@ -44,6 +44,8 @@ export class MapComponent implements OnInit {
      public tTitreServices: string[];
      public imageActuelGallery:number;
 
+     imgDefaultRando: string;
+
     constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
@@ -78,6 +80,7 @@ export class MapComponent implements OnInit {
                                     '../../../images/servicesimages/balise.PNG'];
         this.tTitreServices = ["Toilettes", "Eau Potable", "Accès Handicapé", "Stationnement","Chemin Balisé"];
         this.tServicesRando = new Array();
+        this.imgDefaultRando = '../../../images/sapin.jpeg'
     }
 
     showGallery(index:number):void{
@@ -257,6 +260,7 @@ export class MapComponent implements OnInit {
                 this.DetailsView = false;
                 this.remiseZeroMarqueurCurrentMarqueur();
                 this.ref.detectChanges();
+                this.Annulation();
             } else{
                 informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
                 couleurBox = "red";

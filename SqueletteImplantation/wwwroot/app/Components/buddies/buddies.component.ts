@@ -1,16 +1,14 @@
-import { Component, Input ,OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Http } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { ConfigService } from "../../services/config.service";
 import { Marqueur } from "../../class/marqueur.class";
+import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
 import { Utilisateur } from './../../class/utilisateur.class';
 
 import { BuddyService } from './../../services/buddy.service';
-import { ProfilUtilisateur } from './../../class/profilutilisateur.class';
-
+import { ConfigService } from "../../services/config.service";
 import { UtilisateurService } from './../../services/utilisateur.service';
-
 
 declare var jBox:any;
 
@@ -25,52 +23,47 @@ export class BuddiesComponent implements OnInit {
      name ='Buddies';
      searchResult: ProfilUtilisateur[];
      
+    constructor(private utilisateurService: UtilisateurService, private router: Router, 
+        private buddyService :BuddyService) { }
 
-     constructor(private utilisateurService: UtilisateurService, private router: Router, 
-        private activatedRoute: ActivatedRoute , private buddyService :BuddyService) { }
-
-     ngOnInit(){
+    ngOnInit() {
         this.buddyService.init();
-         this.buddyService.getFollowed();
-         this.buddyService.getFollower();
-         this.buddyService.getUserNotFollowed();
-         
-     }
-     searchUser(search:string){
-         this.buddyService.searchUsers(search)
-            .subscribe(res =>{
-                this.searchResult=res.json() as ProfilUtilisateur[] ;
-            }) 
-     }
-     follow(user:ProfilUtilisateur){
-         this.buddyService.follow(user)
-         .subscribe(res=>{
-             if(res.json()==true)
-                {
-                    this.buddyService.Followed.push(user);
-                    this.buddyService.resetSuggestion();
-                }
-                else{
-                    new jBox('Notice', {
-                        content: 'Vous suivez déjà cet utilisateur',
-                        color: 'red',
-                        autoClose: 2000
-                    });
-                }
-            
-         });
-     }
-     unfollow(user:ProfilUtilisateur){
+        this.buddyService.getFollowed();
+        this.buddyService.getFollower();
+        this.buddyService.getUserNotFollowed();
+    }
+
+    searchUser(search:string) {
+        this.buddyService.searchUsers(search)
+        .subscribe(res => {
+            this.searchResult=res.json() as ProfilUtilisateur[] ;
+        }) 
+    }
+
+    follow(user:ProfilUtilisateur) {
+        this.buddyService.follow(user)
+        .subscribe(res=> {
+            if(res.json() == true) {
+                this.buddyService.Followed.push(user);
+                this.buddyService.resetSuggestion();
+            } else {
+                new jBox('Notice', {
+                    content: 'Vous suivez déjà cet utilisateur',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }            
+        });
+    }
+
+    unfollow(user: ProfilUtilisateur) {
         this.buddyService.unfollow(user)
-        .subscribe(res=>{
-           if(res)
-           {
+        .subscribe(res => {
+            if(res) {
                 var index=this.buddyService.Followed.indexOf(user);
                 this.buddyService.Followed.splice(index,1);
                 this.buddyService.resetSuggestion();
-            }
-           
+            }           
         });
-    }
-    
+    }    
 }

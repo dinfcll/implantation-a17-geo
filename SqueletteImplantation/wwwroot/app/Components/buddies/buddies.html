@@ -13,8 +13,8 @@
                         </form>
                     </ul>
                      <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1default" data-toggle="tab">Suivi</a></li>
-                        <li><a href="#tab2default" data-toggle="tab">Suiveurs</a></li>
+                        <li class="active"><a href="#tab1default" data-toggle="tab">Amis</a></li>
+                        <li><a href="#tab2default" data-toggle="tab">Abonnés</a></li>
                         <li><a href="#tab4default" data-toggle="tab">Suggest.</a></li>
                     </ul>
                 </div>
@@ -25,7 +25,7 @@
                                 <tr *ngFor="let user of buddyService.Followed">
                                     <td>
                                         {{user.username}}
-                                        <i class="fa fa-eercast followed pull-right"(click)="unfollow(user)" [ngClass]="{'unfollowed': user.unfollowed}" aria-hidden="true"></i>
+                                        <i class="fa fa-user-circle followed pull-right"(click)="unfollow(user)" [ngClass]="{'unfollowed': user.unfollowed}" aria-hidden="true"></i>
                                     </td>
                                 </tr>
                             </table>
@@ -55,7 +55,7 @@
                                     <tr *ngFor="let user of buddyService.UserNotFollowed">
                                     <td>
                                         {{user.username}}
-                                        <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
+                                        <i class="fa fa-plus unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
                                     </td>
                                     </tr>
                             </table>

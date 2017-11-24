@@ -15,12 +15,28 @@
   font-size: 27px;
 }
 .rando_card {
-  background-color: rgba(120, 170, 163, 0.73);
-  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  margin-top: 2%;
+}
+.imgRando {
+  margin-bottom: 30px;
+  border-radius: 8px;
+  position: center;
+  overflow: hidden;
+}
+.temp {
+ font-family: 'Raleway', sans-serif;
+ margin-top: 7%;
+ margin-left: 5%;
+ color: gray;
+}
+.iconeTemp {
   margin-top: 2%;
 }
 .textRandoCard {
   text-align: center;
+  color: gray;
 }
 .margin-fix {
   margin: 4px;
@@ -88,8 +104,15 @@ button.disabled:hover {
 .difficulteRando {
   margin-top: 40px;
 }
+.textDiff {
+  font-family: 'Raleway', sans-serif;
+  color: #1F272E;
+  font-size: 18px;
+  float: left;
+  margin-left: 20px;
+}
 .eclair {
-  margin-left: 15%;
+  float: left;
 }
 .difficult-not{
   color:rgba(149, 146, 146, 0.90);
@@ -115,12 +138,13 @@ label > input + i{
 
 /* BOUTONS DE LA VUE DETAILLEE */
 .button {
-	min-width: 150px;
-	max-width: 250px;
+	min-width: 100px;
+	max-width: 150px;
 	display: block;
-	margin: 1em;
+  margin: 1em;
+  margin-top: -250%;
 	padding: 1em 2em;
-	border: none;
+	border: 1px solid white;
 	background: none;
 	color: inherit;
   position: relative;
@@ -139,11 +163,8 @@ label > input + i{
 	height: 70px;
 	min-width: 0;
 	padding: 0;
-	color: #81a8a3;
-	transition: color 0.3s;
-}
-.button--vue.button--inverted {
 	color: #fff;
+	transition: color 0.3s;
 }
 .button--vue::before {
 	content: '';
@@ -152,36 +173,22 @@ label > input + i{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	border-radius: inherit;
+  border-radius: inherit;
 	z-index: -1;
-	box-shadow: inset 0 0 0 35px #fff;
+	box-shadow: inset 0 0 0 35px inherit;
 	transform: scale3d(0.9, 0.9, 1);
 	transition: box-shadow 0.3s, transform 0.3s;
-}
-.button--vue.button--inverted::before {
-	box-shadow: inset 0 0 0 35px #81a8a3;
 }
 .button--vue .button__icon {
 	font-size: 22px;
 	width: 22px;
 }
-.button--vue > span {
-	position: absolute;
-	opacity: 0;
-	pointer-events: none;
-}
 .button--vue:hover {
 	color: #fff;
-}
-.button--vue.button--inverted:hover {
-	color: #81a8a3;
 }
 .button--vue:hover::before {
 	box-shadow: inset 0 0 0 2px #fff;
 	transform: scale3d(1, 1, 1);
-}
-.button--vue.button--inverted:hover::before {
-	box-shadow: inset 0 0 0 2px #81a8a3;
 }
 
 
