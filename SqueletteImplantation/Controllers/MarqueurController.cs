@@ -61,6 +61,7 @@ namespace SqueletteImplantation.Controllers
             nouveauPost.postText = marqueur.Desc;
             nouveauPost.postLike = 0;
             nouveauPost.postImg = marqueur.ImageMarqueur;
+            nouveauPost.datePublication = marqueur.dateCreation;
 
             _maBd.PostsUser.Add(nouveauPost);
 
