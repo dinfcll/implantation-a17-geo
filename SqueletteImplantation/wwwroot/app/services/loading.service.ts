@@ -28,7 +28,7 @@ export class LoadingService extends BaseService {
         let dateObjectif: number;
         dateCourrante = Date.now();
         dateObjectif = dateCourrante + ms;
-        while (dateCourrante !== dateObjectif) {
+        while (dateCourrante < dateObjectif) {
             dateCourrante = Date.now();
         }
     }
