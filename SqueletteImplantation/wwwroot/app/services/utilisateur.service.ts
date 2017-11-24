@@ -112,10 +112,15 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
+        this.loadingservice.startLoadLocal();
+
         return this.http
-            .post(this.baseUrl + '/profil/create', JSON.stringify({ courriel, username, 
+            .post(this.baseUrl + '/profil/create', JSON.stringify({ courriel, username,
                 prenom, nom, profilimage }), { headers })
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingservice.stopLoadLocal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
@@ -123,10 +128,14 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
+        this.loadingservice.startLoadLocal();
+
         return this.http
-            .put(this.baseUrl + '/profil/edit', JSON.stringify({ profilId, courriel, 
+            .put(this.baseUrl + '/profil/edit', JSON.stringify({ profilId, courriel,
                 username, prenom, nom, profilimage }), { headers })
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingservice.stopLoadLocal();
+                return res.json(); })
             .catch(this.handleError);
     }
 

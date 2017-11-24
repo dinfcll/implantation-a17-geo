@@ -78,6 +78,6 @@ button.disabled:hover{
   display: none;
 }
 
-span .loading-global{
+button .loading-global{
   display: none;
 }
