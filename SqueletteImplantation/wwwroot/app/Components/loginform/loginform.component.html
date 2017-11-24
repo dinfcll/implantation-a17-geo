@@ -28,15 +28,14 @@
     </div>
 
     <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}" (click)="loginForm.form.valid && formSubmit(option,email,mdp,confirm)">
-        <span (click)="loginForm.form.valid && resetPW(email)">
+        <span>
             Réinitialiser Mot de passe <loading></loading>
         </span>
-        <span (click)="loginForm.form.valid && onLogin(email,mdp)">
+        <span>
             Se Connecter <loading></loading>
         </span>
-        <span (click)="loginForm.form.valid && inscription(email,mdp,confirm)">
+        <span>
             S'inscrire <loading></loading>
         </span>
     </button>
-
 </form>
