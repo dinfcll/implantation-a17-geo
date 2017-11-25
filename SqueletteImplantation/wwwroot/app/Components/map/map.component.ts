@@ -371,22 +371,26 @@ export class MapComponent implements OnInit {
     }
 
     getMarqueurs(): void {
+        this.loadingservice.startLoadGlobal();
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
                     let marqueur:Marqueur[] = resdata.json() as Marqueur[];
                     marqueur.forEach((mark) => {
                        this.googlemarq.push(this.AjoutMarker(mark));
                     });
+                    this.loadingservice.stopLoadGlobal();
                 });
     }
 
     getMarqueursSuivi():void{
+        this.loadingservice.startLoadGlobal();
         this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
             .subscribe((resdata) => {
                 let marqueursuivi:Marqueur[] = resdata.json() as Marqueur[];
                 marqueursuivi.forEach((mark) => {
                     this.googlemarq.push(this.AjoutMarker(mark));
                 });
+                this.loadingservice.stopLoadGlobal();
             });
              
     }
