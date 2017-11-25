@@ -40,10 +40,10 @@
                                 <button class="button button--profil button--inverted" (click)="editToogle()">
                                     Éditer
                                 </button>
-                                <button class="button button--profil button--inverted" (click)="onDeleteProfil()">
+                                <button *ngIf="profil.profilId != 0" class="button button--profil button--inverted" (click)="onDeleteProfil()">
                                     Supprimer profil
                                 </button>
-                                <button class="button button--profil button--inverted" (click)="onDeleteUser()">
+                                <button *ngIf="profil.profilId != 0" class="button button--profil button--inverted" (click)="onDeleteUser()">
                                     Supprimer compte
                                 </button>                                                                                     
                             </div>                        
