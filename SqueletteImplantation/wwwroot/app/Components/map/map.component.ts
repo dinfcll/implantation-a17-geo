@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
      public imageActuelGallery:number;
 
     constructor(private http: Http, private ref: ChangeDetectorRef, private utilisateurService: UtilisateurService,
-                private loadingservice: LoadingService) {
+                private loadingService: LoadingService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -312,7 +312,7 @@ export class MapComponent implements OnInit {
                 this.currentmarqueur.trajetlat = cheminlat;
                 this.currentmarqueur.trajetlng = cheminlng;
 
-                this.loadingservice.startLoadLocal();
+                this.loadingService.startLoadLocal();
 
                 this.http.post("api/marqueurs/modification", this.currentmarqueur)
                     .subscribe((res) => {
@@ -327,7 +327,7 @@ export class MapComponent implements OnInit {
                             });
                         }
 
-                        this.loadingservice.stopLoadLocal();
+                        this.loadingService.stopLoadLocal();
                         
                     });
                 
@@ -371,26 +371,26 @@ export class MapComponent implements OnInit {
     }
 
     getMarqueurs(): void {
-        this.loadingservice.startLoadGlobal();
+        this.loadingService.startLoadGlobal();
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
                     let marqueur:Marqueur[] = resdata.json() as Marqueur[];
                     marqueur.forEach((mark) => {
                        this.googlemarq.push(this.AjoutMarker(mark));
                     });
-                    this.loadingservice.stopLoadGlobal();
+                    this.loadingService.stopLoadGlobal();
                 });
     }
 
     getMarqueursSuivi():void{
-        this.loadingservice.startLoadGlobal();
+        this.loadingService.startLoadGlobal();
         this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
             .subscribe((resdata) => {
                 let marqueursuivi:Marqueur[] = resdata.json() as Marqueur[];
                 marqueursuivi.forEach((mark) => {
                     this.googlemarq.push(this.AjoutMarker(mark));
                 });
-                this.loadingservice.stopLoadGlobal();
+                this.loadingService.stopLoadGlobal();
             });
              
     }
@@ -562,13 +562,13 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
                     this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-                    this.loadingservice.startLoadLocal();
+                    this.loadingService.startLoadLocal();
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                         this.PermissionAjoutMarker();
                         this.marqtemp.setMap(null);
-                        this.loadingservice.stopLoadLocal();
+                        this.loadingService.stopLoadLocal();
                     });
                 }
                 else{
@@ -582,7 +582,7 @@ export class MapComponent implements OnInit {
             }
         } else {
             this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-            this.loadingservice.startLoadLocal();
+            this.loadingService.startLoadLocal();
             this.http.post("api/marqueurs/modification",this.currentmarqueur)
                 .subscribe( res => {
                     if(res != null){
@@ -594,13 +594,13 @@ export class MapComponent implements OnInit {
                             autoClose: 2000
                         });
                     }
-                    // this.loadingservice.delayTest(3000);
-                    this.loadingservice.stopLoadLocal();
+                    this.loadingService.stopLoadLocal();
                 });
         }
     }
 
     LoadDetails(){
+        this.loadingService.startLoadGlobal();
         this.utilisateurService.getProfilById(String(this.currentmarqueur.profilId))
         .subscribe(res =>{
             this.googlemarq[this.curidmarq].creator=res.username;
@@ -615,6 +615,7 @@ export class MapComponent implements OnInit {
                 var temp =res.json();
                 this.googlemarq[this.curidmarq].temp= Math.round(temp.main.temp-273.15);
                 this.googlemarq[this.curidmarq].weather=temp.weather[0].main;
+                this.loadingService.stopLoadGlobal();
                 this.ref.detectChanges();
             });
         });

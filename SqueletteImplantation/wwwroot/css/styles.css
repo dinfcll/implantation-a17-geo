@@ -69,7 +69,7 @@ button.disabled:hover{
 }
 
 #loadingicone{
-  position: absolute;    
+  position: fixed;
   left: 5%; 
   top: 15%; 
 }

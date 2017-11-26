@@ -13,7 +13,7 @@ export class UtilisateurService extends BaseService {
     baseUrl: string = '';
     profil: ProfilUtilisateur;
 
-    constructor(private configService: ConfigService, private http: Http, private loadingservice: LoadingService) {
+    constructor(private configService: ConfigService, private http: Http, private loadingService: LoadingService) {
         super();
         this.baseUrl = configService.getApiURI();
     }
@@ -22,12 +22,12 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
-        this.loadingservice.startLoadLocal();
+        this.loadingService.startLoadLocal();
 
         return this.http
             .post(this.baseUrl + '/utilisateur/login', JSON.stringify({ email, mdp }), { headers })
             .map(res => {
-                this.loadingservice.stopLoadLocal();
+                this.loadingService.stopLoadLocal();
                 return res.json();
             })
             .catch(this.handleError);
@@ -55,9 +55,14 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
+        this.loadingService.startLoadLocal();
+
         return this.http
             .post(this.baseUrl + '/utilisateur/newpw', JSON.stringify({ email, mdp }), { headers })
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadLocal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
@@ -65,9 +70,14 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
+        this.loadingService.startLoadLocal();
+
         return this.http
             .post(this.baseUrl + '/utilisateur/reset', JSON.stringify({ email }), { headers })
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadLocal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
@@ -75,13 +85,13 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
-        this.loadingservice.startLoadLocal();
+        this.loadingService.startLoadLocal();
 
         return this.http
             .post(this.baseUrl + '/utilisateur/signin',
                 JSON.stringify({ email, mdp }), { headers })
             .map(res => {
-                this.loadingservice.stopLoadLocal();
+                this.loadingService.stopLoadLocal();
                 return res.json();
             })
             .catch(this.handleError);
@@ -112,13 +122,13 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
-        this.loadingservice.startLoadLocal();
+        this.loadingService.startLoadLocal();
 
         return this.http
             .post(this.baseUrl + '/profil/create', JSON.stringify({ courriel, username,
                 prenom, nom, profilimage }), { headers })
             .map(res => {
-                this.loadingservice.stopLoadLocal();
+                this.loadingService.stopLoadLocal();
                 return res.json();
             })
             .catch(this.handleError);
@@ -128,13 +138,13 @@ export class UtilisateurService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
-        this.loadingservice.startLoadLocal();
+        this.loadingService.startLoadLocal();
 
         return this.http
             .put(this.baseUrl + '/profil/edit', JSON.stringify({ profilId, courriel,
                 username, prenom, nom, profilimage }), { headers })
             .map(res => {
-                this.loadingservice.stopLoadLocal();
+                this.loadingService.stopLoadLocal();
                 return res.json(); })
             .catch(this.handleError);
     }
