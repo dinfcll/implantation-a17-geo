@@ -25,8 +25,6 @@ import { LoadingService }              from './services/loading.service';
 import { UserPostService }             from './services/userpost.service';
 import { UtilisateurService }          from './services/utilisateur.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,9 +36,8 @@ import { UtilisateurService }          from './services/utilisateur.service';
     NavBarComponent,
     PostPersoComponent,
     PostUserComponent,
-    ProfilUtilisateurComponent,    
-    ResetPWComponent,
-    
+    ProfilUtilisateurComponent,
+    ResetPWComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +51,7 @@ import { UtilisateurService }          from './services/utilisateur.service';
     AdminGuard,
     BuddyService,
     ConfigService,
-    LoadingService,    
+    LoadingService,
     UserPostService,
     UtilisateurService
   ],

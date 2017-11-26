@@ -308,7 +308,7 @@ export class MapComponent implements OnInit {
 
                 cheminlat = cheminlat.slice(0, -1);
                 cheminlng = cheminlng.slice(0, -1);
-                
+
                 this.currentmarqueur.trajetlat = cheminlat;
                 this.currentmarqueur.trajetlng = cheminlng;
 
@@ -326,11 +326,8 @@ export class MapComponent implements OnInit {
                                 autoClose: 2000
                             });
                         }
-
                         this.loadingService.stopLoadLocal();
-                        
                     });
-                
             }
         }
         else{
