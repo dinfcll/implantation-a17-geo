@@ -17,11 +17,11 @@ export class LoginFormComponent {
 
     binscription: boolean = false;
     utilisateur: Utilisateur;
-    option:string;
+    option: string;
 
     constructor(private utilisateurService: UtilisateurService, private router: Router) {
-     
-     }
+
+    }
     formSubmit(option:any,email:string,mdp:string,confirm:string){
         if(this.option=="signin" || this.option==undefined){
             this.onLogin(email,mdp);
@@ -42,27 +42,24 @@ export class LoginFormComponent {
             if (res) {
                 localStorage.setItem('token', res.email);
                 localStorage.setItem('bAdmin', res.typeutil);
-               
-                this.utilisateurService.getProfil(res.email)
-                .subscribe(res => {
-                    if (res) {
-                        console.log(res);
-                        this.utilisateurService.profil = res;
-                        localStorage.setItem('profilId', res.profilId);
-                        localStorage.setItem('username', res.username);
-                        localStorage.setItem('Proimage', res.profilimage);
-                        
-                    } else {
-                        localStorage.setItem('profilId', "");
-                        localStorage.setItem('username', "");
-                        localStorage.setItem('Proimage', "");
-                        
-                    }
-                });
                 if (res.reset) {
                     this.router.navigate(['/resetPW']);
                 } else {
-                    this.router.navigate(['/map'])
+                    this.utilisateurService.getProfil(res.email)
+                    .subscribe(res => {
+                        if (res) {
+                            console.log(res);
+                            this.utilisateurService.profil = res;
+                            localStorage.setItem('profilId', res.profilId);
+                            localStorage.setItem('username', res.username);
+                            localStorage.setItem('Proimage', res.profilimage);
+                        } else {
+                            localStorage.setItem('profilId', "");
+                            localStorage.setItem('username', "");
+                            localStorage.setItem('Proimage', "");
+                        }
+                        this.router.navigate(['/map']);
+                    });
                 }
             } else {
                 new jBox('Notice', {
