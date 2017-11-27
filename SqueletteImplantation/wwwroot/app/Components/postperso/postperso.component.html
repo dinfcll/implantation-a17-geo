@@ -1,8 +1,17 @@
 <div class="jumbotron container">
     <div class="row">
-            <div class="col-md-3">
-                <buddies></buddies>
+        <div class="col-md-3">
+            <div *ngIf="profil.profilimage" class="row">
+                <img id="imgpro" [src]="profil.profilimage" class="col-md-10 imgpro">
+                <br>
+                <h3>@{{profil.username}}</h3>
             </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <buddies></buddies>
+                </div>
+            </div>
+        </div> 
         <div class="col-md-8 col-md-offset-0">
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading user-pan-head">

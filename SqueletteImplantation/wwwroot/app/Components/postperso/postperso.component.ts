@@ -23,11 +23,13 @@ export class PostPersoComponent implements OnInit {
     postSubmit: string;
 
     profil: ProfilUtilisateur;
-
+    
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
         this.profil = new ProfilUtilisateur(-1,"","","","","");
     }
-
+    test(){
+        console.log(this.profil);
+    }
     ngOnInit() {
         this.utilisateurservice
         .getProfil(localStorage.getItem('token'))
