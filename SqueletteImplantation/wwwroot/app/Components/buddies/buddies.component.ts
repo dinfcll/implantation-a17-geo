@@ -30,13 +30,13 @@ export class BuddiesComponent implements OnInit {
         this.buddyService.init();
         this.buddyService.getFollowed();
         this.buddyService.getFollower();
-        this.buddyService.getUserNotFollowed();
     }
 
     searchUser(search:string) {
         this.buddyService.searchUsers(search)
         .subscribe(res => {
             this.searchResult=res.json() as ProfilUtilisateur[] ;
+            console.log(res);
         }) 
     }
 
@@ -45,7 +45,10 @@ export class BuddiesComponent implements OnInit {
         .subscribe(res=> {
             if(res.json() == true) {
                 this.buddyService.Followed.push(user);
-                this.buddyService.resetSuggestion();
+                var index=this.buddyService.UserNotFollowed.indexOf(user);
+                if(index >=0){
+                    this.buddyService.UserNotFollowed.splice(index,1);
+                }
             } else {
                 new jBox('Notice', {
                     content: 'Vous suivez déjà cet utilisateur',
@@ -62,7 +65,7 @@ export class BuddiesComponent implements OnInit {
             if(res) {
                 var index=this.buddyService.Followed.indexOf(user);
                 this.buddyService.Followed.splice(index,1);
-                this.buddyService.resetSuggestion();
+                this.buddyService.UserNotFollowed.push(user);
             }           
         });
     }    

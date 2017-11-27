@@ -39,24 +39,13 @@ export class BuddyService extends BaseService {
 
     getUserNotFollowed() {
         this.http
-            .get("/api/profil")
+            .get("/api/following/getSuggestionById/"+ localStorage.getItem("profilId"))
             .subscribe(res => {
-                this.UserNotFollowed = this.substractArray(
-                    res.json() as ProfilUtilisateur[], this.Followed);
-            })
+                this.UserNotFollowed = res.json() as ProfilUtilisateur[];
+            });
     }
-
-    substractArray(arr1:ProfilUtilisateur[], arr2:ProfilUtilisateur[]) {
-        var temp_arr = [];
-        for(var i = 0; i < arr1.length; i++) {
-            if(arr2.indexOf(arr1[i]) == -1) 
-                temp_arr.push(arr1[i]);
-        }
-        return temp_arr;
-    }
-
-    searchUsers(q:string) {
-        return this.http.get("/api/following/searchUser/" + q);
+    searchUsers(query:string) {
+        return this.http.get("/api/following/searchUser/" + query);
     }
 
     follow(user:ProfilUtilisateur) {
@@ -68,8 +57,4 @@ export class BuddyService extends BaseService {
         return this.http.post("/api/following/unfollow/" + 
             localStorage.getItem("profilId") + "/" + user.profilId, null);
     }
-
-    resetSuggestion() {
-        this.UserNotFollowed = this.substractArray(this.UserNotFollowed, this.Followed);
-    }  
-}
+};
