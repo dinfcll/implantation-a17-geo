@@ -20,23 +20,24 @@
   margin-top: 2%;
 }
 .imgRando {
-  margin-bottom: 30px;
+  margin-top: -200px;
   border-radius: 8px;
   position: center;
   overflow: hidden;
 }
 .temp {
  font-family: 'Raleway', sans-serif;
- margin-top: 7%;
- margin-left: 5%;
  color: gray;
 }
 .iconeTemp {
-  margin-top: 2%;
+  
 }
 .textRandoCard {
   text-align: center;
   color: gray;
+}
+.imgProfil {
+  margin-top: -40px;
 }
 .margin-fix {
   margin: 4px;
@@ -142,7 +143,6 @@ label > input + i{
 	max-width: 150px;
 	display: block;
   margin: 1em;
-  margin-top: -250%;
 	padding: 1em 2em;
 	border: 1px solid white;
 	background: none;

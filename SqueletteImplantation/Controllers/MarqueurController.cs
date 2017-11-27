@@ -60,7 +60,6 @@ namespace SqueletteImplantation.Controllers
             nouveauPost.postTitle = "Marqueur " + marqueur.Nom + " créé par: " + profil.username;
             nouveauPost.postText = marqueur.Desc;
             nouveauPost.postLike = 0;
-            nouveauPost.postImg = marqueur.ImageMarqueur;
 
             _maBd.PostsUser.Add(nouveauPost);
 

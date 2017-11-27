@@ -195,79 +195,86 @@
                 
                 <!-- premiere moitie de la carte -->
                 <div class="row rando_card">
-                    <div class="col-md-6">                     
-                        <!-- METEO ICONES -->
-                        <div class="col-md-2 iconeTemp">
-                            <div *ngIf="googlemarq[curidmarq].weather">
-                                <div class="icon thunder-storm" *ngIf="googlemarq[curidmarq].weather=='Thunderstorm'">
-                                    <div class="cloud"></div>
-                                    <div class="lightning">
-                                        <div class="bolt"></div>
-                                        <div class="bolt"></div>
-                                    </div>
-                                </div>
-                                        
-                                <div class="icon cloudy" *ngIf="googlemarq[curidmarq].weather=='Clouds'">
-                                    <div class="cloud"></div>
-                                    <div class="cloud"></div>
-                                </div>
-                                    
-                                <div class="icon flurries" *ngIf="googlemarq[curidmarq].weather=='Snow'">
-                                    <div class="cloud"></div>
-                                    <div class="snow">
-                                        <div class="flake"></div>
-                                        <div class="flake"></div>
-                                    </div>
-                                </div>
-                                    
-                                <div class="icon sunny" *ngIf="googlemarq[curidmarq].weather=='Clear'">
-                                    <div class="sun">
-                                        <div class="rays"></div>
-                                    </div>
-                                </div>
-                                    
-                                <div class="icon rainy" *ngIf="googlemarq[curidmarq].weather=='Rain'">
-                                    <div class="cloud"></div>
-                                    <div class="rain"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- TEMPERATURE -->
-                        <div class="col-md-2 temp">
-                            <h3 class="margin-fix">{{googlemarq[curidmarq].temp}}°C</h3>
-                            <hr class="margin-fix">
-                        </div>
-                        <!-- IMAGE DU MARQUEUR -->
-                        <div class="col-md-12">
-                            <img *ngIf="currentmarqueur.imageMarqueur" [src]="currentmarqueur.imageMarqueur" class="imgRando" width="400px" height="500px">
-                            <img *ngIf="!currentmarqueur.imageMarqueur" [src]="imgDefaultRando" class="imgRando" width="400px" height="500px">
-                        </div>                           
+                    <div class="col-md-6">                                           
                         <!-- BOUTONS MODIFIER / SUPPRIMER -->
-                        <div class="col-md-2" (click)="PermissionMod()" style="margin-top: -80px"
+                        <div class="col-md-4 col-md-offset-8" (click)="PermissionMod()" style="margin-top: 30px"
                             *ngIf="currentmarqueur.profilId==ProfilCourrant||utilisateurService.estAdmin()==1">
                             <button class="button button--vue">
                                 <i class="button__icon fa fa-pencil"></i>
                             </button>
                         </div>
-                        <div class="col-md-2" (click)="supprimerMarqueur()" 
+                        <div class="col-md-4 col-md-offset-8" (click)="supprimerMarqueur()" 
                             *ngIf="currentmarqueur.profilId==ProfilCourrant||utilisateurService.estAdmin()==1">
                             <button class="cancel button button--vue">
                                 <i class="button__icon fa fa-trash"></i>
                             </button>    
+                        </div>                   
+                        <!-- IMAGE DU MARQUEUR -->
+                        <div class="col-md-12">
+                            <img *ngIf="currentmarqueur.imageMarqueur" [src]="currentmarqueur.imageMarqueur" class="imgRando" width="400px" height="500px">
+                            <img *ngIf="!currentmarqueur.imageMarqueur" [src]="imgDefaultRando" class="imgRando" width="400px" height="500px">
+                        </div> 
+                        <!-- DATE DE CREATION -->
+                        <div class="col-md-4">
+                            <div *ngIf="currentmarqueur.dateCreation">
+                                <span>crée le {{currentmarqueur.dateCreation}}</span>
+                            </div>
                         </div>
+                        <!-- PROFIL -->
+                        <div class="col-md-6 imgProfil">
+                            <img [src]="googlemarq[curidmarq].proimg" class="img-circle img-responsive imgProfil" 
+                                style="pointer-events: none; margin-top: 8%;" height="130" width="130">
+                            <h4>Par: @{{googlemarq[curidmarq].creator}}</h4>
+                        </div>                        
                     </div>
-                
 
                     <!-- deuxieme moitie de la carte -->
                     <div class="col-md-6">
+                        <!-- METEO ICONES -->
+                        <div class="col-md-2 col-md-offset-8 iconeTemp">
+                                <div *ngIf="googlemarq[curidmarq].weather">
+                                    <div class="icon thunder-storm" *ngIf="googlemarq[curidmarq].weather=='Thunderstorm'">
+                                        <div class="cloud"></div>
+                                        <div class="lightning">
+                                            <div class="bolt"></div>
+                                            <div class="bolt"></div>
+                                        </div>
+                                    </div>
+                                            
+                                    <div class="icon cloudy" *ngIf="googlemarq[curidmarq].weather=='Clouds'">
+                                        <div class="cloud"></div>
+                                        <div class="cloud"></div>
+                                    </div>
+                                        
+                                    <div class="icon flurries" *ngIf="googlemarq[curidmarq].weather=='Snow'">
+                                        <div class="cloud"></div>
+                                        <div class="snow">
+                                            <div class="flake"></div>
+                                            <div class="flake"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="icon sunny" *ngIf="googlemarq[curidmarq].weather=='Clear'">
+                                        <div class="sun">
+                                            <div class="rays"></div>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="icon rainy" *ngIf="googlemarq[curidmarq].weather=='Rain'">
+                                        <div class="cloud"></div>
+                                        <div class="rain"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TEMPERATURE -->
+                            <div class="col-md-2 temp">
+                                <h3 class="margin-fix">{{googlemarq[curidmarq].temp}}°C</h3>
+                                <hr class="margin-fix">
+                            </div>   
                         <!-- TITRE DE LA RANDONNEE + DATE DE CREATION -->
                         <div class="col-md-10 col-md-offset-1" style="margin-top: 10%">
                             <h2 class="textRandoCard">{{currentmarqueur.nom}}</h2>
-                            <div class="col-md-6 pull-right">
-                                <div *ngIf="currentmarqueur.dateCreation">
-                                    <span>crée le {{currentmarqueur.dateCreation}}</span>
-                                </div>
-                            </div>
+                            
                             <hr style="margin-top: 10%">
                         </div>
                         <!-- DESCRIPTION DE LA RANDONNEE -->
@@ -288,39 +295,13 @@
                         <!-- SERVICES -->
                         <div class="col-md-10 col-md-offset-1 services-icones" style="margin-top: 5%;">
                             <h3 *ngIf="tServicesRando.length">
-                                Services: <img *ngFor="let s of tServicesRando" src="{{tPathServicesImages[s]}}" 
+                                <img *ngFor="let s of tServicesRando" src="{{tPathServicesImages[s]}}" 
                                     alt="{{tTitreServices[s]}}" title="{{tTitreServices[s]}}">
                             </h3>
                         </div>
+                        
                     </div>                    
                 </div>
-                            
-
-                            <!-- PROFIL -->
-                            <!--div class="col-md-4 col-md-offset-1">
-                                <img [src]="googlemarq[curidmarq].proimg" class="img-circle img-responsive" 
-                                    style="pointer-events: none; margin-top: 8%;" height="100" width="100">
-                                <h4>Par: @{{googlemarq[curidmarq].creator}}</h4>
-                            </div-->
-
-                            
-
-                            
-                        
-
-                    <!-- deuxieme colonne a 4 -->
-                    
-                    <!--div class="col-md-4">
-                        <div class="row"-->
-
-                           
-
-                            
-                            
-                            
-
-                        <!--/div>
-                    </div-->
 
                     <!--div class="row">
                         <div class="col-md-8 col-md-offset-2">
