@@ -48,7 +48,9 @@ export class UserPostService extends BaseService {
 
         return this.http
             .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, profilId }), {headers})
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadLocal();
+                return res.json(); })
             .catch(this.handleError);
     }
 
