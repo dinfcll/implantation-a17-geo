@@ -33,8 +33,6 @@ namespace SqueletteImplantation.Controllers
 
             if(post != null)
             {
-                DateTime today = DateTime.Today;
-                post.datePublication = today.ToString("d");
                 _maBd.PostsUser.Add(post);
                 _maBd.SaveChanges();
 
@@ -44,10 +42,10 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPut]
-        [Route("api/postUser/modify")]
-        public IActionResult ModifyPostUser([FromBody] PostUserDto updatedPost)
+        [Route("api/postUser/modify/{id}")]
+        public IActionResult ModifyPostUser([FromBody] PostUserDto updatedPost, int id)
         {
-            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == updatedPost.postId);
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
 
             if (post == null)
             {
@@ -94,6 +92,7 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(post);
         }
+
         [HttpGet]
         [Route("api/postUser/myPosts/{id}")]
         public IEnumerable GetmyPost(int id)
@@ -102,6 +101,7 @@ namespace SqueletteImplantation.Controllers
                    where c.profilId == id orderby c.postId descending
                    select c;
         }
+
         [HttpGet]
         [Route("api/postUser/followedPost/{id}")]
         public IEnumerable GetFollowedPost(int id)
@@ -112,6 +112,7 @@ namespace SqueletteImplantation.Controllers
             select c;
 
         }
+        
         [HttpDelete]
         [Route("api/postUser/delete/{id}")]
         public IActionResult DeletePostUser(int id)

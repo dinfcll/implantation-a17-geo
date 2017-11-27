@@ -20,7 +20,6 @@ declare var jBox: any;
 export class PostPersoComponent implements OnInit {
     followedPosts: UserPost[];
     posts: UserPost[];
-    postSubmit: string;
 
     profil: ProfilUtilisateur;
 
@@ -47,20 +46,6 @@ export class PostPersoComponent implements OnInit {
         });      
     }
 
-    OnPreLoadImage(event: any) {
-        let files: FileList;
-        files = event.target.files;
-        if (files && files[0]) {
-            if (files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
-                let fr = new FileReader();
-                fr.onload = (e: any) => {
-                    this.postSubmit = e.target.result;
-                };
-                fr.readAsDataURL(files[0]);
-            }
-        }
-    }
-
     updatePosts() {
         this.userpostservice.getmyPosts()
         .subscribe(res => {
@@ -80,7 +65,7 @@ export class PostPersoComponent implements OnInit {
         } else {
             if(this.profil) {
                 this.userpostservice
-                .createPost(postTitle, postText, this.profil.profilId, this.postSubmit)
+                .createPost(postTitle, postText, this.profil.profilId)
                 .subscribe(res => {
                     if(res) {
                         this.posts.unshift(res);

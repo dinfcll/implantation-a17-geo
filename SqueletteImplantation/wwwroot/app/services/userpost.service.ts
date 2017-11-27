@@ -40,18 +40,15 @@ export class UserPostService extends BaseService {
         .catch(this.handleError);
     }
 
-    createPost(postTitle: string, postText: string, profilId: number, postImg: string) {
+    createPost(postTitle: string, postText: string, profilId: number) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
 
         this.loadingService.startLoadLocal();
 
         return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, 
-                profilId, postImg }), {headers})
-            .map(res => {
-                this.loadingService.stopLoadLocal();
-                return res.json(); })
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, profilId }), {headers})
+            .map(res => { return res.json(); })
             .catch(this.handleError);
     }
 
@@ -59,7 +56,7 @@ export class UserPostService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/modify', p , {headers})
+            .put(this.baseUrl + '/postUser/modify' + p.postId, p, {headers})
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

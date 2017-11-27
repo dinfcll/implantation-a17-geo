@@ -1,4 +1,5 @@
 using SqueletteImplantation.DbEntities.Models;
+using System;
 
 namespace SqueletteImplantation.DbEntities.DTOs
 {
@@ -6,8 +7,6 @@ namespace SqueletteImplantation.DbEntities.DTOs
     {
         public string postTitle { get; set; }
         public string postText { get; set; }
-        public int postId { get; set; }
-        public string postImg { get; set; }
         public int profilId { get; set; }
 
         public PostUserDto(string title, string txt) 
@@ -16,17 +15,10 @@ namespace SqueletteImplantation.DbEntities.DTOs
             this.postText = txt;
         }
 
-        public PostUserDto(string title, string txt, int proId)
-        {
-            this.postTitle = title;
-            this.postText = txt;
-            this.profilId = proId;
-        }
-
         public PostsUser CreatePostUser()
         {
             return new PostsUser { postTitle = postTitle, postText = postText, 
-                postId = postId, profilId = profilId, postImg = postImg };
+                profilId = profilId, datePublication = DateTime.Today.ToString("d") };
         }
     }
 }
