@@ -42,8 +42,7 @@
             </div>
         </div>
 
-
-
+        <!-- AJOUT MARQUEUR - NOUVEAU MARQUEUR -->
         <div *ngIf="AcceptMarker" class="row marqueur-form">
             <div class="container col-md-offset-1 col-md-10">
                 <h2>Nouveau marqueur</h2>
@@ -114,9 +113,7 @@
             </div> 
         </div>
 
-
-
-
+        <!-- MODIFICATION MARQUEUR -->
         <div *ngIf="modmarq" class="row marqueur-form">
             <div class="container col-md-offset-1 col-md-10">
                 <h2>Modification de {{currentmarqueur.nom}}</h2>
@@ -186,8 +183,6 @@
                 </form>
             </div> 
         </div>
-
-
 
         <!-- VUE DETAILLEE -->
         <div *ngIf="DetailsView row">
@@ -301,7 +296,7 @@
                         </div>
                         
                     </div>                    
-                
+                    <!-- GALERIE D'IMAGES -->
                     <div class="row">
                         <div class="col-md-10 col-md-offset-1">
                             <h3 style="text-align: center">Galerie d'images</h3>
