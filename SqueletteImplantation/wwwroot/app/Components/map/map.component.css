@@ -22,22 +22,20 @@
 .imgRando {
   margin-top: -200px;
   border-radius: 8px;
-  position: center;
+  object-fit: cover;
   overflow: hidden;
 }
 .temp {
  font-family: 'Raleway', sans-serif;
  color: gray;
 }
-.iconeTemp {
-  
-}
 .textRandoCard {
   text-align: center;
   color: gray;
 }
 .imgProfil {
-  margin-top: -40px;
+  border: 10px solid white;
+  border-radius: 100%;
 }
 .margin-fix {
   margin: 4px;

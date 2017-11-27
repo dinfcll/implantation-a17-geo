@@ -43,6 +43,7 @@ export class MapComponent implements OnInit {
      public tServicesRando: string[];
      public tTitreServices: string[];
      public imageActuelGallery:number;
+     imgDefaultRando: string;
 
     constructor(private http: Http, private ref: ChangeDetectorRef, private utilisateurService: UtilisateurService,
                 private loadingService: LoadingService) {

@@ -101,9 +101,9 @@
                                     <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==2">Intermédiaire</h3>
                                     <h3 class="margin-fix"*ngIf="currentmarqueur.difficulte==3">Avancé </h3>
                                     <div>
-                                        <i  (click)="updateDifficulte(1)"class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-1': currentmarqueur.difficulte==1,'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}" aria-hidden="true"></i>
-                                        <i  (click)="updateDifficulte(2)" class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>                                                
-                                        <i  (click)="updateDifficulte(3)" class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>                                                
+                                        <i (click)="updateDifficulte(1)"class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-1': currentmarqueur.difficulte==1,'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}" aria-hidden="true"></i>
+                                        <i (click)="updateDifficulte(2)" class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-2': currentmarqueur.difficulte==2,'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>                                                
+                                        <i (click)="updateDifficulte(3)" class="fa fa-2x fa-bolt difficult-not" [ngClass]="{'difficult-3': currentmarqueur.difficulte==3}"aria-hidden="true"></i>                                                
                                     </div>
                                 </div>
                             </div>
@@ -221,8 +221,8 @@
                             </div>
                         </div>
                         <!-- PROFIL -->
-                        <div class="col-md-6 imgProfil">
-                            <img [src]="googlemarq[curidmarq].proimg" class="img-circle img-responsive imgProfil" 
+                        <div class="col-md-6" style="margin-top: -60px">
+                            <img [src]="googlemarq[curidmarq].proimg" class="imgProfil" 
                                 style="pointer-events: none; margin-top: 8%;" height="130" width="130">
                             <h4>Par: @{{googlemarq[curidmarq].creator}}</h4>
                         </div>                        
@@ -231,46 +231,46 @@
                     <!-- deuxieme moitie de la carte -->
                     <div class="col-md-6">
                         <!-- METEO ICONES -->
-                        <div class="col-md-2 col-md-offset-8 iconeTemp">
-                                <div *ngIf="googlemarq[curidmarq].weather">
-                                    <div class="icon thunder-storm" *ngIf="googlemarq[curidmarq].weather=='Thunderstorm'">
-                                        <div class="cloud"></div>
-                                        <div class="lightning">
-                                            <div class="bolt"></div>
-                                            <div class="bolt"></div>
-                                        </div>
-                                    </div>
-                                            
-                                    <div class="icon cloudy" *ngIf="googlemarq[curidmarq].weather=='Clouds'">
-                                        <div class="cloud"></div>
-                                        <div class="cloud"></div>
-                                    </div>
-                                        
-                                    <div class="icon flurries" *ngIf="googlemarq[curidmarq].weather=='Snow'">
-                                        <div class="cloud"></div>
-                                        <div class="snow">
-                                            <div class="flake"></div>
-                                            <div class="flake"></div>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="icon sunny" *ngIf="googlemarq[curidmarq].weather=='Clear'">
-                                        <div class="sun">
-                                            <div class="rays"></div>
-                                        </div>
-                                    </div>
-                                        
-                                    <div class="icon rainy" *ngIf="googlemarq[curidmarq].weather=='Rain'">
-                                        <div class="cloud"></div>
-                                        <div class="rain"></div>
+                        <div class="col-md-2 col-md-offset-8">
+                            <div *ngIf="googlemarq[curidmarq].weather">
+                                <div class="icon thunder-storm" *ngIf="googlemarq[curidmarq].weather=='Thunderstorm'">
+                                    <div class="cloud"></div>
+                                    <div class="lightning">
+                                        <div class="bolt"></div>
+                                        <div class="bolt"></div>
                                     </div>
                                 </div>
+                                        
+                                <div class="icon cloudy" *ngIf="googlemarq[curidmarq].weather=='Clouds'">
+                                    <div class="cloud"></div>
+                                    <div class="cloud"></div>
+                                </div>
+                                    
+                                <div class="icon flurries" *ngIf="googlemarq[curidmarq].weather=='Snow'">
+                                    <div class="cloud"></div>
+                                    <div class="snow">
+                                        <div class="flake"></div>
+                                        <div class="flake"></div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="icon sunny" *ngIf="googlemarq[curidmarq].weather=='Clear'">
+                                    <div class="sun">
+                                        <div class="rays"></div>
+                                    </div>
+                                </div>
+                                    
+                                <div class="icon rainy" *ngIf="googlemarq[curidmarq].weather=='Rain'">
+                                    <div class="cloud"></div>
+                                    <div class="rain"></div>
+                                </div>
                             </div>
-                            <!-- TEMPERATURE -->
-                            <div class="col-md-2 temp">
-                                <h3 class="margin-fix">{{googlemarq[curidmarq].temp}}°C</h3>
-                                <hr class="margin-fix">
-                            </div>   
+                        </div>
+                        <!-- TEMPERATURE -->
+                        <div class="col-md-2 temp">
+                            <h3 class="margin-fix">{{googlemarq[curidmarq].temp}}°C</h3>
+                            <hr class="margin-fix">
+                        </div>   
                         <!-- TITRE DE LA RANDONNEE + DATE DE CREATION -->
                         <div class="col-md-10 col-md-offset-1" style="margin-top: 10%">
                             <h2 class="textRandoCard">{{currentmarqueur.nom}}</h2>
@@ -301,36 +301,34 @@
                         </div>
                         
                     </div>                    
-                </div>
-
-                    <!--div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <h3 style="text-align: center">Gallerie d'images</h3>
+                
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <h3 style="text-align: center">Galerie d'images</h3>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-left: 10px;">
                         <div class="col-md-3">
                             <input type="file" (change)="PreUploadImage($event)"/>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2" *ngFor="let bimg of googlemarq[curidmarq].tabImageMarqueur; let i = index">
+                    <div class="row" >
+                        <div class="col-md-2 col-md-offset-1" *ngFor="let bimg of googlemarq[curidmarq].tabImageMarqueur; let i = index">
                             <a (click)="showGallery(i)">
-                                <img [src]="bimg" class="img-thumbnail img-responsive banqueImgMarqueur" >
+                                <img [src]="bimg" class="img-thumbnail img-responsive banqueImgMarqueur" style="margin-top: 10px;">
                             </a>
                         </div>
-                    </div-->
-                
+                    </div>
+                </div>               
             </div>
         </div>
     </div>
 </div>
 
-<!--div id="GalleryImage" class="overlay">
+<div id="GalleryImage" class="overlay">
     <a href="javascript:void(0)" class="closebtn" (click)="fermeGallery()">x</a>
     <a href="javascript:void(0)" class="lastbtn" (click)="imagePrecedentGallery()"> &#8810; </a>
     <a href="javascript:void(0)" class="nextbtn" (click)="prochaineImageGallery()"> &#8811; </a>
     <div id="PresentationImage" class="overlay-content">
-
     </div>
-</div-->
+</div>
