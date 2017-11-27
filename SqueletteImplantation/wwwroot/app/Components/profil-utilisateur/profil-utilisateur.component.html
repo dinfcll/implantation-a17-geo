@@ -78,11 +78,11 @@
                                 <div class="col-md-12">
                                     <button *ngIf="!bEdit" class="button button--profil button--inverted" 
                                         (click)="onCreateProfil()" [disabled]="!fProfil.valid">
-                                        Créer mon profil
+                                        Créer mon profil <loading></loading>
                                     </button>
                                     <button *ngIf="bEdit" class="button button--profil button--inverted" 
                                         (click)="onEditProfil()" [disabled]="!fProfil.valid">
-                                        Confirmer
+                                        Confirmer <loading></loading>
                                     </button>
                                     <button *ngIf="bEdit" class="button button--profil button--inverted" 
                                         (click)="editAnnuler()">

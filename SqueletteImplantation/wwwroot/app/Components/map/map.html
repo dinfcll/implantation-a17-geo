@@ -44,7 +44,7 @@
                         Tracer trajet
                     </span>
                     <span class="buttonMessage" *ngIf="stadetrace==3">
-                        Enregistrer trajet
+                        Enregistrer trajet <loading></loading>
                     </span>
                 </button>
             </div>
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer <loading></loading></button>
                 </form>
             </div> 
         </div>
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer</button>
+                    <button class="buttonMessage" type="submit" [disabled]="!f.valid" [ngClass]="{'disabled':!f.valid}">Confirmer <loading></loading></button>
                 </form>
             </div> 
         </div>

@@ -29,13 +29,13 @@
 
     <button type="submit" [ngClass]="{'disabled':!loginForm.form.valid,'fixMargin':option=='reset'}" (click)="loginForm.form.valid && formSubmit(option,email,mdp,confirm)">
         <span>
-            Réinitialiser Mot de passe
+            Réinitialiser Mot de passe <loading></loading>
         </span>
         <span>
-            Se Connecter
+            Se Connecter <loading></loading>
         </span>
         <span>
-            S'inscrire
+            S'inscrire <loading></loading>
         </span>
     </button>
 </form>
