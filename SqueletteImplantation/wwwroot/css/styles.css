@@ -67,3 +67,17 @@ button.disabled:hover{
   background-color:  #626262;
   cursor:not-allowed;
 }
+
+#loadingicone{
+  position: fixed;
+  left: 5%; 
+  top: 15%; 
+}
+
+#loadingicone .loading-local{
+  display: none;
+}
+
+button .loading-global{
+  display: none;
+}

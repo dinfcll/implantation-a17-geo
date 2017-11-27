@@ -1,13 +1,13 @@
-import { Component, Input ,OnInit,ChangeDetectorRef, } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, } from '@angular/core';
 import { Http } from '@angular/http';
 
-import { ConfigService } from "../../services/config.service";
-import { Marqueur } from "../../class/marqueur.class";
+import { LoadingService } from '../../services/loading.service';
+import { Marqueur } from '../../class/marqueur.class';
 
 import { UtilisateurService } from './../../services/utilisateur.service';
 
 declare var google: any;
-declare var jBox:any;
+declare var jBox: any;
 
 @Component ({
     moduleId: module.id,
@@ -44,9 +44,8 @@ export class MapComponent implements OnInit {
      public tTitreServices: string[];
      public imageActuelGallery:number;
 
-     imgDefaultRando: string;
-
-    constructor(private http: Http, private ref: ChangeDetectorRef,private utilisateurService: UtilisateurService) {
+    constructor(private http: Http, private ref: ChangeDetectorRef, private utilisateurService: UtilisateurService,
+                private loadingService: LoadingService) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -309,9 +308,11 @@ export class MapComponent implements OnInit {
 
                 cheminlat = cheminlat.slice(0, -1);
                 cheminlng = cheminlng.slice(0, -1);
-                
+
                 this.currentmarqueur.trajetlat = cheminlat;
                 this.currentmarqueur.trajetlng = cheminlng;
+
+                this.loadingService.startLoadLocal();
 
                 this.http.post("api/marqueurs/modification", this.currentmarqueur)
                     .subscribe((res) => {
@@ -325,9 +326,8 @@ export class MapComponent implements OnInit {
                                 autoClose: 2000
                             });
                         }
-                        
+                        this.loadingService.stopLoadLocal();
                     });
-                
             }
         }
         else{
@@ -368,22 +368,26 @@ export class MapComponent implements OnInit {
     }
 
     getMarqueurs(): void {
+        this.loadingService.startLoadGlobal();
         this.http.get("api/marqueurs")
                 .subscribe((resdata) => {
                     let marqueur:Marqueur[] = resdata.json() as Marqueur[];
                     marqueur.forEach((mark) => {
                        this.googlemarq.push(this.AjoutMarker(mark));
                     });
+                    this.loadingService.stopLoadGlobal();
                 });
     }
 
     getMarqueursSuivi():void{
+        this.loadingService.startLoadGlobal();
         this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
             .subscribe((resdata) => {
                 let marqueursuivi:Marqueur[] = resdata.json() as Marqueur[];
                 marqueursuivi.forEach((mark) => {
                     this.googlemarq.push(this.AjoutMarker(mark));
                 });
+                this.loadingService.stopLoadGlobal();
             });
              
     }
@@ -555,12 +559,14 @@ export class MapComponent implements OnInit {
                     this.currentmarqueur.imageMarqueur = this.image;
                     this.image = "";
                     this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+                    this.loadingService.startLoadLocal();
                     this.http.post("api/marqueurs", this.currentmarqueur)
                     .subscribe( res => {
                         this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
                         this.PermissionAjoutMarker();
                         this.marqtemp.setMap(null);
-                    });   
+                        this.loadingService.stopLoadLocal();
+                    });
                 }
                 else{
                     new jBox('Notice', {
@@ -573,6 +579,7 @@ export class MapComponent implements OnInit {
             }
         } else {
             this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+            this.loadingService.startLoadLocal();
             this.http.post("api/marqueurs/modification",this.currentmarqueur)
                 .subscribe( res => {
                     if(res != null){
@@ -584,11 +591,13 @@ export class MapComponent implements OnInit {
                             autoClose: 2000
                         });
                     }
+                    this.loadingService.stopLoadLocal();
                 });
         }
     }
 
     LoadDetails(){
+        this.loadingService.startLoadGlobal();
         this.utilisateurService.getProfilById(String(this.currentmarqueur.profilId))
         .subscribe(res =>{
             this.googlemarq[this.curidmarq].creator=res.username;
@@ -603,6 +612,7 @@ export class MapComponent implements OnInit {
                 var temp =res.json();
                 this.googlemarq[this.curidmarq].temp= Math.round(temp.main.temp-273.15);
                 this.googlemarq[this.curidmarq].weather=temp.weather[0].main;
+                this.loadingService.stopLoadGlobal();
                 this.ref.detectChanges();
             });
         });

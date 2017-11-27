@@ -16,7 +16,7 @@
 
     <button type="submit" [ngClass]="{'disabled':!resetForm.form.valid,'fixMargin':option=='reset'}">
         <span (click)="resetForm.form.valid && resetPW(mdp,confirm)">
-            Confirmer
+            Confirmer <loading></loading>
         </span>
     </button>
 

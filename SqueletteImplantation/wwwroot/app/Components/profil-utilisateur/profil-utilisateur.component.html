@@ -40,10 +40,10 @@
                                 <button class="button button--profil button--inverted" (click)="editToogle()">
                                     Éditer
                                 </button>
-                                <button class="button button--profil button--inverted" (click)="onDeleteProfil()">
+                                <button *ngIf="profil.profilId != 0" class="button button--profil button--inverted" (click)="onDeleteProfil()">
                                     Supprimer profil
                                 </button>
-                                <button class="button button--profil button--inverted" (click)="onDeleteUser()">
+                                <button *ngIf="profil.profilId != 0" class="button button--profil button--inverted" (click)="onDeleteUser()">
                                     Supprimer compte
                                 </button>                                                                                     
                             </div>                        
@@ -78,11 +78,11 @@
                                 <div class="col-md-12">
                                     <button *ngIf="!bEdit" class="button button--profil button--inverted" 
                                         (click)="onCreateProfil()" [disabled]="!fProfil.valid">
-                                        Créer mon profil
+                                        Créer mon profil <loading></loading>
                                     </button>
                                     <button *ngIf="bEdit" class="button button--profil button--inverted" 
                                         (click)="onEditProfil()" [disabled]="!fProfil.valid">
-                                        Confirmer
+                                        Confirmer <loading></loading>
                                     </button>
                                     <button *ngIf="bEdit" class="button button--profil button--inverted" 
                                         (click)="editAnnuler()">

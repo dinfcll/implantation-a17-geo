@@ -7,15 +7,15 @@
                     <ul>
                         <form id="searchform">
                             <input class="" type="text" placeholder="username" name="search" [(ngModel)]="search">
-                            <button type="button" class="btn" (click)="searchUser(search)" href="#tab2default" data-toggle="tab" >
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                            <button type="button" class="btn" (click)="searchUser(search)">
+                                <a href="#tab3default" data-toggle="tab"><i class="fa fa-search" aria-hidden="true"></i></a>
                             </button>
                         </form>
                     </ul>
                      <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab1default" data-toggle="tab">Amis</a></li>
                         <li><a href="#tab2default" data-toggle="tab">Abonnés</a></li>
-                        <li><a href="#tab4default" data-toggle="tab">Suggest.</a></li>
+                        <li><a href="#tab4default" data-toggle="tab" (click)="buddyService.getUserNotFollowed()">Suggest.</a></li>
                     </ul>
                 </div>
                 <div class="panel-body no-padding">
