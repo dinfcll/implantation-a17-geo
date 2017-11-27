@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
+import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { UserPost } from '../class/post.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
-import { LoadingService } from './loading.service';
 
 declare var jBox: any;
 
@@ -14,11 +14,11 @@ export class UserPostService extends BaseService {
 
     baseUrl: string = '';
 
-    constructor(private http: Http, private configService: ConfigService, private loadingService: LoadingService) {
+    constructor(private http: Http, private configService: ConfigService) {
         super();
         this.baseUrl = configService.getApiURI();
     }
-
+   
     getListPost() {
         return this.http
         .get(this.baseUrl + '/postUser')
@@ -43,15 +43,10 @@ export class UserPostService extends BaseService {
     createPost(postTitle: string, postText: string, profilId: number, postImg: string) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
-
-        this.loadingService.startLoadLocal();
-
         return this.http
             .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, 
                 profilId, postImg }), {headers})
-            .map(res => {
-                this.loadingService.stopLoadLocal();
-                return res.json(); })
+            .map(res => { return res.json(); })
             .catch(this.handleError);
     }
 
@@ -88,4 +83,5 @@ export class UserPostService extends BaseService {
             .map(res => { return res; })
             .catch(this.handleError);
     }
+    
 }
