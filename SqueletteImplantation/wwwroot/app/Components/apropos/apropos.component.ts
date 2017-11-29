@@ -10,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class aProposComponent implements OnInit {
+    
     constructor() { };
 
     ngOnInit() : void{
+        let audio = new Audio();
+        audio.src ='../../../asset/Percussion.mp3';
+        audio.load();
+        audio.play();
         setTimeout(() => {
             document.getElementById('testanimannie').style.height = '100%';
         }, 5000);
