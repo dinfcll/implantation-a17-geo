@@ -1,31 +1,4 @@
-div #testanimannie{
-  height: 0;
-  max-height: 75%;
-  transition: 30s;
-  overflow: hidden;
-}
 
-div #testanimantoine{
-  height: 0;
-  max-height: 75%;
-  transition: 30s;
-  clear: both;
-  overflow: hidden;
-}
-
-div #testanimpascal{
-  height: 0;
-  max-height: 75%;
-  overflow: hidden;
-  transition: 30s;
-}
-
-div #testanimjerome{
-  height: 0;
-  max-height: 75%;
-  transition: 30s;
-  overflow: hidden;
-}
 
 .imgprez{
     margin-top: 125px;

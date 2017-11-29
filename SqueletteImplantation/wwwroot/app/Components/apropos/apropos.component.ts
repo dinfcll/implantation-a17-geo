@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-
+declare var jquery:any;
+declare var $ :any;
 
 
 @Component({
@@ -19,19 +19,19 @@ export class aProposComponent implements OnInit {
         audio.load();
         audio.play();
         setTimeout(() => {
-            document.getElementById('testanimannie').style.height = '100%';
+            $('#testanimannie').collapse();
         }, 5000);
 
         setTimeout(() => {
-            document.getElementById('testanimantoine').style.height = '100%';
+            $('#testanimantoine').collapse();
         }, 7500);
 
         setTimeout(() => {
-            document.getElementById('testanimpascal').style.height = '100%';
+            $('#testanimpascal').collapse();
         }, 10000);
 
         setTimeout(() => {
-            document.getElementById('testanimjerome').style.height = '100%';
+            $('#testanimjerome').collapse();
         }, 12500);
         
     }
