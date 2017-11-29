@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 
@@ -9,8 +9,27 @@ import { Component } from '@angular/core';
     styleUrls: ['./apropos.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
-export class aProposComponent {
+export class aProposComponent implements OnInit {
     constructor() { };
+
+    ngOnInit() : void{
+        setTimeout(() => {
+            document.getElementById('testanimannie').style.height = '100%';
+        }, 5000);
+
+        setTimeout(() => {
+            document.getElementById('testanimantoine').style.height = '100%';
+        }, 7500);
+
+        setTimeout(() => {
+            document.getElementById('testanimpascal').style.height = '100%';
+        }, 10000);
+
+        setTimeout(() => {
+            document.getElementById('testanimjerome').style.height = '100%';
+        }, 12500);
+        
+    }
 
     showDesc(){
         document.getElementById('descriptionPerso').style.width = "100%";
