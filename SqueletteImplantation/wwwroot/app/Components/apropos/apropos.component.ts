@@ -10,30 +10,37 @@ declare var $ :any;
 })
 
 export class aProposComponent implements OnInit {
-    
+    audio:any;
     constructor() { };
 
     ngOnInit() : void{
-        let audio = new Audio();
-        audio.src ='../../../asset/Percussion.mp3';
-        audio.load();
-        audio.play();
+        this.audio = new Audio();
+        this.audio.src ='../../../asset/Percussion.mp3';
+        this.audio.load();
+        this.audio.play();
+        document.getElementById('fullscreenprez').style.width = '100%';
+        document.getElementById('fullscreenprez').webkitRequestFullScreen();
         setTimeout(() => {
             $('#testanimannie').collapse();
-        }, 5000);
+            document.webkitCancelFullScreen();
+            document.getElementById('fullscreenprez').style.width = '0%';
+        }, 15000);
 
         setTimeout(() => {
             $('#testanimantoine').collapse();
-        }, 7500);
+        }, 25000);
 
         setTimeout(() => {
             $('#testanimpascal').collapse();
-        }, 10000);
+        }, 35000);
 
         setTimeout(() => {
             $('#testanimjerome').collapse();
-        }, 12500);
+        }, 45000);
         
+        setTimeout(()=>{
+            this.audio.pause();
+        },75000);
     }
 
     showDesc(){
