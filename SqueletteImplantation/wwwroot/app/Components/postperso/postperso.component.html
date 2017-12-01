@@ -8,7 +8,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <buddies></buddies>
+                    <buddies (previewEvent)="userPreview($event)"></buddies>
                 </div>
             </div>
         </div> 
@@ -17,25 +17,23 @@
                 <div class="panel-heading user-pan-head">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tabjournal " data-toggle="tab">Journal Personnel</a></li>
-                        <li><a href="#tabactu" data-toggle="tab">Actualité</a></li>
+                        <li><a href="#tabactu" data-toggle="tab" *ngIf="isLoggedUser()" >Actualité</a></li>
                         <button type="button" class="btn pull-right" (click)="updatePosts()">Mettre à jour</button>
                     </ul>
                 </div>
                 <div class="panel-body no-padding">
-                    <form class="form-horizontal" role="form"> 
+                    <form class="form-horizontal" role="form" *ngIf="isLoggedUser()"> 
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
-                                <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" 
-                                    placeholder="Titre...">
+                                <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Titre...">
                             </div>
                         </div> 
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
-                                <input class="form-control" type="text" name="postText" [(ngModel)]="postText" 
-                                    placeholder="Texte...">
+                                <input class="form-control" type="text" name="postText" [(ngModel)]="postText" placeholder="Texte...">
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row"  >
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="col-md-1">
                                     <img [src]="postSubmit" class="imgSubmit" style="pointer-events: none;" 
@@ -60,7 +58,7 @@
                                 <postUser [p]='pub'></postUser>
                             </div>
                         </div>
-                        <div class="tab-pane fade in" id="tabactu">
+                        <div class="tab-pane fade in" id="tabactu"  *ngIf="isLoggedUser()">
                             <div *ngFor="let pub of followedPosts">
                                 <postUser [p]='pub'></postUser>
                             </div>

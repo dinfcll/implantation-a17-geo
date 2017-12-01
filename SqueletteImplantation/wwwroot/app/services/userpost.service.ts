@@ -39,6 +39,12 @@ export class UserPostService extends BaseService {
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
+    getIdPosts(profilId:number) {
+        return this.http
+        .get(this.baseUrl + '/postUser/myPosts/' + profilId)
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
 
     createPost(postTitle: string, postText: string, profilId: number, postImg: string) {
         let headers = new Headers();

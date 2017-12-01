@@ -24,7 +24,7 @@
                             <table class="table table-hover user-list">
                                 <tr *ngFor="let user of buddyService.Followed">
                                     <td>
-                                        {{user.username}}
+                                        <a (click)=userPreview(user)>{{user.username}}</a>
                                         <i class="fa fa-user-circle followed pull-right"(click)="unfollow(user)" [ngClass]="{'unfollowed': user.unfollowed}" aria-hidden="true"></i>
                                     </td>
                                 </tr>
@@ -34,7 +34,7 @@
                             <table class="table table-hover user-list">
                                     <tr *ngFor="let user of buddyService.Follower">
                                     <td>
-                                        {{user.username}}
+                                        <a (click)=userPreview(user)>{{user.username}}</a>
                                         <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
                                     </td>
                                     </tr>
@@ -44,7 +44,7 @@
                                 <table class="table table-hover user-list">
                                     <tr *ngFor="let user of searchResult">
                                         <td>
-                                            {{user.username}}
+                                            <a (click)=userPreview(user)>{{user.username}}</a>
                                             <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
                                         </td>
                                     </tr>
@@ -54,7 +54,7 @@
                             <table class="table table-hover user-list">
                                     <tr *ngFor="let user of buddyService.UserNotFollowed">
                                     <td>
-                                        {{user.username}}
+                                        <a (click)=userPreview(user)>{{user.username}}</a>
                                         <i class="fa fa-plus unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
                                     </td>
                                     </tr>

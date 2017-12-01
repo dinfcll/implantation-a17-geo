@@ -27,9 +27,7 @@ export class PostPersoComponent implements OnInit {
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
         this.profil = new ProfilUtilisateur(-1,"","","","","");
     }
-    test(){
-        console.log(this.profil);
-    }
+
     ngOnInit() {
         this.utilisateurservice
         .getProfil(localStorage.getItem('token'))
@@ -62,7 +60,22 @@ export class PostPersoComponent implements OnInit {
             }
         }
     }
-
+    isLoggedUser(){
+        if(this.profil.profilId.toString()==localStorage.getItem("profilId")){
+            return true;
+        }else
+            return false;
+    }
+    userPreview(profil:any)
+    {
+        this.profil=profil;
+        console.log(profil);
+        
+        this.userpostservice.getIdPosts(profil.profilId)
+        .subscribe(res => {
+            this.posts = res;
+        });    
+    }
     updatePosts() {
         this.userpostservice.getmyPosts()
         .subscribe(res => {
