@@ -101,16 +101,20 @@ export class LoginFormComponent {
             this.utilisateurService
                 .signin(mail, mdp)
                 .subscribe(res => {
+                    //console.log('retour de signin dans login form');
+                    //console.log(res);
                     if(res) {
                         localStorage.setItem('token', mail);
                         localStorage.setItem('bAdmin', "0");
                         this.router.navigate(['/map']);
                     } else
-                    if (res == false) {
+                    if (res === false) {
                         new jBox('Notice', {
-                            content: 'Un problème est survenue , veuillez essayer plus tard',
+                            content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, ' +
+                            'mais vous pouvez quand même utiliser le site en vous connectant avec l\'adresse ' +
+                            'et le mot de passe précédemment entrés',
                             color: 'red',
-                            autoClose: 2000
+                            autoClose: false
                         });
                     } else {
                         if (res == null) {

@@ -91,6 +91,8 @@ export class UtilisateurService extends BaseService {
             .post(this.baseUrl + '/utilisateur/signin',
                 JSON.stringify({ email, mdp }), { headers })
             .map(res => {
+                //console.log('retour de signin dans utilserv');
+                //console.log(res);
                 this.loadingService.stopLoadLocal();
                 return res.json();
             })
