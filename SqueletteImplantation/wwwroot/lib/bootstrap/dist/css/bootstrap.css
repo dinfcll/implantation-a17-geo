@@ -3492,9 +3492,9 @@ tbody.collapse.in {
   -webkit-transition-timing-function: linear;
        -o-transition-timing-function: linear;
           transition-timing-function: linear;
-  -webkit-transition-duration: 35s;
-       -o-transition-duration: 35s;
-          transition-duration: 35s;
+  -webkit-transition-duration: 15s;
+       -o-transition-duration: 15s;
+          transition-duration: 15s;
   -webkit-transition-property: height, visibility;
        -o-transition-property: height, visibility;
           transition-property: height, visibility;

@@ -10,14 +10,18 @@ declare var $ :any;
 })
 
 export class aProposComponent implements OnInit {
-    audio:any;
+    drum:any;
+    fusrudah:any;
     constructor() { };
 
     ngOnInit() : void{
-        this.audio = new Audio();
-        this.audio.src ='../../../asset/Percussion.mp3';
-        this.audio.load();
-        this.audio.play();
+        this.drum = new Audio();
+        this.fusrudah = new Audio();
+        this.drum.src ='../../../asset/Percussion.mp3';
+        this.drum.load();
+        this.drum.play();
+        this.fusrudah.src = '../../../asset/FusRoDahCut.mp3';
+        this.fusrudah.load();
         document.getElementById('fullscreenprez').style.width = '100%';
         document.getElementById('fullscreenprez').webkitRequestFullScreen();
         setTimeout(() => {
@@ -28,19 +32,33 @@ export class aProposComponent implements OnInit {
 
         setTimeout(() => {
             $('#testanimantoine').collapse();
-        }, 25000);
+        }, 17500);
 
         setTimeout(() => {
             $('#testanimpascal').collapse();
-        }, 35000);
+        }, 20000);
 
         setTimeout(() => {
             $('#testanimjerome').collapse();
-        }, 45000);
+        }, 22500);
         
         setTimeout(()=>{
-            this.audio.pause();
-        },75000);
+            this.drum.pause();
+            this.fusrudah.play();
+
+            setTimeout(()=>{ 
+                document.getElementById('feuAnnie').remove();
+            },800);
+            setTimeout(()=>{ 
+                document.getElementById('feuAntoine').remove();
+            },900);
+            setTimeout(()=>{ 
+                document.getElementById('feuPascal').remove();
+            },1000);
+            setTimeout(()=>{ 
+                document.getElementById('feuJerome').remove();
+            },1100);
+        },37250);
     }
 
     showDesc(){
