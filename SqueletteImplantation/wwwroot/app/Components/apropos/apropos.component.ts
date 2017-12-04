@@ -15,6 +15,7 @@ export class aProposComponent implements OnInit {
     constructor() { };
 
     ngOnInit() : void{
+        let musiquePrete;
         this.drum = new Audio();
         this.fusrudah = new Audio();
         this.drum.src ='../../../asset/Percussion.mp3';
@@ -24,6 +25,7 @@ export class aProposComponent implements OnInit {
         this.fusrudah.load();
         document.getElementById('fullscreenprez').style.width = '100%';
         document.getElementById('fullscreenprez').webkitRequestFullScreen();
+        while(this.drum.canplay != 1){}
         setTimeout(() => {
             $('#testanimannie').collapse();
             document.webkitCancelFullScreen();
@@ -64,7 +66,7 @@ export class aProposComponent implements OnInit {
     showDesc(){
         document.getElementById('descriptionPerso').style.width = "100%";
         let image = document.createElement("img");
-        image.src = "../../../images/annifire.gif";
+        image.src = "../../../images/annie.gif";
         image.style.maxHeight = "100%";
         image.id = 'ImageSelf';
         document.getElementById('PresentationImage').appendChild(image);
