@@ -14,13 +14,8 @@ import { NavBarComponent }             from './Components/nav/nav.component';
 import { PostPersoComponent }          from './Components/postperso/postperso.component';
 import { PostUserComponent }           from './Components/post/post.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
-<<<<<<< HEAD
-import { NavBarComponent }             from './Components/nav/nav.component';
-import { BuddiesComponent }            from './Components/buddies/buddies.component';
 import { aProposComponent }            from './Components/apropos/apropos.component';
-=======
 import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
->>>>>>> master
 
 import { AuthGuard }                   from './auth.guard';
 import { AdminGuard }                  from './admin.guard';
@@ -42,16 +37,11 @@ import { UtilisateurService }          from './services/utilisateur.service';
     NavBarComponent,
     PostPersoComponent,
     PostUserComponent,
-<<<<<<< HEAD
     ProfilUtilisateurComponent, 
     NavBarComponent,
     ResetPWComponent,
     BuddiesComponent,
     aProposComponent
-=======
-    ProfilUtilisateurComponent,
-    ResetPWComponent
->>>>>>> master
   ],
   imports: [
     CommonModule,

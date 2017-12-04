@@ -25,7 +25,6 @@ export class aProposComponent implements OnInit {
         this.fusrudah.load();
         document.getElementById('fullscreenprez').style.width = '100%';
         document.getElementById('fullscreenprez').webkitRequestFullScreen();
-        while(this.drum.canplay != 1){}
         setTimeout(() => {
             $('#testanimannie').collapse();
             document.webkitCancelFullScreen();
