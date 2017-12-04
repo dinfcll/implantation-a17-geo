@@ -38,6 +38,20 @@ namespace SqueletteImplantation.Controllers
 
         }
         [HttpGet]
+        [Route("api/following/getSuggestionById/{id}")]
+        public IEnumerable Suggestion(string id)
+        {
+            return from b in _maBd.Profil
+                   join c in _maBd.Following
+                   on b.profilId equals c.FollowedId into ps
+                   from c in ps.DefaultIfEmpty()
+                   where c == null || c.FollowerId != int.Parse(id)
+                   select b;
+
+
+        }
+
+        [HttpGet]
         [Route("api/following/searchUser/{search}")]
         public IEnumerable Search(string search)
         {

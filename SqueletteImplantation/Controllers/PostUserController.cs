@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/postUser")]
         public IEnumerable GetListPost()
         {
-            return _maBd.PostsUser.ToList();
+            return _maBd.PostsUser.ToList().OrderByDescending(p => p.postId);
         }
 
         [HttpPost]
@@ -41,10 +42,10 @@ namespace SqueletteImplantation.Controllers
         }
 
         [HttpPut]
-        [Route("api/postUser/modify")]
-        public IActionResult ModifyPostUser([FromBody] PostUserDto updatedPost)
+        [Route("api/postUser/modify/{id}")]
+        public IActionResult ModifyPostUser([FromBody] PostUserDto updatedPost, int id)
         {
-            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == updatedPost.postId);
+            var post = _maBd.PostsUser.FirstOrDefault(m => m.postId == id);
 
             if (post == null)
             {
@@ -91,24 +92,27 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(post);
         }
+
         [HttpGet]
         [Route("api/postUser/myPosts/{id}")]
         public IEnumerable GetmyPost(int id)
         {
             return from c in _maBd.PostsUser
-                   where c.profilId == id
+                   where c.profilId == id orderby c.postId descending
                    select c;
         }
+
         [HttpGet]
         [Route("api/postUser/followedPost/{id}")]
         public IEnumerable GetFollowedPost(int id)
         {
             return from b in _maBd.Following
             join c in _maBd.PostsUser on b.FollowedId equals c.profilId
-            where (b.FollowerId == id || c.profilId==id)
+            where (b.FollowerId == id || c.profilId==id) orderby c.postId descending
             select c;
 
         }
+        
         [HttpDelete]
         [Route("api/postUser/delete/{id}")]
         public IActionResult DeletePostUser(int id)

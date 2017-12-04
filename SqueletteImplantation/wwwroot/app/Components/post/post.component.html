@@ -1,35 +1,27 @@
-
+<div class="jumbotron" *ngIf="showPost">
         
     <div class="row padding-fix">
 
         <div class="col-md-10 col-md-offset-1 card-shadow">
 
-            <div class="col-md-1 pull-left">
-                <div class="row">
-                    <div class="col-md-5">
-                        <br>
-                        <br><br>
-                            <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive pull-left" 
-                            style="pointer-events: none;">
-                            <div class="usernamepost text-center"></div>
-                    </div>
-                    
-                </div>
-                
+            <div class="col-md-1">
+                <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive" 
+                    style="pointer-events: none;">
             </div>
             
             <div class="form-group">
+                    <div class="col-md-offset-9" *ngIf="p.datePublication">
+                           <span>créé le {{p.datePublication}}</span> 
+                    </div>
                 <div class="col-md-offset-4 titrepost text-center">{{p.postTitle}}</div>
             </div>
     
             <div class="form-group">
-                <div class="col-md-offset-4 textpost">{{p.postText}}</div>
+                <div class="col-md-8 col-md-offset-4 textpost">{{p.postText}}</div>
             </div>
-
-            <hr class="col md-8 col-md-offset-4">
     
             <div class="form-group">
-                <div class="col-md-8 col-md-offset-3">  
+                <div class="col-md-8 col-md-offset-4">  
 
                     <button class="button button--post" (click)="onDeletePost()">
                         <i class="button__icon fa fa-trash"></i>
@@ -49,11 +41,15 @@
                                      
                 </div>  
             </div>
+
+            <div class="md-col-3 pull-left">
+                <div *ngIf="profil.username" class="usernamepost text-center">@{{profil.username}}</div>
+            </div>
        
             <div *ngIf="bModif">
        
                 <div class="form-group">
-                    <label id="littleTitle" class="col-md-2 col-md-offset-3 control-label">Titre :</label>
+                    <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Titre :</label>
                     <div class="col-md-offset-4 textpost">
                         <input class="form-control" type="text" name="p.postTitle" [(ngModel)]="p.postTitle"
                             placeholder="{{p.postTitle}}">
@@ -61,7 +57,7 @@
                 </div>
             
                 <div class="form-group">
-                    <label id="littleTitle" class="col-md-2 col-md-offset-3 control-label">Texte :</label>
+                    <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Texte :</label>
                     <div class="col-md-offset-4 textpost">
                         <input class="form-control" type="text" name="p.postText" [(ngModel)]="p.postText"
                             placeholder="{{p.postText}}">
@@ -87,5 +83,4 @@
             </div>                           
         </div>
     </div>
-
-
+</div>

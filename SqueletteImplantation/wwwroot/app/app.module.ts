@@ -6,37 +6,52 @@ import { HttpModule }                  from '@angular/http';
 
 import { AppComponent }                from './app.component';
 import { AdminComponent }              from './Components/admin/admin.component';
+import { BuddiesComponent }            from './Components/buddies/buddies.component';
+import { LoadingComponent }            from './Components/loading/loading.component';
 import { LoginFormComponent }          from './Components/loginform/loginform.component';
 import { MapComponent }                from './Components/map/map.component';
+import { NavBarComponent }             from './Components/nav/nav.component';
 import { PostPersoComponent }          from './Components/postperso/postperso.component';
 import { PostUserComponent }           from './Components/post/post.component';
 import { ProfilUtilisateurComponent }  from './Components/profil-utilisateur/profil-utilisateur.component'
+<<<<<<< HEAD
 import { NavBarComponent }             from './Components/nav/nav.component';
 import { BuddiesComponent }            from './Components/buddies/buddies.component';
 import { aProposComponent }            from './Components/apropos/apropos.component';
+=======
+import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
+>>>>>>> master
 
 import { AuthGuard }                   from './auth.guard';
 import { AdminGuard }                  from './admin.guard';
 import { AppRouting }                  from './app.routing';
+import { BuddyService }                from './services/buddy.service';
 import { ConfigService }               from './services/config.service';
+import { LoadingService }              from './services/loading.service';
 import { UserPostService }             from './services/userpost.service';
 import { UtilisateurService }          from './services/utilisateur.service';
-import { BuddyService }                from './services/buddy.service';
-import { ResetPWComponent }            from './Components/password-reset/resetPW.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
+    BuddiesComponent,
+    LoadingComponent,
     LoginFormComponent,
     MapComponent,
+    NavBarComponent,
     PostPersoComponent,
     PostUserComponent,
+<<<<<<< HEAD
     ProfilUtilisateurComponent, 
     NavBarComponent,
     ResetPWComponent,
     BuddiesComponent,
     aProposComponent
+=======
+    ProfilUtilisateurComponent,
+    ResetPWComponent
+>>>>>>> master
   ],
   imports: [
     CommonModule,
@@ -48,9 +63,9 @@ import { ResetPWComponent }            from './Components/password-reset/resetPW
   providers: [
     AuthGuard,
     AdminGuard,
-    ConfigService,
-    UtilisateurService,
     BuddyService,
+    ConfigService,
+    LoadingService,
     UserPostService,
     UtilisateurService
   ],
