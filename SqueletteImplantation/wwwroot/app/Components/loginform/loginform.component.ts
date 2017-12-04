@@ -54,9 +54,9 @@ export class LoginFormComponent {
                             localStorage.setItem('username', res.username);
                             localStorage.setItem('Proimage', res.profilimage);
                         } else {
-                            localStorage.setItem('profilId', "");
-                            localStorage.setItem('username', "");
-                            localStorage.setItem('Proimage', "");
+                            localStorage.setItem('profilId', '');
+                            localStorage.setItem('username', '');
+                            localStorage.setItem('Proimage', '');
                         }
                         this.router.navigate(['/map']);
                     });
@@ -111,17 +111,19 @@ export class LoginFormComponent {
             .subscribe(res => {
                 if (res) {
                     localStorage.setItem('token', mail);
-                    localStorage.setItem('bAdmin', "0");
+                    localStorage.setItem('bAdmin', '0');
                     this.router.navigate(['/map']);
                 } else {
                     if (res === false) {
                         new jBox('Notice', {
-                            content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, ' +
-                            'mais vous pouvez quand même utiliser le site en vous connectant avec l\'adresse ' +
-                            'et le mot de passe précédemment entrés',
+                            content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, <br>' +
+                            'mais vous pouvez quand même utiliser le site',
                             color: 'red',
                             autoClose: false
                         });
+                        localStorage.setItem('token', mail);
+                        localStorage.setItem('bAdmin', '0');
+                        this.router.navigate(['/map']);
                     } else {
                         if (res == null) {
                             new jBox('Notice', {
