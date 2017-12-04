@@ -74,26 +74,18 @@ export class LoginFormComponent {
     resetPW(email: string) {
         this.utilisateurService.reset(email)
         .subscribe(res => {
-            if (res) {
+            if (res === false) {
+                new jBox('Notice', {
+                        content: 'Un problème est survenu , veuillez essayer plus tard',
+                        color: 'red',
+                        autoClose: 2000
+                });
+            } else {
                 new jBox('Notice', {
                     content: 'Si un compte a été trouvé, un courriel a été envoyé',
                     color: 'blue',
                     autoClose: 2000
-                  });
-            } else {
-                if (res === false) {
-                    new jBox('Notice', {
-                        content: 'Un problème est survenu , veuillez essayer plus tard',
-                        color: 'red',
-                        autoClose: 2000
-                    });
-                } else {
-                    new jBox('Notice', {
-                        content: 'Adresse inexistante',
-                        color: 'red',
-                        autoClose: 2000
-                    });
-                }
+                });
             }
         });
     }
