@@ -71,7 +71,7 @@ export class LoginFormComponent {
         });
     }
 
-    resetPW(email:string){
+    resetPW(email: string) {
         this.utilisateurService.reset(email)
         .subscribe(res => {
             if (res) {
@@ -81,11 +81,19 @@ export class LoginFormComponent {
                     autoClose: 2000
                   });
             } else {
-                new jBox('Notice', {
-                    content: 'Un problème est survenu , veuillez essayer plus tard',
-                    color: 'red',
-                    autoClose: 2000
-                });
+                if (res === false) {
+                    new jBox('Notice', {
+                        content: 'Un problème est survenu , veuillez essayer plus tard',
+                        color: 'red',
+                        autoClose: 2000
+                    });
+                } else {
+                    new jBox('Notice', {
+                        content: 'Adresse inexistante',
+                        color: 'red',
+                        autoClose: 2000
+                    });
+                }
             }
         });
     }
@@ -99,15 +107,13 @@ export class LoginFormComponent {
               });
         } else {
             this.utilisateurService
-                .signin(mail, mdp)
-                .subscribe(res => {
-                    //console.log('retour de signin dans login form');
-                    //console.log(res);
-                    if(res) {
-                        localStorage.setItem('token', mail);
-                        localStorage.setItem('bAdmin', "0");
-                        this.router.navigate(['/map']);
-                    } else
+            .signin(mail, mdp)
+            .subscribe(res => {
+                if (res) {
+                    localStorage.setItem('token', mail);
+                    localStorage.setItem('bAdmin', "0");
+                    this.router.navigate(['/map']);
+                } else {
                     if (res === false) {
                         new jBox('Notice', {
                             content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, ' +
@@ -125,6 +131,8 @@ export class LoginFormComponent {
                             });
                         }
                     }
-                });
-        }}
+                }
+            });
+        }
+    }
 }
