@@ -21,11 +21,14 @@ export class PostPersoComponent implements OnInit {
     followedPosts: UserPost[];
     posts: UserPost[];
     postSubmit: string;
-
+    isLoggedUser:boolean;
     profil: ProfilUtilisateur;
-    
+    selectedProfil : ProfilUtilisateur;
+
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
         this.profil = new ProfilUtilisateur(-1,"","","","","");
+        this.selectedProfil=null;
+        this.isLoggedUser=true;
     }
 
     ngOnInit() {
@@ -60,20 +63,19 @@ export class PostPersoComponent implements OnInit {
             }
         }
     }
-    isLoggedUser(){
-        if(this.profil.profilId.toString()==localStorage.getItem("profilId")){
-            return true;
-        }else
-            return false;
+    viewMyProfil(){
+        this.selectedProfil=null;
+        this.isLoggedUser=true;
+        this.updatePosts();
     }
     userPreview(profil:any)
     {
-        this.profil=profil;
-        console.log(profil);
+        this.selectedProfil=profil;
         
-        this.userpostservice.getIdPosts(profil.profilId)
+        this.userpostservice.getIdPosts(this.selectedProfil.profilId)
         .subscribe(res => {
             this.posts = res;
+            this.isLoggedUser=false;
         });    
     }
     updatePosts() {
