@@ -9,7 +9,5 @@ import { LoadingService } from '../../services/loading.service';
 })
 
 export class LoadingComponent {
-    constructor(private loadingservice: LoadingService) {
-
-    }
+    constructor(private loadingservice: LoadingService) { }
 }

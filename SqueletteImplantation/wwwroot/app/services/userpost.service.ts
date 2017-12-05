@@ -6,6 +6,7 @@ import { UserPost } from '../class/post.class';
 
 import { BaseService } from './base.service';
 import { ConfigService } from './config.service';
+import { LoadingService } from './loading.service';
 
 declare var jBox: any;
 
@@ -14,10 +15,11 @@ export class UserPostService extends BaseService {
 
     baseUrl: string = '';
 
-    constructor(private http: Http, private configService: ConfigService) {
+    constructor(private http: Http, private configService: ConfigService, private loadingService: LoadingService) {
         super();
         this.baseUrl = configService.getApiURI();
     }
+
    
     getListPost() {
         return this.http
@@ -46,21 +48,26 @@ export class UserPostService extends BaseService {
         .catch(this.handleError);
     }
 
-    createPost(postTitle: string, postText: string, profilId: number, postImg: string) {
+    createPost(postTitle: string, postText: string, profilId: number) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
+
+        this.loadingService.startLoadLocal();
+
         return this.http
-            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, 
-                profilId, postImg }), {headers})
-            .map(res => { return res.json(); })
+            .post(this.baseUrl + '/postUser/create', JSON.stringify({ postTitle, postText, profilId }), {headers})
+            .map(res => {
+                this.loadingService.stopLoadLocal();
+                return res.json(); })
             .catch(this.handleError);
     }
+
 
     modifyPost(p : UserPost) {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/modify', p , {headers})
+            .put(this.baseUrl + '/postUser/modify' + p.postId, p, {headers})
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

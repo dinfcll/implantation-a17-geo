@@ -22,6 +22,7 @@ export class PostPersoComponent implements OnInit {
     posts: UserPost[];
     postSubmit: string;
     isLoggedUser:boolean;
+
     profil: ProfilUtilisateur;
     selectedProfil : ProfilUtilisateur;
 
@@ -97,7 +98,7 @@ export class PostPersoComponent implements OnInit {
         } else {
             if(this.profil) {
                 this.userpostservice
-                .createPost(postTitle, postText, this.profil.profilId, this.postSubmit)
+                .createPost(postTitle, postText, this.profil.profilId)
                 .subscribe(res => {
                     if(res) {
                         this.posts.unshift(res);
