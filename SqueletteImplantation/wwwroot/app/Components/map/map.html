@@ -211,8 +211,10 @@
                         </div>                   
                         <!-- IMAGE DU MARQUEUR -->
                         <div class="col-md-12">
-                            <img *ngIf="currentmarqueur.imageMarqueur" [src]="currentmarqueur.imageMarqueur" class="imgRando" width="400px" height="500px">
-                            <img *ngIf="!currentmarqueur.imageMarqueur" [src]="imgDefaultRando" class="imgRando" width="400px" height="500px">
+                            <img *ngIf="currentmarqueur.imageMarqueur" [src]="currentmarqueur.imageMarqueur" class="imgRando" 
+                                [ngClass]="{'imgRando-no-btn': currentmarqueur.profilId!=ProfilCourrant && utilisateurService.estAdmin()!=1}" width="400px" height="500px">
+                            <img *ngIf="!currentmarqueur.imageMarqueur" [src]="imgDefaultRando" class="imgRando" 
+                                [ngClass]="{'imgRando-no-btn': currentmarqueur.profilId!=ProfilCourrant && utilisateurService.estAdmin()!=1}" width="400px" height="500px">
                         </div> 
                         <!-- DATE DE CREATION -->
                         <div class="col-md-4">
