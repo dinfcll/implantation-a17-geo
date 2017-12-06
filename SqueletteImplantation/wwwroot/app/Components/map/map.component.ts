@@ -203,7 +203,7 @@ export class MapComponent implements OnInit {
                 this.router.navigate(['/profil']);
             }
         } else {
-            if(this.stadetrace === 0) {
+            if(this.stadetrace === 0 && !this.DetailsView) {
                 this.tServicesRando = [];
                 this.AcceptMarker = !this.AcceptMarker;
                 this.DetailsView = false;
