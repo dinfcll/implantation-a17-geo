@@ -131,6 +131,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 this.profil = new ProfilUtilisateur(-1, this.utilisateurservice.loggedIn(), '', '', '', this.imageDefaut);
                 localStorage.setItem('username', '');
                 localStorage.setItem('Proimage', this.imageDefaut);
+                localStorage.setItem('profilId', '');
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',

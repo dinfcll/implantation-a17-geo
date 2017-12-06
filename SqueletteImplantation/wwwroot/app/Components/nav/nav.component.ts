@@ -11,16 +11,24 @@ import { UtilisateurService } from '../../services/utilisateur.service';
 
 export class NavBarComponent {
 
-    public username: string;
-
     constructor(private utilisateurService: UtilisateurService, private router: Router) { };
-    
-    ngOnInit(): void {
-        this.username = localStorage.getItem("username");
-    }
 
     onLogout() {
         this.utilisateurService.logout();
         this.router.navigate(['/login']);
+    }
+
+    gestionAccesPost() {
+        if (localStorage.getItem('profilId') === '') {
+            let confirmation;
+            confirmation = confirm('Un profil est nécessaire si vous voulez créer et voir les publications.' +
+                '\nVoulez-vous créer votre profil maintenant?');
+            if (confirmation) {
+                this.router.navigate(['/profil']);
+            }
+
+        } else {
+            this.router.navigate(['/postPerso']);
+        }
     }
 }
