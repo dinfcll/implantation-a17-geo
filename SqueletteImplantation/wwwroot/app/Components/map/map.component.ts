@@ -216,6 +216,7 @@ export class MapComponent implements OnInit {
                     });
                 } else {
                     this.marqtemp.setMap(null);
+                    this.Annulation();
                 }
                 this.ref.detectChanges();
             } else {
@@ -278,7 +279,8 @@ export class MapComponent implements OnInit {
         } else {
             this.DetailsView = !this.DetailsView;
             this.modmarq = !this.modmarq;
-            this.ref.detectChanges();   
+            this.ref.detectChanges();
+            this.Annulation();   
         }             
     }
 
