@@ -12,9 +12,13 @@ namespace SqueletteImplantation.DbEntities.DTOs
 
         public Comment CreateComment()
         {
-            return new Comment { commentTxt = commentTxt, postId = postId, profilId = profilId, 
-                commentDate = DateTime.Today.ToString("d"), commentShow = true, 
-                commentUsername = commentUsername };
+            return new Comment { 
+                commentTxt = commentTxt,
+                commentUsername = commentUsername, 
+                postId = postId, 
+                profilId = profilId, 
+                commentDate = DateTime.Today.ToString("d"), 
+                commentShow = true };
         }
     }
 }
