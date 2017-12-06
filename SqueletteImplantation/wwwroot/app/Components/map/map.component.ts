@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, } from '@angular/core';
 import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 import { Marqueur } from '../../class/marqueur.class';
 
@@ -45,7 +46,7 @@ export class MapComponent implements OnInit {
      imgDefaultRando: string;
 
     constructor(private http: Http, private ref: ChangeDetectorRef, private utilisateurService: UtilisateurService,
-                private loadingService: LoadingService) {
+                private loadingService: LoadingService, private router: Router) {
         this.AcceptMarker = false;
         this.banqueimageicone = ['../../../images/officiel_icone.svg',
                             '../../../images/user_icone.svg'];
@@ -193,25 +194,34 @@ export class MapComponent implements OnInit {
         });
     }
 
-    PermissionAjoutMarker(): void {
-        if(this.stadetrace === 0) {
-            this.tServicesRando = [];
-            this.AcceptMarker = !this.AcceptMarker;
-            this.DetailsView=false;
-            if(this.AcceptMarker) {
-                this.remiseZeroMarqueurCurrentMarqueur();
-                new jBox('Notice', {
-                    content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
-                    color: 'green',
-                    autoClose: 5000
-                });
-            } else {
-                this.marqtemp.setMap(null);
+    PermissionAjoutMarker():void {
+        if (localStorage.getItem('profilId') === '') {
+            let confirmation;
+            confirmation = confirm('Un profil est nécessaire si vous voulez créer un marqueur.' +
+                '\nVoulez-vous créer votre profil maintenant?');
+            if (confirmation) {
+                this.router.navigate(['/profil']);
             }
-            this.ref.detectChanges();
         } else {
-            this.messageErreurActionSurCarte();
-        }     
+            if(this.stadetrace === 0) {
+                this.tServicesRando = [];
+                this.AcceptMarker = !this.AcceptMarker;
+                this.DetailsView = false;
+                if(this.AcceptMarker) {
+                    this.remiseZeroMarqueurCurrentMarqueur();
+                    new jBox('Notice', {
+                        content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
+                        color: 'green',
+                        autoClose: 5000
+                    });
+                } else {
+                    this.marqtemp.setMap(null);
+                }
+                this.ref.detectChanges();
+            } else {
+                this.messageErreurActionSurCarte();
+            }
+        }
     }
 
     PermissionDetails(): void {
@@ -512,7 +522,7 @@ export class MapComponent implements OnInit {
             this.tabmarqtemp.push(marktampon);   
         }
     }
-    
+
     ConfirmationMarker() {
         if(this.currentmarqueur.id === 0) {
             if(this.currentmarqueur.latitude == 0) {
@@ -521,32 +531,22 @@ export class MapComponent implements OnInit {
                     color: 'red',
                     autoClose: 2000
                 });
-            }
-            else {
-                if(localStorage.getItem('profilId')) {   
-                    let marqposition = this.marqtemp.getPosition();
-                    this.currentmarqueur.latitude = marqposition.lat();
-                    this.currentmarqueur.longitude = marqposition.lng();
-                    this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
-                    this.currentmarqueur.imageMarqueur = this.image;
-                    this.image = "";
-                    this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
-                    this.loadingService.startLoadLocal();
-                    this.http.post("api/marqueurs", this.currentmarqueur)
-                    .subscribe( res => {
-                        this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
-                        this.PermissionAjoutMarker();
-                        this.marqtemp.setMap(null);
-                        this.loadingService.stopLoadLocal();
-                    });
-                }
-                else {
-                    new jBox('Notice', {
-                        content: 'Veuillez créer un profil avant de créer un marqueur',
-                        color: 'red',
-                        autoClose: 2000
-                    });
-                }
+            } else {
+                let marqposition = this.marqtemp.getPosition();
+                this.currentmarqueur.latitude = marqposition.lat();
+                this.currentmarqueur.longitude = marqposition.lng();
+                this.currentmarqueur.profilId=Number(localStorage.getItem('profilId'));
+                this.currentmarqueur.imageMarqueur = this.image;
+                this.image = "";
+                this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
+                this.loadingService.startLoadLocal();
+                this.http.post("api/marqueurs", this.currentmarqueur)
+                .subscribe( res => {
+                    this.googlemarq.push(this.AjoutMarker(res.json() as Marqueur));
+                    this.PermissionAjoutMarker();
+                    this.marqtemp.setMap(null);
+                    this.loadingService.stopLoadLocal();
+                });
             }
         } else {
             this.currentmarqueur.servicesRando = this.tServicesRando.join('&');
@@ -633,10 +633,10 @@ export class MapComponent implements OnInit {
     modifServicesRandonne(s: string) {
         let index = this.tServicesRando.indexOf(s);
         if(index >= 0) {
-            this.tServicesRando.splice(index, 1);            
+            this.tServicesRando.splice(index, 1);
         } else {
-            this.tServicesRando.push(s)
+            this.tServicesRando.push(s);
         }
         this.ref.detectChanges();
-    }        
+    }
 }
