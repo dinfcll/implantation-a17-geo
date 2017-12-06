@@ -25,6 +25,9 @@
   object-fit: cover;
   overflow: hidden;
 }
+.imgRando-no-btn {
+  margin-top: 25px;
+}
 .temp {
  font-family: 'Raleway', sans-serif;
  color: gray;
