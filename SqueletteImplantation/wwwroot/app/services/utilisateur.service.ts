@@ -99,14 +99,14 @@ export class UtilisateurService extends BaseService {
 
     getProfilById(profilId: string) {
         return this.http
-            .get(this.baseUrl + '/profilbyid/' + profilId, profilId)
+            .get(this.baseUrl + '/profilbyid/' + profilId)
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
 
     getProfil(courriel: string) {
         return this.http
-            .get(this.baseUrl + '/profil/' + courriel, courriel)
+            .get(this.baseUrl + '/profil/' + courriel)
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }

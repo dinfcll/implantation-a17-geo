@@ -45,8 +45,23 @@
 #littleTitle {
   margin-top: 8px;
 }
-
-
+.commentTexte {
+  font-size: 18px;
+  color: darkslategray;
+  margin-top: 5px;
+}
+.commentOther {
+  font-size: 12px;
+  color: lightslategray;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.deleteComment {
+  color: #7CBB74;
+}
+.deleteComment:hover {
+  color: red;
+}
 
 .button {
 	float: left;
