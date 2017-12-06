@@ -8,6 +8,11 @@
         <br>
         <div class="row">
             <div class="col-md-4 col-md-offset-2">
+                <button class="ajoutMarqueur" (click)="PermissionMod()" *ngIf="modmarq">
+                    <span class="buttonMessage cancel">
+                        Annuler
+                    </span>
+                </button>        
                 <button class="ajoutMarqueur" *ngIf="!modmarq" (click)="PermissionAjoutMarker()" [ngClass]="{'cancel': AcceptMarker}" >
                     <span class="buttonMessage" *ngIf="!AcceptMarker">
                         Ajouter un marqueur
