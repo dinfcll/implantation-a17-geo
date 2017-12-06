@@ -61,6 +61,7 @@
 }
 .deleteComment:hover {
   color: red;
+  cursor: pointer;
 }
 
 .button {
