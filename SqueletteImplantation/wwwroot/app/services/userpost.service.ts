@@ -113,4 +113,12 @@ export class UserPostService extends BaseService {
         .map(res => { return res; })
         .catch(this.handleError);
     }
+
+    getProImageByID(profilId:number){
+        return this.http
+        .get(this.baseUrl + '/profil/proimgbyid/' + profilId)
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
+
 }
