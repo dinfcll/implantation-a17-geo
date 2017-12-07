@@ -53,6 +53,19 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+        [HttpGet]
+        [Route("api/profil/proimgbyid/{profilId}")]
+        public IActionResult GetProImgbyId(int profilId)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == profilId);
+
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(profil.profilimage);
+        }
 
         [HttpPost]
         [Route("api/profil/create")]
