@@ -311,3 +311,26 @@ svg #main-circ {
 .card-shadow{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.imgpro{
+  border-radius: 50%;
+  text-align: center;
+  margin: auto;
+  height: 60px;
+  width: 60px;
+}
+
+.image-cropper {
+  width: 210px;
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.image-cropper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+  margin-left:-25%;
+}

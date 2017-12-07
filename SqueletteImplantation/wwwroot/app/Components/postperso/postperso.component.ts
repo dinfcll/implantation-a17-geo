@@ -20,11 +20,16 @@ declare var jBox: any;
 export class PostPersoComponent implements OnInit {
     followedPosts: UserPost[];
     posts: UserPost[];
+    postSubmit: string;
+    isLoggedUser:boolean;
 
     profil: ProfilUtilisateur;
+    selectedProfil : ProfilUtilisateur;
 
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
         this.profil = new ProfilUtilisateur(-1,"","","","","");
+        this.selectedProfil=null;
+        this.isLoggedUser=true;
     }
 
     ngOnInit() {
@@ -46,6 +51,37 @@ export class PostPersoComponent implements OnInit {
         });      
     }
 
+    OnPreLoadImage(event: any) {
+        let files: FileList;
+        files = event.target.files;
+        if (files && files[0]) {
+            if (files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+                let fr = new FileReader();
+                fr.onload = (e: any) => {
+                    this.postSubmit = e.target.result;
+                };
+                fr.readAsDataURL(files[0]);
+            }
+        }
+    }
+    viewMyProfil(){
+        this.selectedProfil=null;
+        this.isLoggedUser=true;
+        this.updatePosts();
+    }
+    userPreview(profil:any)
+    {
+        this.selectedProfil=profil;
+        this.userpostservice.getProImageByID(profil.profilId)
+        .subscribe(res =>{
+            this.selectedProfil.profilimage=res;
+        });
+        this.userpostservice.getIdPosts(this.selectedProfil.profilId)
+        .subscribe(res => {
+            this.posts = res;
+            this.isLoggedUser=false;
+        });    
+    }
     updatePosts() {
         this.userpostservice.getmyPosts()
         .subscribe(res => {

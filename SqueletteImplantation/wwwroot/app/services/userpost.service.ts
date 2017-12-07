@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
+import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { UserPost } from '../class/post.class';
 
 import { BaseService } from './base.service';
@@ -19,6 +20,7 @@ export class UserPostService extends BaseService {
         this.baseUrl = configService.getApiURI();
     }
 
+   
     getListPost() {
         return this.http
         .get(this.baseUrl + '/postUser')
@@ -39,6 +41,12 @@ export class UserPostService extends BaseService {
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
+    getIdPosts(profilId:number) {
+        return this.http
+        .get(this.baseUrl + '/postUser/myPosts/' + profilId)
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
 
     createPost(postTitle: string, postText: string, profilId: number) {
         let headers = new Headers();
@@ -53,6 +61,7 @@ export class UserPostService extends BaseService {
                 return res.json(); })
             .catch(this.handleError);
     }
+
 
     modifyPost(p : UserPost) {
         let headers = new Headers();
@@ -87,4 +96,11 @@ export class UserPostService extends BaseService {
             .map(res => { return res; })
             .catch(this.handleError);
     }
+    getProImageByID(profilId:number){
+        return this.http
+        .get(this.baseUrl + '/profil/proimgbyid/' + profilId)
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
+    }
+    
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, Output,EventEmitter  } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { BuddyService } from './../../services/buddy.service';
 import { ConfigService } from "../../services/config.service";
 import { UtilisateurService } from './../../services/utilisateur.service';
 
+
 declare var jBox:any;
 
 @Component ({
@@ -20,6 +21,8 @@ declare var jBox:any;
 })
 
 export class BuddiesComponent implements OnInit {
+
+     @Output() previewEvent= new EventEmitter<ProfilUtilisateur>();
      name ='Buddies';
      searchResult: ProfilUtilisateur[];
      
@@ -31,7 +34,11 @@ export class BuddiesComponent implements OnInit {
         this.buddyService.getFollowed();
         this.buddyService.getFollower();
     }
-
+    userPreview(profil:ProfilUtilisateur)
+    {
+        this.previewEvent.next(profil);
+        console.log(profil)
+    }
     searchUser(search:string) {
         this.buddyService.searchUsers(search)
         .subscribe(res => {
