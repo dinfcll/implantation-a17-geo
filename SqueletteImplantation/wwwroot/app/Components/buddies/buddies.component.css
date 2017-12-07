@@ -26,12 +26,14 @@
   }
   i:hover{
     color:black;
+    cursor: pointer;
   }
   .user-list{
     padding:0px;
   }
   a{
     padding:2px;
+    cursor: pointer;
   }
   .panel-heading.user-pan-head{
     padding-bottom: 0px;

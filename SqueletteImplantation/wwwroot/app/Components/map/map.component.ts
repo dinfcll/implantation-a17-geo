@@ -279,8 +279,7 @@ export class MapComponent implements OnInit {
         } else {
             this.DetailsView = !this.DetailsView;
             this.modmarq = !this.modmarq;
-            this.ref.detectChanges();
-            this.Annulation();   
+            this.ref.detectChanges(); 
         }             
     }
 
@@ -374,7 +373,7 @@ export class MapComponent implements OnInit {
                 });
     }
 
-    getMarqueursSuivi():void{
+    getMarqueursSuivi(): void {
         this.loadingService.startLoadGlobal();
         this.http.get("api/marqueurs/suivi/"+ Number(localStorage.getItem('profilId')))
             .subscribe((resdata) => {
@@ -383,8 +382,7 @@ export class MapComponent implements OnInit {
                     this.googlemarq.push(this.AjoutMarker(mark));
                 });
                 this.loadingService.stopLoadGlobal();
-            });
-             
+            });            
     }
 
     retraitCouleurCurrentMarqueur(): void {
