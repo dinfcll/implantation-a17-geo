@@ -24,12 +24,11 @@
                 </div>
                 <div class="panel-body no-padding">
                     <div *ngIf="!isLoggedUser" class="text-center">
-                        <h1>{{selectedProfil.username}}</h1>
-                  
+                        <h1>{{selectedProfil.username}}</h1>                 
                         <div  class=" image-cropper center-block" >
-                                <img [src]="selectedProfil.profilimage"class="col-md-offset-5">
+                            <img [src]="selectedProfil.profilimage"class="col-md-offset-5">
                         </div>
-                       <hr>
+                        <hr>
                     </div>
                     <form class="form-horizontal" role="form" *ngIf="isLoggedUser"> 
                         <div class="form-group">
