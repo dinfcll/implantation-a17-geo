@@ -37,6 +37,7 @@ export class BuddiesComponent implements OnInit {
     userPreview(profil:ProfilUtilisateur)
     {
         this.previewEvent.next(profil);
+        console.log(profil)
     }
     searchUser(search:string) {
         this.buddyService.searchUsers(search)

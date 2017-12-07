@@ -318,17 +318,19 @@ svg #main-circ {
   height: 60px;
   width: 60px;
 }
-.round {
-  border-radius: 50%;
+
+.image-cropper {
+  width: 210px;
+  height: 210px;
+  position: relative;
   overflow: hidden;
-  width: 150px;
-  height: 150px;
+  border-radius: 50%;
 }
-.round img {
-  display: block;
-/* Stretch 
-    height: 100%;
-    width: 100%; */
-min-width: 100%;
-min-height: 100%;
+
+.image-cropper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+  margin-left:-25%;
 }

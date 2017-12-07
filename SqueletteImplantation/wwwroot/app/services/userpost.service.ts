@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { UserPost } from '../class/post.class';
@@ -95,6 +95,12 @@ export class UserPostService extends BaseService {
             .delete(this.baseUrl + '/postUser/delete/' + postId, JSON.stringify({ postId }))
             .map(res => { return res; })
             .catch(this.handleError);
+    }
+    getProImageByID(profilId:number){
+        return this.http
+        .get(this.baseUrl + '/profil/proimgbyid/' + profilId)
+        .map(res => { return res.json(); })
+        .catch(this.handleError);
     }
     
 }

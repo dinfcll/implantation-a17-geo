@@ -72,7 +72,10 @@ export class PostPersoComponent implements OnInit {
     userPreview(profil:any)
     {
         this.selectedProfil=profil;
-        
+        this.userpostservice.getProImageByID(profil.profilId)
+        .subscribe(res =>{
+            this.selectedProfil.profilimage=res;
+        });
         this.userpostservice.getIdPosts(this.selectedProfil.profilId)
         .subscribe(res => {
             this.posts = res;
