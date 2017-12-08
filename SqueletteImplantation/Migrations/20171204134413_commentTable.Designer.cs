@@ -8,9 +8,10 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171204134413_commentTable")]
+    partial class commentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
@@ -23,12 +24,8 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("commentDate");
 
-                    b.Property<bool>("commentShow");
-
                     b.Property<string>("commentTxt")
                         .IsRequired();
-
-                    b.Property<string>("commentUsername");
 
                     b.Property<int>("postId");
 

@@ -42,25 +42,25 @@ export class LoginFormComponent {
             if (res) {
                 localStorage.setItem('token', res.email);
                 localStorage.setItem('bAdmin', res.typeutil);
-                if (res.reset) {
-                    this.router.navigate(['/resetPW']);
-                } else {
-                    this.utilisateurService.getProfil(res.email)
-                    .subscribe(res => {
-                        if (res) {
-                            console.log(res);
-                            this.utilisateurService.profil = res;
-                            localStorage.setItem('profilId', res.profilId);
-                            localStorage.setItem('username', res.username);
-                            localStorage.setItem('Proimage', res.profilimage);
-                        } else {
-                            localStorage.setItem('profilId', "");
-                            localStorage.setItem('username', "");
-                            localStorage.setItem('Proimage', "");
-                        }
+                this.utilisateurService.getProfil(res.email)
+                .subscribe(respro => {
+                    if (respro) {
+                        console.log(respro);
+                        this.utilisateurService.profil = respro;
+                        localStorage.setItem('profilId', respro.profilId);
+                        localStorage.setItem('username', respro.username);
+                        localStorage.setItem('Proimage', respro.profilimage);
+                    } else {
+                        localStorage.setItem('profilId', "");
+                        localStorage.setItem('username', "");
+                        localStorage.setItem('Proimage', "");
+                    }
+                    if (res.reset) {
+                        this.router.navigate(['/resetPW']);
+                    } else {
                         this.router.navigate(['/map']);
-                    });
-                }
+                    }
+                });
             } else {
                 new jBox('Notice', {
                     content: 'Courriel ou mot de passe invalide',
@@ -71,19 +71,19 @@ export class LoginFormComponent {
         });
     }
 
-    resetPW(email:string){
+    resetPW(email: string) {
         this.utilisateurService.reset(email)
         .subscribe(res => {
-            if (res) {
+            if (res === false) {
+                new jBox('Notice', {
+                        content: 'Un problème est survenu , veuillez essayer plus tard',
+                        color: 'red',
+                        autoClose: 2000
+                });
+            } else {
                 new jBox('Notice', {
                     content: 'Si un compte a été trouvé, un courriel a été envoyé',
                     color: 'blue',
-                    autoClose: 2000
-                  });
-            } else {
-                new jBox('Notice', {
-                    content: 'Un problème est survenu , veuillez essayer plus tard',
-                    color: 'red',
                     autoClose: 2000
                 });
             }
@@ -99,19 +99,23 @@ export class LoginFormComponent {
               });
         } else {
             this.utilisateurService
-                .signin(mail, mdp)
-                .subscribe(res => {
-                    if(res) {
-                        localStorage.setItem('token', mail);
-                        localStorage.setItem('bAdmin', "0");
-                        this.router.navigate(['/map']);
-                    } else
-                    if (res == false) {
+            .signin(mail, mdp)
+            .subscribe(res => {
+                if (res) {
+                    localStorage.setItem('token', mail);
+                    localStorage.setItem('bAdmin', '0');
+                    this.router.navigate(['/map']);
+                } else {
+                    if (res === false) {
                         new jBox('Notice', {
-                            content: 'Un problème est survenue , veuillez essayer plus tard',
+                            content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, <br>' +
+                            'mais vous pouvez quand même utiliser le site',
                             color: 'red',
-                            autoClose: 2000
+                            autoClose: false
                         });
+                        localStorage.setItem('token', mail);
+                        localStorage.setItem('bAdmin', '0');
+                        this.router.navigate(['/map']);
                     } else {
                         if (res == null) {
                             new jBox('Notice', {
@@ -121,6 +125,8 @@ export class LoginFormComponent {
                             });
                         }
                     }
-                });
-        }}
+                }
+            });
+        }
+    }
 }

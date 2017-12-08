@@ -1,53 +1,80 @@
-<div class="jumbotron" *ngIf="showPost">
-        
+<div class="jumbotron" *ngIf="showPost">        
     <div class="row padding-fix">
-
         <div class="col-md-10 col-md-offset-1 card-shadow">
-
+            <!-- IMAGE DE PROFIL -->
             <div class="col-md-1">
                 <img *ngIf="profil.profilimage" [src]="profil.profilimage" class="img-circle img-responsive" 
                     style="pointer-events: none;">
             </div>
-            
+            <!-- DATE CREATION DU POST + TITRE -->
             <div class="form-group">
-                    <div class="col-md-offset-9" *ngIf="p.datePublication">
+                    <div class="col-md-offset-9" *ngIf="p.datePublication" style="color: lightgray">
                            <span>créé le {{p.datePublication}}</span> 
                     </div>
                 <div class="col-md-offset-4 titrepost text-center">{{p.postTitle}}</div>
             </div>
-    
+            <!-- TEXTE DU POST -->
             <div class="form-group">
                 <div class="col-md-8 col-md-offset-4 textpost">{{p.postText}}</div>
             </div>
-    
+            <!-- MODIF / DELETE / COMMENT BTN -->
             <div class="form-group">
-                <div class="col-md-8 col-md-offset-4">  
-
-                    <button class="button button--post" (click)="onDeletePost()">
+                <div class="col-md-8 col-md-offset-4"> 
+                    <button class="button button--post" (click)="onDeletePost()" *ngIf="p.profilId == currentPId">
                         <i class="button__icon fa fa-trash"></i>
                         <span>Supprimer</span>
                     </button>
-
-                    <button class="button button--post" (click)="onModifyBtn(p)">
+                    <button class="button button--post" (click)="onModifyBtn(p)" *ngIf="p.profilId == currentPId">
                         <i class="button__icon fa fa-pencil"></i>
                         <span>Modifier</span>
-                    </button>
-
+                    </button>                    
+                    <!-- LIKE HEART -->
                     <input type="checkbox" class="pull-right checkboxx" [checked]="bLike == true"/>
                     <label for="checkboxx" class="pull-right" (click)="onLike()">
                         <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg"><g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)"><path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2"/><circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/><g id="grp7" opacity="0" transform="translate(7 6)"><circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/><circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/></g><g id="grp6" opacity="0" transform="translate(0 28)"><circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/><circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/></g><g id="grp3" opacity="0" transform="translate(52 28)"><circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/><circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/></g><g id="grp2" opacity="0" transform="translate(44 6)" fill="#CC8EF5"><circle id="oval2" transform="matrix(-1 0 0 1 10 0)" cx="5" cy="6" r="2"/><circle id="oval1" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp5" opacity="0" transform="translate(14 50)" fill="#91D2FA"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp4" opacity="0" transform="translate(35 50)" fill="#F48EA7"><circle id="oval1" transform="matrix(-1 0 0 1 12 0)" cx="6" cy="5" r="2"/><circle id="oval2" transform="matrix(-1 0 0 1 4 0)" cx="2" cy="2" r="2"/></g><g id="grp1" opacity="0" transform="translate(24)" fill="#9FC7FA"><circle id="oval1" cx="2.5" cy="3" r="2"/><circle id="oval2" cx="7.5" cy="2" r="2"/></g></g></svg>                        
                         {{p.postLike}} 
-                    </label>
-                                     
+                    </label>                                     
                 </div>  
             </div>
-
+            <!-- NOM D'UTILISATEUR -->
             <div class="md-col-3 pull-left">
                 <div *ngIf="profil.username" class="usernamepost text-center">@{{profil.username}}</div>
             </div>
-       
-            <div *ngIf="bModif">
-       
+            <hr>
+            <!-- AJOUT D'UN COMMENTAIRE -->
+            <div class="form-group">
+                <label class="col-md-3 labelComment" style="margin-top: 38px;">Commentaire :</label>
+                <div class="col-md-7 textpost">
+                    <input class="form-control" type="text" name="commentTxt" [(ngModel)]="commentTxt">
+                </div>            
+                <!-- BTN ACCEPT -->
+                <div class="col-md-2" style="margin-top: -18px;"> 
+                    <button class="button button--post" (click)="onAddComment()">
+                        <i class="button__icon fa fa-commenting-o"></i>
+                        <span>Confirmer</span>
+                    </button>                      
+                </div>
+            </div>
+            <!-- Affichage des commentaires -->
+            <div *ngFor="let com of comments">
+                <div class="col-md-11 col-md-offset-1" *ngIf="com && p.postId == com.postId && com.commentShow">
+                    <div class="col-md-10 commentTexte">
+                        {{com.commentTxt}}
+                    </div>
+                    <div class="col-md-10 commentOther">
+                        {{com.commentDate}} <br> {{com.commentUsername}}
+                    </div>                                                                 
+                    <div class="col-md-2" *ngIf="com.profilId == currentPId">
+                        <a (click)="onDeleteComment(com.commentId)" class="deleteComment">
+                            <i class="fa fa-trash fa-2x"></i>
+                        </a>
+                    </div>                    
+                </div>
+            </div>
+
+            <!-- MODIFICATION DU POST -->
+            <div *ngIf="bModif">    
+                <!-- TITRE --> 
                 <div class="form-group">
                     <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Titre :</label>
                     <div class="col-md-offset-4 textpost">
@@ -55,7 +82,7 @@
                             placeholder="{{p.postTitle}}">
                     </div>
                 </div>
-            
+                <!-- TEXTE -->
                 <div class="form-group">
                     <label id="littleTitle" class="col-md-2 col-md-offset-2 control-label">Texte :</label>
                     <div class="col-md-offset-4 textpost">
@@ -63,24 +90,21 @@
                             placeholder="{{p.postText}}">
                     </div>
                 </div>
-            
+                <!-- BTN ACCEPT + CANCEL -->
                 <div class="form-group">
                     <label class="col-md-10  control-label"></label>
                     <div class="col-md-8 col-md-offset-4"> 
-
                         <button class="button button--post" (click)="onModifyPost(p)">
                             <i class="button__icon fa fa-check"></i>
                             <span>Confirmer</span>
                         </button>
-
                         <button class="button button--post" (click)="onModifyBtn()">
                             <i class="button__icon fa fa-times"></i>
                             <span>Annuler</span>
                         </button> 
-
                     </div>
                 </div>
-            </div>                           
+            </div> 
         </div>
     </div>
 </div>

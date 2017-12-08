@@ -45,7 +45,7 @@ namespace SqueletteImplantation.Controllers
                    join c in _maBd.Following
                    on b.profilId equals c.FollowedId into ps
                    from c in ps.DefaultIfEmpty()
-                   where c == null || c.FollowerId != int.Parse(id)
+                   where c == null ||( c.FollowerId != int.Parse(id) && b.profilId!= int.Parse(id))
                    select b;
 
 

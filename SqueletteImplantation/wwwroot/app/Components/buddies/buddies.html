@@ -7,12 +7,14 @@
                     <ul>
                         <form id="searchform">
                             <input class="" type="text" placeholder="username" name="search" [(ngModel)]="search">
-                            <button type="button" class="btn" (click)="searchUser(search)">
-                                <a href="#tab3default" data-toggle="tab"><i class="fa fa-search" aria-hidden="true"></i></a>
-                            </button>
+                            <a href="#tab3default" data-toggle="tab">
+                                <button type="button" class="btn" (click)="searchUser(search)">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </a>
                         </form>
                     </ul>
-                     <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab1default" data-toggle="tab">Amis</a></li>
                         <li><a href="#tab2default" data-toggle="tab">Abonnés</a></li>
                         <li><a href="#tab4default" data-toggle="tab" (click)="buddyService.getUserNotFollowed()">Suggest.</a></li>
@@ -24,7 +26,7 @@
                             <table class="table table-hover user-list">
                                 <tr *ngFor="let user of buddyService.Followed">
                                     <td>
-                                        {{user.username}}
+                                        <a (click)=userPreview(user)>{{user.username}}</a>
                                         <i class="fa fa-user-circle followed pull-right"(click)="unfollow(user)" [ngClass]="{'unfollowed': user.unfollowed}" aria-hidden="true"></i>
                                     </td>
                                 </tr>
@@ -32,38 +34,38 @@
                         </div>
                         <div class="tab-pane fade" id="tab2default">
                             <table class="table table-hover user-list">
-                                    <tr *ngFor="let user of buddyService.Follower">
-                                    <td>
-                                        {{user.username}}
-                                        <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
-                                    </td>
-                                    </tr>
+                                <tr *ngFor="let user of buddyService.Follower">
+                                <td>
+                                    <a (click)=userPreview(user)>{{user.username}}</a>
+                                    <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
+                                </td>
+                                </tr>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="tab3default">
-                                <table class="table table-hover user-list">
-                                    <tr *ngFor="let user of searchResult">
-                                        <td>
-                                            {{user.username}}
-                                            <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>  
+                            <table class="table table-hover user-list">
+                                <tr *ngFor="let user of searchResult">
+                                    <td>
+                                        <a (click)=userPreview(user)>{{user.username}}</a>
+                                        <i class="fa fa-check unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>  
                         <div class="tab-pane fade" id="tab4default">
                             <table class="table table-hover user-list">
-                                    <tr *ngFor="let user of buddyService.UserNotFollowed">
-                                    <td>
-                                        {{user.username}}
-                                        <i class="fa fa-plus unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
-                                    </td>
-                                    </tr>
+                                <tr *ngFor="let user of buddyService.UserNotFollowed">
+                                <td>
+                                    <a (click)=userPreview(user)>{{user.username}}</a>
+                                    <i class="fa fa-plus unfollowed pull-right" (click)="follow(user)" [ngClass]="{'followed': user.followed}" aria-hidden="true"></i>
+                                </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
     </div>
 </div>
 

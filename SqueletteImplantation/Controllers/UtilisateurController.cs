@@ -44,15 +44,22 @@ namespace SqueletteImplantation.Controllers
             
             if(identity == null)
             {
+                _maBd.Utilisateur.Add(user.CreateUtilisateur());
+                _maBd.SaveChanges();
+
                 emailSender.setDestination(user.Email);
                 emailSender.setSender("ramble.cll@gmail.com", "Welcome");
                 emailSender.SetHTMLMessage("<h1>Bienvenue sur Ramble !</h1><h2><br><a href='https://rando.dinf.cll.qc.ca/login'>https://rando.dinf.cll.qc.ca/login</a></h2>");
                 emailSender.setSubject("Bienvenue");
-                emailSender.sendMessage();
-                
-                _maBd.Utilisateur.Add(user.CreateUtilisateur());
-                _maBd.SaveChanges();
-               
+                try
+                {
+                    emailSender.sendMessage();
+                }
+                catch(Exception ex)
+                {
+                    Object[] obj = { ex.Message, user };
+                    return new OkObjectResult(false);
+                }              
             }
             else
             {
@@ -76,8 +83,17 @@ namespace SqueletteImplantation.Controllers
                 emailSender.setSender("ramble.cll@gmail.com", "Welcome");
                 emailSender.SetHTMLMessage("Votre mot de passe temporaire est le <b> " + identity.mdp.ToString() + "</b><br><a href='https://rando.dinf.cll.qc.ca/login'>https://rando.dinf.cll.qc.ca/login</a>" );
                 emailSender.setSubject("Nouveau Mot de passe");
-                emailSender.sendMessage();
-                               
+
+                try
+                {
+                    emailSender.sendMessage();
+                }
+                catch (Exception ex)
+                {
+                    Object[] obj = { ex.Message, user };
+                    return new OkObjectResult(false);
+                }
+
                 _maBd.Utilisateur.Attach(identity);
                 
                 var entry = _maBd.Entry(identity);
