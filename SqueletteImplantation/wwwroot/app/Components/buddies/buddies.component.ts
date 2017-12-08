@@ -23,6 +23,7 @@ declare var jBox:any;
 export class BuddiesComponent implements OnInit {
 
      @Output() previewEvent= new EventEmitter<ProfilUtilisateur>();
+     @Output() updateEvent= new EventEmitter();
      name ='Buddies';
      searchResult: ProfilUtilisateur[];
      
@@ -54,6 +55,7 @@ export class BuddiesComponent implements OnInit {
                 if(index >=0){
                     this.buddyService.UserNotFollowed.splice(index,1);
                 }
+                this.updateEvent.next();
             } else {
                 new jBox('Notice', {
                     content: 'Vous suivez déjà cet utilisateur',
@@ -71,6 +73,7 @@ export class BuddiesComponent implements OnInit {
                 var index=this.buddyService.Followed.indexOf(user);
                 this.buddyService.Followed.splice(index,1);
                 this.buddyService.UserNotFollowed.push(user);
+                this.updateEvent.next();
             }           
         });
     }    
