@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 import { PostPersoComponent } from '../postperso/postperso.component';
 
+import { Comment } from '../../class/comment.class';
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
-import { UtilisateurService } from '../../services/utilisateur.service';
 import { UserPostService } from '../../services/userpost.service';
 
 declare var jBox :any;
@@ -22,19 +22,27 @@ export class PostUserComponent implements OnInit{
 
     @Input() p: UserPost;
     profil : ProfilUtilisateur;
+    comments: Comment[];
+    commentTxt: string;
+    currentPId: number;
 
     bLike: boolean = false;
     bModif: boolean = false;
     showPost: boolean = true;
 
-    constructor(private http: Http, private userpostservice: UserPostService, private router: Router) {
+    constructor(private http: Http, private router: Router, private userpostservice: UserPostService) {
         this.profil = new ProfilUtilisateur(-1,"","","","","");
+        this.currentPId = Number(localStorage.getItem('profilId'));
     }
 
     ngOnInit() {
         this.http
+        .get('api/comment/' + this.p.postId)
+        .subscribe(res => { this.comments = res.json(); });
+
+        this.http
         .get('api/profilbyid/' + this.p.profilId)
-        .subscribe(res => { this.profil = res.json(); })
+        .subscribe(res => { this.profil = res.json(); });
     }
 
     onModifyBtn() {
@@ -87,5 +95,36 @@ export class PostUserComponent implements OnInit{
         }  
         
         this.bLike = !this.bLike;
+    }
+
+    onAddComment() {
+        this.userpostservice
+        .addComment(this.commentTxt, this.p.postId, Number(localStorage.getItem('profilId')), 
+            localStorage.getItem('username'))
+        .subscribe(res => {
+            if(res) {
+                this.comments.unshift(res);
+            }
+        })
+    }
+
+    onDeleteComment(cId: number) {
+        let confirmer: boolean = confirm("Voulez-vous vraiment supprimer ce commentaire?");
+        if (confirmer) {
+            this.comments.find(c => c.commentId == cId).commentShow = false;
+            this.userpostservice
+            .deleteComment(cId)
+            .subscribe(res => {
+                if(res.status == 200) {
+                    new jBox('Notice', {
+                        content: 'Le commentaire a ete supprime.', color: 'green', autoClose: 2000
+                    });
+                }
+            });            
+        } 
+    }
+
+    getName(profilId: string) {
+        
     }
 }

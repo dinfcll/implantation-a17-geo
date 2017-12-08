@@ -8,40 +8,14 @@ using SqueletteImplantation.DbEntities;
 namespace squeletteimplantation.Migrations
 {
     [DbContext(typeof(MaBd))]
-    partial class MaBdModelSnapshot : ModelSnapshot
+    [Migration("20171201124129_UpdatePost")]
+    partial class UpdatePost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "1.1.2");
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Comment", b =>
-                {
-                    b.Property<int>("commentId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("commentDate");
-
-                    b.Property<bool>("commentShow");
-
-                    b.Property<string>("commentTxt")
-                        .IsRequired();
-
-                    b.Property<string>("commentUsername");
-
-                    b.Property<int>("postId");
-
-                    b.Property<int>("profilId");
-
-                    b.HasKey("commentId");
-
-                    b.HasIndex("postId");
-
-                    b.HasIndex("profilId");
-
-                    b.ToTable("Comment");
-                });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Following", b =>
                 {
@@ -122,6 +96,8 @@ namespace squeletteimplantation.Migrations
 
                     b.Property<string>("datePublication");
 
+                    b.Property<string>("postComment");
+
                     b.Property<int>("postLike");
 
                     b.Property<string>("postText")
@@ -179,19 +155,6 @@ namespace squeletteimplantation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utilisateur");
-                });
-
-            modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Comment", b =>
-                {
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.PostsUser", "postsUser")
-                        .WithMany()
-                        .HasForeignKey("postId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SqueletteImplantation.DbEntities.Models.Profil", "profil")
-                        .WithMany()
-                        .HasForeignKey("profilId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SqueletteImplantation.DbEntities.Models.Following", b =>

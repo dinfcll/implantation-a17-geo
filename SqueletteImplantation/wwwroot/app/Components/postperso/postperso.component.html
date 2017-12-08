@@ -1,29 +1,44 @@
 <div class="jumbotron container">
     <div class="row">
-            <div class="col-md-3">
-                <buddies></buddies>
+        <div class="col-md-3">
+            <div *ngIf="profil.profilimage" class="row" (click)="viewMyProfil()" style="cursor:pointer;">
+                <div class="col-md-offset-2" >
+                    <img id="imgpro" [src]="profil.profilimage" 
+                        style="width: 200px; height: 200px; position: center; overflow: hidden; border-radius: 100%; margin-left: 4%;">
+                </div>
+                <h3 class="col-md-12 text-center">@{{profil.username}}</h3>
             </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <buddies (previewEvent)="userPreview($event)"></buddies>
+                </div>
+            </div>
+        </div> 
         <div class="col-md-8 col-md-offset-0">
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading user-pan-head">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabjournal " data-toggle="tab">Journal Personnel</a></li>
-                        <li><a href="#tabactu" data-toggle="tab">Actualité</a></li>
-                        <button type="button" class="btn pull-right" (click)="updatePosts()">Mettre à jour</button>
+                        <li class="active"><a href="#tabjournal " data-toggle="tab"><span *ngIf="isLoggedUser">Journal Personnel</span><span *ngIf="!isLoggedUser">Aperçu</span></a></li>
+                        <li><a href="#tabactu" data-toggle="tab" *ngIf="isLoggedUser" >Actualité</a></li>
+                        <button type="button" class="btn pull-right" *ngIf="isLoggedUser" (click)="updatePosts()">Mettre à jour</button>
                     </ul>
                 </div>
                 <div class="panel-body no-padding">
-                    <form class="form-horizontal" role="form"> 
+                    <div *ngIf="!isLoggedUser" class="text-center">
+                        <h1>{{selectedProfil.username}}</h1>                 
+                        <img [src]="selectedProfil.profilimage"
+                            style="width: 200px; height: 200px; position: center; overflow: hidden; border-radius: 100%;">
+                        <hr>
+                    </div>
+                    <form class="form-horizontal" role="form" *ngIf="isLoggedUser"> 
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
-                                <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" 
-                                    placeholder="Titre...">
+                                <input class="form-control" type="text" name="postTitle" [(ngModel)]="postTitle" placeholder="Titre...">
                             </div>
                         </div> 
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-2">
-                                <input class="form-control" type="text" name="postText" [(ngModel)]="postText" 
-                                    placeholder="Texte...">
+                                <input class="form-control" type="text" name="postText" [(ngModel)]="postText" placeholder="Texte...">
                             </div>
                         </div>
                         <div class="row">
@@ -46,7 +61,7 @@
                                 <postUser [p]='pub'></postUser>
                             </div>
                         </div>
-                        <div class="tab-pane fade in" id="tabactu">
+                        <div class="tab-pane fade in" id="tabactu"  *ngIf="isLoggedUser">
                             <div *ngFor="let pub of followedPosts">
                                 <postUser [p]='pub'></postUser>
                             </div>

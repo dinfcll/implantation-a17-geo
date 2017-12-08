@@ -53,12 +53,25 @@ namespace SqueletteImplantation.Controllers
 
             return new OkObjectResult(profil);
         }
+        [HttpGet]
+        [Route("api/profil/proimgbyid/{profilId}")]
+        public IActionResult GetProImgbyId(int profilId)
+        {
+            var profil = _maBd.Profil.FirstOrDefault(pr => pr.profilId == profilId);
+
+            if (profil == null)
+            {
+                return new OkObjectResult(null);
+            }
+
+            return new OkObjectResult(profil.profilimage);
+        }
 
         [HttpPost]
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
         {
-            var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+            var trouve = _maBd.Profil.FirstOrDefault(pr => pr.courriel == profilDto.Courriel);
 
             if (trouve == null)
             {
@@ -85,7 +98,7 @@ namespace SqueletteImplantation.Controllers
 
                 if (utilisateur != null)
                 {
-                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
+                    var trouve = _maBd.Utilisateur.FirstOrDefault(u => u.email == updatedprofil.courriel);
 
                     if (trouve == null || trouve.Id == utilisateur.Id)
                     {

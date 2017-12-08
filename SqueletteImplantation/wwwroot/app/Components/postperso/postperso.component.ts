@@ -18,18 +18,22 @@ declare var jBox: any;
 })
 
 export class PostPersoComponent implements OnInit {
-    followedPosts: UserPost[];
-    posts: UserPost[];
 
+    followedPosts: UserPost[];
+    isLoggedUser: boolean;
+    posts: UserPost[];
+    postSubmit: string;
     profil: ProfilUtilisateur;
+    selectedProfil : ProfilUtilisateur;
 
     constructor(private userpostservice: UserPostService, private utilisateurservice: UtilisateurService) { 
         this.profil = new ProfilUtilisateur(-1,"","","","","");
+        this.selectedProfil = null;
+        this.isLoggedUser = true;
     }
 
     ngOnInit() {
-        this.utilisateurservice
-        .getProfil(localStorage.getItem('token'))
+        this.utilisateurservice.getProfil(localStorage.getItem('token'))
         .subscribe(res => {
             if(res)
                 this.profil = res;
@@ -78,5 +82,24 @@ export class PostPersoComponent implements OnInit {
                 })
             }
         }       
+    }
+
+    viewMyProfil() {
+        this.selectedProfil = null;
+        this.isLoggedUser = true;
+        this.updatePosts();
+    }
+
+    userPreview(profil: any) {
+        this.selectedProfil = profil;
+        this.userpostservice.getProImageByID(profil.profilId)
+        .subscribe(res => {
+            this.selectedProfil.profilimage=res;
+        });
+        this.userpostservice.getIdPosts(this.selectedProfil.profilId)
+        .subscribe(res => {
+            this.posts = res;
+            this.isLoggedUser=false;
+        });    
     }
 }
