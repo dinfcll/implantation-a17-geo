@@ -67,7 +67,6 @@ export class AdminComponent implements OnInit {
             this.utilisateurservice
             .getProfil(u.email)
             .subscribe(res => {
-                console.log(res);
                 if (res) {
                     this.deleteProfil(res);
                 }
@@ -135,7 +134,6 @@ export class AdminComponent implements OnInit {
                 });
                 let index = this.utilisateurs.indexOf(u);
                 this.utilisateurs[index].typeutil = res.typeutil;
-                console.log(this.utilisateurs[index]);
             } else {
                 new jBox('Notice', {
                     content: 'Impossible de modifier le type d\'utilisateur pour cet utilisateur',
