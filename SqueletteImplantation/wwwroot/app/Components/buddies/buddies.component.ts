@@ -37,13 +37,11 @@ export class BuddiesComponent implements OnInit {
     userPreview(profil:ProfilUtilisateur)
     {
         this.previewEvent.next(profil);
-        console.log(profil)
     }
     searchUser(search:string) {
         this.buddyService.searchUsers(search)
         .subscribe(res => {
             this.searchResult=res.json() as ProfilUtilisateur[] ;
-            console.log(res);
         }) 
     }
 

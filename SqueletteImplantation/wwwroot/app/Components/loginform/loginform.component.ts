@@ -45,7 +45,6 @@ export class LoginFormComponent {
                 this.utilisateurService.getProfil(res.email)
                 .subscribe(respro => {
                     if (respro) {
-                        console.log(respro);
                         this.utilisateurService.profil = respro;
                         localStorage.setItem('profilId', respro.profilId);
                         localStorage.setItem('username', respro.username);
