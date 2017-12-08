@@ -54,7 +54,7 @@ export class AdminComponent implements OnInit {
         this.userpostservice.getListPost()
         .subscribe(res => {
             if (res) {
-                 this.userposts = res;
+                this.userposts = res;
             }
         });
     }
@@ -113,8 +113,25 @@ export class AdminComponent implements OnInit {
         });
     }
 
-    deleteUserPost(postId: number) {
-        alert(postId + 'WORK IN PROGRESS');
+    deleteUserPost(up: UserPost) {
+        this.userpostservice.deletePost(up.postId)
+        .subscribe(res => {
+            if (res.status === 200) {
+                new jBox('Notice', {
+                    content: 'Suppression de la publication réussie',
+                    color: 'green',
+                    autoClose: 2000
+                });
+                let index = this.userposts.indexOf(up);
+                this.userposts.splice(index, 1);
+            } else {
+                new jBox('Notice', {
+                    content: 'Impossible de supprimer la publication',
+                    color: 'red',
+                    autoClose: 2000
+                });
+            }
+        });
     }
 
     modifTypeUtil(u: Utilisateur) {
