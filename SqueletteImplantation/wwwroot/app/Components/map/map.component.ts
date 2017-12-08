@@ -311,7 +311,6 @@ export class MapComponent implements OnInit {
                 this.http.post("api/marqueurs/modification", this.currentmarqueur)
                     .subscribe((res) => {
                         if(res != null) {
-                            //console.log(res);
                             this.retourModMarqueur(res)
                             this.Annulation();
                         } else {
