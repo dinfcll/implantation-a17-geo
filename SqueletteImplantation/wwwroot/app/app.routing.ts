@@ -10,6 +10,7 @@ import { BuddiesComponent } from './Components/buddies/buddies.component';
 import { LoginFormComponent } from './Components/loginform/loginform.component';
 import { MapComponent } from './Components/map/map.component';
 import { PostPersoComponent } from './Components/postperso/postperso.component';
+import { aProposComponent } from './Components/apropos/apropos.component';
 import { ProfilUtilisateurComponent } from './Components/profil-utilisateur/profil-utilisateur.component';
 import { ResetPWComponent } from './Components/password-reset/resetPW.component';
 
@@ -52,6 +53,10 @@ export const routing: Routes = [
         path: 'buddies',
         component: BuddiesComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'apropos',
+        component: aProposComponent
     },
     {
         path: '**',
