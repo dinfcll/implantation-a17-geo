@@ -311,6 +311,7 @@ export class MapComponent implements OnInit {
                 this.http.post("api/marqueurs/modification", this.currentmarqueur)
                     .subscribe((res) => {
                         if(res != null) {
+                            //console.log(res);
                             this.retourModMarqueur(res)
                             this.Annulation();
                         } else {
@@ -407,6 +408,7 @@ export class MapComponent implements OnInit {
     }
 
     AjoutMarker (info: Marqueur): any {
+        console.log(info);
         let markerid = this.googlemarq.length
         var color:string = '#f3123d';
         if(this.utilisateurService.estAdmin() == '0') {
@@ -418,8 +420,9 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+        
         var marker = new google.maps.Marker ({
-            position: { lat:info.latitude,lng: info.longitude },
+            position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
@@ -462,6 +465,7 @@ export class MapComponent implements OnInit {
                 marker.cheminTrajet.setMap(this.map);
                 marker.click = true;
                 if(this.stadetrace === 1) {
+                    this.currentmarqueur = info;
                     this.stadetrace = 2;
                     marker.cheminTrajet.setMap(null);
                     let path = this.tracetrajet.getPath();
