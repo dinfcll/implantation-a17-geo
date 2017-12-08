@@ -10,7 +10,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <buddies (previewEvent)="userPreview($event)"></buddies>
+                    <buddies (previewEvent)="userPreview($event)" (updateEvent)="updatePosts()"></buddies>
                 </div>
             </div>
         </div> 
@@ -19,8 +19,7 @@
                 <div class="panel-heading user-pan-head">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tabjournal " data-toggle="tab"><span *ngIf="isLoggedUser">Journal Personnel</span><span *ngIf="!isLoggedUser">Aperçu</span></a></li>
-                        <li><a href="#tabactu" data-toggle="tab" *ngIf="isLoggedUser" >Actualité</a></li>
-                        <button type="button" class="btn pull-right" *ngIf="isLoggedUser" (click)="updatePosts()">Mettre à jour</button>
+                        <li><a href="#tabactu" data-toggle="tab" *ngIf="isLoggedUser" (click)="updatePosts()" >Actualité</a></li>
                     </ul>
                 </div>
                 <div class="panel-body no-padding">

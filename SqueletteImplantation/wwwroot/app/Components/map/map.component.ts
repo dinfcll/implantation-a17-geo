@@ -418,8 +418,9 @@ export class MapComponent implements OnInit {
             strokeWeight: 3,
             path: []
         });
+        
         var marker = new google.maps.Marker ({
-            position: { lat:info.latitude,lng: info.longitude },
+            position: { lat: info.latitude, lng: info.longitude },
             map: this.map,
             icon: this.banqueimageicone[info.icone],
             title: info.nom,
@@ -462,6 +463,7 @@ export class MapComponent implements OnInit {
                 marker.cheminTrajet.setMap(this.map);
                 marker.click = true;
                 if(this.stadetrace === 1) {
+                    this.currentmarqueur = info;
                     this.stadetrace = 2;
                     marker.cheminTrajet.setMap(null);
                     let path = this.tracetrajet.getPath();

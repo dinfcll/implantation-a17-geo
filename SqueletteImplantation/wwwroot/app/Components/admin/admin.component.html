@@ -6,7 +6,6 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#utils"><i class="fa fa-users fa-lg" aria-hidden="true"></i></a></li>
                 <li><a data-toggle="tab" href="#profils"><i class="fa fa-address-card fa-lg" aria-hidden="true"></i></a></li>
-                <li><a data-toggle="tab" href="#marqueurs"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></a></li>
                 <li><a data-toggle="tab" href="#postusers"><i class="fa fa-file-powerpoint-o fa-lg" aria-hidden="true"></i></a></li>
             </ul>
 
@@ -18,7 +17,6 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Courriel</th>
-                                <th>Mot de passe</th>
                                 <th>Type d'utilisateur</th>
                                 <th>Actions</th>
                             </tr>
@@ -27,7 +25,6 @@
                             <tr *ngFor="let u of utilisateurs">
                                 <td>{{u.id}}</td>                    
                                 <td>{{u.email}}</td>
-                                <td>{{u.mdp}}</td>
                                 <td>{{typeutilisateur[u.typeutil]}}</td>
                                 <td>
                                     <button *ngIf="u.id != 0" title="Modifier type utilisateur" [ngClass]="{'btn-danger': u.typeutil == 1, 'btn-primary': u.typeutil == 0}" (click)="modifTypeUtil(u)">👮</button>
@@ -64,10 +61,6 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="marqueurs" class="tab-pane fade">
-                    <h4>Marqueurs <i class="fa fa-map-marker" aria-hidden="true"></i></h4>
-                    <p>WORK IN PROGRESS Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
                 <div id="postusers" class="tab-pane fade">
                     <h4>Publications <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i></h4>
                     <table class="table table-hover">
@@ -76,6 +69,8 @@
                                 <th>PublicationId</th>
                                 <th>Titre</th>
                                 <th>Texte</th>
+                                <th>J'aimes</th>
+                                <th>Date de publication</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -83,9 +78,11 @@
                             <tr *ngFor="let up of userposts">
                                 <td>{{up.postId}}</td>                    
                                 <td>{{up.postTitle}}</td>
-                                <td>{{up.postText}}</td>                                
+                                <td>{{up.postText}}</td>
+                                <td>{{up.postLike}}</td> 
+                                <td>{{up.datePublication}}</td>                                 
                                 <td>
-                                    <button class="btn-danger" (click)="deleteUserPost(up.postId)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    <button class="btn-danger" (click)="deleteUserPost(up)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>                            
                         </tbody>

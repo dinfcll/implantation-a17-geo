@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
-import { Comment } from '../class/comment.class';
-import { ProfilUtilisateur } from '../class/profilutilisateur.class';
 import { UserPost } from '../class/post.class';
 
 import { BaseService } from './base.service';
@@ -21,7 +19,6 @@ export class UserPostService extends BaseService {
         this.baseUrl = configService.getApiURI();
     }
 
-   
     getListPost() {
         return this.http
             .get(this.baseUrl + '/postUser')
@@ -31,18 +28,18 @@ export class UserPostService extends BaseService {
 
     getFollowedPosts() {
         return this.http
-            .get(this.baseUrl + '/postUser/followedPost/' + localStorage.getItem("profilId"))
+            .get(this.baseUrl + '/postUser/followedPost/' + localStorage.getItem('profilId'))
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
 
     getmyPosts() {
         return this.http
-            .get(this.baseUrl + '/postUser/myPosts/' + localStorage.getItem("profilId"))
+            .get(this.baseUrl + '/postUser/myPosts/' + localStorage.getItem('profilId'))
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
-    getIdPosts(profilId:number) {
+    getIdPosts(profilId: number) {
         return this.http
         .get(this.baseUrl + '/postUser/myPosts/' + profilId)
         .map(res => { return res.json(); })
@@ -101,7 +98,7 @@ export class UserPostService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .post(this.baseUrl + '/comment/add', 
+            .post(this.baseUrl + '/comment/add',
                 JSON.stringify({ commentTxt, postId, profilId, commentUsername }), { headers })
             .map(res => { return res.json(); })
             .catch(this.handleError);
