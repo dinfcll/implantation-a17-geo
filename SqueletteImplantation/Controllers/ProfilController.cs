@@ -71,7 +71,7 @@ namespace SqueletteImplantation.Controllers
         [Route("api/profil/create")]
         public IActionResult CreateProfil([FromBody] ProfilDto profilDto)
         {
-            var trouve = _maBd.Profil.SingleOrDefault(pr => pr.courriel == profilDto.Courriel);
+            var trouve = _maBd.Profil.FirstOrDefault(pr => pr.courriel == profilDto.Courriel);
 
             if (trouve == null)
             {
@@ -98,7 +98,7 @@ namespace SqueletteImplantation.Controllers
 
                 if (utilisateur != null)
                 {
-                    var trouve = _maBd.Utilisateur.SingleOrDefault(u => u.email == updatedprofil.courriel);
+                    var trouve = _maBd.Utilisateur.FirstOrDefault(u => u.email == updatedprofil.courriel);
 
                     if (trouve == null || trouve.Id == utilisateur.Id)
                     {

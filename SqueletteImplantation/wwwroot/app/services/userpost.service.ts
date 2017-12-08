@@ -120,5 +120,4 @@ export class UserPostService extends BaseService {
         .map(res => { return res.json(); })
         .catch(this.handleError);
     }
-
 }
