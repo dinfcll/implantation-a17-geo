@@ -51,14 +51,16 @@ export class PostPersoComponent implements OnInit {
     }
 
     updatePosts() {
-        this.userpostservice.getmyPosts()
-        .subscribe(res => {
-            this.posts = res;
-        })
-        this.userpostservice.getFollowedPosts()
-        .subscribe(res => {
-            this.followedPosts = res;
-        })     
+        if(this.isLoggedUser ==true){
+            this.userpostservice.getmyPosts()
+            .subscribe(res => {
+                this.posts = res;
+            })
+            this.userpostservice.getFollowedPosts()
+            .subscribe(res => {
+                this.followedPosts = res;
+            })  
+        }
     }
 
     submitPost(postTitle: string, postText: string) {
