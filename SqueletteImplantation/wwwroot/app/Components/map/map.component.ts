@@ -407,7 +407,6 @@ export class MapComponent implements OnInit {
     }
 
     AjoutMarker (info: Marqueur): any {
-        console.log(info);
         let markerid = this.googlemarq.length
         var color:string = '#f3123d';
         if(this.utilisateurService.estAdmin() == '0') {
