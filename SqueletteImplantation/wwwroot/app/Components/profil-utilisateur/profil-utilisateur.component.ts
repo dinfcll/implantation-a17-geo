@@ -103,13 +103,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Édition du profil réussie',
                     color: 'green',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
                     content: 'Impossible de modifier le profil pour cet utilisateur',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 3000
                 });
             }
         });
@@ -118,7 +118,8 @@ export class ProfilUtilisateurComponent implements OnInit {
     onDeleteProfil() {
         let confirmation: boolean;
         confirmation = false;
-        confirmation = confirm('Voulez vous supprimer votre profil?');
+        confirmation = confirm('Voulez vous supprimer votre profil?\r\n' +
+                               'Cela supprimera tout le contenu étant relié à votre profil');
         if (confirmation) {
             this.supprimerProfile();
         }
@@ -135,13 +136,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
                     content: 'Impossible de supprimer le profil pour cet utilisateur',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             }
         });
@@ -150,7 +151,8 @@ export class ProfilUtilisateurComponent implements OnInit {
     onDeleteUser() {
         let confirmation: boolean;
         confirmation = false;
-        confirmation = confirm('Voulez vous vraiment supprimer votre compte?');
+        confirmation = confirm('Voulez-vous vraiment supprimer votre compte?\r\n' +
+                               'Cela supprimera tout le contenu vous étant relié et vous déconnectera de RAMBLE');
         if (confirmation) {
             this.supprimerProfile();
             this.utilisateurservice.deleteUser(this.user.id)
@@ -182,7 +184,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 fr.readAsDataURL(files[0]);
             } else {
                 new jBox('Notice', {
-                    content: 'veuillez entrer une image',
+                    content: 'Veuillez entrer une image',
                     color: 'red',
                     autoClose: 2000
                 });
