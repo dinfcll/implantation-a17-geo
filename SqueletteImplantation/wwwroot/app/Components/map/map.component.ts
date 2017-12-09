@@ -154,7 +154,7 @@ export class MapComponent implements OnInit {
             } 
             else {
                 new jBox('Notice', {
-                    content: 'veuillez entrer une image',
+                    content: 'Veuillez entrer une image',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -188,7 +188,7 @@ export class MapComponent implements OnInit {
 
     messageErreurActionSurCarte(): void {
         new jBox('Notice', {
-            content: 'Action en cours sur la map',
+            content: 'Action en cours sur la carte',
             color: 'red',
             autoClose: 5000
         });
@@ -529,7 +529,7 @@ export class MapComponent implements OnInit {
         if(this.currentmarqueur.id === 0) {
             if(this.currentmarqueur.latitude == 0) {
                 new jBox('Notice', {
-                    content: 'Veuillez cliquer sur la map pour ajouter un marqueur',
+                    content: 'Veuillez cliquer sur la carte pour ajouter un marqueur',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -621,12 +621,16 @@ export class MapComponent implements OnInit {
                 
                 this.map.setCenter(pos);
             }, function() {
-                    alert("Géolocalisation refusée, position par defaut : Lévis");
+                    new jBox('Notice', {
+                        content: 'Géolocalisation refusée, position par defaut : Lévis',
+                        color: 'yellow',
+                        autoClose: 4000
+                    });
                 });
         }
 
         this.map.addListener('click', (e:any):void => {
-                this.CreationMaker(e);                  
+                this.CreationMaker(e);
         });
 
         this.tracetrajet.setMap(this.map);
