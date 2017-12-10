@@ -118,7 +118,7 @@ export class ProfilUtilisateurComponent implements OnInit {
     onDeleteProfil() {
         let confirmation: boolean;
         confirmation = false;
-        confirmation = confirm('Voulez vous supprimer votre profil?\r\n' +
+        confirmation = confirm('Voulez-vous supprimer votre profil?\r\n' +
                                'Cela supprimera tout le contenu étant relié à votre profil');
         if (confirmation) {
             this.supprimerProfile();
