@@ -50,9 +50,10 @@
   .overlay-content{
     position: absolute;
     font-family: 'Elianto-Regular';
-    top: 35%;
+    top: 30%;
     width: 45%;
     left: 40%;
+    font-size: 17px;
   }
   
   .overlay .closebtn {
