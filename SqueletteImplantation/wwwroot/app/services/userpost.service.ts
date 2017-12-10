@@ -20,9 +20,13 @@ export class UserPostService extends BaseService {
     }
 
     getListPost() {
+        this.loadingService.startLoadGlobal();
         return this.http
             .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadGlobal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
@@ -64,7 +68,7 @@ export class UserPostService extends BaseService {
         let headers = new Headers();
         headers.append('Content-type', 'application/json');
         return this.http
-            .put(this.baseUrl + '/postUser/modify' + p.postId, p, { headers })
+            .put(this.baseUrl + '/postUser/modify/' + p.postId, p, { headers })
             .map(res => { return res.json(); })
             .catch(this.handleError);
     }
