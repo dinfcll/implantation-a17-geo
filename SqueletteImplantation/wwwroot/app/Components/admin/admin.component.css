@@ -10,3 +10,6 @@
     overflow-x: hidden;
     overflow-y: hidden;
 }
+th {
+    vertical-align: text-top !important;
+}
