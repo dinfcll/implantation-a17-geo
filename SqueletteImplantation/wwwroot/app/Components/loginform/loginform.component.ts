@@ -103,6 +103,9 @@ export class LoginFormComponent {
                 if (res) {
                     localStorage.setItem('token', mail);
                     localStorage.setItem('bAdmin', '0');
+                    localStorage.setItem('profilId', "");
+                    localStorage.setItem('username', "");
+                    localStorage.setItem('Proimage', "");
                     this.router.navigate(['/map']);
                 } else {
                     if (res === false) {
@@ -114,6 +117,9 @@ export class LoginFormComponent {
                         });
                         localStorage.setItem('token', mail);
                         localStorage.setItem('bAdmin', '0');
+                        localStorage.setItem('profilId', "");
+                        localStorage.setItem('username', "");
+                        localStorage.setItem('Proimage', "");
                         this.router.navigate(['/map']);
                     } else {
                         if (res == null) {
