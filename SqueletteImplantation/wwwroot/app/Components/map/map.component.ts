@@ -622,7 +622,7 @@ export class MapComponent implements OnInit {
                 this.map.setCenter(pos);
             }, function() {
                     new jBox('Notice', {
-                        content: 'Géolocalisation refusée, position par defaut : Lévis',
+                        content: 'Géolocalisation refusée, position par défaut : Lévis',
                         color: 'yellow',
                         autoClose: 4000
                     });
