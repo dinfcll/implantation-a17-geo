@@ -20,9 +20,13 @@ export class UserPostService extends BaseService {
     }
 
     getListPost() {
+        this.loadingService.startLoadGlobal();
         return this.http
             .get(this.baseUrl + '/postUser')
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadGlobal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
