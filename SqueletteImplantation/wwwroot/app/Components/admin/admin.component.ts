@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit {
     deleteUser(u: Utilisateur) {
         let confirmation: boolean;
         confirmation = false;
-        confirmation = confirm('Voulez vous vraiment supprimer ce compte?');
+        confirmation = confirm('Voulez-vous vraiment supprimer ce compte?');
         if (confirmation) {
             this.utilisateurservice
             .getProfil(u.email)
@@ -77,7 +77,7 @@ export class AdminComponent implements OnInit {
                     new jBox('Notice', {
                         content: 'Suppression de l\'utilisateur réussie',
                         color: 'green',
-                        autoClose: 5000
+                        autoClose: 2000
                     });
                     let index = this.utilisateurs.indexOf(u);
                     this.utilisateurs.splice(index, 1);
@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit {
                     new jBox('Notice', {
                         content: 'Impossible de supprimer l\'utilisateur',
                         color: 'red',
-                        autoClose: 5000
+                        autoClose: 2000
                     });
                 }
             });
@@ -99,7 +99,7 @@ export class AdminComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Suppression du profil réussie',
                     color: 'green',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
                 let index = this.profils.indexOf(p);
                 this.profils.splice(index, 1);
@@ -107,7 +107,7 @@ export class AdminComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Impossible de supprimer le profil pour cet utilisateur',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             }
         });
@@ -147,7 +147,7 @@ export class AdminComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Modification du type d\'utilisateur réussie',
                     color: 'green',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
                 let index = this.utilisateurs.indexOf(u);
                 this.utilisateurs[index].typeutil = res.typeutil;
@@ -155,7 +155,7 @@ export class AdminComponent implements OnInit {
                 new jBox('Notice', {
                     content: 'Impossible de modifier le type d\'utilisateur pour cet utilisateur',
                     color: 'red',
-                    autoClose: 5000
+                    autoClose: 2000
                 });
             }
         });

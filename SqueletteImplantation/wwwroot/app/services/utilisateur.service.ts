@@ -105,16 +105,24 @@ export class UtilisateurService extends BaseService {
     }
 
     getProfil(courriel: string) {
+        this.loadingService.startLoadGlobal();
         return this.http
             .get(this.baseUrl + '/profil/' + courriel)
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadGlobal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
     getAllProfil() {
+        this.loadingService.startLoadGlobal();
         return this.http
             .get(this.baseUrl + '/profil')
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadGlobal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
@@ -164,9 +172,13 @@ export class UtilisateurService extends BaseService {
     }
 
     getAllUser() {
+        this.loadingService.startLoadGlobal();
         return this.http
             .get(this.baseUrl + '/utilisateur')
-            .map(res => { return res.json(); })
+            .map(res => {
+                this.loadingService.stopLoadGlobal();
+                return res.json();
+            })
             .catch(this.handleError);
     }
 
