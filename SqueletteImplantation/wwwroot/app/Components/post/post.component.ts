@@ -2,26 +2,24 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
-import { PostPersoComponent } from '../postperso/postperso.component';
-
 import { Comment } from '../../class/comment.class';
 import { ProfilUtilisateur } from '../../class/profilutilisateur.class';
 import { UserPost } from '../../class/post.class';
 
 import { UserPostService } from '../../services/userpost.service';
 
-declare var jBox :any;
+declare var jBox: any;
 
 @Component({
     selector: 'postUser',
     templateUrl: './post.component.html',
-    styleUrls: ['./post.component.css','./../../../lib/bootstrap/dist/css/bootstrap.css']
+    styleUrls: ['./post.component.css', './../../../lib/bootstrap/dist/css/bootstrap.css']
 })
 
 export class PostUserComponent implements OnInit{
 
     @Input() p: UserPost;
-    profil : ProfilUtilisateur;
+    profil: ProfilUtilisateur;
     comments: Comment[];
     commentTxt: string;
     currentPId: number;
@@ -49,13 +47,13 @@ export class PostUserComponent implements OnInit{
         this.bModif = !this.bModif;
     }
 
-    onModifyPost(p : UserPost) {
+    onModifyPost(p: UserPost) {
         this.userpostservice
         .modifyPost(p)
         .subscribe(res => {
             if (res) {
                 new jBox('Notice', {
-                    content: 'La publication a ete modifiee.', color: 'green', autoClose: 2000
+                    content: 'La publication a été modifiée.', color: 'green', autoClose: 2000
                 });
                 this.bModif = !this.bModif;
             }
@@ -63,7 +61,7 @@ export class PostUserComponent implements OnInit{
     }
 
     onDeletePost() {
-        let confirmer: boolean = confirm("Voulez-vous vraiment supprimer cette publication?");
+        let confirmer: boolean = confirm('Voulez-vous vraiment supprimer cette publication?');
         if (confirmer) {
             this.userpostservice
             .deletePost(this.p.postId)
@@ -71,29 +69,29 @@ export class PostUserComponent implements OnInit{
                 if(res.status == 200) {
                     this.showPost = false;
                 }
-            });            
-        }     
+            });
+        }
     }
 
     onLike() { 
-        if(!this.bLike) {
+        if (!this.bLike) {
             this.userpostservice
             .likePost(this.p.postId)
             .subscribe(res => {
                 if(res) {
                     this.p.postLike = res.postLike;
                 }
-            })
-        } else { 
+            });
+        } else {
             this.userpostservice
             .unlikePost(this.p.postId)
             .subscribe(res => {
-                if(res) {
-                    this.p.postLike = res.postLike; 
-                }                
-            })
-        }  
-        
+                if (res) {
+                    this.p.postLike = res.postLike;
+                }
+            });
+        }
+
         this.bLike = !this.bLike;
     }
 
@@ -102,29 +100,25 @@ export class PostUserComponent implements OnInit{
         .addComment(this.commentTxt, this.p.postId, Number(localStorage.getItem('profilId')), 
             localStorage.getItem('username'))
         .subscribe(res => {
-            if(res) {
+            if (res) {
                 this.comments.unshift(res);
             }
         })
     }
 
     onDeleteComment(cId: number) {
-        let confirmer: boolean = confirm("Voulez-vous vraiment supprimer ce commentaire?");
+        let confirmer: boolean = confirm('Voulez-vous vraiment supprimer ce commentaire?');
         if (confirmer) {
             this.comments.find(c => c.commentId == cId).commentShow = false;
             this.userpostservice
             .deleteComment(cId)
             .subscribe(res => {
-                if(res.status == 200) {
+                if (res.status == 200) {
                     new jBox('Notice', {
-                        content: 'Le commentaire a ete supprime.', color: 'green', autoClose: 2000
+                        content: 'Le commentaire a été supprimé.', color: 'green', autoClose: 2000
                     });
                 }
-            });            
-        } 
-    }
-
-    getName(profilId: string) {
-        
+            });
+        }
     }
 }
