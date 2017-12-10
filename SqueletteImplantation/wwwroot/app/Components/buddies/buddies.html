@@ -15,8 +15,8 @@
                         </form>
                     </ul>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1default" data-toggle="tab">Amis</a></li>
-                        <li><a href="#tab2default" data-toggle="tab">Abonnés</a></li>
+                        <li class="active"><a href="#tab1default" data-toggle="tab" (click)=" this.buddyService.getFollowed();">Amis</a></li>
+                        <li><a href="#tab2default" data-toggle="tab"(click)="this.buddyService.getFollower()">Abonnés</a></li>
                         <li><a href="#tab4default" data-toggle="tab" (click)="buddyService.getUserNotFollowed()">Suggest.</a></li>
                     </ul>
                 </div>
