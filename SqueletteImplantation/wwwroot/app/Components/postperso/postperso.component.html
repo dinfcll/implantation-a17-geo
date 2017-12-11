@@ -18,7 +18,7 @@
             <div class="panel with-nav-tabs panel-default">
                 <div class="panel-heading user-pan-head">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabjournal " data-toggle="tab"><span *ngIf="isLoggedUser">Journal Personnel</span><span *ngIf="!isLoggedUser">Aperçu</span></a></li>
+                        <li class="active"[ngClass]="{'active':!isLoggedUser}"><a href="#tabjournal " data-toggle="tab"><span *ngIf="isLoggedUser">Journal Personnel</span><span *ngIf="!isLoggedUser">Aperçu</span></a></li>
                         <li><a href="#tabactu" data-toggle="tab" *ngIf="isLoggedUser" (click)="updatePosts()" >Actualité</a></li>
                     </ul>
                 </div>
