@@ -41,7 +41,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 }
             } else {
                 new jBox('Notice', {
-                    content: 'Aucun profil trouvé. Vous pouvez en créer un',
+                    content: 'Aucun profil n\'a été trouvé. Vous pouvez en créer un.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -67,13 +67,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 localStorage.setItem('Proimage', this.profil.profilimage);
                 this.router.navigate(['/profil']);
                 new jBox('Notice', {
-                    content: 'Création du profil réussie',
+                    content: 'Création du profil réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de créer un profil pour cet utilisateur ou le profil existe déjà',
+                    content: 'Impossible de créer un profil pour cet utilisateur ou le profil existe déjà.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -101,13 +101,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 localStorage.setItem('Proimage', this.profil.profilimage);
                 this.bEdit = false;
                 new jBox('Notice', {
-                    content: 'Édition du profil réussie',
+                    content: 'Édition du profil réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de modifier le profil pour cet utilisateur',
+                    content: 'Impossible de modifier le profil pour cet utilisateur.',
                     color: 'red',
                     autoClose: 3000
                 });
@@ -118,8 +118,8 @@ export class ProfilUtilisateurComponent implements OnInit {
     onDeleteProfil() {
         let confirmation: boolean;
         confirmation = false;
-        confirmation = confirm('Voulez-vous supprimer votre profil?\r\n' +
-                               'Cela supprimera tout le contenu étant relié à votre profil');
+        confirmation = confirm('Voulez-vous vraiment supprimer votre profil?\r\n' +
+                               'Cela supprimera tout le contenu étant relié à votre profil.');
         if (confirmation) {
             this.supprimerProfile();
         }
@@ -134,13 +134,13 @@ export class ProfilUtilisateurComponent implements OnInit {
                 localStorage.setItem('Proimage', this.imageDefaut);
                 localStorage.setItem('profilId', '');
                 new jBox('Notice', {
-                    content: 'Suppression du profil réussie',
+                    content: 'Suppression du profil réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de supprimer le profil pour cet utilisateur',
+                    content: 'Impossible de supprimer le profil pour cet utilisateur.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -152,20 +152,20 @@ export class ProfilUtilisateurComponent implements OnInit {
         let confirmation: boolean;
         confirmation = false;
         confirmation = confirm('Voulez-vous vraiment supprimer votre compte?\r\n' +
-                               'Cela supprimera tout le contenu vous étant relié et vous déconnectera de RAMBLE');
+                               'Cela supprimera tout le contenu étant relié à votre compte et vous déconnectera de RAMBLE.');
         if (confirmation) {
             this.supprimerProfile();
             this.utilisateurservice.deleteUser(this.user.id)
             .subscribe(res => {
                 if (res.status === 200) {
                     new jBox('Notice', {
-                        content: 'Suppression de l\'utilisateur réussie', color: 'green', autoClose: 2000
+                        content: 'Suppression de l\'utilisateur réussie.', color: 'green', autoClose: 2000
                     });
                     this.utilisateurservice.logout();
                     this.router.navigate(['/login']);
                 } else {
                     new jBox('Notice', {
-                        content: 'Impossible de supprimer l\'utilisateur', color: 'red', autoClose: 2000
+                        content: 'Impossible de supprimer l\'utilisateur.', color: 'red', autoClose: 2000
                     });
                 }
             });
@@ -184,7 +184,7 @@ export class ProfilUtilisateurComponent implements OnInit {
                 fr.readAsDataURL(files[0]);
             } else {
                 new jBox('Notice', {
-                    content: 'Veuillez entrer une image',
+                    content: 'Veuillez entrer une image.',
                     color: 'red',
                     autoClose: 2000
                 });

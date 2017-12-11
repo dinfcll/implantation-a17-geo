@@ -41,12 +41,12 @@ namespace SqueletteImplantation.Controllers
         [Route("api/following/getSuggestionById/{id}")]
         public IEnumerable Suggestion(string id)
         {
-            return from b in _maBd.Profil
+            return (from b in _maBd.Profil
                    join c in _maBd.Following
                    on b.profilId equals c.FollowedId into ps
                    from c in ps.DefaultIfEmpty()
                    where c == null ||( c.FollowerId != int.Parse(id) && b.profilId!= int.Parse(id))
-                   select b;
+                   select b).Distinct();
 
 
         }

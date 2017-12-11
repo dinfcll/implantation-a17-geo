@@ -154,7 +154,7 @@ export class MapComponent implements OnInit {
             } 
             else {
                 new jBox('Notice', {
-                    content: 'Veuillez entrer une image',
+                    content: 'Veuillez entrer une image.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -178,7 +178,7 @@ export class MapComponent implements OnInit {
             }
             else {
                 new jBox('Notice', {
-                    content: 'Intégration non possible',
+                    content: 'Intégration impossible.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -188,7 +188,7 @@ export class MapComponent implements OnInit {
 
     messageErreurActionSurCarte(): void {
         new jBox('Notice', {
-            content: 'Action en cours sur la carte',
+            content: 'Actions en cours sur la carte.',
             color: 'red',
             autoClose: 5000
         });
@@ -197,7 +197,7 @@ export class MapComponent implements OnInit {
     PermissionAjoutMarker():void {
         if (localStorage.getItem('profilId') === '') {
             let confirmation;
-            confirmation = confirm('Un profil est nécessaire si vous voulez créer un marqueur.' +
+            confirmation = confirm('Un profil est nécessaire pour créer un marqueur.' +
                 '\nVoulez-vous créer votre profil maintenant?');
             if (confirmation) {
                 this.router.navigate(['/profil']);
@@ -210,7 +210,7 @@ export class MapComponent implements OnInit {
                 if(this.AcceptMarker) {
                     this.remiseZeroMarqueurCurrentMarqueur();
                     new jBox('Notice', {
-                        content: 'Cliquer sur la carte pour positionner votre nouveau marqueur',
+                        content: 'Cliquez sur la carte pour positionner votre nouveau marqueur.',
                         color: 'green',
                         autoClose: 5000
                     });
@@ -233,7 +233,7 @@ export class MapComponent implements OnInit {
                 this.LoadDetails();  
             } else {
                 new jBox('Notice', {
-                    content: 'Cliquer sur un marqueur pour en voir les détails',
+                    content: 'Cliquez sur un marqueur pour en voir les détails.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -249,7 +249,7 @@ export class MapComponent implements OnInit {
         this.http.delete("api/marqueurs/"+ this.currentmarqueur.id)
         .subscribe((res)=>{
             if(res.status === 200) {
-                informationSuppression = "Le marqueur au nom de " + this.currentmarqueur.nom + " est bien supprimer";
+                informationSuppression = "Le marqueur au nom de " + this.currentmarqueur.nom + " a bien été supprimé.";
                 this.googlemarq[this.curidmarq].cheminTrajet.setMap(null);
                 this.googlemarq[this.curidmarq].setMap(null);
                 couleurBox = "green";
@@ -258,7 +258,7 @@ export class MapComponent implements OnInit {
                 this.ref.detectChanges();
                 this.Annulation();
             } else {
-                informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + " retenter ultérieurement";
+                informationSuppression = "Échec de la suppression du marqueur " + this.currentmarqueur.nom + ", retentez ultérieurement.";
                 couleurBox = "red";
             }
             new jBox('Notice', {
@@ -315,7 +315,7 @@ export class MapComponent implements OnInit {
                             this.Annulation();
                         } else {
                             new jBox('Notice', {
-                                content: 'Erreur de connection au serveur',
+                                content: 'Erreur de connexion au serveur.',
                                 color: 'red',
                                 autoClose: 2000
                             });
@@ -529,7 +529,7 @@ export class MapComponent implements OnInit {
         if(this.currentmarqueur.id === 0) {
             if(this.currentmarqueur.latitude == 0) {
                 new jBox('Notice', {
-                    content: 'Veuillez cliquer sur la carte pour ajouter un marqueur',
+                    content: 'Veuillez cliquer sur la carte pour ajouter un marqueur.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -559,7 +559,7 @@ export class MapComponent implements OnInit {
                     this.retourModMarqueur(res);
                 } else {
                     new jBox('Notice', {
-                        content: 'Erreur de connection au serveur',
+                        content: 'Erreur de connexion au serveur.',
                         color: 'red',
                         autoClose: 2000
                     });
@@ -622,7 +622,7 @@ export class MapComponent implements OnInit {
                 this.map.setCenter(pos);
             }, function() {
                     new jBox('Notice', {
-                        content: 'Géolocalisation refusée, position par défaut : Lévis',
+                        content: 'Géolocalisation refusée, position par défaut: Lévis',
                         color: 'yellow',
                         autoClose: 4000
                     });

@@ -75,13 +75,13 @@ export class LoginFormComponent {
         .subscribe(res => {
             if (res === false) {
                 new jBox('Notice', {
-                        content: 'Un problème est survenu , veuillez essayer plus tard',
+                        content: 'Un problème est survenu, veuillez essayer plus tard.',
                         color: 'red',
                         autoClose: 2000
                 });
             } else {
                 new jBox('Notice', {
-                    content: 'Si un compte a été trouvé, un courriel a été envoyé',
+                    content: 'Si un compte a été trouvé, un courriel a été envoyé.',
                     color: 'blue',
                     autoClose: 2000
                 });
@@ -92,7 +92,7 @@ export class LoginFormComponent {
     inscription(mail: string, mdp: string, cmdp: string) {
         if (mdp != cmdp) {
             new jBox('Notice', {
-                content: 'Les mots de passe sont differents',
+                content: 'Les mots de passe sont différents.',
                 color: 'red',
                 autoClose: 2000
               });
@@ -103,22 +103,28 @@ export class LoginFormComponent {
                 if (res) {
                     localStorage.setItem('token', mail);
                     localStorage.setItem('bAdmin', '0');
+                    localStorage.setItem('profilId', "");
+                    localStorage.setItem('username', "");
+                    localStorage.setItem('Proimage', "");
                     this.router.navigate(['/map']);
                 } else {
                     if (res === false) {
                         new jBox('Notice', {
                             content: 'Un problème est survenu lors de l\'envoi du courriel de bienvenue, <br>' +
-                            'mais vous pouvez quand même utiliser le site',
+                            'mais vous pouvez quand même utiliser le site.',
                             color: 'red',
                             autoClose: false
                         });
                         localStorage.setItem('token', mail);
                         localStorage.setItem('bAdmin', '0');
+                        localStorage.setItem('profilId', "");
+                        localStorage.setItem('username', "");
+                        localStorage.setItem('Proimage', "");
                         this.router.navigate(['/map']);
                     } else {
                         if (res == null) {
                             new jBox('Notice', {
-                                content: 'Il y a déjà un compte à ce courriel',
+                                content: 'Il y a déjà un compte à ce courriel.',
                                 color: 'red',
                                 autoClose: 2000
                             });

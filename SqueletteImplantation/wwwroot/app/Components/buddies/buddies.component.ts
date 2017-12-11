@@ -58,7 +58,7 @@ export class BuddiesComponent implements OnInit {
                 this.updateEvent.next();
             } else {
                 new jBox('Notice', {
-                    content: 'Vous suivez déjà cet utilisateur',
+                    content: 'Vous suivez déjà cet utilisateur.',
                     color: 'red',
                     autoClose: 2000
                 });

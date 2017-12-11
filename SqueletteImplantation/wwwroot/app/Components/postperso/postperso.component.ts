@@ -66,7 +66,7 @@ export class PostPersoComponent implements OnInit {
     submitPost(postTitle: string, postText: string) {
         if(!postTitle || !postText) {
             new jBox('Notice', { 
-                content: 'Entrer un titre et un texte.', color: 'red', autoClose: 2000 
+                content: 'Entrez un titre et un texte.', color: 'red', autoClose: 2000 
             });
         } else {
             if(this.profil) {
@@ -78,7 +78,7 @@ export class PostPersoComponent implements OnInit {
                         this.followedPosts.unshift(res);            
                     } else {
                         new jBox('Notice', { 
-                        content: 'Veuillez creer un profil.', color: 'red', autoClose: 2000 
+                        content: 'Veuillez créer un profil.', color: 'red', autoClose: 2000 
                         });
                     }   
                 })

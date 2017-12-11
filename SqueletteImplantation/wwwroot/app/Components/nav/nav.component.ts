@@ -21,7 +21,7 @@ export class NavBarComponent {
     gestionAccesPost() {
         if (localStorage.getItem('profilId') === '') {
             let confirmation;
-            confirmation = confirm('Un profil est nécessaire si vous voulez créer et voir les publications.' +
+            confirmation = confirm('Un profil est nécessaire pour créer et voir les publications.' +
                 '\nVoulez-vous créer votre profil maintenant?');
             if (confirmation) {
                 this.router.navigate(['/profil']);

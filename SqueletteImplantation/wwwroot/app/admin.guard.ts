@@ -16,7 +16,7 @@ export class AdminGuard implements CanActivate {
         } else {
             this.router.navigate(['/map']);
             new jBox('Notice', {
-                content: 'Accès non autorisé',
+                content: 'Accès non autorisé.',
                 color: 'red',
                 autoClose: 5000
             });
