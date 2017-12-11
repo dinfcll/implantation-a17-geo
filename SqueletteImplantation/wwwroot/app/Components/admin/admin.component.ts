@@ -75,7 +75,7 @@ export class AdminComponent implements OnInit {
             .subscribe(res => {
                 if (res.status === 200) {
                     new jBox('Notice', {
-                        content: 'Suppression de l\'utilisateur réussie',
+                        content: 'Suppression de l\'utilisateur réussie.',
                         color: 'green',
                         autoClose: 2000
                     });
@@ -83,7 +83,7 @@ export class AdminComponent implements OnInit {
                     this.utilisateurs.splice(index, 1);
                 } else {
                     new jBox('Notice', {
-                        content: 'Impossible de supprimer l\'utilisateur',
+                        content: 'Impossible de supprimer l\'utilisateur.',
                         color: 'red',
                         autoClose: 2000
                     });
@@ -97,7 +97,7 @@ export class AdminComponent implements OnInit {
         .subscribe(res => {
             if (res.status === 200) {
                 new jBox('Notice', {
-                    content: 'Suppression du profil réussie',
+                    content: 'Suppression du profil réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
@@ -105,7 +105,7 @@ export class AdminComponent implements OnInit {
                 this.profils.splice(index, 1);
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de supprimer le profil pour cet utilisateur',
+                    content: 'Impossible de supprimer le profil pour cet utilisateur.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -118,7 +118,7 @@ export class AdminComponent implements OnInit {
         .subscribe(res => {
             if (res.status === 200) {
                 new jBox('Notice', {
-                    content: 'Suppression de la publication réussie',
+                    content: 'Suppression de la publication réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
@@ -126,7 +126,7 @@ export class AdminComponent implements OnInit {
                 this.userposts.splice(index, 1);
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de supprimer la publication',
+                    content: 'Impossible de supprimer la publication.',
                     color: 'red',
                     autoClose: 2000
                 });
@@ -145,7 +145,7 @@ export class AdminComponent implements OnInit {
         .subscribe(res => {
             if (res) {
                 new jBox('Notice', {
-                    content: 'Modification du type d\'utilisateur réussie',
+                    content: 'Modification du type d\'utilisateur réussie.',
                     color: 'green',
                     autoClose: 2000
                 });
@@ -153,7 +153,7 @@ export class AdminComponent implements OnInit {
                 this.utilisateurs[index].typeutil = res.typeutil;
             } else {
                 new jBox('Notice', {
-                    content: 'Impossible de modifier le type d\'utilisateur pour cet utilisateur',
+                    content: 'Impossible de modifier le type d\'utilisateur pour cet utilisateur.',
                     color: 'red',
                     autoClose: 2000
                 });
