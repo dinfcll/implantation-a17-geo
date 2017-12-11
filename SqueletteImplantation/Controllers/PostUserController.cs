@@ -106,10 +106,10 @@ namespace SqueletteImplantation.Controllers
         [Route("api/postUser/followedPost/{id}")]
         public IEnumerable GetFollowedPost(int id)
         {
-            return from b in _maBd.Following
+            return (from b in _maBd.Following
             join c in _maBd.PostsUser on b.FollowedId equals c.profilId
             where (b.FollowerId == id || c.profilId==id) orderby c.postId descending
-            select c;
+            select c).Distinct();
 
         }
         
